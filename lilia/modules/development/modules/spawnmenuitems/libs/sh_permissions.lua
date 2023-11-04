@@ -1,4 +1,4 @@
---------------------------------------------------------------------------------------------------------------------------
+
 CAMI.RegisterPrivilege(
     {
         Name = "Lilia - Staff Permissions - Can Spawn Menu Items",
@@ -6,4 +6,3 @@ CAMI.RegisterPrivilege(
         Description = "Allows access to Spawning Menu Items.",
     }
 )
---------------------------------------------------------------------------------------------------------------------------

@@ -1,4 +1,4 @@
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:OnPlayerDropWeapon(client, item, entity)
     local physObject = entity:GetPhysicsObject()
     if physObject then
@@ -15,12 +15,12 @@ function GM:OnPlayerDropWeapon(client, item, entity)
     )
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:CanDeleteChar(client, char)
     if char:getMoney() < lia.config.DefaultMoney then return true end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:OnEntityCreated(entity)
     if lia.config.DrawEntityShadows then
         entity:DrawShadow(false)
@@ -59,13 +59,13 @@ function GM:OnEntityCreated(entity)
     )
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:CheckValidSit(client, trace)
     local entity = client:GetTracedEntity()
     if entity:IsPlayer() then return false end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:PlayerSpawnedVehicle(client, entity)
     local delay = lia.config.PlayerSpawnVehicleDelay
     if not client:IsSuperAdmin() then
@@ -75,7 +75,7 @@ function GM:PlayerSpawnedVehicle(client, entity)
     self:PlayerSpawnedEntity(client, entity)
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:OnPhysgunFreeze(weapon, physObj, entity, client)
     if not physObj:IsMoveable() then return false end
     if entity:GetUnFreezable() then return false end
@@ -94,7 +94,7 @@ function GM:OnPhysgunFreeze(weapon, physObj, entity, client)
     return true
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:PlayerSpawnedNPC(client, entity)
     if lia.config.NPCsDropWeapons then
         entity:SetKeyValue("spawnflags", "8192")
@@ -103,7 +103,7 @@ function GM:PlayerSpawnedNPC(client, entity)
     self:PlayerSpawnedEntity(client, entity)
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:PlayerDisconnected(client)
     client:saveLiliaData()
     local character = client:getChar()
@@ -133,14 +133,14 @@ function GM:PlayerDisconnected(client)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:OnPhysgunPickup(client, entity)
     if entity:GetClass() == "prop_physics" and entity:GetCollisionGroup() == COLLISION_GROUP_NONE then
         entity:SetCollisionGroup(COLLISION_GROUP_PASSABLE_DOOR)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:PlayerSpawnObject(client, model, skin)
     local bEditLimit = ents.GetEdictCount() >= 7900
     if bEditLimit then
@@ -164,7 +164,7 @@ function GM:PlayerSpawnObject(client, model, skin)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:PhysgunDrop(client, entity)
     if entity:GetClass() ~= "prop_physics" then return end
     timer.Simple(
@@ -177,22 +177,22 @@ function GM:PhysgunDrop(client, entity)
     )
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:PlayerSpawnedEffect(client, model, entity)
     self:PlayerSpawnedEntity(client, entity)
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:PlayerSpawnedRagdoll(client, model, entity)
     self:PlayerSpawnedEntity(client, entity)
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:PlayerSpawnedSENT(client, entity)
     self:PlayerSpawnedEntity(client, entity)
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:PlayerSpawnedProp(client, model, entity)
     for _, gredwitch in pairs(file.Find("models/gredwitch/bombs/*.mdl", "GAME")) do
         if model == "models/gredwitch/bombs/" .. gredwitch then
@@ -229,9 +229,8 @@ function GM:PlayerSpawnedProp(client, model, entity)
     self:PlayerSpawnedEntity(client, entity)
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:PlayerSpawnedEntity(client, entity)
     entity:SetNW2String("Creator_Nick", client:Nick())
     entity:SetCreator(client)
 end
---------------------------------------------------------------------------------------------------------------------------

@@ -1,13 +1,12 @@
---------------------------------------------------------------------------------------------------------------------------
+
 local toScreen = FindMetaTable("Vector").ToScreen
---------------------------------------------------------------------------------------------------------------------------
+
 include("shared.lua")
---------------------------------------------------------------------------------------------------------------------------
+
 function ENT:onDrawEntityInfo(alpha)
 	local locked = self.getNetVar(self, "locked", false)
 	local position = toScreen(self.LocalToWorld(self, self.OBBCenter(self)))
 	local x, y = position.x, position.y
-	-- TODO: refactor this
 	y = y - 20
 	local tx, ty = lia.util.drawText(locked and "P" or "Q", x, y, ColorAlpha(locked and Color(242, 38, 19) or Color(135, 211, 124), alpha), 1, 1, "liaIconsMedium", alpha * 0.65)
 	y = y + ty * .9
@@ -20,4 +19,3 @@ function ENT:onDrawEntityInfo(alpha)
 		end
 	end
 end
---------------------------------------------------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
---------------------------------------------------------------------------------------------------------------------------
+
 local charMeta = lia.meta.character
---------------------------------------------------------------------------------------------------------------------------
+
 function charMeta:recognize(id, name)
     local recognized = self:getData("rgn", "")
     local peopleWhoWeKnow = self:getCharsWeKnow()
@@ -20,4 +20,3 @@ function charMeta:recognize(id, name)
     self:setRecognizedAs(nameList)
     return true
 end
---------------------------------------------------------------------------------------------------------------------------

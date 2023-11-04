@@ -1,6 +1,6 @@
---------------------------------------------------------------------------------------------------------------------------
+
 local HELP_DEFAULT
---------------------------------------------------------------------------------------------------------------------------
+
 function MODULE:CreateMenuButtons(tabs)
     tabs["characters"] = function(panel)
         if IsValid(lia.gui.menu) then
@@ -162,7 +162,7 @@ function MODULE:CreateMenuButtons(tabs)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function MODULE:BuildHelpMenu(tabs)
     tabs["commands"] = function(node, client)
         local body = ""
@@ -225,4 +225,3 @@ function MODULE:BuildHelpMenu(tabs)
         tabs["Tutorial"] = function() return GenerateTutorial() end
     end
 end
---------------------------------------------------------------------------------------------------------------------------

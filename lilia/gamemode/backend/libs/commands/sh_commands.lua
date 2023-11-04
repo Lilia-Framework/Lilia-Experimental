@@ -1,7 +1,7 @@
---------------------------------------------------------------------------------------------------------------------------
+
 lia.command = lia.command or {}
 lia.command.list = lia.command.list or {}
---------------------------------------------------------------------------------------------------------------------------
+
 function lia.command.add(command, data)
     data.syntax = data.syntax or "[none]"
     if not data.onRun then return ErrorNoHalt("Command '" .. command .. "' does not have a callback, not adding!\n") end
@@ -51,7 +51,7 @@ function lia.command.add(command, data)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function lia.command.hasAccess(client, command, data)
     if data == nil then
         data = lia.command.list[command]
@@ -68,7 +68,7 @@ function lia.command.hasAccess(client, command, data)
     return bHasAccess
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function lia.command.extractArgs(text)
     local skip = 0
     local arguments = {}
@@ -100,4 +100,3 @@ function lia.command.extractArgs(text)
 
     return arguments
 end
---------------------------------------------------------------------------------------------------------------------------

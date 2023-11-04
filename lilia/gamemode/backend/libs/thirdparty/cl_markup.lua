@@ -2,7 +2,7 @@ module("lia.markup", package.seeall)
 --[[---------------------------------------------------------
     Name: Constants used for text alignment.
           These must be the same values as in the draw module.
------------------------------------------------------------]]
+-----------------------------------------------------------[[
 TEXT_ALIGN_LEFT = 0
 TEXT_ALIGN_CENTER = 1
 TEXT_ALIGN_RIGHT = 2
@@ -187,7 +187,7 @@ local colourmap = {
     ["ltpurple"] = {
         r = 255,
         g = 128,
-        b = 255,
+      --[[= 255,
         a = 255
     },
     ["ltcyan"] = {
@@ -200,7 +200,7 @@ local colourmap = {
         r = 128,
         g = 255,
         b = 255,
-        a = 255
+   --[[ a = 255
     },
 }
 
@@ -253,7 +253,7 @@ local function ExtractParams(p1, p2, p3)
                 material = material .. ".png"
             end
 
-            local texture = Material(material)
+            local texture = Material(mat--[[l)
             local sizeData = string.Explode("x", p3 or "16x16")
             w = tonumber(sizeData[1]) or 16
             h = tonumber(sizeData[2]) or 16
@@ -274,7 +274,7 @@ end
 --[[---------------------------------------------------------
     Name: CheckTextOrTag(p)
     Desc: This function places data in the "blocks" table
-          depending of if p is a tag, or some text
+        --[[pending of if p is a tag, or some text
    Usage: ** INTERNAL ** Do not use!
 -----------------------------------------------------------]]
 local function CheckTextOrTag(p)
@@ -283,20 +283,18 @@ local function CheckTextOrTag(p)
     if string.utf8sub(p, 1, 1) == "<" then
         string.gsub(p, "<([/%a]*)=?([^>]*)", ExtractParams)
     else
-        local text_block = {}
-        text_block.text = p
+        local text_block = {}[--[[    text_block.text = p
         text_block.colour = colour_stack[#colour_stack]
         text_block.font = font_stack[#font_stack]
         table.insert(blocks, text_block)
     end
 end
 
---[[---------------------------------------------------------
-    Name: ProcessMatches(p1,p2,p3)
-    Desc: CheckTextOrTag for 3 parameters. Called by string.gsub
+--[[----------------------------------------------------------
+    Name: ProcessMatches(p1,p2,p3)[[--[[esc: CheckTextOrTag for 3 parameters. Called by string.gsub
    Usage: ** INTERNAL ** Do not use!
 -----------------------------------------------------------]]
-local function ProcessMatches(p1, p2, p3)
+local function Proc[[--[[ches(p1, p2, p3)
     if p1 then
         CheckTextOrTag(p1)
     end
@@ -309,10 +307,8 @@ local function ProcessMatches(p1, p2, p3)
         CheckTextOrTag(p3)
     end
 end
-
-local MarkupObject = {}
---[[---------------------------------------------------------
-    Name: MarkupObject:Create()
+[[--[[l MarkupObject = {}
+--[[-----------------------------------------------------------    [[--[[MarkupObject:Create()
     Desc: Called by Parse. Creates a new table, and setups the 
           metatable.
    Usage: ** INTERNAL ** Do not use!
@@ -325,8 +321,7 @@ function MarkupObject:create()
     return o
 end
 
---[[---------------------------------------------------------
-    Name: MarkupObject:GetWidth()
+--[[-----------------------------------------------------------    Name: MarkupObject:GetWidth()
     Desc: Returns the width of a markup block
    Usage: ml:GetWidth()
 -----------------------------------------------------------]]
@@ -334,8 +329,7 @@ function MarkupObject:getWidth()
     return self.totalWidth
 end
 
---[[---------------------------------------------------------
-    Name: MarkupObject:GetHeight()
+--[[-----------------------------------------------------------    Name: MarkupObject:GetHeight()
     Desc: Returns the height of a markup block
    Usage: ml:GetHeight()
 -----------------------------------------------------------]]
@@ -343,14 +337,12 @@ function MarkupObject:getHeight()
     return self.totalHeight
 end
 
---[[---------------------------------------------------------
------------------------------------------------------------]]
+--[[----------------------------------------------------------------------------------------------------------------------]]
 function MarkupObject:size()
     return self.totalWidth, self.totalHeight
 end
 
---[[---------------------------------------------------------
-    Name: MarkupObject:Draw(xOffset, yOffset, halign, valign, alphaoverride)
+--[[-----------------------------------------------------------    Name: MarkupObject:Draw(xOffset, yOffset, halign, valign, alphaoverride)
     Desc: Draw the markup text to the screen as position
           xOffset, yOffset. Halign and Valign can be used
           to align the text. Alphaoverride can be used to override
@@ -373,7 +365,7 @@ function MarkupObject:draw(xOffset, yOffset, halign, valign, alphaoverride)
                 y = y - (blk.h / 2)
             end
 
-            surface.SetDrawColor(blk.colour.r, blk.colour.g, blk.colour.b, alphaoverride or blk.colour.a or 255)
+            surface.SetDrawColor(blk.colour.r, blk.colour.g, blk.colour.b, alphaoverride or blk.colour.a or[[--[[
             surface.SetMaterial(blk.texture)
             surface.DrawTexturedRect(x, y, blk.w, blk.h)
         else
@@ -409,7 +401,7 @@ function MarkupObject:draw(xOffset, yOffset, halign, valign, alphaoverride)
     end
 end
 
---[[---------------------------------------------------------
+--[[----------------------------------------------------------
     Name: Parse(ml, maxwidth)
     Desc: Parses the pseudo-html markup language, and creates a 
           MarkupObject, which can be used to the draw the 
@@ -418,8 +410,8 @@ end
           or insert a tab character.
           Maxwidth can be used to make the text wrap to a specific
           width.
-   Usage: markup.Parse("<font=Default>changed font</font>\n<colour=255,0,255,255>changed colour</colour>")
------------------------------------------------------------]]
+   Usage: markup.Parse("<font=Default>changed font</font>\n<colour=255,0,255,255>changed colour</colour>")----------------------------------------------------------
+--]]
 function parse(ml, maxwidth)
     colour_stack = {
         {

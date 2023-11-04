@@ -1,17 +1,17 @@
---------------------------------------------------------------------------------------------------------------------------
+
 lia.config.ChatIsRecognized = {"ic", "y", "w", "me"}
---------------------------------------------------------------------------------------------------------------------------
+
 function MODULE:IsRecognizedChatType(chatType)
     return table.HasValue(lia.config.ChatIsRecognized, chatType)
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function MODULE:GetDisplayedDescription(client)
     local character = client:getChar()
     if client:getChar() and client ~= LocalPlayer() and LocalPlayer():getChar() and not LocalPlayer():getChar():doesRecognize(client:getChar()) and not hook.Run("IsPlayerRecognized", client) then return character:getDesc() end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function MODULE:GetDisplayedName(client, chatType)
     if not (LocalPlayer():getChar() or client:getChar()) then return nil end
     local character = client:getChar()
@@ -33,7 +33,7 @@ function MODULE:GetDisplayedName(client, chatType)
         end
     end
 end
---------------------------------------------------------------------------------------------------------------------------
+
 function MODULE:ShouldAllowScoreboardOverride(client, var)
     if client == LocalPlayer() then return end
     if lia.config.RecognitionEnabled and lia.config.ScoreboardHiddenVars[var] ~= nil and (client ~= LocalPlayer()) then
@@ -43,12 +43,12 @@ function MODULE:ShouldAllowScoreboardOverride(client, var)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function MODULE:OnCharRecognized(client, recogCharID)
     surface.PlaySound("buttons/button17.wav")
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function CharRecognize(level, name)
     if name then
         netstream.Start("rgn", level, name)
@@ -56,4 +56,3 @@ function CharRecognize(level, name)
         netstream.Start("rgn", level)
     end
 end
---------------------------------------------------------------------------------------------------------------------------

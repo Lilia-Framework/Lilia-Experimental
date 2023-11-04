@@ -1,4 +1,3 @@
---------------------------------------------------------------------------------------------------------------------------
 function GM:LoadLiliaFonts(font, genericFont)
     local oldFont, oldGenericFont = font, genericFont
     local scale = math.Round(1, 2)
@@ -187,7 +186,6 @@ function GM:LoadLiliaFonts(font, genericFont)
         }
     )
 
-    -- The more readable font.
     font = genericFont
     surface.CreateFont(
         "liaCleanTitleFont",
@@ -493,7 +491,6 @@ function GM:LoadLiliaFonts(font, genericFont)
         }
     )
 
-    -- The more readable font.
     font = genericFont
     surface.CreateFont(
         "liaCleanTitleFont",
@@ -866,7 +863,6 @@ function GM:LoadLiliaFonts(font, genericFont)
         }
     )
 
-    -- The more readable font.
     font = genericFont
     surface.CreateFont(
         "liaCleanTitleFont",
@@ -1172,7 +1168,6 @@ function GM:LoadLiliaFonts(font, genericFont)
         }
     )
 
-    -- The more readable font.
     font = genericFont
     surface.CreateFont(
         "liaCleanTitleFont",
@@ -1527,7 +1522,6 @@ function GM:LoadLiliaFonts(font, genericFont)
         }
     )
 
-    -- The more readable font.
     font = genericFont
     surface.CreateFont(
         "liaBigFont",
@@ -1676,7 +1670,6 @@ function GM:LoadLiliaFonts(font, genericFont)
         }
     )
 
-    -- Introduction fancy font.
     font = "Roboto Th"
     surface.CreateFont(
         "liaIntroTitleFont",
@@ -1811,4 +1804,3 @@ function GM:LoadLiliaFonts(font, genericFont)
 
     hook.Run("LoadFonts", oldFont, oldGenericFont)
 end
---------------------------------------------------------------------------------------------------------------------------

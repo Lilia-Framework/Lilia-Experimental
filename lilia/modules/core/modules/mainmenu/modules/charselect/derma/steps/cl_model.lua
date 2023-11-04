@@ -1,6 +1,6 @@
---------------------------------------------------------------------------------------------------------------------------
+
 local PANEL = {}
---------------------------------------------------------------------------------------------------------------------------
+
 function PANEL:Init()
 	self.title = self:addLabel("Select a model")
 	self.models = self:Add("DIconLayout")
@@ -13,7 +13,7 @@ function PANEL:Init()
 	self.models:StretchToParent(0, 0, 0, 0)
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function PANEL:onDisplay()
 	local oldChildren = self.models:GetChildren()
 	self.models:InvalidateLayout(true)
@@ -70,7 +70,7 @@ function PANEL:onDisplay()
 	end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function PANEL:paintIcon(icon, w, h)
 	if self:getContext("model") ~= icon.index then return end
 	local color = lia.config.Color
@@ -82,7 +82,7 @@ function PANEL:paintIcon(icon, w, h)
 	end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function PANEL:onModelSelected(icon, noSound)
 	self:setContext("model", icon.index or 1)
 	if not noSound then
@@ -92,18 +92,17 @@ function PANEL:onModelSelected(icon, noSound)
 	self:updateModelPanel()
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function PANEL:shouldSkip()
 	local faction = lia.faction.indices[self:getContext("faction")]
 
 	return faction and #faction.models == 1 or false
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function PANEL:onSkip()
 	self:setContext("model", 1)
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 vgui.Register("liaCharacterModel", PANEL, "liaCharacterCreateStep")
---------------------------------------------------------------------------------------------------------------------------

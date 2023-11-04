@@ -1,16 +1,16 @@
------------------------------------------------------------------------------------------------------------------------------------------------
+
 local DescWidth = CreateClientConVar("lia_hud_descwidth", 0.5, true, false)
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 local blurGoal = 0
------------------------------------------------------------------------------------------------------------------------------------------------
+
 local blurValue = 0
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:OnContextMenuOpen()
     self.BaseClass:OnContextMenuOpen()
     vgui.Create("liaQuick")
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:OnContextMenuClose()
     self.BaseClass:OnContextMenuClose()
     if IsValid(lia.gui.quick) then
@@ -18,7 +18,7 @@ function GM:OnContextMenuClose()
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:SetupQuickMenu(menu)
     local current
     LIA_CVAR_LANG = CreateClientConVar("lia_language", "english", true, true)
@@ -61,13 +61,13 @@ function GM:SetupQuickMenu(menu)
     menu:addSpacer()
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:ScreenResolutionChanged(oldW, oldH)
     RunConsoleCommand("fixchatplz")
     hook.Run("LoadLiliaFonts", lia.config.Font, lia.config.GenericFont)
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:HUDPaintBackground()
     local localPlayer = LocalPlayer()
     local frameTime = FrameTime()
@@ -85,7 +85,7 @@ function GM:HUDPaintBackground()
     lia.menu.drawAll()
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:ItemShowEntityMenu(entity)
     for k, v in ipairs(lia.menu.list) do
         if v.entity == entity then
@@ -134,4 +134,3 @@ function GM:ItemShowEntityMenu(entity)
     itemTable.player = nil
     itemTable.entity = nil
 end
---------------------------------------------------------------------------------------------------------------------------

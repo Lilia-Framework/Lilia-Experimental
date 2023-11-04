@@ -1,4 +1,4 @@
---------------------------------------------------------------------------------------------------------------------------
+
 function MODULE:PlayerNoClip(client, state)
     if CAMI.PlayerHasAccess(client, "Lilia - Staff Permissions - No Clip", nil) then
         if state then
@@ -39,4 +39,3 @@ function MODULE:PlayerNoClip(client, state)
         return false
     end
 end
---------------------------------------------------------------------------------------------------------------------------

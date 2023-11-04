@@ -1,22 +1,22 @@
---------------------------------------------------------------------------------------------------------------------------
+
 local data = {}
---------------------------------------------------------------------------------------------------------------------------
+
 local owner, w, h, ceil, ft, clmp
---------------------------------------------------------------------------------------------------------------------------
+
 ceil = math.ceil
---------------------------------------------------------------------------------------------------------------------------
+
 clmp = math.Clamp
---------------------------------------------------------------------------------------------------------------------------
+
 local flo = 0
---------------------------------------------------------------------------------------------------------------------------
+
 local vec
---------------------------------------------------------------------------------------------------------------------------
+
 local aprg, aprg2 = 0, 0
---------------------------------------------------------------------------------------------------------------------------
+
 w, h = ScrW(), ScrH()
---------------------------------------------------------------------------------------------------------------------------
+
 local offset1, offset2, offset3, alpha, y
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:InitializedExtrasClient()
     for _, timerName in pairs(lia.config.ClientTimersToRemove) do
         timer.Remove(timerName)
@@ -27,7 +27,7 @@ function GM:InitializedExtrasClient()
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:PlayerBindPress(client, bind, pressed)
     bind = bind:lower()
     if (bind:find("use") or bind:find("attack")) and pressed then
@@ -45,7 +45,7 @@ function GM:PlayerBindPress(client, bind, pressed)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:CharacterListLoaded()
     timer.Create(
         "liaWaitUntilPlayerValid",
@@ -59,28 +59,28 @@ function GM:CharacterListLoaded()
     )
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:DrawLiliaModelView(panel, ent)
     if IsValid(ent.weapon) then
         ent.weapon:DrawModel()
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:OnChatReceived()
     if system.IsWindows() and not system.HasFocus() then
         system.FlashWindow()
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:HUDPaint()
     self:DeathHUDPaint()
     self:MiscHUDPaint()
     self:PointingHUDPaint()
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:PlayerButtonDown(client, button)
     if button == KEY_F2 and IsFirstTimePredicted() then
         local menu = DermaMenu()
@@ -114,12 +114,12 @@ function GM:PlayerButtonDown(client, button)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:ClientInitializedConfig()
     hook.Run("LoadLiliaFonts", lia.config.Font, lia.config.GenericFont)
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:ClientPostInit()
     lia.joinTime = RealTime() - 0.9716
     lia.faction.formatModelData()
@@ -145,7 +145,7 @@ function GM:ClientPostInit()
     )
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:DeathHUDPaint()
     owner = LocalPlayer()
     ft = FrameTime()
@@ -175,7 +175,7 @@ function GM:DeathHUDPaint()
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:MiscHUDPaint()
     local ply = LocalPlayer()
     local ourPos = ply:GetPos()
@@ -213,7 +213,7 @@ function GM:MiscHUDPaint()
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:PointingHUDPaint()
     net.Receive(
         "Pointing",
@@ -230,7 +230,7 @@ function GM:PointingHUDPaint()
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:TooltipInitialize(var, panel)
     if panel.liaToolTip or panel.itemID then
         var.markupObject = lia.markup.parse(var:GetText(), ScrW() * .15)
@@ -243,7 +243,7 @@ function GM:TooltipInitialize(var, panel)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:TooltipPaint(var, w, h)
     if var.isItemTooltip then
         lia.util.drawBlur(var, 2, 2)
@@ -257,26 +257,26 @@ function GM:TooltipPaint(var, w, h)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:TooltipLayout(var)
     if var.isItemTooltip then return true end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:StartChat()
     net.Start("liaTypeStatus")
     net.WriteBool(false)
     net.SendToServer()
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:FinishChat()
     net.Start("liaTypeStatus")
     net.WriteBool(true)
     net.SendToServer()
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:PlayerStartVoice(client)
     if not IsValid(g_VoicePanelList) or not lia.config.AllowVoice then return end
     hook.Run("PlayerEndVoice", client)
@@ -297,7 +297,7 @@ function GM:PlayerStartVoice(client)
     VoicePanels[client] = pnl
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function GM:PlayerEndVoice(client)
     if IsValid(VoicePanels[client]) then
         if VoicePanels[client].fadeAnim then return end
@@ -306,7 +306,7 @@ function GM:PlayerEndVoice(client)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 concommand.Add(
     "vgui_cleanup",
     function()
@@ -317,4 +317,3 @@ concommand.Add(
         end
     end, nil, "Removes every panel that you have left over (like that errored DFrame filling up your screen)"
 )
---------------------------------------------------------------------------------------------------------------------------

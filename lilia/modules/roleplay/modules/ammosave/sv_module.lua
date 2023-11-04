@@ -1,4 +1,4 @@
---------------------------------------------------------------------------------------------------------------------------
+
 function MODULE:CharacterPreSave(character)
     local client = character:getPlayer()
     if IsValid(client) then
@@ -14,7 +14,7 @@ function MODULE:CharacterPreSave(character)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function MODULE:PlayerLoadedChar(client)
     timer.Simple(
         0.25,
@@ -32,7 +32,7 @@ function MODULE:PlayerLoadedChar(client)
     )
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function MODULE:PlayerDeath(client, inflictor, attacker)
     local char = client:getChar()
     local inventory = char:getInv()
@@ -45,4 +45,3 @@ function MODULE:PlayerDeath(client, inflictor, attacker)
         end
     end
 end
---------------------------------------------------------------------------------------------------------------------------

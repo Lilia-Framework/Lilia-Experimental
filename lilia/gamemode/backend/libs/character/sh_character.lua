@@ -1,6 +1,4 @@
---------------------------------------------------------------------------------------------------------------------------
 local charMeta = lia.meta.character or {}
---------------------------------------------------------------------------------------------------------------------------
 lia.char = lia.char or {}
 lia.char.loaded = lia.char.loaded or {}
 lia.char.names = lia.char.names or {}
@@ -10,7 +8,6 @@ charMeta.__index = charMeta
 charMeta.id = charMeta.id or 0
 charMeta.vars = charMeta.vars or {}
 debug.getregistry().Character = lia.meta.character
---------------------------------------------------------------------------------------------------------------------------
 if SERVER then
     if #lia.char.names < 1 then
         lia.db.query(
@@ -51,7 +48,6 @@ if SERVER then
     )
 end
 
---------------------------------------------------------------------------------------------------------------------------
 if CLIENT then
     netstream.Hook(
         "liaCharFetchNames",
@@ -65,7 +61,6 @@ if CLIENT then
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
 function lia.char.new(data, id, client, steamID)
     local character = setmetatable(
         {
@@ -94,13 +89,11 @@ function lia.char.new(data, id, client, steamID)
     return character
 end
 
---------------------------------------------------------------------------------------------------------------------------
 function lia.char.hookVar(varName, hookName, func)
     lia.char.varHooks[varName] = lia.char.varHooks[varName] or {}
     lia.char.varHooks[varName][hookName] = func
 end
 
---------------------------------------------------------------------------------------------------------------------------
 function lia.char.registerVar(key, data)
     lia.char.vars[key] = data
     data.index = data.index or table.Count(lia.char.vars)
@@ -150,7 +143,6 @@ function lia.char.registerVar(key, data)
     charMeta.vars[key] = data.default
 end
 
---------------------------------------------------------------------------------------------------------------------------
 lia.char.registerVar(
     "name",
     {
@@ -162,7 +154,6 @@ lia.char.registerVar(
             if isstring(name) and override then return true end
             if not isstring(value) or not value:find("%S") then return false, "invalid", "name" end
             local allowExistNames = lia.config.AllowExistNames
-            -- Fetch existing character names
             if CLIENT and #lia.char.names < 1 and not allowExistNames then
                 netstream.Start("liaCharFetchNames")
                 netstream.Hook(
@@ -173,7 +164,6 @@ lia.char.registerVar(
                 )
             end
 
-            -- Check whether the chosen character name already exists
             if not lia.config.AllowExistNames then
                 for k, v in pairs(lia.char.names) do
                     if v == value then return false, "A character with this name already exists." end
@@ -205,7 +195,6 @@ lia.char.registerVar(
     }
 )
 
---------------------------------------------------------------------------------------------------------------------------
 lia.char.registerVar(
     "desc",
     {
@@ -220,7 +209,6 @@ lia.char.registerVar(
     }
 )
 
---------------------------------------------------------------------------------------------------------------------------
 lia.char.registerVar(
     "model",
     {
@@ -321,7 +309,6 @@ lia.char.registerVar(
     }
 )
 
---------------------------------------------------------------------------------------------------------------------------
 lia.char.registerVar(
     "class",
     {
@@ -329,7 +316,6 @@ lia.char.registerVar(
     }
 )
 
---------------------------------------------------------------------------------------------------------------------------
 lia.char.registerVar(
     "faction",
     {
@@ -364,7 +350,6 @@ lia.char.registerVar(
     }
 )
 
---------------------------------------------------------------------------------------------------------------------------
 lia.char.registerVar(
     "money",
     {
@@ -375,7 +360,6 @@ lia.char.registerVar(
     }
 )
 
---------------------------------------------------------------------------------------------------------------------------
 lia.char.registerVar(
     "data",
     {
@@ -407,7 +391,6 @@ lia.char.registerVar(
     }
 )
 
---------------------------------------------------------------------------------------------------------------------------
 lia.char.registerVar(
     "var",
     {
@@ -445,7 +428,6 @@ lia.char.registerVar(
     }
 )
 
---------------------------------------------------------------------------------------------------------------------------
 do
     local playerMeta = FindMetaTable("Player")
     playerMeta.steamName = playerMeta.steamName or playerMeta.Name
@@ -464,7 +446,6 @@ do
     playerMeta.GetName = playerMeta.Name
 end
 
---------------------------------------------------------------------------------------------------------------------------
 hook.Add(
     "ReRunNames",
     "RerunNames1",
@@ -523,4 +504,3 @@ hook.Add(
         end
     end
 )
---------------------------------------------------------------------------------------------------------------------------

@@ -1,43 +1,38 @@
---------------------------------------------------------------------------------------------------------------------------
+
 lia.notices = lia.notices or {}
---------------------------------------------------------------------------------------------------------------------------
+
 lia.noticess = lia.noticess or {}
---------------------------------------------------------------------------------------------------------------------------
+
 lia.config.Notify = {"garrysmod/content_downloaded.wav", 50, 250}
---------------------------------------------------------------------------------------------------------------------------
+
 lia.config.NotifTypes = {
     [1] = {
         col = Color(200, 60, 60),
         icon = "icon16/exclamation.png"
     },
-    -- ERROR
     [2] = {
         col = Color(255, 100, 100),
         icon = "icon16/cross.png"
     },
-    -- COULD BE CANCELED
     [3] = {
         col = Color(255, 100, 100),
         icon = "icon16/cancel.png"
     },
-    -- WILL BE CANCELED
     [4] = {
         col = Color(100, 185, 255),
         icon = "icon16/book.png"
     },
-    -- TUTORIAL/GUIDE
     [5] = {
         col = Color(64, 185, 85),
         icon = "icon16/accept.png"
     },
-    -- YES
     [7] = {
         col = Color(100, 185, 255),
         icon = "icon16/information.png"
     }
 }
 
---------------------------------------------------------------------------------------------------------------------------
+
 function OrganizeNoticess()
     for k, v in ipairs(lia.noticess) do
         local topMargin = 0
@@ -51,7 +46,7 @@ function OrganizeNoticess()
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function RemoveNoticess(notice)
     for k, v in ipairs(lia.noticess) do
         if v == notice then
@@ -73,7 +68,7 @@ function RemoveNoticess(notice)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function CreateNoticePanel(length, notimer)
     if not notimer then
         notimer = false
@@ -118,7 +113,7 @@ function CreateNoticePanel(length, notimer)
     return notice
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function OrganizeNotices()
     local scrW = ScrW()
     for k, v in ipairs(lia.notices) do
@@ -126,7 +121,7 @@ function OrganizeNotices()
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+
 function lia.util.notify(message)
     local notice = vgui.Create("liaNotice")
     local i = table.insert(lia.notices, notice)
@@ -172,4 +167,4 @@ function lia.util.notify(message)
         end
     )
 end
---------------------------------------------------------------------------------------------------------------------------
+

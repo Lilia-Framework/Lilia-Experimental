@@ -1,6 +1,6 @@
---------------------------------------------------------------------------------------------------------------------------
+
 NAME = "Français"
---------------------------------------------------------------------------------------------------------------------------
+
 LANGUAGE = {
 	loading = "Chargement",
 	dbError = "Connexion avec la base de données échouée",
@@ -234,7 +234,6 @@ LANGUAGE = {
 	deleteTip = "Supprimez ce personnage.",
 	moneyLeft = "Votre argent : ",
 	currentMoney = "Argent restant : ",
-	-- 2018 patch
 	ammoLoadAll = "Tout charger",
 	ammoLoadAmount = "Charger %s",
 	ammoLoadCustom = "Chargement...",
@@ -257,7 +256,6 @@ LANGUAGE = {
 	itemOnGround = "Votre article a été placé sur le sol.",
 	forbiddenActionStorage = "Vous ne pouvez pas faire cette action avec un objet stocké.",
 	cantDropBagHasEquipped = "Vous ne pouvez pas déposer un sac qui a un objet équipé.",
-	-- 2021 patch
 	lookToUseAt = "Vous devez regarder quelqu'un pour utiliser '@'.",
 	mustProvideString = "Vous devez fournir une chaîne de caractères pour la variable",
 }
