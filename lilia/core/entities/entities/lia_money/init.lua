@@ -1,8 +1,6 @@
-
 AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
-
 function ENT:Initialize()
     self:SetModel(hook.Run("GetMoneyModel", self:getAmount()) or lia.config.MoneyModel)
     self:SetSolid(SOLID_VPHYSICS)
@@ -18,7 +16,6 @@ function ENT:Initialize()
         self:SetCollisionBounds(min, max)
     end
 end
-
 
 function ENT:Use(activator)
     local character = activator:getChar()

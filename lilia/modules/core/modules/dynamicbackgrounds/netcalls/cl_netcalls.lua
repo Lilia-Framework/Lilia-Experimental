@@ -1,6 +1,4 @@
-
 local MODULE = MODULE
-
 netstream.Hook(
     "mapScn",
     function(data, origin)
@@ -12,7 +10,6 @@ netstream.Hook(
         end
     end
 )
-
 
 netstream.Hook(
     "mapScnDel",
@@ -26,7 +23,6 @@ netstream.Hook(
         end
     end
 )
-
 
 netstream.Hook(
     "mapScnInit",

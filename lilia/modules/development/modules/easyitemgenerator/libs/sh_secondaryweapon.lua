@@ -1,6 +1,3 @@
-
-lia.EasyRegister = lia.EasyRegister or {}
-
 lia.EasyRegister.secondary = {
     ["weapon_pistol"] = {
         ["name"] = "9MM Pistol",

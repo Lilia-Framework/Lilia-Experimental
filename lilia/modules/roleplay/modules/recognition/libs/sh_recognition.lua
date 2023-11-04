@@ -1,4 +1,3 @@
-
 function MODULE:IsCharRecognized(char, id)
     if char.id == id then return true end
     local other = lia.char.loaded[id]
@@ -14,7 +13,6 @@ function MODULE:IsCharRecognized(char, id)
     if recognized:find("," .. id .. ",") then return true end
 end
 
-
 lia.char.registerVar(
     "CharsWeKnow",
     {
@@ -23,7 +21,6 @@ lia.char.registerVar(
         noDisplay = true
     }
 )
-
 
 lia.char.registerVar(
     "RecognizedAs",

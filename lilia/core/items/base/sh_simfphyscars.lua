@@ -1,10 +1,8 @@
-
 ITEM.name = "Vehicles Simphys Base"
 ITEM.model = ""
 ITEM.description = ""
 ITEM.category = "Vehicles"
 ITEM.vehicleid = ""
-
 ITEM.functions.Place = {
     onRun = function(itemTable)
         local client = itemTable.player

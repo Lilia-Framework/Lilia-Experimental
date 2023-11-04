@@ -1,4 +1,3 @@
-
 function MODULE:ChatAddText(text, ...)
     if lia.config.ChatSizeDiff then
         local chatText = {...}

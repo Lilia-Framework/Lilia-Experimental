@@ -1,4 +1,3 @@
-
 function MODULE:SaveData()
     local data = {}
     for k, v in pairs(ents.FindByClass("lia_bodygrouper")) do
@@ -7,7 +6,6 @@ function MODULE:SaveData()
 
     self:setData(data)
 end
-
 
 function MODULE:LoadData()
     for k, v in pairs(self:getData()) do

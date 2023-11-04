@@ -1,4 +1,3 @@
-
 function lia.faction.hasWhitelist(faction)
     local data = lia.faction.indices[faction]
     if data then

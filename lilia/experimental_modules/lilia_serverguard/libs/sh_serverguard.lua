@@ -1,8 +1,5 @@
-
 if not serverguard then return end
-
 serverguard.plugin:Toggle("restrictions", false)
-
 hook.Add(
     "CAMI.OnPrivilegeRegistered",
     "serverguard.CAMI.OnPrivilegeRegistered",
@@ -20,7 +17,6 @@ hook.Add(
         end
     end
 )
-
 
 hook.Add(
     "CAMI.PlayerHasAccess",

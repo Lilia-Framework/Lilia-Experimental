@@ -1,16 +1,9 @@
-
 local MODULE = MODULE
-
 util.AddNetworkString("liaCharChoose")
-
 util.AddNetworkString("liaCharCreate")
-
 util.AddNetworkString("liaCharDelete")
-
 util.AddNetworkString("liaCharList")
-
 util.AddNetworkString("liaCharMenu")
-
 net.Receive(
 	"liaCharChoose",
 	function(_, client)
@@ -43,7 +36,6 @@ net.Receive(
 		response()
 	end
 )
-
 
 net.Receive(
 	"liaCharCreate",
@@ -108,7 +100,6 @@ net.Receive(
 		)
 	end
 )
-
 
 net.Receive(
 	"liaCharDelete",

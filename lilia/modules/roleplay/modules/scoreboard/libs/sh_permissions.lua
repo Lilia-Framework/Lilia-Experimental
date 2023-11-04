@@ -1,4 +1,3 @@
-
 CAMI.RegisterPrivilege(
     {
         Name = "Lilia - Staff Permissions - Can Access Scoreboard Admin Options",
@@ -6,7 +5,6 @@ CAMI.RegisterPrivilege(
         Description = "Allows access to Scoreboard Admin Options.",
     }
 )
-
 
 CAMI.RegisterPrivilege(
     {

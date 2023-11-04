@@ -1,4 +1,3 @@
-
 netstream.Hook(
     "rgnDirect",
     function(client, target, name)
@@ -13,7 +12,6 @@ netstream.Hook(
         end
     end
 )
-
 
 netstream.Hook(
     "rgn",

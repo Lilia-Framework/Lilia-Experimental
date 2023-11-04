@@ -1,12 +1,9 @@
-
 local playerMeta = FindMetaTable("Player")
-
 lia.config.PermaRaisedWeapons = lia.config.PermaRaisedWeapons or {
 	["weapon_physgun"] = true,
 	["gmod_tool"] = true,
 	["lia_poshelper"] = true,
 }
-
 
 function playerMeta:isWepRaised()
 	local weapon = self:GetActiveWeapon()

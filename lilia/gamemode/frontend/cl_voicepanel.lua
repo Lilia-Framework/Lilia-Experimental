@@ -1,7 +1,5 @@
-
 local PANEL = {}
 VoicePanels = {}
-
 function PANEL:Init()
     local hi = vgui.Create("DLabel", self)
     hi:SetFont("liaIconsMedium")
@@ -22,14 +20,12 @@ function PANEL:Init()
     self:Dock(BOTTOM)
 end
 
-
 function PANEL:Setup(client)
     self.client = client
     self.name = hook.Run("ShouldAllowScoreboardOverride", client, "name") and hook.Run("GetDisplayedName", client, nil) or client:Nick()
     self.LabelName:SetText(self.name)
     self:InvalidateLayout()
 end
-
 
 function PANEL:Paint(w, h)
     if not IsValid(self.client) then return end
@@ -40,7 +36,6 @@ function PANEL:Paint(w, h)
     surface.DrawOutlinedRect(0, 0, w, h)
 end
 
-
 function PANEL:Think()
     if IsValid(self.client) then
         self.LabelName:SetText(self.name)
@@ -50,7 +45,6 @@ function PANEL:Think()
         self.fadeAnim:Run()
     end
 end
-
 
 function PANEL:FadeOut(anim, delta, data)
     if anim.Finished then
@@ -67,9 +61,7 @@ function PANEL:FadeOut(anim, delta, data)
     self:SetAlpha(255 - (255 * (delta * 2)))
 end
 
-
 vgui.Register("VoicePanel", PANEL, "DPanel")
-
 timer.Create(
     "VoiceClean",
     10,

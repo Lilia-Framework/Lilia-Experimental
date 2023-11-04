@@ -1,6 +1,4 @@
-
 local playerMeta = FindMetaTable("Player")
-
 function playerMeta:setWepRaised(state)
 	self:setNetVar("raised", state)
 	local weapon = self:GetActiveWeapon()
@@ -9,7 +7,6 @@ function playerMeta:setWepRaised(state)
 		weapon:SetNextSecondaryFire(CurTime() + 1)
 	end
 end
-
 
 function playerMeta:toggleWepRaised()
 	timer.Simple(

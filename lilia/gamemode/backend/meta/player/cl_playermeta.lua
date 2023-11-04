@@ -1,6 +1,4 @@
-
 local playerMeta = FindMetaTable("Player")
-
 function playerMeta:getLiliaData(key, default)
     local data = lia.localData and lia.localData[key]
     if data == nil then
@@ -10,13 +8,11 @@ function playerMeta:getLiliaData(key, default)
     end
 end
 
-
 function playerMeta:getPlayTime()
     local diff = os.time(lia.util.dateToNumber(lia.lastJoin)) - os.time(lia.util.dateToNumber(lia.firstJoin))
 
     return diff + (RealTime() - lia.joinTime or 0)
 end
-
 
 function playerMeta:CanOverrideView()
     local ragdoll = Entity(self:getLocalVar("ragdoll", 0))
@@ -24,7 +20,6 @@ function playerMeta:CanOverrideView()
 
     return CreateClientConVar("lia_tp_enabled", "0", true):GetBool() and not IsValid(self:GetVehicle()) and IsValid(self) and self:getChar() and not self:getNetVar("actAng") and not IsValid(ragdoll) and LocalPlayer():Alive()
 end
-
 
 function playerMeta:SetWeighPoint(name, vector, OnReach)
     hook.Add(
@@ -45,7 +40,6 @@ function playerMeta:SetWeighPoint(name, vector, OnReach)
         end
     )
 end
-
 
 concommand.Add(
     "weighpoint_stop",

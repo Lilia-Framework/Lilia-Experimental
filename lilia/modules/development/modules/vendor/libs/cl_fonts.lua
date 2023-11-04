@@ -1,4 +1,3 @@
-
 function MODULE:LoadFonts(font)
 	surface.CreateFont(
 		"liaVendorButtonFont",

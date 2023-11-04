@@ -1,4 +1,3 @@
-
 ITEM.name = "Outfit"
 ITEM.desc = "A Outfit Base."
 ITEM.category = "Outfit"

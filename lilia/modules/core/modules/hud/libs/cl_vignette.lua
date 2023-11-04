@@ -1,8 +1,5 @@
-
 local vignetteAlphaGoal = 0
-
 local vignetteAlphaDelta = 0
-
 function MODULE:HUDPaintBackgroundVignette()
     local frameTime = FrameTime()
     local scrW, scrH = ScrW(), ScrH()
@@ -11,7 +8,6 @@ function MODULE:HUDPaintBackgroundVignette()
     surface.SetMaterial(lia.util.getMaterial("lilia/gui/vignette.png"))
     surface.DrawTexturedRect(0, 0, scrW, scrH)
 end
-
 
 timer.Create(
     "liaVignetteChecker",

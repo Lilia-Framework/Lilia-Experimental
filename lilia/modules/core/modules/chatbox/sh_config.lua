@@ -1,4 +1,3 @@
-
 lia.config.CustomChatSound = ""
 lia.config.ChatColor = Color(255, 239, 150)
 lia.config.ChatRange = 280

@@ -1,11 +1,8 @@
-
 local charMeta = lia.meta.character or {}
-
 charMeta.__index = charMeta
 charMeta.id = charMeta.id or 0
 charMeta.vars = charMeta.vars or {}
 debug.getregistry().Character = lia.meta.character
-
 function charMeta:updateAttrib(key, value)
     local client = self:getPlayer()
     local attribute = lia.attribs.list[key]
@@ -22,7 +19,6 @@ function charMeta:updateAttrib(key, value)
 
     hook.Run("OnCharAttribUpdated", client, self, key, value)
 end
-
 
 function charMeta:setAttrib(key, value)
     local client = self:getPlayer()
@@ -41,7 +37,6 @@ function charMeta:setAttrib(key, value)
     hook.Run("OnCharAttribUpdated", client, self, key, value)
 end
 
-
 function charMeta:addBoost(boostID, attribID, boostAmount)
     local boosts = self:getVar("boosts", {})
     boosts[attribID] = boosts[attribID] or {}
@@ -50,7 +45,6 @@ function charMeta:addBoost(boostID, attribID, boostAmount)
 
     return self:setVar("boosts", boosts, nil, self:getPlayer())
 end
-
 
 function charMeta:removeBoost(boostID, attribID)
     local boosts = self:getVar("boosts", {})
@@ -61,11 +55,9 @@ function charMeta:removeBoost(boostID, attribID)
     return self:setVar("boosts", boosts, nil, self:getPlayer())
 end
 
-
 function charMeta:setFlags(flags)
     self:setData("f", flags)
 end
-
 
 function charMeta:giveFlags(flags)
     local addedFlags = ""
@@ -88,7 +80,6 @@ function charMeta:giveFlags(flags)
     end
 end
 
-
 function charMeta:takeFlags(flags)
     local oldFlags = self:getFlags()
     local newFlags = oldFlags
@@ -106,7 +97,6 @@ function charMeta:takeFlags(flags)
         self:setFlags(newFlags)
     end
 end
-
 
 function charMeta:save(callback)
     if self.isBot then return end
@@ -131,7 +121,6 @@ function charMeta:save(callback)
         )
     end
 end
-
 
 function charMeta:sync(receiver)
     if receiver == nil then
@@ -169,7 +158,6 @@ function charMeta:sync(receiver)
     end
 end
 
-
 function charMeta:setup(noNetworking)
     local client = self:getPlayer()
     if IsValid(client) then
@@ -196,7 +184,6 @@ function charMeta:setup(noNetworking)
     end
 end
 
-
 function charMeta:kick()
     local client = self:getPlayer()
     client:KillSilent()
@@ -212,7 +199,6 @@ function charMeta:kick()
     end
 end
 
-
 function charMeta:ban(time)
     time = tonumber(time)
     if time then
@@ -225,17 +211,14 @@ function charMeta:ban(time)
     hook.Run("OnCharPermakilled", self, time or nil)
 end
 
-
 function charMeta:delete()
     lia.char.delete(self:getID(), self:getPlayer())
 end
-
 
 function charMeta:destroy()
     local id = self:getID()
     lia.char.loaded[id] = nil
     netstream.Start(nil, "charDel", id)
 end
-
 
 lia.meta.character = charMeta

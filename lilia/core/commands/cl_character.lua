@@ -1,4 +1,3 @@
-
 lia.command.add(
     "charsetspeed",
     {
@@ -8,7 +7,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "charsetjump",
@@ -20,7 +18,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "charaddmoney",
     {
@@ -30,7 +27,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "charban",
@@ -42,7 +38,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "charsetdesc",
     {
@@ -52,7 +47,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "plytransfer",
@@ -64,7 +58,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "charsetname",
     {
@@ -74,7 +67,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "chargetmodel",
@@ -86,7 +78,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "charsetmodel",
     {
@@ -96,7 +87,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "charsetbodygroup",
@@ -108,7 +98,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "charsetskin",
     {
@@ -118,7 +107,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "chargetmoney",
@@ -130,7 +118,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "charsetmoney",
     {
@@ -140,7 +127,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "charsetattrib",
@@ -152,7 +138,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "charaddattrib",
     {
@@ -162,7 +147,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "checkinventory",
@@ -174,7 +158,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "clearinv",
     {
@@ -184,7 +167,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "flaggive",
@@ -196,7 +178,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "flagtake",
     {
@@ -206,7 +187,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "charkick",
@@ -218,7 +198,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "plywhitelist",
     {
@@ -228,7 +207,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "plyunwhitelist",
@@ -240,7 +218,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "charunban",
     {
@@ -251,7 +228,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "viewextdescription",
     {
@@ -261,7 +237,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "charsetextdescription",
     {
@@ -270,7 +245,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "flagpet",
@@ -282,7 +256,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "flags",
     {
@@ -292,7 +265,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "flagragdoll",

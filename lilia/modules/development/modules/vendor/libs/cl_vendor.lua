@@ -1,6 +1,4 @@
-
 local EDITOR = {}
-
 local function addEditor(name, callback)
 	EDITOR[name] = function(...)
 		net.Start("liaVendorEdit")
@@ -13,14 +11,12 @@ local function addEditor(name, callback)
 	end
 end
 
-
 addEditor(
 	"name",
 	function(name)
 		net.WriteString(name)
 	end
 )
-
 
 addEditor(
 	"desc",
@@ -29,14 +25,12 @@ addEditor(
 	end
 )
 
-
 addEditor(
 	"bubble",
 	function(show)
 		net.WriteBool(show)
 	end
 )
-
 
 addEditor(
 	"mode",
@@ -50,7 +44,6 @@ addEditor(
 	end
 )
 
-
 addEditor(
 	"price",
 	function(itemType, price)
@@ -59,7 +52,6 @@ addEditor(
 	end
 )
 
-
 addEditor(
 	"stockDisable",
 	function(itemType)
@@ -67,7 +59,6 @@ addEditor(
 		net.WriteUInt(0, 32)
 	end
 )
-
 
 addEditor(
 	"stockMax",
@@ -78,7 +69,6 @@ addEditor(
 	end
 )
 
-
 addEditor(
 	"stock",
 	function(itemType, value)
@@ -86,7 +76,6 @@ addEditor(
 		net.WriteUInt(value, 32)
 	end
 )
-
 
 addEditor(
 	"faction",
@@ -96,7 +85,6 @@ addEditor(
 	end
 )
 
-
 addEditor(
 	"class",
 	function(classID, allowed)
@@ -105,7 +93,6 @@ addEditor(
 	end
 )
 
-
 addEditor(
 	"model",
 	function(model)
@@ -113,14 +100,12 @@ addEditor(
 	end
 )
 
-
 addEditor(
 	"useMoney",
 	function(useMoney)
 		net.WriteBool(useMoney)
 	end
 )
-
 
 addEditor(
 	"money",
@@ -135,7 +120,6 @@ addEditor(
 	end
 )
 
-
 addEditor(
 	"scale",
 	function(scale)
@@ -144,4 +128,3 @@ addEditor(
 )
 
 return EDITOR
-

@@ -1,18 +1,14 @@
-
 function MODULE:SaveScenes()
     self:setData(self.scenes)
 end
-
 
 function MODULE:LoadData()
     self.scenes = self:getData() or {}
 end
 
-
 function MODULE:PlayerInitialSpawn(client)
     netstream.Start(client, "mapScnInit", self.scenes)
 end
-
 
 function MODULE:addScene(position, angles, position2, angles2)
     local data

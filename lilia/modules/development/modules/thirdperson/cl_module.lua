@@ -1,12 +1,7 @@
-
 local view, traceData, traceData2, aimOrigin, crouchFactor, ft, curAng
-
 local clmp = math.Clamp
-
 local diff, fm, sm
-
 crouchFactor = 0
-
 function MODULE:SetupQuickMenu(menu)
     if lia.config.ThirdPersonEnabled then
         menu:addCheck(
@@ -47,7 +42,6 @@ function MODULE:SetupQuickMenu(menu)
     end
 end
 
-
 function MODULE:CalcView(client, origin, angles, fov)
     ft = FrameTime()
     if client:CanOverrideView() and LocalPlayer():GetViewEntity() == LocalPlayer() then
@@ -78,7 +72,6 @@ function MODULE:CalcView(client, origin, angles, fov)
     end
 end
 
-
 function MODULE:CreateMove(cmd)
     owner = LocalPlayer()
     if owner:CanOverrideView() and owner:GetMoveType() ~= MOVETYPE_NOCLIP and LocalPlayer():GetViewEntity() == LocalPlayer() then
@@ -92,7 +85,6 @@ function MODULE:CreateMove(cmd)
         return false
     end
 end
-
 
 function MODULE:InputMouseApply(cmd, x, y, ang)
     owner = LocalPlayer()
@@ -108,11 +100,9 @@ function MODULE:InputMouseApply(cmd, x, y, ang)
     end
 end
 
-
 function MODULE:ShouldDrawLocalPlayer()
     if LocalPlayer():GetViewEntity() == LocalPlayer() and not IsValid(LocalPlayer():GetVehicle()) and LocalPlayer():CanOverrideView() then return true end
 end
-
 
 function MODULE:PlayerButtonDown(ply, button)
     if button == KEY_F4 and IsFirstTimePredicted() then
@@ -124,7 +114,6 @@ function MODULE:PlayerButtonDown(ply, button)
         end
     end
 end
-
 
 concommand.Add(
     "lia_tp_toggle",

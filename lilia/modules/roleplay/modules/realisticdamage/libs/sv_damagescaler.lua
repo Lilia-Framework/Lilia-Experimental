@@ -1,4 +1,3 @@
-
 function MODULE:ScalePlayerDamage(client, hitgroup, dmgInfo)
     local damageScale = lia.config.DamageScale
     if hitgroup == HITGROUP_HEAD then
@@ -13,7 +12,6 @@ function MODULE:ScalePlayerDamage(client, hitgroup, dmgInfo)
 
     dmgInfo:ScaleDamage(damageScale)
 end
-
 
 function MODULE:CheckForBrokenLeg(client, hitgroup, dmgInfo)
     if not table.HasValue(lia.config.LegHitgroups, hitgroup) then return end
@@ -30,7 +28,6 @@ function MODULE:CheckForBrokenLeg(client, hitgroup, dmgInfo)
         end
     end
 end
-
 
 function MODULE:GetFallDamage(client, speed)
     return math.max(0, (speed - 580) * (100 / 444))

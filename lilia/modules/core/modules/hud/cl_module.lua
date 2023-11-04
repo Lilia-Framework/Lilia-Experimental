@@ -1,54 +1,38 @@
-
 paintedEntitiesCache = {}
-
 local hasVignetteMaterial = lia.util.getMaterial("lilia/gui/vignette.png") ~= "___error"
-
 local charInfo = {}
-
 local nextUpdate = 0
-
 local lastTrace = {}
-
 local lastEntity
-
 local toScreen = FindMetaTable("Vector").ToScreen
-
 local DescWidth = CreateClientConVar("lia_hud_descwidth", 0.5, true, false)
-
 function MODULE:HUDShouldDraw(element)
     if lia.config.HiddenHUDElements[element] then return false end
 end
-
 
 function MODULE:CanDrawAmmoHUD()
     return lia.config.AmmoDrawEnabled
 end
 
-
 function MODULE:ShouldHideBars()
     return lia.config.BarsDisabled
 end
-
 
 function MODULE:HUDDrawTargetID()
     return false
 end
 
-
 function MODULE:HUDDrawPickupHistory()
     return false
 end
-
 
 function MODULE:HUDAmmoPickedUp()
     return false
 end
 
-
 function MODULE:DrawDeathNotice()
     return false
 end
-
 
 function MODULE:HUDPaintBackground()
     local localPlayer = LocalPlayer()
@@ -107,13 +91,11 @@ function MODULE:HUDPaintBackground()
     end
 end
 
-
 function MODULE:CanDrawAmmoHUD(weapon)
     if IsValid(weapon) and weapon.DrawAmmo ~= false and LocalPlayer():Alive() then return true end
 
     return false
 end
-
 
 function MODULE:DrawAmmoHUD(weapon)
     if not IsValid(weapon) then return end
@@ -142,14 +124,12 @@ function MODULE:DrawAmmoHUD(weapon)
     end
 end
 
-
 function MODULE:DrawCharInfo(client, character, info)
     local injText, injColor = hook.Run("GetInjuredText", client)
     if injText then
         info[#info + 1] = {L(injText), injColor}
     end
 end
-
 
 function MODULE:DrawEntityInfo(entity, alpha, position)
     if not entity.IsPlayer(entity) then return end
@@ -203,7 +183,6 @@ function MODULE:DrawEntityInfo(entity, alpha, position)
         y = y + ty
     end
 end
-
 
 function MODULE:ShouldDrawEntityInfo(entity)
     if entity:IsPlayer() and entity:IsNoClipping() then return false end

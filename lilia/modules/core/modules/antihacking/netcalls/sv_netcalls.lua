@@ -1,8 +1,5 @@
-
 lia.config.KnownExploits = lia.config.KnownExploits or {}
-
 util.AddNetworkString("BanMeAmHack")
-
 net.Receive(
     "BanMeAmHack",
     function(len, ply)
@@ -13,7 +10,6 @@ net.Receive(
         ply:Ban(banDuration, banReason)
     end
 )
-
 
 for k, v in pairs(lia.config.KnownExploits) do
     net.Receive(

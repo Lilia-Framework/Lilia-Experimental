@@ -1,10 +1,6 @@
-
 local MODULE = MODULE
-
 util.AddNetworkString("BodygrouperMenu")
-
 util.AddNetworkString("BodygrouperMenuClose")
-
 net.Receive(
     "BodygrouperMenuClose",
     function(l, client)
@@ -15,7 +11,6 @@ net.Receive(
         end
     end
 )
-
 
 net.Receive(
     "BodygrouperMenu",

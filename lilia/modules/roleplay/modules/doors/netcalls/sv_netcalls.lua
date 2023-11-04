@@ -1,4 +1,3 @@
-
 netstream.Hook(
     "doorPerm",
     function(client, door, target, access)

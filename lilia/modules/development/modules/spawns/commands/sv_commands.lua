@@ -1,6 +1,4 @@
-
 local MODULE = MODULE
-
 lia.command.add(
     "spawnadd",
     {
@@ -61,7 +59,6 @@ lia.command.add(
         end
     }
 )
-
 
 lia.command.add(
     "spawnremove",

@@ -1,6 +1,4 @@
-
 local MODULE = MODULE
-
 lia.command.add(
     "whitelistadd",
     {
@@ -19,7 +17,6 @@ lia.command.add(
         end
     }
 )
-
 
 lia.command.add(
     "whitelistremove",
@@ -40,7 +37,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "whitelistclear",
     {
@@ -53,7 +49,6 @@ lia.command.add(
         end
     }
 )
-
 
 lia.command.add(
     "whitelistaddall",

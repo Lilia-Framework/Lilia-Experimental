@@ -1,4 +1,3 @@
-
 function GM:CanPlayerInteractItem(client, action, item)
     if not client:Alive() or client:getLocalVar("ragdoll") then return false end
     if client:getNetVar("fallingover") then return false end
@@ -81,7 +80,6 @@ function GM:CanPlayerInteractItem(client, action, item)
     end
 end
 
-
 function GM:CanPlayerEquipItem(client, item)
     local inventory = lia.inventory.instances[item.invID]
     if client.equipDelay ~= nil then
@@ -94,7 +92,6 @@ function GM:CanPlayerEquipItem(client, item)
         return false
     end
 end
-
 
 function GM:CanPlayerTakeItem(client, item)
     local inventory = lia.inventory.instances[item.invID]
@@ -115,7 +112,6 @@ function GM:CanPlayerTakeItem(client, item)
         end
     end
 end
-
 
 function GM:CanPlayerDropItem(client, item)
     local inventory = lia.inventory.instances[item.invID]

@@ -1,4 +1,3 @@
-
 net.Receive(
 	"liaCharList",
 	function()

@@ -1,13 +1,9 @@
-
 local GM = GM
-
 lia.config.tblPlayers = lia.config.tblPlayers or {}
 lia.config.Perfomancekillers = {"class C_PhysPropClientside", "class C_ClientRagdoll"}
-
 function GM:GetPlayerData(pPlayer)
     return lia.config.tblPlayers[pPlayer:EntIndex()]
 end
-
 
 function GM:RegisterPlayer(pPlayer)
     lia.config.tblPlayers[pPlayer:EntIndex()] = {
@@ -26,11 +22,9 @@ function GM:RegisterPlayer(pPlayer)
     )
 end
 
-
 function GM:RemovePlayer(pPlayer)
     lia.config.tblPlayers[pPlayer:EntIndex()] = nil
 end
-
 
 function GM:PlayerUpdateTransmitStates(pPlayer, intRange)
     if intRange then
@@ -68,7 +62,6 @@ function GM:PlayerUpdateTransmitStates(pPlayer, intRange)
     end
 end
 
-
 function GM:BeginExpand(pPlayer)
     local data = self:GetPlayerData(pPlayer)
     if not data then return end
@@ -97,7 +90,6 @@ function GM:BeginExpand(pPlayer)
     )
 end
 
-
 function GM:PlayerExpandedUpdate()
     for k, data in pairs(lia.config.tblPlayers) do
         if not data or not data.Expanded then continue end
@@ -110,12 +102,10 @@ function GM:PlayerExpandedUpdate()
     end
 end
 
-
 function GM:EntityRemoved(ent)
     if not ent:IsPlayer() then return end
     self:RemovePlayer(ent)
 end
-
 
 timer.Create(
     "CleanupGarbage",
@@ -131,10 +121,8 @@ timer.Create(
     end
 )
 
-
 function widgets.PlayerTick()
 end
-
 
 timer.Create(
     "GM:PlayerExpandedUpdate",

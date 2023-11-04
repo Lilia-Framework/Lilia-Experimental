@@ -1,9 +1,7 @@
-
 function MODULE:exitStorage()
 	net.Start("liaStorageExit")
 	net.SendToServer()
 end
-
 
 function MODULE:StorageUnlockPrompt(entity)
 	Derma_StringRequest(
@@ -17,7 +15,6 @@ function MODULE:StorageUnlockPrompt(entity)
 		end
 	)
 end
-
 
 function MODULE:StorageOpen(storage)
 	if not IsValid(storage) or storage:getStorageInfo().invType ~= "grid" then return end
@@ -54,7 +51,6 @@ function MODULE:StorageOpen(storage)
 	localInvPanel.OnRemove = exitStorageOnRemove
 	storageInvPanel.OnRemove = exitStorageOnRemove
 end
-
 
 function MODULE:transferItem(itemID)
 	if not lia.item.instances[itemID] then return end

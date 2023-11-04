@@ -1,4 +1,3 @@
-
 lia.command.add(
     "flip",
     {
@@ -7,7 +6,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "liststaff",
@@ -18,7 +16,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "listvip",
     {
@@ -28,7 +25,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "listusers",
     {
@@ -37,7 +33,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "rolld",
@@ -49,7 +44,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "roll",
     {
@@ -58,7 +52,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "point",
@@ -70,7 +63,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "chardesc",
     {
@@ -80,7 +72,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "beclass",
@@ -92,7 +83,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "chargetup",
     {
@@ -101,7 +91,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "givemoney",
@@ -113,7 +102,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "bringlostitems",
     {
@@ -123,7 +111,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "carddraw",
     {
@@ -132,7 +119,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "fallover",
@@ -144,7 +130,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "factionlist",
     {
@@ -155,7 +140,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "getpos",
     {
@@ -165,7 +149,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "doorname",
     {
@@ -174,7 +157,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 if lia.config.FactionBroadcastEnabled then
     lia.command.add(
@@ -187,7 +169,6 @@ if lia.config.FactionBroadcastEnabled then
         }
     )
 end
-
 
 if lia.config.AdvertisementEnabled then
     lia.command.add(

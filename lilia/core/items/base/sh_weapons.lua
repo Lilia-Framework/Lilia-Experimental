@@ -1,4 +1,3 @@
-
 ITEM.name = "Weapon"
 ITEM.desc = "A Weapon."
 ITEM.category = "Weapons"
@@ -10,7 +9,6 @@ ITEM.isWeapon = true
 ITEM.weaponCategory = "sidearm"
 ITEM.RequiredSkillLevels = nil
 ITEM.TeamBlacklist = {}
-
 if CLIENT then
     function ITEM:paintOver(item, w, h)
         if item:getData("equip") then
@@ -19,7 +17,6 @@ if CLIENT then
         end
     end
 end
-
 
 ITEM:hook(
     "drop",
@@ -37,7 +34,6 @@ ITEM:hook(
         end
     end
 )
-
 
 ITEM.functions.EquipUn = {
     name = "Unequip",
@@ -69,7 +65,6 @@ ITEM.functions.EquipUn = {
     onCanRun = function(item) return not IsValid(item.entity) and item:getData("equip", false) end
 }
 
-
 ITEM.functions.Equip = {
     name = "Equip",
     tip = "equipTip",
@@ -79,12 +74,10 @@ ITEM.functions.Equip = {
         local items = client:getChar():getInv():getItems()
         client.carryWeapons = client.carryWeapons or {}
         for k, v in pairs(items) do
-            if v.id ~= item.id then
-                if v.isWeapon and client.carryWeapons[item.weaponCategory] and v:getData("equip") then
-                    client:notifyLocalized("weaponSlotFilled")
+            if v.id ~= item.id and v.isWeapon and client.carryWeapons[item.weaponCategory] and v:getData("equip") then
+                client:notifyLocalized("weaponSlotFilled")
 
-                    return false
-                end
+                return false
             end
         end
 
@@ -128,13 +121,11 @@ ITEM.functions.Equip = {
     onCanRun = function(item) return not IsValid(item.entity) and not item:getData("equip", false) end
 }
 
-
 function ITEM:onCanBeTransfered(oldInventory, newInventory)
     if newInventory and self:getData("equip") then return false end
 
     return true
 end
-
 
 function ITEM:onLoadout()
     if self:getData("equip") then
@@ -150,7 +141,6 @@ function ITEM:onLoadout()
         end
     end
 end
-
 
 function ITEM:onSave()
     local weapon = self.player:GetWeapon(self.class)

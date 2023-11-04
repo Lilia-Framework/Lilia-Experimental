@@ -1,4 +1,3 @@
-
 SWEP.Author = "Leonheart"
 SWEP.Instructions = "Primary Fire: Lock\nSecondary Fire: Unlock"
 SWEP.Purpose = "Locking and Unlocking Stuff."
@@ -25,15 +24,12 @@ SWEP.LowerAngles2 = Angle(0, 5, -22)
 SWEP.IsAlwaysLowered = true
 SWEP.FireWhenLowered = true
 SWEP.HoldType = "normal"
-
 ACT_VM_FISTS_HOLSTER = 2
-
 function SWEP:Deploy()
     if not IsValid(self:GetOwner()) then return end
 
     return true
 end
-
 
 function SWEP:Holster()
     if not IsValid(self:GetOwner()) then return end
@@ -46,15 +42,12 @@ function SWEP:Holster()
     return true
 end
 
-
 function SWEP:Precache()
 end
-
 
 function SWEP:Initialize()
     self:SetHoldType(self.HoldType)
 end
-
 
 function SWEP:PrimaryAttack()
     local time = lia.config.DoorLockTime
@@ -74,7 +67,6 @@ function SWEP:PrimaryAttack()
         self:ServerPrimaryAttack(owner, entity, time)
     end
 end
-
 
 function SWEP:SecondaryAttack()
     local time = lia.config.DoorLockTime

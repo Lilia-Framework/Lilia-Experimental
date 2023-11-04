@@ -1,4 +1,3 @@
-
 function MODULE:PlayerBindPress(client, bind, pressed)
     if bind:lower():find("gm_showhelp") and pressed then
         if IsValid(lia.gui.menu) then
@@ -10,7 +9,6 @@ function MODULE:PlayerBindPress(client, bind, pressed)
         return true
     end
 end
-
 
 function MODULE:OnCharInfoSetup(infoPanel)
     if not IsValid(infoPanel.model) then return end

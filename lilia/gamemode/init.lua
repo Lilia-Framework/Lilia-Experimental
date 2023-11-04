@@ -1,23 +1,18 @@
-
 DeriveGamemode("sandbox")
-
 lia = lia or {
     util = {},
     meta = {}
 }
 
-
 AddCSLuaFile("config.lua")
 AddCSLuaFile("includer.lua")
 AddCSLuaFile("loader.lua")
 AddCSLuaFile("shared.lua")
-
 include("shared.lua")
 include("config.lua")
 include("includer.lua")
 include("data.lua")
 include("database.lua")
-
 timer.Simple(
     0,
     function()
@@ -33,9 +28,7 @@ timer.Simple(
     end
 )
 
-
 include("loader.lua")
-
 cvars.AddChangeCallback(
     "sbox_persist",
     function(name, old, new)

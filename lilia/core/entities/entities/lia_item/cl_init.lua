@@ -1,8 +1,5 @@
-
 local toScreen = FindMetaTable("Vector").ToScreen
-
 include("shared.lua")
-
 function ENT:computeDescMarkup(description)
     if self.desc ~= description then
         self.desc = description
@@ -11,7 +8,6 @@ function ENT:computeDescMarkup(description)
 
     return self.markup
 end
-
 
 function ENT:onDrawEntityInfo(alpha)
     local itemTable = self:getItemTable()
@@ -34,7 +30,6 @@ function ENT:onDrawEntityInfo(alpha)
     itemTable.data = oldData
     itemTable.entity = oldEntity
 end
-
 
 function ENT:DrawTranslucent()
     local itemTable = self:getItemTable()

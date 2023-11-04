@@ -1,4 +1,3 @@
-
 function MODULE:ForceDermaSkin()
     if lia.config.DarkTheme then
         return "lilia_darktheme"
@@ -6,7 +5,6 @@ function MODULE:ForceDermaSkin()
         return "lilia"
     end
 end
-
 
 function MODULE:SpawnMenuOpen()
     timer.Simple(
@@ -23,7 +21,6 @@ function MODULE:SpawnMenuOpen()
         end
     )
 end
-
 
 function MODULE:OnContextMenuOpen()
     timer.Simple(

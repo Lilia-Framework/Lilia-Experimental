@@ -1,12 +1,9 @@
-
 lia.util.cachedMaterials = lia.util.cachedMaterials or {}
-
 function lia.util.isSteamID(value)
     if string.match(value, "STEAM_(%d+):(%d+):(%d+)") then return true end
 
     return false
 end
-
 
 function lia.util.dateToNumber(str)
     str = str or os.date("%Y-%m-%d %H:%M:%S", os.time())
@@ -21,7 +18,6 @@ function lia.util.dateToNumber(str)
     }
 end
 
-
 function lia.util.findPlayer(identifier, allowPatterns)
     if lia.util.isSteamID(identifier) then return player.GetBySteamID(identifier) end
     if not allowPatterns then
@@ -32,7 +28,6 @@ function lia.util.findPlayer(identifier, allowPatterns)
         if lia.util.stringMatches(v:Name(), identifier) then return v end
     end
 end
-
 
 function lia.util.gridVector(vec, gridSize)
     if gridSize <= 0 then
@@ -48,7 +43,6 @@ function lia.util.gridVector(vec, gridSize)
     return vec
 end
 
-
 function lia.util.getAllChar()
     local charTable = {}
     for k, v in ipairs(player.GetAll()) do
@@ -60,13 +54,11 @@ function lia.util.getAllChar()
     return charTable
 end
 
-
 function lia.util.getMaterial(materialPath)
     lia.util.cachedMaterials[materialPath] = lia.util.cachedMaterials[materialPath] or Material(materialPath)
 
     return lia.util.cachedMaterials[materialPath]
 end
-
 
 function lia.util.emitQueuedSounds(entity, sounds, delay, spacing, volume, pitch)
     delay = delay or 0
@@ -94,7 +86,6 @@ function lia.util.emitQueuedSounds(entity, sounds, delay, spacing, volume, pitch
 
     return delay
 end
-
 
 function lia.util.stringMatches(a, b)
     if a and b then

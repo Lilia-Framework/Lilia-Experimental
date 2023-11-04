@@ -1,4 +1,3 @@
-
 lia.command.add(
     "dynamicsceneadd",
     {
@@ -24,7 +23,6 @@ lia.command.add(
         end
     }
 )
-
 
 lia.command.add(
     "dynamicsceneremove",

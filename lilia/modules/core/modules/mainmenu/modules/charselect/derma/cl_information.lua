@@ -1,6 +1,4 @@
-
 local PANEL = {}
-
 function PANEL:Init()
     if IsValid(lia.gui.info) then
         lia.gui.info:Remove()
@@ -80,7 +78,6 @@ function PANEL:Init()
     hook.Run("CreateCharInfo", self)
 end
 
-
 function PANEL:setup()
     local char = LocalPlayer():getChar()
     if self.desc then
@@ -137,9 +134,7 @@ function PANEL:setup()
     hook.Run("OnCharInfoSetup", self)
 end
 
-
 function PANEL:Paint(w, h)
 end
-
 
 vgui.Register("liaCharInfo", PANEL, "EditablePanel")

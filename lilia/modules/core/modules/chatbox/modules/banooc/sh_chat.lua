@@ -1,6 +1,4 @@
-
 local MODULE = MODULE
-
 function MODULE:InitializedConfig()
     lia.chat.register(
         "ooc",

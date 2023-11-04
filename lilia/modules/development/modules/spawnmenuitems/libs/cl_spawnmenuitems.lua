@@ -1,4 +1,3 @@
-
 spawnmenu.AddContentType(
     "item",
     function(container, object)
@@ -26,7 +25,6 @@ spawnmenu.AddContentType(
         return icon
     end
 )
-
 
 spawnmenu.AddCreationTab(
     "Items",

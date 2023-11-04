@@ -1,8 +1,5 @@
-
 if not pac then return end
-
 local MODULE = MODULE
-
 net.Receive(
 	"liaPACSync",
 	function()
@@ -15,7 +12,6 @@ net.Receive(
 	end
 )
 
-
 net.Receive(
 	"liaPACPartAdd",
 	function()
@@ -26,7 +22,6 @@ net.Receive(
 	end
 )
 
-
 net.Receive(
 	"liaPACPartRemove",
 	function()
@@ -36,7 +31,6 @@ net.Receive(
 		MODULE:removePart(client, id)
 	end
 )
-
 
 net.Receive(
 	"liaPACPartReset",

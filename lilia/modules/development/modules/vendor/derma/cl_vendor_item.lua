@@ -1,6 +1,4 @@
-
 local PANEL = {}
-
 function PANEL:Init()
 	self:Dock(TOP)
 	self:SetTall(64)
@@ -30,24 +28,20 @@ function PANEL:Init()
 	self.isSelling = false
 end
 
-
 function PANEL:updatePrice()
 	local price = liaVendorEnt:getPrice(self.item.uniqueID, self.isSelling)
 	self.price:SetText(lia.currency.get(price))
 	self.price:SizeToContents()
 end
 
-
 function PANEL:setIsSelling(isSelling)
 	self.isSelling = isSelling
 	self:updatePrice()
 end
 
-
 local function clickEffects()
 	LocalPlayer():EmitSound(unpack(lia.config.VendorClick))
 end
-
 
 local function sellItemToVendor(panel)
 	local item = panel.item
@@ -58,7 +52,6 @@ local function sellItemToVendor(panel)
 	end
 end
 
-
 local function buyItemFromVendor(panel)
 	local item = panel.item
 	if not item then return end
@@ -67,7 +60,6 @@ local function buyItemFromVendor(panel)
 		clickEffects()
 	end
 end
-
 
 function PANEL:showAction()
 	if IsValid(self.action) then return end
@@ -94,11 +86,9 @@ function PANEL:showAction()
 	LocalPlayer():EmitSound("buttons/button15.wav", 25, 200)
 end
 
-
 function PANEL:OnCursorEntered()
 	self:showAction()
 end
-
 
 function PANEL:setQuantity(quantity)
 	if not self.item then return end
@@ -118,7 +108,6 @@ function PANEL:setQuantity(quantity)
 	self.name:SizeToContents()
 end
 
-
 function PANEL:setItemType(itemType)
 	local item = lia.item.list[itemType]
 	assert(item, tostring(itemType) .. " is not a valid item")
@@ -128,6 +117,5 @@ function PANEL:setItemType(itemType)
 	self.name:SizeToContents()
 	self:updatePrice()
 end
-
 
 vgui.Register("liaVendorItem", PANEL, "DPanel")

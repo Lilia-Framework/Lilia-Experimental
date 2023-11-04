@@ -1,8 +1,6 @@
-
 AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
-
 function SWEP:Grab()
     local ply = self:GetOwner()
     ply:LagCompensation(true)
@@ -17,7 +15,6 @@ function SWEP:Grab()
     ply:LagCompensation(false)
     self.ReadyToPickup = false
 end
-
 
 function SWEP:SecondaryAttack()
     local ply = self:GetOwner()

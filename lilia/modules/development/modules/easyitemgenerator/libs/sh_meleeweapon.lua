@@ -1,6 +1,3 @@
-
-lia.EasyRegister = lia.EasyRegister or {}
-
 lia.EasyRegister.melee = {
     ["weapon_crowbar"] = {
         ["name"] = "Crowbar",

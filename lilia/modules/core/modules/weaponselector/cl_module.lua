@@ -1,21 +1,12 @@
 lia.config.Color = lia.config.Color or Color(75, 119, 190)
-
 MODULE.index = MODULE.index or 1
-
 MODULE.deltaIndex = MODULE.deltaIndex or MODULE.index
-
 MODULE.infoAlpha = MODULE.infoAlpha or 0
-
 MODULE.alpha = MODULE.alpha or 0
-
 MODULE.alphaDelta = MODULE.alphaDelta or MODULE.alpha
-
 MODULE.fadeTime = MODULE.fadeTime or 0
-
 local IsValid, tonumber, FrameTime, Lerp, ScrW, ScrH, CurTime, ipairs = IsValid, tonumber, FrameTime, Lerp, ScrW, ScrH, CurTime, ipairs
-
 local RunConsoleCommand, LocalPlayer, math, color_white, surface = RunConsoleCommand, LocalPlayer, math, color_white, surface
-
 function MODULE:HUDPaint()
     local frameTime = FrameTime()
     self.alphaDelta = Lerp(frameTime * 10, self.alphaDelta, self.alpha)
@@ -27,7 +18,8 @@ function MODULE:HUDPaint()
         local x, y = ScrW() * 0.5, ScrH() * 0.5
         local spacing = math.pi * 0.85
         local radius = 240 * self.alphaDelta
-        self.deltaIndex = Lerp(frameTime * 12, self.deltaIndex, self.index) math.Approach(self.deltaIndex, self.index, fTime() * 12)
+        self.deltaIndex = Lerp(frameTime * 12, self.deltaIndex, self.index)
+        math.Approach(self.deltaIndex, self.index, fTime() * 12)
         local index = self.deltaIndex
         for k, v in ipairs(weapons) do
             if not weapons[self.index] then
@@ -65,9 +57,7 @@ function MODULE:HUDPaint()
     end
 end
 
-
 local weaponInfo = {"Author", "Contact", "Purpose", "Instructions"}
-
 function MODULE:onIndexChanged()
     self.alpha = 1
     self.fadeTime = CurTime() + 5
@@ -92,7 +82,6 @@ function MODULE:onIndexChanged()
         client:EmitSound(source or "common/talk.wav", 50, pitch or 180)
     end
 end
-
 
 function MODULE:PlayerBindPress(client, bind, pressed)
     local weapon = client:GetActiveWeapon()

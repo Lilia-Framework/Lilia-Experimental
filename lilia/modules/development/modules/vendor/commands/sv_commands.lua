@@ -1,4 +1,3 @@
-
 lia.command.add(
     "restockallvendors",
     {
@@ -17,7 +16,6 @@ lia.command.add(
         end
     }
 )
-
 
 lia.command.add(
     "resetallvendormoney",

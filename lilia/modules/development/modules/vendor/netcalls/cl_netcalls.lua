@@ -1,4 +1,3 @@
-
 net.Receive(
 	"liaVendorSync",
 	function()
@@ -44,7 +43,6 @@ net.Receive(
 	end
 )
 
-
 net.Receive(
 	"liaVendorOpen",
 	function()
@@ -56,7 +54,6 @@ net.Receive(
 	end
 )
 
-
 net.Receive(
 	"liaVendorExit",
 	function()
@@ -64,7 +61,6 @@ net.Receive(
 		hook.Run("VendorExited")
 	end
 )
-
 
 net.Receive(
 	"liaVendorEdit",
@@ -79,7 +75,6 @@ net.Receive(
 		)
 	end
 )
-
 
 net.Receive(
 	"liaVendorFaction",

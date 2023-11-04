@@ -1,6 +1,4 @@
-
 local MODULE = MODULE
-
 lia.command.add(
     "banooc",
     {
@@ -18,7 +16,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "unbanooc",
     {
@@ -33,7 +30,6 @@ lia.command.add(
         end
     }
 )
-
 
 lia.command.add(
     "blockooc",

@@ -1,6 +1,4 @@
-
 NAME = "Polski"
-
 LANGUAGE = {
     loading = "Ładowanie",
     dbError = "Połączenie z bazą danych nie powiodło się",

@@ -1,33 +1,25 @@
-
 local logs = {}
-
 util.AddNetworkString("net_ReceiveLogs")
 util.AddNetworkString("net_RequestLogs")
-
 local function Init()
     if not file.Exists("netmessagelogsdir", "DATA") then
         file.CreateDir("netmessagelogsdir")
     end
 end
 
-
 Init()
-
 local function loadLogs()
     local data = file.Read("netmessagelogs.txt")
     if not data then return end
     logs = util.JSONToTable(data)
 end
 
-
 local function saveLogs()
     local json = util.TableToJSON(logs)
     file.Write("netmessagelogs.txt", json)
 end
 
-
 loadLogs()
-
 function net.Incoming(len, ply)
     local i = net.ReadHeader()
     local strName = util.NetworkIDToString(i)
@@ -62,9 +54,7 @@ function net.Incoming(len, ply)
     func(len, ply)
 end
 
-
 hook.Add("ShutDown", "SaveNetMessageLogs", saveLogs)
-
 function sendData(page, ply)
     if not ply:IsSuperAdmin() then return end
     local dataTable = {}
@@ -82,7 +72,6 @@ function sendData(page, ply)
     net.WriteInt(math.ceil(#logs / 128), 32)
     net.Send(ply)
 end
-
 
 net.Receive(
     "net_RequestLogs",

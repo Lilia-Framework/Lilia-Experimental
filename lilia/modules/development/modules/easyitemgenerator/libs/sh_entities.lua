@@ -1,6 +1,3 @@
-
-lia.EasyRegister = lia.EasyRegister or {}
-
 lia.EasyRegister.entities = {
     ["item_suit"] = {
         ["name"] = "Item Suit",

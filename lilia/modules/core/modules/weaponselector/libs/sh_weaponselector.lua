@@ -1,4 +1,3 @@
-
 function MODULE:StartCommand(client, cmd)
     if not IsValid(client.doWeaponSwitch) then return end
     cmd:SelectWeapon(client.doWeaponSwitch)

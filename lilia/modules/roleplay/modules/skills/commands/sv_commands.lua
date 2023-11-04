@@ -1,6 +1,4 @@
-
 local MODULE = MODULE
-
 lia.command.add(
     "rollstrength",
     {
@@ -16,7 +14,6 @@ lia.command.add(
         end
     }
 )
-
 
 lia.command.add(
     "rollendurance",

@@ -1,4 +1,3 @@
-
 lia.command.add(
     "doorsell",
     {
@@ -7,7 +6,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "doorbuy",
     {
@@ -15,7 +13,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "doorsetunownable",
@@ -27,7 +24,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "doorsetownable",
     {
@@ -37,7 +33,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "dooraddfaction",
@@ -49,7 +44,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "doorremovefaction",
     {
@@ -59,7 +53,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "doorsetdisabled",
@@ -71,7 +64,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "doorsettitle",
     {
@@ -80,7 +72,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "doorsetparent",
@@ -91,7 +82,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "doorsetchild",
     {
@@ -100,7 +90,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "doorremovechild",
@@ -111,7 +100,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "doorsethidden",
     {
@@ -121,7 +109,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "doorsetclass",

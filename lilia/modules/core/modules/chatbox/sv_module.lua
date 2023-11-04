@@ -1,4 +1,3 @@
-
 netstream.Hook(
     "msg",
     function(client, text)

@@ -1,6 +1,4 @@
-
 local lastcheck
-
 function MODULE:Think()
     if not lastcheck then
         lastcheck = CurTime()

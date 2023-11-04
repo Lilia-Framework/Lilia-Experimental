@@ -1,6 +1,3 @@
-
-lia.EasyRegister = lia.EasyRegister or {}
-
 lia.EasyRegister.ammo = {
     ["357_ammo"] = {
         ["name"] = ".357 Ammo",

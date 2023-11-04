@@ -1,6 +1,4 @@
-
 NAME = "english"
-
 LANGUAGE = {
     loading = "Loading",
     dbError = "Database connection failed",

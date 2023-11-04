@@ -1,6 +1,4 @@
-
 local PANEL = {}
-
 function PANEL:Init()
 	if lia.menuMusic then
 		lia.menuMusic:Stop()
@@ -45,7 +43,6 @@ function PANEL:Init()
 	end
 end
 
-
 function PANEL:OnRemove()
 	local music = lia.menuMusic
 	if not music then return end
@@ -75,6 +72,5 @@ function PANEL:OnRemove()
 		end
 	)
 end
-
 
 vgui.Register("liaCharBGMusic", PANEL, "DPanel")

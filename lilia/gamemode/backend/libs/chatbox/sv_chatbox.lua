@@ -1,4 +1,3 @@
-
 function lia.chat.send(speaker, chatType, text, anonymous, receivers)
     local class = lia.chat.classes[chatType]
     if class and class.onCanSay(speaker, text) ~= false then

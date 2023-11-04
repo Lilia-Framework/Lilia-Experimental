@@ -1,4 +1,3 @@
-
 function MODULE:LoadData()
     local items = self:getData()
     if items then
@@ -46,7 +45,6 @@ function MODULE:LoadData()
         end
     end
 end
-
 
 function MODULE:SaveData()
     local items = {}

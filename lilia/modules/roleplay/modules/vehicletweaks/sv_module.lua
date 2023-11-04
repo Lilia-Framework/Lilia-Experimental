@@ -1,4 +1,3 @@
-
 hook.Add(
     "simfphysUse",
     "simfphysUse",

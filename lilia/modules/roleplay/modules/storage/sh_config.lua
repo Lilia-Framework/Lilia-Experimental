@@ -1,12 +1,7 @@
-
 lia.config.StorageDefinitions = lia.config.StorageDefinitions or {}
-
 lia.config.SaveStorage = true
-
 lia.config.PasswordDelay = 1
-
 lia.config.StorageOpenTime = 0.7
-
 lia.config.StorageDefinitions["models/props_junk/wood_crate001a.mdl"] = {
 	name = "Wood Crate",
 	desc = "A crate made out of wood.",
@@ -16,7 +11,6 @@ lia.config.StorageDefinitions["models/props_junk/wood_crate001a.mdl"] = {
 		h = 4
 	}
 }
-
 
 lia.config.StorageDefinitions["models/props_c17/lockers001a.mdl"] = {
 	name = "Locker",
@@ -28,7 +22,6 @@ lia.config.StorageDefinitions["models/props_c17/lockers001a.mdl"] = {
 	}
 }
 
-
 lia.config.StorageDefinitions["models/props_wasteland/controlroom_storagecloset001a.mdl"] = {
 	name = "Metal Closet",
 	desc = "A green storage closet.",
@@ -38,7 +31,6 @@ lia.config.StorageDefinitions["models/props_wasteland/controlroom_storagecloset0
 		h = 7
 	}
 }
-
 
 lia.config.StorageDefinitions["models/props_wasteland/controlroom_filecabinet002a.mdl"] = {
 	name = "File Cabinet",
@@ -50,7 +42,6 @@ lia.config.StorageDefinitions["models/props_wasteland/controlroom_filecabinet002
 	}
 }
 
-
 lia.config.StorageDefinitions["models/props_c17/furniturefridge001a.mdl"] = {
 	name = "Refrigerator",
 	desc = "A metal box to keep food in",
@@ -60,7 +51,6 @@ lia.config.StorageDefinitions["models/props_c17/furniturefridge001a.mdl"] = {
 		h = 4
 	}
 }
-
 
 lia.config.StorageDefinitions["models/props_wasteland/kitchen_fridge001a.mdl"] = {
 	name = "Large Refrigerator",
@@ -72,7 +62,6 @@ lia.config.StorageDefinitions["models/props_wasteland/kitchen_fridge001a.mdl"] =
 	}
 }
 
-
 lia.config.StorageDefinitions["models/props_junk/trashbin01a.mdl"] = {
 	name = "Trash Bin",
 	desc = "A container for junk.",
@@ -82,7 +71,6 @@ lia.config.StorageDefinitions["models/props_junk/trashbin01a.mdl"] = {
 		h = 3
 	}
 }
-
 
 lia.config.StorageDefinitions["models/items/ammocrate_smg1.mdl"] = {
 	name = "Ammo Crate",

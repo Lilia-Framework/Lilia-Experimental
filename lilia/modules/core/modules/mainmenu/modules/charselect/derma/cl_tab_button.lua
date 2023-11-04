@@ -1,12 +1,9 @@
-
 local PANEL = {}
-
 function PANEL:Init()
 	self:Dock(LEFT)
 	self:DockMargin(0, 0, 32, 0)
 	self:SetContentAlignment(4)
 end
-
 
 function PANEL:setText(name)
 	self:SetText(L(name):upper())
@@ -14,11 +11,9 @@ function PANEL:setText(name)
 	self:SizeToContentsX()
 end
 
-
 function PANEL:onSelected(callback)
 	self.callback = callback
 end
-
 
 function PANEL:setSelected(isSelected)
 	if isSelected == nil then
@@ -43,13 +38,11 @@ function PANEL:setSelected(isSelected)
 	end
 end
 
-
 function PANEL:Paint(w, h)
 	if self.isSelected or self:IsHovered() then
 		surface.SetDrawColor(self.isSelected and lia.gui.character.WHITE or lia.gui.character.HOVERED)
 		surface.DrawRect(0, h - 4, w, 4)
 	end
 end
-
 
 vgui.Register("liaCharacterTabButton", PANEL, "liaCharButton")

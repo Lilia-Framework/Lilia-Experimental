@@ -1,4 +1,3 @@
-
 ICON_INFO = ICON_INFO or {}
 ICON_INFO.camPos = ICON_INFO.camPos or Vector()
 ICON_INFO.camAng = ICON_INFO.camAng or Angle()
@@ -10,19 +9,16 @@ ICON_INFO.modelAng = ICON_INFO.modelAng or Angle()
 ICON_INFO.modelName = ICON_INFO.modelName or "models/Items/grenadeAmmo.mdl"
 ICON_INFO.outline = ICON_INFO.outline or false
 ICON_INFO.outlineColor = ICON_INFO.outlineColor or Color(255, 255, 255)
-
 local vTxt = "xyz"
 local aTxt = "pyr"
 local bTxt = {"best", "full", "above", "right", "origin", "reset angles"}
 local PANEL = {}
-
 local function adjustSize(pnl, x, y)
     x = x or 1
     y = y or 1
     pnl:SetSize(10 + x * 64, 27 + y * 64)
     pnl.model:SetSize(x * 64, y * 64)
 end
-
 
 function PANEL:Init()
     self:SetPos(50, 50)
@@ -41,22 +37,17 @@ function PANEL:Init()
     self:AdjustSize(ICON_INFO.w, ICON_INFO.h)
 end
 
-
 function PANEL:Paint(w, h)
     surface.SetDrawColor(255, 255, 255)
     surface.DrawOutlinedRect(0, 0, w, h)
 end
 
-
 PANEL.AdjustSize = adjustSize
 vgui.Register("iconPreview", PANEL, "DFrame")
-
 PANEL = {}
-
 AccessorFunc(PANEL, "m_strModel", "Model")
 AccessorFunc(PANEL, "m_pOrigin", "Origin")
 AccessorFunc(PANEL, "m_bCustomIcon", "CustomIcon")
-
 function PANEL:Init()
     self:SetPos(50, 300)
     self:ShowCloseButton(false)
@@ -82,16 +73,13 @@ function PANEL:Init()
     self:AdjustSize(ICON_INFO.w, ICON_INFO.h)
 end
 
-
 function PANEL:Paint(w, h)
     surface.SetDrawColor(255, 255, 255)
     surface.DrawOutlinedRect(0, 0, w, h)
 end
 
-
 PANEL.AdjustSize = adjustSize
 vgui.Register("iconRenderPreview", PANEL, "DFrame")
-
 local function buildActionText(self, setModel)
     local p1 = self.prev
     local p = self.prev2
@@ -118,13 +106,11 @@ local function buildActionText(self, setModel)
     return text
 end
 
-
 local function action(self)
     local text = buildActionText(self)
     if not text then return end
     SetClipboardText(text)
 end
-
 
 local function renderAction(self)
     local text = buildActionText(self, true)
@@ -147,9 +133,7 @@ local function renderAction(self)
     )
 end
 
-
 PANEL = {}
-
 function PANEL:Init()
     if editorPanel and editorPanel:IsVisible() then
         editorPanel:Close()
@@ -343,7 +327,6 @@ function PANEL:Init()
     self:UpdateIcon(true)
 end
 
-
 function PANEL:UpdateIcon()
     isIconUpdating = true
     self.camFOV:SetValue(ICON_INFO.FOV)
@@ -355,7 +338,6 @@ function PANEL:UpdateIcon()
 
     isIconUpdating = false
 end
-
 
 function PANEL:SetupEditor(update, mode)
     local p = self.prev
@@ -393,7 +375,6 @@ function PANEL:SetupEditor(update, mode)
     end
 end
 
-
 function PANEL:BestGuessLayout()
     local p = self.prev
     local ent = p.model:GetEntity()
@@ -406,7 +387,6 @@ function PANEL:BestGuessLayout()
     end
 end
 
-
 function PANEL:FullFrontalLayout()
     local p = self.prev
     local ent = p.model:GetEntity()
@@ -416,7 +396,6 @@ function PANEL:FullFrontalLayout()
     ICON_INFO.FOV = 45
     ICON_INFO.camAng = (campos * -1):Angle()
 end
-
 
 function PANEL:AboveLayout()
     local p = self.prev
@@ -428,7 +407,6 @@ function PANEL:AboveLayout()
     ICON_INFO.camAng = (campos * -1):Angle()
 end
 
-
 function PANEL:RightLayout()
     local p = self.prev
     local ent = p.model:GetEntity()
@@ -438,7 +416,6 @@ function PANEL:RightLayout()
     ICON_INFO.FOV = 45
     ICON_INFO.camAng = (campos * -1):Angle()
 end
-
 
 function PANEL:OriginLayout()
     local p = self.prev
@@ -450,7 +427,6 @@ function PANEL:OriginLayout()
     ICON_INFO.camAng = Angle(0, -180, 0)
 end
 
-
 function PANEL:WriteText(str)
     local label = self.list:Add("DLabel")
     label:SetFont("ChatFont")
@@ -460,7 +436,6 @@ function PANEL:WriteText(str)
     label:SetContentAlignment(5)
     label:SetText(str)
 end
-
 
 function PANEL:OnRemove()
     if self.prev and self.prev:IsVisible() then
@@ -472,9 +447,7 @@ function PANEL:OnRemove()
     end
 end
 
-
 vgui.Register("iconEditor", PANEL, "DFrame")
-
 concommand.Add(
     "lia_dev_icon",
     function()

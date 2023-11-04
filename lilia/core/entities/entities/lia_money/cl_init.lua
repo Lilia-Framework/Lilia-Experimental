@@ -1,8 +1,5 @@
-
 local toScreen = FindMetaTable("Vector").ToScreen
-
 include("shared.lua")
-
 function ENT:onDrawEntityInfo(alpha)
     local position = toScreen(self:LocalToWorld(self:OBBCenter()))
     local x, y = position.x, position.y

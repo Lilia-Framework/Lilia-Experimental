@@ -1,6 +1,4 @@
-
 NAME = "Portuguese"
-
 LANGUAGE = {
     loading = "A carregar",
     dbError = "Erro ao conectar à database",

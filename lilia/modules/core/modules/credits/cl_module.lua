@@ -1,4 +1,3 @@
-
 function MODULE:BuildHelpMenu(tabs)
     tabs["Credits"] = function()
         if helpPanel then

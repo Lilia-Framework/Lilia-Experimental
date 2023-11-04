@@ -1,12 +1,9 @@
-
 lia.inventory = lia.inventory or {}
 lia.inventory.instances = lia.inventory.instances or {}
 lia.inventory.types = lia.inventory.types or {}
-
 local function serverOnly(value)
     return SERVER and value or nil
 end
-
 
 local InvTypeStructType = {
     __index = "table",
@@ -16,7 +13,6 @@ local InvTypeStructType = {
     typeID = "string",
     className = "string"
 }
-
 
 local function checkType(typeID, struct, expected, prefix)
     prefix = prefix or ""
@@ -30,7 +26,6 @@ local function checkType(typeID, struct, expected, prefix)
     end
 end
 
-
 function lia.inventory.newType(typeID, invTypeStruct)
     assert(not lia.inventory.types[typeID], "duplicate inventory type " .. typeID)
     assert(istable(invTypeStruct), "expected table for argument #2")
@@ -38,7 +33,6 @@ function lia.inventory.newType(typeID, invTypeStruct)
     debug.getregistry()[invTypeStruct.className] = invTypeStruct
     lia.inventory.types[typeID] = invTypeStruct
 end
-
 
 function lia.inventory.new(typeID)
     local class = lia.inventory.types[typeID]

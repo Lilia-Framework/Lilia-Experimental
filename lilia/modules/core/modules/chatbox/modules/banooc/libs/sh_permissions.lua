@@ -1,4 +1,3 @@
-
 CAMI.RegisterPrivilege(
     {
         Name = "Lilia - Staff Permissions - No OOC Cooldown",

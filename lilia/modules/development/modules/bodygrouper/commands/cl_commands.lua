@@ -1,4 +1,3 @@
-
 lia.command.add(
     "viewBodygroups",
     {

@@ -1,4 +1,3 @@
-
 netstream.Hook(
     "liaItemSpawn",
     function(client, itemID)

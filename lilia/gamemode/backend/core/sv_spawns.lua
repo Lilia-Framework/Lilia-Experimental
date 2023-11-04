@@ -1,4 +1,3 @@
-
 function GM:PlayerLoadout(client)
     local character = client:getChar()
     if client.liaSkipLoadout then
@@ -28,7 +27,6 @@ function GM:PlayerLoadout(client)
     hook.Run("PostPlayerLoadout", client)
     client:SelectWeapon("lia_hands")
 end
-
 
 function GM:FactionOnLoadout(client)
     local faction = lia.faction.indices[client:Team()]
@@ -95,7 +93,6 @@ function GM:FactionOnLoadout(client)
         faction:onSpawn(client)
     end
 end
-
 
 function GM:ClassOnLoadout(client)
     local character = client:getChar()
@@ -165,7 +162,6 @@ function GM:ClassOnLoadout(client)
     end
 end
 
-
 function GM:PlayerSpawnServer(client)
     if pac then
         client:ConCommand("pac_restart")
@@ -178,14 +174,12 @@ function GM:PlayerSpawnServer(client)
     hook.Run("PlayerLoadout", client)
 end
 
-
 function GM:OnCharAttribBoosted(client, character, attribID)
     local attribute = lia.attribs.list[attribID]
     if attribute and isfunction(attribute.onSetup) then
         attribute:onSetup(client, character:getAttrib(attribID, 0))
     end
 end
-
 
 function GM:PostPlayerLoadout(client)
     local character = client:getChar()
@@ -205,7 +199,6 @@ function GM:PostPlayerLoadout(client)
 
     client:setNetVar("VoiceType", "Talking")
 end
-
 
 function GM:PlayerDeath(client, inflictor, attacker)
     local char = client:getChar()
@@ -232,7 +225,6 @@ function GM:PlayerDeath(client, inflictor, attacker)
     end
 end
 
-
 function GM:RemoveAllEquippedWeapons(client)
     local char = client:getChar()
     local inventory = char:getInv()
@@ -252,7 +244,6 @@ function GM:RemoveAllEquippedWeapons(client)
     end
 end
 
-
 function GM:PlayerDeathThink(client)
     if client:getChar() then
         local deathTime = client:getNetVar("deathTime")
@@ -263,7 +254,6 @@ function GM:PlayerDeathThink(client)
 
     return false
 end
-
 
 function GM:PlayerInitialSpawn(client)
     client.liaJoinTime = RealTime()
@@ -313,7 +303,6 @@ function GM:PlayerInitialSpawn(client)
     hook.Run("PostPlayerInitialSpawn", client)
     hook.Run("ReRunNames")
 end
-
 
 function GM:PostPlayerInitialSpawn(client)
     client:SetNoDraw(true)

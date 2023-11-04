@@ -1,4 +1,3 @@
-
 function MODULE:CalcStaminaChange(client)
     local character = client:getChar()
     if not character or client:IsNoClipping() then return 0 end
@@ -30,7 +29,6 @@ function MODULE:CalcStaminaChange(client)
         end
     end
 end
-
 
 function MODULE:SetupMove(client, cMoveData)
     if not lia.config.StaminaSlowdown then return end

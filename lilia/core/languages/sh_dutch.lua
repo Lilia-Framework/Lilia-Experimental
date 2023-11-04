@@ -1,6 +1,4 @@
-
 NAME = "Nederlands"
-
 LANGUAGE = {
     loading = "Laden",
     dbError = "Database verbinding gefaald",

@@ -1,8 +1,5 @@
-
 if not pac then return end
-
 local MODULE = MODULE
-
 function MODULE:AdjustPACPartData(wearer, id, data)
 	local item = lia.item.list[id]
 	if item and isfunction(item.pacAdjust) then
@@ -11,14 +8,12 @@ function MODULE:AdjustPACPartData(wearer, id, data)
 	end
 end
 
-
 function MODULE:getAdjustedPartData(wearer, id)
 	if not MODULE.partData[id] then return end
 	local data = table.Copy(MODULE.partData[id])
 
 	return hook.Run("AdjustPACPartData", wearer, id, data) or data
 end
-
 
 function MODULE:attachPart(client, id)
 	if not pac then return end
@@ -33,7 +28,6 @@ function MODULE:attachPart(client, id)
 	client.liaPACParts[id] = part
 end
 
-
 function MODULE:removePart(client, id)
 	if not client.RemovePACPart or not client.liaPACParts then return end
 	local part = client.liaPACParts[id]
@@ -42,7 +36,6 @@ function MODULE:removePart(client, id)
 		client.liaPACParts[id] = nil
 	end
 end
-
 
 function MODULE:DrawPlayerRagdoll(entity)
 	local ply = entity.objCache
@@ -57,24 +50,21 @@ function MODULE:DrawPlayerRagdoll(entity)
 			end
 		end
 
-		ply.pac_playerspawn = pac.RealTime  
+		ply.pac_playerspawn = pac.RealTime
 		entity.overridePAC3 = true
 	end
 end
-
 
 function MODULE:OnEntityCreated(entity)
 	local class = entity:GetClass()
 	timer.Simple(
 		0,
 		function()
-			if class == "prop_ragdoll" then
-				if entity:getNetVar("player") then
-					entity.RenderOverride = function()
-						entity.objCache = entity:getNetVar("player")
-						entity:DrawModel()
-						hook.Run("DrawPlayerRagdoll", entity)
-					end
+			if class == "prop_ragdoll" and entity:getNetVar("player") then
+				entity.RenderOverride = function()
+					entity.objCache = entity:getNetVar("player")
+					entity:DrawModel()
+					hook.Run("DrawPlayerRagdoll", entity)
 				end
 			end
 

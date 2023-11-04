@@ -1,4 +1,3 @@
-
 function MODULE:PostPlayerLoadout(client)
     local uniqueID = "StamCheck" .. client:SteamID()
     timer.Create(
@@ -17,7 +16,6 @@ function MODULE:PostPlayerLoadout(client)
     )
 end
 
-
 function MODULE:PlayerLoadedChar(client, character)
     local maxstm = character:GetMaxStamina()
     timer.Simple(
@@ -27,7 +25,6 @@ function MODULE:PlayerLoadedChar(client, character)
         end
     )
 end
-
 
 function MODULE:PlayerStaminaLost(client)
     if client.isBreathing then return end

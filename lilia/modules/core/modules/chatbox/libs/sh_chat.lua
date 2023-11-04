@@ -1,4 +1,3 @@
-
 function MODULE:InitializedConfig()
     lia.chat.register(
         "ic",

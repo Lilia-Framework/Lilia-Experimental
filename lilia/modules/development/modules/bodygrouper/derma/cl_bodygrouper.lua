@@ -1,12 +1,7 @@
-
 local PANEL = {}
-
 AccessorFunc(PANEL, "m_eTarget", "Target")
-
 local leftrotate, rightrotate = input.LookupBinding("+moveleft"), input.LookupBinding("+moveright")
-
 local leftinput, rightinput = input.GetKeyCode(leftrotate), input.GetKeyCode(rightrotate)
-
 function PANEL:Init()
     self:SetSize(ScrW() / 1.5, ScrH() / 1.5)
     self:Center()
@@ -95,12 +90,10 @@ function PANEL:Init()
     self.scroll:Dock(FILL)
 end
 
-
 function PANEL:OnClose()
     net.Start("BodygrouperMenuClose")
     net.SendToServer()
 end
-
 
 function PANEL:PopulateOptions()
     local target = self:GetTarget()
@@ -146,7 +139,6 @@ function PANEL:PopulateOptions()
     end
 end
 
-
 function PANEL:SetTarget(target)
     self.m_eTarget = target
     self.model:SetModel(target:GetModel())
@@ -165,7 +157,6 @@ function PANEL:SetTarget(target)
     self:PopulateOptions()
 end
 
-
 local function RotatePointAroundPivot(point, pivot, angles)
     local newpoint = point - pivot
     newpoint:Rotate(angles)
@@ -173,7 +164,6 @@ local function RotatePointAroundPivot(point, pivot, angles)
 
     return newpoint
 end
-
 
 function PANEL:Think()
     local model = self.model
@@ -183,6 +173,5 @@ function PANEL:Think()
         model:SetCamPos(RotatePointAroundPivot(model:GetCamPos(), model:GetLookAt(), Angle(0, FrameTime() * -180, 0)))
     end
 end
-
 
 vgui.Register("BodygrouperMenu", PANEL, "DFrame")

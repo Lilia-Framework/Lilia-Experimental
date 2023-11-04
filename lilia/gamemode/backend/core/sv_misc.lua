@@ -1,28 +1,22 @@
-
 function GM:ModuleShouldLoad(module)
     return not lia.module.isDisabled(module)
 end
-
 
 function GM:PlayerDeathSound()
     return true
 end
 
-
 function GM:CanPlayerSuicide(client)
     return false
 end
-
 
 function GM:AllowPlayerPickup(client, entity)
     return false
 end
 
-
 function GM:PlayerShouldTakeDamage(client, attacker)
     return client:getChar() ~= nil
 end
-
 
 function GM:EntityTakeDamage(entity, dmgInfo)
     local inflictor = dmgInfo:GetInflictor()
@@ -59,13 +53,11 @@ function GM:EntityTakeDamage(entity, dmgInfo)
     end
 end
 
-
 function GM:PreCleanupMap()
     lia.shuttingDown = true
     hook.Run("SaveData")
     hook.Run("PersistenceSave")
 end
-
 
 function GM:PostCleanupMap()
     lia.shuttingDown = false
@@ -73,12 +65,9 @@ function GM:PostCleanupMap()
     hook.Run("PostLoadData")
 end
 
-
 function GM:OnItemSpawned(ent)
     ent.health = 250
 end
 
-
 hook.Add("MouthMoveAnimation", "Optimization", function() return nil end)
-
 hook.Add("GrabEarAnimation", "Optimization", function() return nil end)

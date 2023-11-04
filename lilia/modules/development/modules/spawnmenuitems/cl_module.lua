@@ -1,8 +1,6 @@
-
 function MODULE:InitializedModules()
     RunConsoleCommand("spawnmenu_reload")
 end
-
 
 function MODULE:PopulateItems(pnlContent, tree, node)
     local categorised = {}

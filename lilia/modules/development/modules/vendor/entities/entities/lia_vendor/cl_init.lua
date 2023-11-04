@@ -1,14 +1,10 @@
-
 local toScreen = FindMetaTable("Vector").ToScreen
-
 include("shared.lua")
-
 function ENT:createBubble()
 	self.bubble = ClientsideModel("models/extras/info_speech.mdl", RENDERGROUP_OPAQUE)
 	self.bubble:SetPos(self:GetPos() + Vector(0, 0, 84))
 	self.bubble:SetModelScale(0.6, 0)
 end
-
 
 function ENT:Draw()
 	local bubble = self.bubble
@@ -21,7 +17,6 @@ function ENT:Draw()
 
 	self:DrawModel()
 end
-
 
 function ENT:Think()
 	if not self.hasSetupVars then
@@ -45,13 +40,11 @@ function ENT:Think()
 	return true
 end
 
-
 function ENT:OnRemove()
 	if IsValid(self.bubble) then
 		self.bubble:Remove()
 	end
 end
-
 
 function ENT:onDrawEntityInfo(alpha)
 	local position = toScreen(self:LocalToWorld(self:OBBCenter()) + Vector(0, 0, 20))

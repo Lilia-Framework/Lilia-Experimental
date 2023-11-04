@@ -1,6 +1,4 @@
-
 local PANEL = {}
-
 function PANEL:Init()
     self:SetTitle(L("thirdpersonConfig"))
     self:SetSize(300, 140)
@@ -34,6 +32,5 @@ function PANEL:Init()
     cfg:SetConVar("lia_tp_distance")
     cfg:DockMargin(10, 0, 0, 5)
 end
-
 
 vgui.Register("liaTPConfig", PANEL, "DFrame")

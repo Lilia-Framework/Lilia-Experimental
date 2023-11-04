@@ -1,16 +1,9 @@
-
 local PANEL = {}
-
 PANEL.WHITE = Color(255, 255, 255, 150)
-
 PANEL.SELECTED = Color(255, 255, 255, 230)
-
 PANEL.HOVERED = Color(255, 255, 255, 50)
-
 PANEL.ANIM_SPEED = 0.1
-
 PANEL.FADE_SPEED = 0.5
-
 function PANEL:createTabs()
 	local load, create
 	if lia.characters and #lia.characters > 0 then
@@ -52,7 +45,6 @@ function PANEL:createTabs()
 	)
 end
 
-
 function PANEL:createTitle()
 	self.title = self:Add("DLabel")
 	self.title:Dock(TOP)
@@ -71,7 +63,6 @@ function PANEL:createTitle()
 	self.desc:SetFont("liaCharDescFont")
 	self.desc:SetTextColor(WHITE)
 end
-
 
 function PANEL:loadBackground()
 	if (not DynamicBackgrounds or table.Count(DynamicBackgrounds.scenes) == 0) or lia.config.CharCreationTransparentBackground then
@@ -116,7 +107,6 @@ function PANEL:loadBackground()
 	end
 end
 
-
 local gradient = lia.util.getMaterial("vgui/gradient-u")
 function PANEL:paintBackground(w, h)
 	if IsValid(self.background) then return end
@@ -129,7 +119,6 @@ function PANEL:paintBackground(w, h)
 	surface.SetDrawColor(0, 0, 0, 250)
 	surface.DrawTexturedRect(0, 0, w, h * 1.5)
 end
-
 
 function PANEL:addTab(name, callback, justClick)
 	local button = self.tabs:Add("liaCharacterTabButton")
@@ -159,20 +148,17 @@ function PANEL:addTab(name, callback, justClick)
 	return button
 end
 
-
 function PANEL:createCharacterSelection()
 	self.content:Clear()
 	self.content:InvalidateLayout(true)
 	self.content:Add("liaCharacterSelection")
 end
 
-
 function PANEL:createCharacterCreation()
 	self.content:Clear()
 	self.content:InvalidateLayout(true)
 	self.content:Add("liaCharacterCreation")
 end
-
 
 function PANEL:fadeOut()
 	self:AlphaTo(
@@ -184,7 +170,6 @@ function PANEL:fadeOut()
 		end
 	)
 end
-
 
 function PANEL:Init()
 	if IsValid(lia.gui.loading) then
@@ -215,13 +200,11 @@ function PANEL:Init()
 	self:showContent()
 end
 
-
 function PANEL:showContent()
 	self.tabs:Clear()
 	self.content:Clear()
 	self:createTabs()
 end
-
 
 function PANEL:setFadeToBlack(fade)
 	local d = deferred.new()
@@ -263,26 +246,21 @@ function PANEL:setFadeToBlack(fade)
 	return d
 end
 
-
 function PANEL:Paint(w, h)
 	lia.util.drawBlur(self)
 	self:paintBackground(w, h)
 end
 
-
 function PANEL:hoverSound()
 	LocalPlayer():EmitSound(unpack(lia.config.CharHover))
 end
-
 
 function PANEL:clickSound()
 	LocalPlayer():EmitSound(unpack(lia.config.CharClick))
 end
 
-
 function PANEL:warningSound()
 	LocalPlayer():EmitSound(unpack(lia.config.CharWarning))
 end
-
 
 vgui.Register("liaCharacter", PANEL, "EditablePanel")

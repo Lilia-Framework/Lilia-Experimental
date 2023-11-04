@@ -1,4 +1,3 @@
-
 function MODULE:KeyPress(client, key)
 	if key == IN_RELOAD then
 		timer.Create(
@@ -13,7 +12,6 @@ function MODULE:KeyPress(client, key)
 		)
 	end
 end
-
 
 function MODULE:PlayerSwitchWeapon(client, oldWeapon, newWeapon)
 	client:setWepRaised(false)

@@ -1,4 +1,3 @@
-
 netstream.Hook(
     "rgnDone",
     function()
@@ -6,7 +5,6 @@ netstream.Hook(
         hook.Run("OnCharRecognized", client, id)
     end
 )
-
 
 netstream.Hook(
     "rgnMenu",

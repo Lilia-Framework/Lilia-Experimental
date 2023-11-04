@@ -1,11 +1,8 @@
-
 if not serverguard then return end
-
 local function OnPrivilegeRegistered(privilege)
     local permission = privilege.Name
     serverguard.permission:Add(permission)
 end
-
 
 local function RegisterPrivileges()
     if CAMI then
@@ -14,6 +11,5 @@ local function RegisterPrivileges()
         end
     end
 end
-
 
 RegisterPrivileges()

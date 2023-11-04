@@ -1,6 +1,4 @@
-
 LIA_CVAR_LANG = CreateClientConVar("lia_language", lia.config.language or "english", true, true)
-
 function L(key, ...)
     local languages = lia.lang.stored
     local langKey = LIA_CVAR_LANG:GetString()
@@ -8,7 +6,6 @@ function L(key, ...)
 
     return string.format(info and info[key] or key, ...)
 end
-
 
 function L2(key, ...)
     local langKey = LIA_CVAR_LANG:GetString()

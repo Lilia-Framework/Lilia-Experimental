@@ -1,4 +1,3 @@
-
 net.Receive(
     "liaStorageExit",
     function(_, client)
@@ -10,7 +9,6 @@ net.Receive(
         client.liaStorageEntity = nil
     end
 )
-
 
 net.Receive(
     "liaStorageUnlock",
@@ -40,7 +38,6 @@ net.Receive(
         end
     end
 )
-
 
 net.Receive(
     "liaStorageTransfer",

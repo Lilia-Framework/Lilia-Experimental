@@ -1,4 +1,3 @@
-
 local function HandleDrowning(client)
     if not client:getChar() or not client:Alive() or hook.Run("ShouldclientDrown", client) == false then return end
     if client:WaterLevel() >= 3 then
@@ -21,7 +20,6 @@ local function HandleDrowning(client)
         end
     end
 end
-
 
 timer.Create(
     "LifeGuard",

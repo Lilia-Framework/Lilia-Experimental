@@ -1,6 +1,4 @@
-
 local w, h = ScrW(), ScrH()
-
 function MODULE:LoadFonts(font, genericFont)
 	surface.CreateFont(
 		"DevHudServerName",

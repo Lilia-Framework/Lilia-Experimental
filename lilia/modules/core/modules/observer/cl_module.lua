@@ -1,12 +1,9 @@
-
 LIA_CVAR_OBSTPBACK = CreateClientConVar("lia_obstpback", 0, true, true)
 LIA_CVAR_ADMINESP = CreateClientConVar("lia_obsesp", 1, true, true)
 LIA_CVAR_ADMINESPAVANCED = CreateClientConVar("lia_obsespadvanced", 1, true, true)
 LIA_CVAR_ITEMESP = CreateClientConVar("lia_obsitemesp", 1, true, true)
-
 local client, sx, sy, scrPos, marginx, marginy, x, y, teamColor, distance, factor, size, alpha
 local dimDistance = 1024
-
 function MODULE:HUDPaint()
     client = LocalPlayer()
     if not CAMI.PlayerHasAccess(client, "Lilia - Staff Permissions - No Clip ESP", nil) then return end
@@ -55,7 +52,6 @@ function MODULE:HUDPaint()
         end
     end
 end
-
 
 function MODULE:SetupQuickMenu(menu)
     if LocalPlayer():IsAdmin() then

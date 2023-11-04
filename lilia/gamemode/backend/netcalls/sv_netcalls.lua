@@ -1,62 +1,32 @@
-
 util.AddNetworkString("liaCharacterInvList")
-
 util.AddNetworkString("liaItemDelete")
-
 util.AddNetworkString("liaItemInstance")
-
 util.AddNetworkString("liaInventoryInit")
-
 util.AddNetworkString("liaInventoryData")
-
 util.AddNetworkString("liaInventoryDelete")
-
 util.AddNetworkString("liaInventoryAdd")
-
 util.AddNetworkString("liaInventoryRemove")
-
 util.AddNetworkString("liaNotify")
-
 util.AddNetworkString("liaNotifyL")
-
 util.AddNetworkString("liaStringReq")
-
 util.AddNetworkString("liaTypeStatus")
-
 util.AddNetworkString("liaTransferItem")
-
 util.AddNetworkString("cleanup_inbound")
-
 util.AddNetworkString("worlditem_cleanup_inbound")
-
 util.AddNetworkString("worlditem_cleanup_inbound_final")
-
 util.AddNetworkString("map_cleanup_inbound")
-
 util.AddNetworkString("map_cleanup_inbound_final")
-
 util.AddNetworkString("OpenInvMenu")
-
 util.AddNetworkString("announcement_client")
-
 util.AddNetworkString("advert_client")
-
 util.AddNetworkString("Pointing")
-
 util.AddNetworkString("OpenDetailedDescriptions")
-
 util.AddNetworkString("SetDetailedDescriptions")
-
 util.AddNetworkString("EditDetailedDescriptions")
-
 util.AddNetworkString("SendMessage")
-
 util.AddNetworkString("SendPrintTable")
-
 util.AddNetworkString("SendPrint")
-
 util.AddNetworkString("StringRequest")
-
 net.Receive(
     "StringRequest",
     function(length, client)
@@ -68,7 +38,6 @@ net.Receive(
         end
     end
 )
-
 
 netstream.Hook(
     "liaCharKickSelf",
@@ -84,7 +53,6 @@ netstream.Hook(
     end
 )
 
-
 net.Receive(
     "liaStringReq",
     function(_, client)
@@ -97,7 +65,6 @@ net.Receive(
     end
 )
 
-
 net.Receive(
     "liaTransferItem",
     function(_, client)
@@ -108,7 +75,6 @@ net.Receive(
         hook.Run("HandleItemTransferRequest", client, itemID, x, y, invID)
     end
 )
-
 
 netstream.Hook(
     "invAct",
@@ -140,7 +106,6 @@ netstream.Hook(
     end
 )
 
-
 netstream.Hook(
     "cmd",
     function(client, command, arguments)
@@ -158,7 +123,6 @@ netstream.Hook(
     end
 )
 
-
 netstream.Hook(
     "ChangeSpeakMode",
     function(client, mode)
@@ -170,14 +134,12 @@ netstream.Hook(
     end
 )
 
-
 net.Receive(
     "liaTypeStatus",
     function(_, client)
         client:setNetVar("typing", net.ReadBool())
     end
 )
-
 
 net.Receive(
     "EditDetailedDescriptions",

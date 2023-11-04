@@ -1,22 +1,12 @@
-
 local data = {}
-
 local owner, w, h, ceil, ft, clmp
-
 ceil = math.ceil
-
 clmp = math.Clamp
-
 local flo = 0
-
 local vec
-
 local aprg, aprg2 = 0, 0
-
 w, h = ScrW(), ScrH()
-
 local offset1, offset2, offset3, alpha, y
-
 function GM:InitializedExtrasClient()
     for _, timerName in pairs(lia.config.ClientTimersToRemove) do
         timer.Remove(timerName)
@@ -26,7 +16,6 @@ function GM:InitializedExtrasClient()
         RunConsoleCommand(k, v)
     end
 end
-
 
 function GM:PlayerBindPress(client, bind, pressed)
     bind = bind:lower()
@@ -45,7 +34,6 @@ function GM:PlayerBindPress(client, bind, pressed)
     end
 end
 
-
 function GM:CharacterListLoaded()
     timer.Create(
         "liaWaitUntilPlayerValid",
@@ -59,13 +47,11 @@ function GM:CharacterListLoaded()
     )
 end
 
-
 function GM:DrawLiliaModelView(panel, ent)
     if IsValid(ent.weapon) then
         ent.weapon:DrawModel()
     end
 end
-
 
 function GM:OnChatReceived()
     if system.IsWindows() and not system.HasFocus() then
@@ -73,13 +59,11 @@ function GM:OnChatReceived()
     end
 end
 
-
 function GM:HUDPaint()
     self:DeathHUDPaint()
     self:MiscHUDPaint()
     self:PointingHUDPaint()
 end
-
 
 function GM:PlayerButtonDown(client, button)
     if button == KEY_F2 and IsFirstTimePredicted() then
@@ -114,11 +98,9 @@ function GM:PlayerButtonDown(client, button)
     end
 end
 
-
 function GM:ClientInitializedConfig()
     hook.Run("LoadLiliaFonts", lia.config.Font, lia.config.GenericFont)
 end
-
 
 function GM:ClientPostInit()
     lia.joinTime = RealTime() - 0.9716
@@ -144,7 +126,6 @@ function GM:ClientPostInit()
         end
     )
 end
-
 
 function GM:DeathHUDPaint()
     owner = LocalPlayer()
@@ -174,7 +155,6 @@ function GM:DeathHUDPaint()
         local tx, ty = lia.util.drawText(L"youreDead", w / 2, h / 2, ColorAlpha(color_white, aprg2 * 255), 1, 1, "liaDynFontMedium", aprg2 * 255)
     end
 end
-
 
 function GM:MiscHUDPaint()
     local ply = LocalPlayer()
@@ -213,7 +193,6 @@ function GM:MiscHUDPaint()
     end
 end
 
-
 function GM:PointingHUDPaint()
     net.Receive(
         "Pointing",
@@ -230,7 +209,6 @@ function GM:PointingHUDPaint()
     end
 end
 
-
 function GM:TooltipInitialize(var, panel)
     if panel.liaToolTip or panel.itemID then
         var.markupObject = lia.markup.parse(var:GetText(), ScrW() * .15)
@@ -242,7 +220,6 @@ function GM:TooltipInitialize(var, panel)
         var.isItemTooltip = true
     end
 end
-
 
 function GM:TooltipPaint(var, w, h)
     if var.isItemTooltip then
@@ -257,11 +234,9 @@ function GM:TooltipPaint(var, w, h)
     end
 end
 
-
 function GM:TooltipLayout(var)
     if var.isItemTooltip then return true end
 end
-
 
 function GM:StartChat()
     net.Start("liaTypeStatus")
@@ -269,13 +244,11 @@ function GM:StartChat()
     net.SendToServer()
 end
 
-
 function GM:FinishChat()
     net.Start("liaTypeStatus")
     net.WriteBool(true)
     net.SendToServer()
 end
-
 
 function GM:PlayerStartVoice(client)
     if not IsValid(g_VoicePanelList) or not lia.config.AllowVoice then return end
@@ -297,7 +270,6 @@ function GM:PlayerStartVoice(client)
     VoicePanels[client] = pnl
 end
 
-
 function GM:PlayerEndVoice(client)
     if IsValid(VoicePanels[client]) then
         if VoicePanels[client].fadeAnim then return end
@@ -305,7 +277,6 @@ function GM:PlayerEndVoice(client)
         VoicePanels[client].fadeAnim:Start(2)
     end
 end
-
 
 concommand.Add(
     "vgui_cleanup",

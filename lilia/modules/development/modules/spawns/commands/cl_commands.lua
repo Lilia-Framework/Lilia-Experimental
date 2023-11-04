@@ -1,4 +1,3 @@
-
 lia.command.add(
     "spawnadd",
     {
@@ -8,7 +7,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 lia.command.add(
     "spawnremove",

@@ -1,8 +1,6 @@
-
 AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
-
 function SWEP:ServerSecondaryAttack(owner, entity, time)
     if (entity:isDoor() and entity:checkDoorAccess(owner)) or (entity:IsVehicle() or (simfphys and simfphys.IsCar(entity))) and (entity:GetCreator() == owner) then
         owner:setAction(
@@ -17,7 +15,6 @@ function SWEP:ServerSecondaryAttack(owner, entity, time)
     end
 end
 
-
 function SWEP:ServerPrimaryAttack(owner, entity, time)
     if (entity:isDoor() and entity:checkDoorAccess(owner)) or (entity:IsVehicle() or (simfphys and simfphys.IsCar(entity))) and (entity:GetCreator() == owner) then
         owner:setAction(
@@ -31,7 +28,6 @@ function SWEP:ServerPrimaryAttack(owner, entity, time)
         return
     end
 end
-
 
 function SWEP:ToggleLock(owner, door, state)
     if IsValid(owner) and owner:GetPos():Distance(door:GetPos()) > 96 then return end

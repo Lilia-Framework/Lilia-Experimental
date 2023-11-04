@@ -1,4 +1,3 @@
-
 netstream.Hook(
 	"doorMenu",
 	function(entity, access, door2)
@@ -9,7 +8,6 @@ netstream.Hook(
 		end
 	end
 )
-
 
 netstream.Hook(
 	"doorPerm",

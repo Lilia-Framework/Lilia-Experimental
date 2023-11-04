@@ -1,4 +1,3 @@
-
 lia.command.add(
     "flip",
     {
@@ -15,7 +14,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "liststaff",
     {
@@ -30,7 +28,6 @@ lia.command.add(
         end
     }
 )
-
 
 lia.command.add(
     "listvip",
@@ -47,7 +44,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "listusers",
     {
@@ -62,7 +58,6 @@ lia.command.add(
         end
     }
 )
-
 
 lia.command.add(
     "rolld",
@@ -102,7 +97,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "roll",
     {
@@ -113,7 +107,6 @@ lia.command.add(
         end
     }
 )
-
 
 lia.command.add(
     "point",
@@ -143,7 +136,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "chardesc",
     {
@@ -171,7 +163,6 @@ lia.command.add(
         end
     }
 )
-
 
 lia.command.add(
     "beclass",
@@ -219,7 +210,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "chargetup",
     {
@@ -241,7 +231,6 @@ lia.command.add(
         end
     }
 )
-
 
 lia.command.add(
     "givemoney",
@@ -274,7 +263,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "bringlostitems",
     {
@@ -290,7 +278,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "carddraw",
     {
@@ -304,7 +291,6 @@ lia.command.add(
         end
     }
 )
-
 
 lia.command.add(
     "fallover",
@@ -349,7 +335,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "factionlist",
     {
@@ -364,7 +349,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "getpos",
     {
@@ -375,7 +359,6 @@ lia.command.add(
         end
     }
 )
-
 
 lia.command.add(
     "doorname",
@@ -390,7 +373,6 @@ lia.command.add(
         end
     }
 )
-
 
 if lia.config.FactionBroadcastEnabled then
     lia.command.add(
@@ -446,7 +428,6 @@ if lia.config.FactionBroadcastEnabled then
         }
     )
 end
-
 
 if lia.config.AdvertisementEnabled then
     lia.command.add(

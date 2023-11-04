@@ -1,4 +1,3 @@
-
 CAMI.RegisterPrivilege(
     {
         Name = "Lilia - Staff Permissions - Development HUD",
@@ -6,7 +5,6 @@ CAMI.RegisterPrivilege(
         Description = "Allows access to Development HUD.",
     }
 )
-
 
 CAMI.RegisterPrivilege(
     {

@@ -1,4 +1,3 @@
-
 CAMI.RegisterPrivilege(
     {
         Name = "Lilia - Staff Permissions - No Clip",
@@ -6,7 +5,6 @@ CAMI.RegisterPrivilege(
         Description = "Allows access to No Clip.",
     }
 )
-
 
 CAMI.RegisterPrivilege(
     {

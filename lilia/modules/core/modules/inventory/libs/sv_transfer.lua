@@ -1,4 +1,3 @@
-
 function MODULE:HandleItemTransferRequest(client, itemID, x, y, invID)
 	local inventory = lia.inventory.instances[invID]
 	local item = lia.item.instances[itemID]

@@ -1,4 +1,3 @@
-
 function MODULE:syncCharList(client)
     if not client.liaCharList then return end
     net.Start("liaCharList")
@@ -9,7 +8,6 @@ function MODULE:syncCharList(client)
 
     net.Send(client)
 end
-
 
 function MODULE:PlayerLiliaDataLoaded(client)
     lia.char.restore(
@@ -37,12 +35,10 @@ function MODULE:PlayerLiliaDataLoaded(client)
     )
 end
 
-
 function MODULE:OnCharCreated(client, character)
     local id = character:getID()
     MsgN("Created character '" .. id .. "' for " .. client:steamName() .. ".")
 end
-
 
 function MODULE:CanPlayerCreateCharacter(client)
     local count = #client.liaCharList

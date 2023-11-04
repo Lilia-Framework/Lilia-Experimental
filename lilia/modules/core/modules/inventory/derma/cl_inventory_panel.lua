@@ -1,13 +1,10 @@
-
 local PANEL = {}
-
 function PANEL:Init()
 	self:SetPaintBackground(false)
 	self.icons = {}
 	self:setGridSize(1, 1)
 	self.occupied = {}
 end
-
 
 function PANEL:computeOccupied()
 	if not self.inventory then return end
@@ -29,13 +26,11 @@ function PANEL:computeOccupied()
 	end
 end
 
-
 function PANEL:setInventory(inventory)
 	self:liaListenForInventoryChanges(inventory)
 	self.inventory = inventory
 	self:populateItems()
 end
-
 
 function PANEL:setGridSize(width, height, iconSize)
 	self.MODULE = iconSize or 64
@@ -43,16 +38,13 @@ function PANEL:setGridSize(width, height, iconSize)
 	self.gridH = height
 end
 
-
 function PANEL:getIcons()
 	return self.icons
 end
 
-
 function PANEL:removeIcon(icon)
 	self.content:RemoveItem(icon)
 end
-
 
 function PANEL:onItemPressed(itemIcon, keyCode)
 	if hook.Run("InterceptClickItemIcon", self, itemIcon, keyCode) ~= true then
@@ -67,7 +59,6 @@ function PANEL:onItemPressed(itemIcon, keyCode)
 	end
 end
 
-
 function PANEL:onItemReleased(itemIcon, keyCode)
 	local item = itemIcon.itemTable
 	if not item then return end
@@ -78,9 +69,8 @@ function PANEL:onItemReleased(itemIcon, keyCode)
 	x = math.Round((x - (itemW * 0.5)) / MODULE) + 1
 	y = math.Round((y - (itemH * 0.5)) / MODULE) + 1
 	self.inventory:requestTransfer(item:getID(), self.inventory:getID(), x, y)
-	hook.Run("OnRequestItemTransfer", self, item:getID(), self.inventory:getID(), x, y) 
+	hook.Run("OnRequestItemTransfer", self, item:getID(), self.inventory:getID(), x, y)
 end
-
 
 function PANEL:populateItems()
 	for key, icon in pairs(self.icons) do
@@ -97,7 +87,6 @@ function PANEL:populateItems()
 
 	self:computeOccupied()
 end
-
 
 function PANEL:addItem(item)
 	local id = item:getID()
@@ -131,7 +120,6 @@ function PANEL:addItem(item)
 
 	self.icons[id] = icon
 end
-
 
 function PANEL:drawHeldItemRectangle()
 	local heldItem = lia.item.held
@@ -188,27 +176,22 @@ function PANEL:drawHeldItemRectangle()
 	end
 end
 
-
 function PANEL:Center()
 	local centerX, centerY = ScrW() * 0.5, ScrH() * 0.5
 	self:SetPos(centerX - (self:GetWide() * 0.5), centerY - (self:GetTall() * 0.5))
 end
 
-
 function PANEL:InventoryItemAdded(item)
 	self:populateItems()
 end
-
 
 function PANEL:InventoryItemRemoved(item)
 	self:populateItems()
 end
 
-
 function PANEL:InventoryItemDataChanged(item, key, oldValue, newValue)
 	self:populateItems()
 end
-
 
 function PANEL:computeHeldPanel()
 	if not lia.item.held or lia.item.held == self then return end
@@ -216,7 +199,6 @@ function PANEL:computeHeldPanel()
 	if cursorX < 0 or cursorY < 0 or cursorX > self:GetWide() or cursorY > self:GetTall() then return end
 	lia.item.heldPanel = self
 end
-
 
 function PANEL:Paint(w, h)
 	surface.SetDrawColor(0, 0, 0, 100)
@@ -231,16 +213,13 @@ function PANEL:Paint(w, h)
 	self:computeHeldPanel()
 end
 
-
 function PANEL:OnCursorMoved(x, y)
 end
-
 
 function PANEL:OnCursorExited()
 	if lia.item.heldPanel == self then
 		lia.item.heldPanel = nil
 	end
 end
-
 
 vgui.Register("liaGridInventoryPanel", PANEL, "DPanel")

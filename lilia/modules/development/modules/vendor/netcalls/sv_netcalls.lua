@@ -1,32 +1,17 @@
-
 local MODULE = MODULE
-
 local EDITOR = include(MODULE.path .. "/libs/sv_vendor.lua")
-
 util.AddNetworkString("liaVendorAllowClass")
-
 util.AddNetworkString("liaVendorAllowFaction")
-
 util.AddNetworkString("liaVendorExit")
-
 util.AddNetworkString("liaVendorEdit")
-
 util.AddNetworkString("liaVendorMode")
-
 util.AddNetworkString("liaVendorMoney")
-
 util.AddNetworkString("liaVendorOpen")
-
 util.AddNetworkString("liaVendorPrice")
-
 util.AddNetworkString("liaVendorStock")
-
 util.AddNetworkString("liaVendorMaxStock")
-
 util.AddNetworkString("liaVendorSync")
-
 util.AddNetworkString("liaVendorTrade")
-
 net.Receive(
     "liaVendorExit",
     function(_, client)
@@ -36,7 +21,6 @@ net.Receive(
         end
     end
 )
-
 
 net.Receive(
     "liaVendorEdit",
@@ -49,7 +33,6 @@ net.Receive(
         MODULE:saveVendors()
     end
 )
-
 
 net.Receive(
     "liaVendorTrade",

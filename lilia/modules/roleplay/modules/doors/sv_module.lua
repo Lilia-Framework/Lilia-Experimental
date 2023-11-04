@@ -1,6 +1,4 @@
-
 local Variables = {"disabled", "name", "price", "noSell", "faction", "factions", "class", "hidden"}
-
 function MODULE:callOnDoorChildren(entity, callback)
     local parent
     if entity.liaChildren then
@@ -20,7 +18,6 @@ function MODULE:callOnDoorChildren(entity, callback)
     end
 end
 
-
 local DarkRPVariables = {
     ["DarkRPNonOwnable"] = function(ent, val)
         ent:setNetVar("noSell", true)
@@ -33,14 +30,12 @@ local DarkRPVariables = {
     end
 }
 
-
 function MODULE:EntityKeyValue(ent, key, value)
     if not ent:isDoor() then return end
     if DarkRPVariables[key] then
         DarkRPVariables[key](ent, value)
     end
 end
-
 
 function MODULE:copyParentDoor(child)
     local parent = child.liaParent
@@ -53,7 +48,6 @@ function MODULE:copyParentDoor(child)
         end
     end
 end
-
 
 function MODULE:LoadData()
     local data = self:getData()
@@ -77,7 +71,6 @@ function MODULE:LoadData()
         end
     end
 end
-
 
 function MODULE:SaveDoorData()
     local data = {}
@@ -118,11 +111,9 @@ function MODULE:SaveDoorData()
     self:setData(data)
 end
 
-
 function MODULE:CanPlayerUseDoor(client, entity)
     if entity:getNetVar("disabled") then return false end
 end
-
 
 function MODULE:CanPlayerAccessDoor(client, door, access)
     local factions = door:getNetVar("factions")
@@ -148,11 +139,9 @@ function MODULE:CanPlayerAccessDoor(client, door, access)
     end
 end
 
-
 function MODULE:PostPlayerLoadout(client)
     client:Give("lia_keys")
 end
-
 
 function MODULE:ShowTeam(client)
     local entity = client:GetTracedEntity()
@@ -173,7 +162,6 @@ function MODULE:ShowTeam(client)
         return true
     end
 end
-
 
 function MODULE:PlayerDisconnected(client)
     for k, v in ipairs(ents.GetAll()) do

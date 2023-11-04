@@ -1,6 +1,4 @@
-
 local PANEL = {}
-
 local function teamGetPlayers(teamID)
     local players = {}
     for _, ply in next, player.GetAll() do
@@ -15,24 +13,19 @@ local function teamGetPlayers(teamID)
     return players
 end
 
-
 local function teamNumPlayers(teamID)
     return #teamGetPlayers(teamID)
 end
 
-
 local paintFunctions = {}
-
 paintFunctions[0] = function(this, w, h)
     surface.SetDrawColor(0, 0, 0, 50)
     surface.DrawRect(0, 0, w, h)
 end
 
-
 paintFunctions[1] = function(this, w, h)
     print("")
 end
-
 
 function PANEL:Init()
     if IsValid(lia.gui.score) then
@@ -126,7 +119,6 @@ function PANEL:Init()
     end
 end
 
-
 function PANEL:Think()
     if (self.nextUpdate or 0) < CurTime() then
         self.title:SetText(lia.config.sbTitle)
@@ -158,7 +150,6 @@ function PANEL:Think()
         self.nextUpdate = CurTime() + 0.1
     end
 end
-
 
 function PANEL:addPlayer(client, parent)
     if not client:getChar() or not IsValid(parent) then return end
@@ -308,11 +299,9 @@ function PANEL:addPlayer(client, parent)
     return slot
 end
 
-
 function PANEL:OnRemove()
     CloseDermaMenus()
 end
-
 
 function PANEL:Paint(w, h)
     lia.util.drawBlur(self, 10)
@@ -321,6 +310,5 @@ function PANEL:Paint(w, h)
     surface.SetDrawColor(0, 0, 0, 150)
     surface.DrawOutlinedRect(0, 0, w, h)
 end
-
 
 vgui.Register("liaScoreboard", PANEL, "EditablePanel")
