@@ -1,4 +1,6 @@
-# Lilia - A Dynamic Roleplay Gamemode Framework for Garry's Mod
+# Lilia - A Dynamic Roleplay Gamemode Framework for Garry's Mod - Experimental
+
+# THIS VERSION IS NOT PROPER FOR USE!
 
 <p align="center">
   <img src="https://i.imgur.com/2bByf9w.png" width="200">
