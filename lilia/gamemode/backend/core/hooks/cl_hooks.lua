@@ -78,9 +78,6 @@ function GM:HUDPaint()
     self:DeathHUDPaint()
     self:MiscHUDPaint()
     self:PointingHUDPaint()
-    if hook.Run("ShouldDrawCrosshair") then
-        self:HUDPaintCrosshair()
-    end
 end
 
 --------------------------------------------------------------------------------------------------------------------------
