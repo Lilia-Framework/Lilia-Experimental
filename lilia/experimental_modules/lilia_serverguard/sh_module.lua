@@ -1,12 +1,7 @@
 --------------------------------------------------------------------------------------------------------------------------
-function GM:GetGameDescription()
-    if istable(SCHEMA) then return tostring(SCHEMA.name) end
-
-    return lia.config.DefaultGamemodeName
-end
-
+MODULE.name = "Roleplay Enchanters"
 --------------------------------------------------------------------------------------------------------------------------
-function GM:PlayerSpray(client)
-    return true
-end
+MODULE.author = "@liliaplayer"
+--------------------------------------------------------------------------------------------------------------------------
+MODULE.desc = "A Module To Several Roleplay Sub-Modules."
 --------------------------------------------------------------------------------------------------------------------------
