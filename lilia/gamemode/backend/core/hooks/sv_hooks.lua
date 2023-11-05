@@ -1,24 +1,4 @@
 local last_jump_time = 0
-function GM:Think()
-	if not self.nextThink then
-		self.nextThink = 0
-	end
-
-	if self.nextThink < CurTime() then
-		local players = player.GetAll()
-		for k, v in pairs(players) do
-			local hp = v:Health()
-			local maxhp = v:GetMaxHealth()
-			if hp < maxhp and lia.config.AutoRegen then
-				local newHP = hp + lia.config.HealingAmount
-				v:SetHealth(math.Clamp(newHP, 0, maxhp))
-			end
-		end
-
-		self.nextThink = CurTime() + lia.config.HealingTimer
-	end
-end
-
 function GM:OnPickupMoney(client, moneyEntity)
 	if moneyEntity and moneyEntity:IsValid() then
 		local amount = moneyEntity:getAmount()
@@ -239,16 +219,6 @@ function GM:PlayerThrowPunch(client, trace)
 	end
 end
 
-function GM:OnCharFallover(client, entity, bFallenOver)
-	bFallenOver = bFallenOver or false
-	if IsValid(entity) then
-		entity:SetCollisionGroup(COLLISION_GROUP_NONE)
-		entity:SetCustomCollisionCheck(false)
-	end
-
-	client:setNetVar("fallingover", bFallenOver)
-end
-
 function GM:ServerPostInit()
 	local doors = ents.FindByClass("prop_door_rotating")
 	for _, v in ipairs(doors) do
@@ -302,43 +272,40 @@ function GM:KeyPress(client, key)
 	end
 end
 
-function GM:CanPlayerUseChar(client, newcharacter)
-	local currentChar = client:getChar()
-	local faction = lia.faction.indices[newcharacter:getFaction()]
-	local banned = newcharacter:getData("banned")
-	if newcharacter and newcharacter:getData("banned", false) then
-		if isnumber(banned) and banned < os.time() then return end
-
-		return false, "@charBanned"
-	end
-
-	if faction and hook.Run("CheckFactionLimitReached", faction, newcharacter, client) then return false, "@limitFaction" end
-	if currentChar then
-		local status, result = hook.Run("CanPlayerSwitchChar", client, currentChar, newcharacter)
-		if status == false then return status, result end
-	end
-end
-
-function GM:CanPlayerSwitchChar(client, character, newCharacter)
-	if IsValid(client.liaRagdoll) then return false, "You are ragdolled!" end
-	if not client:Alive() then return false, "You are dead!" end
-	if client.LastDamaged and client.LastDamaged > CurTime() - 120 and character:getFaction() ~= FACTION_STAFF then return false, "You took damage too recently to switch characters!" end
-	if lia.config.CharacterSwitchCooldown and (character:getData("loginTime", 0) + lia.config.CharacterSwitchCooldownTimer) > os.time() then return false, "You are on cooldown!" end
-	if character:getID() == newCharacter:getID() then return false, "You are already using this character!" end
-
-	return true
-end
-
-
 function GM:PreCleanupMap()
 	lia.shuttingDown = true
 	hook.Run("SaveData")
 	hook.Run("PersistenceSave")
 end
 
-
 function GM:PostCleanupMap()
 	lia.shuttingDown = false
 	hook.Run("LoadData")
 	hook.Run("PostLoadData")
+end
+
+function GM:GetGameDescription()
+	if istable(SCHEMA) then return tostring(SCHEMA.name) end
+
+	return lia.config.DefaultGamemodeName
+end
+
+function GM:PlayerSpray(client)
+	return true
+end
+
+function GM:PlayerDeathSound()
+	return true
+end
+
+function GM:CanPlayerSuicide(client)
+	return false
+end
+
+function GM:AllowPlayerPickup(client, entity)
+	return false
+end
+
+function GM:PlayerShouldTakeDamage(client, attacker)
+	return client:getChar() ~= nil
 end

@@ -1,3 +1,22 @@
+function GM:CanItemBeTransfered(item, curInv, inventory)
+    if item.isBag and curInv ~= inventory and item.getInv and item:getInv() and table.Count(item:getInv():getItems()) > 0 then
+        local char = lia.char.loaded[curInv.owner]
+        if SERVER and char and char:getPlayer() then
+            char:getPlayer():notify("You can't transfer a backpack that has items inside of it.")
+        elseif CLIENT then
+            lia.util.notify("You can't transfer a backpack that has items inside of it.")
+        end
+
+        return false
+    end
+
+    if item.onCanBeTransfered then
+        local itemHook = item:onCanBeTransfered(curInv, inventory)
+
+        return itemHook ~= false
+    end
+end
+
 function MODULE:CanPlayerInteractItem(client, action, item)
     if not client:Alive() or client:getLocalVar("ragdoll") then return false end
     if client:getNetVar("fallingover") then return false end

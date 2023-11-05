@@ -147,6 +147,7 @@ function MODULE:PlayerSpawnObject(client, model, skin)
         client.NextSpawn = CurTime() + 0.75
     else
         client:notify("You can't spawn props that fast!")
+
         return false
     end
 end
@@ -221,4 +222,41 @@ function MODULE:PlayerSpawnedEntity(client, entity)
     entity:SetNW2String("Creator_Nick", client:Nick())
     entity:SetCreator(client)
 end
+
 --------------------------------------------------------------------------------------------------------------------------
+function GM:CanPlayerUseChar(client, newcharacter)
+    local currentChar = client:getChar()
+    local faction = lia.faction.indices[newcharacter:getFaction()]
+    local banned = newcharacter:getData("banned")
+    if newcharacter and newcharacter:getData("banned", false) then
+        if isnumber(banned) and banned < os.time() then return end
+
+        return false, "@charBanned"
+    end
+
+    if faction and hook.Run("CheckFactionLimitReached", faction, newcharacter, client) then return false, "@limitFaction" end
+    if currentChar then
+        local status, result = hook.Run("CanPlayerSwitchChar", client, currentChar, newcharacter)
+        if status == false then return status, result end
+    end
+end
+
+function GM:CanPlayerSwitchChar(client, character, newCharacter)
+    if IsValid(client.liaRagdoll) then return false, "You are ragdolled!" end
+    if not client:Alive() then return false, "You are dead!" end
+    if client.LastDamaged and client.LastDamaged > CurTime() - 120 and character:getFaction() ~= FACTION_STAFF then return false, "You took damage too recently to switch characters!" end
+    if lia.config.CharacterSwitchCooldown and (character:getData("loginTime", 0) + lia.config.CharacterSwitchCooldownTimer) > os.time() then return false, "You are on cooldown!" end
+    if character:getID() == newCharacter:getID() then return false, "You are already using this character!" end
+
+    return true
+end
+
+function GM:OnCharFallover(client, entity, bFallenOver)
+    bFallenOver = bFallenOver or false
+    if IsValid(entity) then
+        entity:SetCollisionGroup(COLLISION_GROUP_NONE)
+        entity:SetCustomCollisionCheck(false)
+    end
+
+    client:setNetVar("fallingover", bFallenOver)
+end

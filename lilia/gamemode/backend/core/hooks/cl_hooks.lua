@@ -1,8 +1,3 @@
-local owner, ft
-local flo = 0
-local vec
-local aprg, aprg2 = 0, 0
-local w, h = ScrW(), ScrH()
 function GM:PlayerBindPress(client, bind, pressed)
     bind = bind:lower()
     if (bind:find("use") or bind:find("attack")) and pressed then
@@ -45,10 +40,6 @@ function GM:OnChatReceived()
     end
 end
 
-function GM:HUDPaint()
-    self:DeathHUDPaint()
-    self:MiscHUDPaint()
-end
 
 function GM:PlayerButtonDown(client, button)
     if button == KEY_F2 and IsFirstTimePredicted() then
@@ -112,33 +103,7 @@ function GM:ClientPostInit()
     )
 end
 
-function GM:DeathHUDPaint()
-    owner = LocalPlayer()
-    ft = FrameTime()
-    if owner:getChar() then
-        if owner:Alive() then
-            if aprg ~= 0 then
-                aprg2 = math.Clamp(aprg2 - ft * 1.3, 0, 1)
-                if aprg2 == 0 then
-                    aprg = math.Clamp(aprg - ft * .7, 0, 1)
-                end
-            end
-        else
-            if aprg2 ~= 1 then
-                aprg = math.Clamp(aprg + ft * .5, 0, 1)
-                if aprg == 1 then
-                    aprg2 = math.Clamp(aprg2 + ft * .4, 0, 1)
-                end
-            end
-        end
-    end
 
-    if IsValid(lia.char.gui) and lia.gui.char:IsVisible() or not owner:getChar() then return end
-    if aprg > 0.01 then
-        surface.SetDrawColor(0, 0, 0, math.ceil((aprg ^ .5) * 255))
-        surface.DrawRect(-1, -1, w + 2, h + 2)
-        local tx, ty = lia.util.drawText(L"youreDead", w / 2, h / 2, ColorAlpha(color_white, aprg2 * 255), 1, 1, "liaDynFontMedium", aprg2 * 255)
-    end
 
 function GM:TooltipInitialize(var, panel)
     if panel.liaToolTip or panel.itemID then
@@ -167,18 +132,6 @@ end
 
 function GM:TooltipLayout(var)
     if var.isItemTooltip then return true end
-end
-
-function GM:StartChat()
-    net.Start("liaTypeStatus")
-    net.WriteBool(false)
-    net.SendToServer()
-end
-
-function GM:FinishChat()
-    net.Start("liaTypeStatus")
-    net.WriteBool(true)
-    net.SendToServer()
 end
 
 concommand.Add(

@@ -9,7 +9,6 @@ util.AddNetworkString("liaInventoryRemove")
 util.AddNetworkString("liaNotify")
 util.AddNetworkString("liaNotifyL")
 util.AddNetworkString("liaStringReq")
-util.AddNetworkString("liaTypeStatus")
 util.AddNetworkString("liaTransferItem")
 util.AddNetworkString("cleanup_inbound")
 util.AddNetworkString("worlditem_cleanup_inbound")
@@ -130,13 +129,6 @@ netstream.Hook(
         end
 
         client:setNetVar("VoiceType", mode)
-    end
-)
-
-net.Receive(
-    "liaTypeStatus",
-    function(_, client)
-        client:setNetVar("typing", net.ReadBool())
     end
 )
 

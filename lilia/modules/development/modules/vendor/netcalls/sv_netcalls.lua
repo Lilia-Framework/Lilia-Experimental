@@ -1,5 +1,5 @@
 local MODULE = MODULE
-local EDITOR = include(MODULE.path .. "/libs/sv_vendor.lua")
+local EDITOR = include(MODULE.path .. "/libraries/sv_vendor.lua")
 util.AddNetworkString("liaVendorAllowClass")
 util.AddNetworkString("liaVendorAllowFaction")
 util.AddNetworkString("liaVendorExit")

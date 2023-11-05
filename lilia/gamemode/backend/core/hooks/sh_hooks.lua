@@ -207,49 +207,24 @@ end
 
 function GM:Move(client, moveData)
     local char = client:getChar()
-    if char then
-        if client:getNetVar("actAng") then
-            moveData:SetForwardSpeed(0)
-            moveData:SetSideSpeed(0)
+    if not char then return end
+    if client:GetMoveType() == MOVETYPE_WALK and moveData:KeyDown(IN_WALK) then
+        local mf, ms = 0, 0
+        local speed = client:GetWalkSpeed()
+        local ratio = lia.config.WalkRatio
+        if moveData:KeyDown(IN_FORWARD) then
+            mf = ratio
+        elseif moveData:KeyDown(IN_BACK) then
+            mf = -ratio
         end
 
-        if client:GetMoveType() == MOVETYPE_WALK and moveData:KeyDown(IN_WALK) then
-            local mf, ms = 0, 0
-            local speed = client:GetWalkSpeed()
-            local ratio = lia.config.WalkRatio
-            if moveData:KeyDown(IN_FORWARD) then
-                mf = ratio
-            elseif moveData:KeyDown(IN_BACK) then
-                mf = -ratio
-            end
-
-            if moveData:KeyDown(IN_MOVELEFT) then
-                ms = -ratio
-            elseif moveData:KeyDown(IN_MOVERIGHT) then
-                ms = ratio
-            end
-
-            moveData:SetForwardSpeed(mf * speed)
-            moveData:SetSideSpeed(ms * speed)
-        end
-    end
-end
-
-function GM:CanItemBeTransfered(item, curInv, inventory)
-    if item.isBag and curInv ~= inventory and item.getInv and item:getInv() and table.Count(item:getInv():getItems()) > 0 then
-        local char = lia.char.loaded[curInv.owner]
-        if SERVER and char and char:getPlayer() then
-            char:getPlayer():notify("You can't transfer a backpack that has items inside of it.")
-        elseif CLIENT then
-            lia.util.notify("You can't transfer a backpack that has items inside of it.")
+        if moveData:KeyDown(IN_MOVELEFT) then
+            ms = -ratio
+        elseif moveData:KeyDown(IN_MOVERIGHT) then
+            ms = ratio
         end
 
-        return false
-    end
-
-    if item.onCanBeTransfered then
-        local itemHook = item:onCanBeTransfered(curInv, inventory)
-
-        return itemHook ~= false
+        moveData:SetForwardSpeed(mf * speed)
+        moveData:SetSideSpeed(ms * speed)
     end
 end
