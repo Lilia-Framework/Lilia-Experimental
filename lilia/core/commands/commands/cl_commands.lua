@@ -243,15 +243,6 @@ lia.command.add(
     }
 )
 
-lia.command.add(
-    "point",
-    {
-        adminOnly = false,
-        privilege = "Default User Commands",
-        syntax = "[number maximum]",
-        onRun = function(client, arguments) end
-    }
-)
 
 lia.command.add(
     "chardesc",

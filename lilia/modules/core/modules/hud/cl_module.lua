@@ -33,6 +33,21 @@ function MODULE:DrawDeathNotice()
     return false
 end
 
+function MODULE:HUDPaint()
+    if lia.config.VersionEnabled and lia.config.version then
+        local w, h = 45, 45
+        surface.SetFont("liaSmallChatFont")
+        surface.SetTextPos(5, ScrH() - 20, w, h)
+        surface.DrawText("Server Current Version: " .. lia.config.version)
+    end
+
+    if lia.config.BranchWarning and BRANCH ~= "x86-64" then
+        draw.SimpleText("We recommend the use of the x86-64 Garry's Mod Branch for this server, consider swapping as soon as possible.", "liaSmallFont", ScrW() * .5, ScrH() * .97, Color(255, 255, 255, 10), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+    end
+
+    lia.bar.drawAll()
+end
+
 function MODULE:HUDPaintBackground()
     local localPlayer = LocalPlayer()
     if not localPlayer.getChar(localPlayer) then return end

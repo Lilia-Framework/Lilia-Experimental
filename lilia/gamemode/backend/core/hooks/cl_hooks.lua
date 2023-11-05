@@ -1,12 +1,8 @@
-local data = {}
-local owner, w, h, ceil, ft, clmp
-ceil = math.ceil
-clmp = math.Clamp
+local owner, ft
 local flo = 0
 local vec
 local aprg, aprg2 = 0, 0
-w, h = ScrW(), ScrH()
-local offset1, offset2, offset3, alpha, y
+local w, h = ScrW(), ScrH()
 function GM:PlayerBindPress(client, bind, pressed)
     bind = bind:lower()
     if (bind:find("use") or bind:find("attack")) and pressed then
@@ -52,7 +48,6 @@ end
 function GM:HUDPaint()
     self:DeathHUDPaint()
     self:MiscHUDPaint()
-    self:PointingHUDPaint()
 end
 
 function GM:PlayerButtonDown(client, button)
@@ -123,16 +118,16 @@ function GM:DeathHUDPaint()
     if owner:getChar() then
         if owner:Alive() then
             if aprg ~= 0 then
-                aprg2 = clmp(aprg2 - ft * 1.3, 0, 1)
+                aprg2 = math.Clamp(aprg2 - ft * 1.3, 0, 1)
                 if aprg2 == 0 then
-                    aprg = clmp(aprg - ft * .7, 0, 1)
+                    aprg = math.Clamp(aprg - ft * .7, 0, 1)
                 end
             end
         else
             if aprg2 ~= 1 then
-                aprg = clmp(aprg + ft * .5, 0, 1)
+                aprg = math.Clamp(aprg + ft * .5, 0, 1)
                 if aprg == 1 then
-                    aprg2 = clmp(aprg2 + ft * .4, 0, 1)
+                    aprg2 = math.Clamp(aprg2 + ft * .4, 0, 1)
                 end
             end
         end
@@ -140,64 +135,10 @@ function GM:DeathHUDPaint()
 
     if IsValid(lia.char.gui) and lia.gui.char:IsVisible() or not owner:getChar() then return end
     if aprg > 0.01 then
-        surface.SetDrawColor(0, 0, 0, ceil((aprg ^ .5) * 255))
+        surface.SetDrawColor(0, 0, 0, math.ceil((aprg ^ .5) * 255))
         surface.DrawRect(-1, -1, w + 2, h + 2)
         local tx, ty = lia.util.drawText(L"youreDead", w / 2, h / 2, ColorAlpha(color_white, aprg2 * 255), 1, 1, "liaDynFontMedium", aprg2 * 255)
     end
-end
-
-function GM:MiscHUDPaint()
-    local ply = LocalPlayer()
-    local ourPos = ply:GetPos()
-    local time = RealTime() * 5
-    data.start = ply:EyePos()
-    data.filter = ply
-    lia.bar.drawAll()
-    if lia.config.VersionEnabled and lia.config.version then
-        local w, h = 45, 45
-        surface.SetFont("liaSmallChatFont")
-        surface.SetTextPos(5, ScrH() - 20, w, h)
-        surface.DrawText("Server Current Version: " .. lia.config.version)
-    end
-
-    if lia.config.BranchWarning and BRANCH ~= "x86-64" then
-        draw.SimpleText("We recommend the use of the x86-64 Garry's Mod Branch for this server, consider swapping as soon as possible.", "liaSmallFont", ScrW() * .5, ScrH() * .97, Color(255, 255, 255, 10), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-    end
-
-    for k, v in ipairs(player.GetAll()) do
-        if v ~= ply and v:getNetVar("typing") and v:GetMoveType() == MOVETYPE_WALK then
-            data.endpos = v:EyePos()
-            if util.TraceLine(data).Entity ~= v then continue end
-            local position = v:GetPos()
-            alpha = (1 - (ourPos:DistToSqr(position) / 65536)) * 255
-            if alpha <= 0 then continue end
-            local screen = (position + (v:Crouching() and Vector(0, 0, 48) or Vector(0, 0, 80))):ToScreen()
-            offset1 = math.sin(time + 2) * alpha
-            offset2 = math.sin(time + 1) * alpha
-            offset3 = math.sin(time) * alpha
-            y = screen.y - 20
-            lia.util.drawText("•", screen.x - 8, y, ColorAlpha(Color(250, 250, 250), offset1), 1, 1, "liaChatFont", offset1)
-            lia.util.drawText("•", screen.x, y, ColorAlpha(Color(250, 250, 250), offset2), 1, 1, "liaChatFont", offset2)
-            lia.util.drawText("•", screen.x + 8, y, ColorAlpha(Color(250, 250, 250), offset3), 1, 1, "liaChatFont", offset3)
-        end
-    end
-end
-
-function GM:PointingHUDPaint()
-    net.Receive(
-        "Pointing",
-        function(len)
-            flo = net.ReadFloat()
-            vec = net.ReadVector()
-        end
-    )
-
-    if flo >= CurTime() then
-        local toScream = vec:ToScreen()
-        local distance = 40 / (LocalPlayer():GetPos():Distance(vec) / 300)
-        surface.DrawCircle(toScream.x, toScream.y, distance, 0, 255, 0, 255)
-    end
-end
 
 function GM:TooltipInitialize(var, panel)
     if panel.liaToolTip or panel.itemID then

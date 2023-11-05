@@ -1166,34 +1166,6 @@ lia.command.add(
 )
 
 lia.command.add(
-    "point",
-    {
-        adminOnly = false,
-        privilege = "Default User Commands",
-        syntax = "[number maximum]",
-        onRun = function(client, arguments)
-            local objectsInRange = ents.FindInSphere(client:EyePos(), 200)
-            for _, object in ipairs(objectsInRange) do
-                if object:IsPlayer() then
-                    local trace = util.TraceLine{
-                        start = client:EyePos(),
-                        endpos = object:EyePos(),
-                        mask = MASK_SOLID_BRUSHONLY,
-                    }
-
-                    if not trace.Hit then
-                        net.Start("Pointing")
-                        net.WriteFloat(CurTime() + 10)
-                        net.WriteVector(client:GetEyeTraceNoCursor().HitPos)
-                        net.Send(object)
-                    end
-                end
-            end
-        end
-    }
-)
-
-lia.command.add(
     "chardesc",
     {
         adminOnly = false,
