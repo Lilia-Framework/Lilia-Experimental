@@ -1,6 +1,9 @@
 local vignetteAlphaGoal = 0
 local vignetteAlphaDelta = 0
-function MODULE:HUDPaintBackgroundVignette()
+local hasVignetteMaterial = lia.util.getMaterial("lilia/gui/vignette.png") ~= "___error"
+function MODULE:HUDPaintBackground()
+    if not lia.config.Vignette then return end
+    if not hasVignetteMaterial then return end
     local frameTime = FrameTime()
     local scrW, scrH = ScrW(), ScrH()
     vignetteAlphaDelta = math.Approach(vignetteAlphaDelta, vignetteAlphaGoal, frameTime * 30)

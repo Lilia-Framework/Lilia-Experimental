@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------------------------------------------------
 VoicePanels = {}
 --------------------------------------------------------------------------------------------------------------------------
-function GM:PlayerStartVoice(client)
+function MODULE:PlayerStartVoice(client)
     if not IsValid(g_VoicePanelList) or not lia.config.AllowVoice then return end
     hook.Run("PlayerEndVoice", client)
     if IsValid(VoicePanels[client]) then
@@ -22,7 +22,7 @@ function GM:PlayerStartVoice(client)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:PlayerEndVoice(client)
+function MODULE:PlayerEndVoice(client)
     if IsValid(VoicePanels[client]) then
         if VoicePanels[client].fadeAnim then return end
         VoicePanels[client].fadeAnim = Derma_Anim("FadeOut", VoicePanels[client], VoicePanels[client].FadeOut)
@@ -30,7 +30,7 @@ function GM:PlayerEndVoice(client)
     end
 end
 --------------------------------------------------------------------------------------------------------------------------
-function GM:InitPostEntity()
+function MODULE:InitPostEntity()
     if IsValid(g_VoicePanelList) then
         g_VoicePanelList:Remove()
     end

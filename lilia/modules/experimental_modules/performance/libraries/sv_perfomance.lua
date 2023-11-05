@@ -3,7 +3,7 @@ local loop, nicoSeats, nicoEnabled
 --------------------------------------------------------------------------------------------------------------------------
 local vjThink = 0
 --------------------------------------------------------------------------------------------------------------------------
-function GM:ServersideInitializedModules()
+function MODULE:ServersideInitializedModules()
     for _, timerName in pairs(lia.config.ServerTimersToRemove) do
         timer.Remove(timerName)
     end
@@ -20,7 +20,7 @@ function GM:ServersideInitializedModules()
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:Think()
+function MODULE:Think()
     if VJ and vjThink <= CurTime() then
         for k, v in pairs(lia.config.VJBaseConsoleCommands) do
             RunConsoleCommand(k, v)
@@ -61,21 +61,21 @@ function GM:Think()
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:PlayerEnteredVehicle(client, vehicle)
+function MODULE:PlayerEnteredVehicle(client, vehicle)
     if IsValid(vehicle) and vehicle.nicoSeat then
         table.insert(nicoSeats, loop, vehicle)
     end
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:PlayerLeaveVehicle(client, vehicle)
+function MODULE:PlayerLeaveVehicle(client, vehicle)
     if IsValid(vehicle) and vehicle.nicoSeat then
         table.insert(nicoSeats, loop, vehicle)
     end
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:PropBreak(attacker, ent)
+function MODULE:PropBreak(attacker, ent)
     if IsValid(ent) and ent:GetPhysicsObject():IsValid() then
         constraint.RemoveAll(ent)
     end

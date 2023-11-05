@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------------------------------------------------------
-function GM:InitializedModules()
+function MODULE:InitializedModules()
 	timer.Create(
 		"clearWorldItemsWarning",
 		lia.config.ItemCleanupTime - (60 * 10),

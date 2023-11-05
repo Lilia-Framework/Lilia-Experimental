@@ -1,4 +1,4 @@
-function GM:CanCollide(ent1, ent2)
+function MODULE:CanCollide(ent1, ent2)
     local ShouldCollide = hook.Run("ShouldCollide", ent1, ent2)
     if ShouldCollide == nil then
         ShouldCollide = true
@@ -7,11 +7,11 @@ function GM:CanCollide(ent1, ent2)
     return ShouldCollide
 end
 
-function GM:ShouldCheck(ply)
+function MODULE:ShouldCheck(ply)
     return IsValid(ply) and ply:IsPlayer() and ply:Alive() and not ply:InVehicle() and not ply:IsNoClipping() and ply:IsSolid()
 end
 
-function GM:CheckIfPlayerStuck()
+function MODULE:CheckIfPlayerStuck()
     for _, ply in ipairs(player.GetAll()) do
         if self:ShouldCheck(ply) then
             local Offset = Vector(5, 5, 5)
@@ -41,7 +41,7 @@ function GM:CheckIfPlayerStuck()
     end
 end
 
-function GM:ShouldCollide(ent1, ent2)
+function MODULE:ShouldCollide(ent1, ent2)
     if table.HasValue(lia.config.BlockedCollideEntities, ent1:GetClass()) and table.HasValue(lia.config.BlockedCollideEntities, ent2:GetClass()) then return false end
 end
 
@@ -50,6 +50,6 @@ timer.Create(
     4,
     0,
     function()
-        GM:CheckIfPlayerStuck()
+        MODULE:CheckIfPlayerStuck()
     end
 )

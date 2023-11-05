@@ -9,7 +9,7 @@ MODULE.desc = "A Module To Several Roleplay Sub-Modules."
 --[[
     This allows you to make reduced cooldowns or certain scenarios only happen on the Dev server. Example:
     
-    function GM:PlayerSpawn(ply)
+    function MODULE:PlayerSpawn(ply)
         if not ply:getChar() then return end  If the character isn't loaded, the function won't run
     
          will load after the default spawn

@@ -1,5 +1,4 @@
 paintedEntitiesCache = {}
-local hasVignetteMaterial = lia.util.getMaterial("lilia/gui/vignette.png") ~= "___error"
 local charInfo = {}
 local nextUpdate = 0
 local lastTrace = {}
@@ -38,10 +37,6 @@ function MODULE:HUDPaintBackground()
     local localPlayer = LocalPlayer()
     if not localPlayer.getChar(localPlayer) then return end
     local frameTime = FrameTime()
-    if hasVignetteMaterial and lia.config.Vignette then
-        self:HUDPaintBackgroundVignette()
-    end
-
     if nextUpdate < RealTime() then
         nextUpdate = RealTime() + 0.5
         lastTrace.start = localPlayer.GetShootPos(localPlayer)

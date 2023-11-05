@@ -1,5 +1,5 @@
 
-function GM:ItemShowEntityMenu(entity)
+function MODULE:ItemShowEntityMenu(entity)
     for k, v in ipairs(lia.menu.list) do
         if v.entity == entity then
             table.remove(lia.menu.list, k)

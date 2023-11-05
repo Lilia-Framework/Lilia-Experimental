@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------------------------------------------------------
-function GM:InitializedModules()
+function MODULE:InitializedModules()
     for _, PrivilegeInfo in pairs(lia.config.CAMIPrivileges) do
         local privilegeData = {
             Name = PrivilegeInfo.Name,

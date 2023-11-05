@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------------------------------------------------------
-function GM:InitializedModules()
+function MODULE:InitializedModules()
     if lia.config.GamemodeWorkshop then
         for i = 1, #lia.config.GamemodeWorkshop do
             resource.AddWorkshop(lia.config.GamemodeWorkshop[i])

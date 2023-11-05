@@ -74,6 +74,7 @@ end
 
 --------------------------------------------------------------------------------------------------------------------------
 function lia.module.loadExtras(path)
+    lia.lang.loadFromDir(path .. "/dependencies")
     lia.lang.loadFromDir(path .. "/languages")
     lia.faction.loadFromDir(path .. "/factions")
     lia.class.loadFromDir(path .. "/classes")

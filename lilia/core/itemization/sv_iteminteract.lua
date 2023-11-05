@@ -1,4 +1,4 @@
-function GM:CanPlayerInteractItem(client, action, item)
+function MODULE:CanPlayerInteractItem(client, action, item)
     if not client:Alive() or client:getLocalVar("ragdoll") then return false end
     if client:getNetVar("fallingover") then return false end
     if action == "drop" then
@@ -80,7 +80,7 @@ function GM:CanPlayerInteractItem(client, action, item)
     end
 end
 
-function GM:CanPlayerEquipItem(client, item)
+function MODULE:CanPlayerEquipItem(client, item)
     local inventory = lia.inventory.instances[item.invID]
     if client.equipDelay ~= nil then
         client:notify("You need to wait before equipping something again!")
@@ -93,7 +93,7 @@ function GM:CanPlayerEquipItem(client, item)
     end
 end
 
-function GM:CanPlayerTakeItem(client, item)
+function MODULE:CanPlayerTakeItem(client, item)
     local inventory = lia.inventory.instances[item.invID]
     if client.takeDelay ~= nil then
         client:notify("You need to wait before picking something up again!")
@@ -113,7 +113,7 @@ function GM:CanPlayerTakeItem(client, item)
     end
 end
 
-function GM:CanPlayerDropItem(client, item)
+function MODULE:CanPlayerDropItem(client, item)
     local inventory = lia.inventory.instances[item.invID]
     if client.dropDelay ~= nil then
         client:notify("You need to wait before dropping something again!")

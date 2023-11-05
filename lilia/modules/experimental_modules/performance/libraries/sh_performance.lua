@@ -112,7 +112,7 @@ function MODULE:EntityRemoved(ent)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:InitializedModules()
+function MODULE:InitializedModules()
     for hookType, identifiers in pairs(lia.config.RemovableHooks) do
         for _, identifier in ipairs(identifiers) do
             hook.Remove(hookType, identifier)

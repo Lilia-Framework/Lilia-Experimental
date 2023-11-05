@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------------------------------------------------------
-function GM:CreateSalaryTimer(client)
+function MODULE:CreateSalaryTimer(client)
 	local character = client:getChar()
 	if not character then return end
 	local faction = lia.faction.indices[character:getFaction()]
