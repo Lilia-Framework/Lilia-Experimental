@@ -7,15 +7,7 @@ local vec
 local aprg, aprg2 = 0, 0
 w, h = ScrW(), ScrH()
 local offset1, offset2, offset3, alpha, y
-function GM:InitializedExtrasClient()
-    for _, timerName in pairs(lia.config.ClientTimersToRemove) do
-        timer.Remove(timerName)
-    end
 
-    for k, v in pairs(lia.config.ClientStartupConsoleCommand) do
-        RunConsoleCommand(k, v)
-    end
-end
 
 function GM:PlayerBindPress(client, bind, pressed)
     bind = bind:lower()
@@ -250,33 +242,7 @@ function GM:FinishChat()
     net.SendToServer()
 end
 
-function GM:PlayerStartVoice(client)
-    if not IsValid(g_VoicePanelList) or not lia.config.AllowVoice then return end
-    hook.Run("PlayerEndVoice", client)
-    if IsValid(VoicePanels[client]) then
-        if VoicePanels[client].fadeAnim then
-            VoicePanels[client].fadeAnim:Stop()
-            VoicePanels[client].fadeAnim = nil
-        end
 
-        VoicePanels[client]:SetAlpha(255)
-
-        return
-    end
-
-    if not IsValid(client) then return end
-    local pnl = g_VoicePanelList:Add("VoicePanel")
-    pnl:Setup(client)
-    VoicePanels[client] = pnl
-end
-
-function GM:PlayerEndVoice(client)
-    if IsValid(VoicePanels[client]) then
-        if VoicePanels[client].fadeAnim then return end
-        VoicePanels[client].fadeAnim = Derma_Anim("FadeOut", VoicePanels[client], VoicePanels[client].FadeOut)
-        VoicePanels[client].fadeAnim:Start(2)
-    end
-end
 
 concommand.Add(
     "vgui_cleanup",

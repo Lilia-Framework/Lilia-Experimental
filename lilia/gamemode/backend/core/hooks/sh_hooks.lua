@@ -283,33 +283,6 @@ function GM:CanItemBeTransfered(item, curInv, inventory)
     end
 end
 
-function GM:InitializedModules()
-    if SERVER then
-        if lia.config.MapCleanerEnabled then
-            self:CallMapCleanerInit()
-        end
-
-        self:InitalizedWorkshopDownloader()
-        self:InitializedExtrasServer()
-    else
-        self:InitializedExtrasClient()
-    end
-
-    self:RegisterCamiPermissions()
-    self:InitializedExtrasShared()
-    timer.Simple(
-        2,
-        function()
-            self:TPosingModelsFix()
-        end
-    )
-end
-
-function GM:TPosingModelsFix()
-    for _, model in pairs(lia.config.PlayerModelTposingFixer) do
-        lia.anim.setModelClass(model, "player")
-    end
-end
 
 function GM:InitPostEntity()
     if CLIENT then
@@ -326,77 +299,4 @@ function GM:InitPostEntity()
     else
         self:ServerPostInit()
     end
-end
-
-function GM:InitializedExtrasShared()
-    
-
-    if StormFox2 then
-        for k, v in pairs(lia.config.StormFox2ConsoleCommands) do
-            RunConsoleCommand(k, v)
-        end
-    end
-
-    if ArcCW then
-        for k, v in pairs(lia.config.ArcCWConsoleCommands) do
-            RunConsoleCommand(k, v)
-        end
-    end
-
-    if TFA then
-        for k, v in pairs(lia.config.TFAConsoleCommands) do
-            RunConsoleCommand(k, v)
-        end
-    end
-
-    for hookType, identifiers in pairs(lia.config.RemovableHooks) do
-        for _, identifier in ipairs(identifiers) do
-            hook.Remove(hookType, identifier)
-        end
-    end
-end
-
-
-
-function GM:PSALoader()
-    local TalkModesPSAString = "Please Remove Talk Modes. Our framework has such built in by default."
-    local ULXPSAString = [[
-            /*
-            
-            PUBLIC SERVICE ANNOUNCEMENT FOR LILIA SERVER OWNERS
-            
-            There is a ENOURMOUS performance issue with ULX Admin mod.
-            Lilia Development Team found ULX is the main issue
-            that make the server freeze when player count is higher
-            than 20-30. The duration of freeze will be increased as you get
-            more players on your server.
-            
-            If you're planning to open big server with ULX/ULib, Lilia
-            Development Team does not recommend your plan. Server Performance
-            Issues with ULX/Ulib on your server will be ignored and we're
-            going to consider that you're taking the risk of ULX/Ulib's
-            critical performance issue.
-            
-            Lilia 1.2 only displays this message when you have ULX or
-            ULib on your server.
-            
-                                           -Lilia Development Team
-            
-            */]]
-    if ulx or ULib then
-        MsgC(Color(255, 0, 0), ULXPSAString .. "\n")
-    end
-
-    if TalkModes then
-        timer.Simple(
-            2,
-            function()
-                MsgC(Color(255, 0, 0), TalkModesPSAString)
-            end
-        )
-    end
-end
-
-function GM:IsValidTarget(target)
-    return IsValid(target) and target:IsPlayer() and target:getChar()
 end

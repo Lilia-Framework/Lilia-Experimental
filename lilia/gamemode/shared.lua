@@ -6,7 +6,6 @@ GM.Website = "https://discord.gg/jWCEUEKQ"
 lia.version = "2.0"
 function GM:Initialize()
     lia.module.initialize()
-    self:PSALoader()
 end
 
 function GM:OnReloaded()

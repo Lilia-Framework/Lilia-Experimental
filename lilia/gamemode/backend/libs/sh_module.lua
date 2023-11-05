@@ -197,6 +197,8 @@ end
 
 --------------------------------------------------------------------------------------------------------------------------
 function lia.module.isDisabled(uniqueID)
+    if uniqueID == "sam" then return not sam end
+    if uniqueID == "ulx" then return not (ulx or ULib) end
     if uniqueID == "serverguard" then return not serverguard end
     if uniqueID == "simfphys" then return not simfphys end
     if uniqueID == "pac" then return not pac end

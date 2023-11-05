@@ -1,5 +1,4 @@
 local last_jump_time = 0
-local vjThink = 0
 local loop, nicoSeats, nicoEnabled
 local defaultAngleData = {
 	["models/items/car_battery01.mdl"] = Angle(-15, 180, 0),
@@ -7,32 +6,11 @@ local defaultAngleData = {
 	["models/props_junk/propane_tank001a.mdl"] = Angle(-90, 0, 0),
 }
 
-function GM:InitializedExtrasServer()
-	for _, timerName in pairs(lia.config.ServerTimersToRemove) do
-		timer.Remove(timerName)
-	end
 
-	for k, v in pairs(lia.config.ServerStartupConsoleCommand) do
-		RunConsoleCommand(k, v)
-	end
-
-	for k, v in pairs(ents.GetAll()) do
-		if lia.config.EntitiesToBeRemoved[v:GetClass()] then
-			v:Remove()
-		end
-	end
-end
 
 
 
 function GM:Think()
-	if VJ and vjThink <= CurTime() then
-		for k, v in pairs(lia.config.VJBaseConsoleCommands) do
-			RunConsoleCommand(k, v)
-		end
-
-		vjThink = CurTime() + 180
-	end
 
 	if not self.nextThink then
 		self.nextThink = 0
@@ -348,108 +326,9 @@ function GM:OnCharFallover(client, entity, bFallenOver)
 	client:setNetVar("fallingover", bFallenOver)
 end
 
-function GM:CallMapCleanerInit()
-	timer.Create(
-		"clearWorldItemsWarning",
-		lia.config.ItemCleanupTime - (60 * 10),
-		0,
-		function()
-			net.Start("worlditem_cleanup_inbound")
-			net.Broadcast()
-			for i, v in pairs(player.GetAll()) do
-				v:notify("World items will be cleared in 10 Minutes!")
-			end
-		end
-	)
 
-	timer.Create(
-		"clearWorldItemsWarningFinal",
-		lia.config.ItemCleanupTime - 60,
-		0,
-		function()
-			net.Start("worlditem_cleanup_inbound_final")
-			net.Broadcast()
-			for i, v in pairs(player.GetAll()) do
-				v:notify("World items will be cleared in 60 Seconds!")
-			end
-		end
-	)
 
-	timer.Create(
-		"clearWorldItems",
-		lia.config.ItemCleanupTime,
-		0,
-		function()
-			for i, v in pairs(ents.FindByClass("lia_item")) do
-				v:Remove()
-			end
-		end
-	)
 
-	timer.Create(
-		"mapCleanupWarning",
-		lia.config.MapCleanupTime - (60 * 10),
-		0,
-		function()
-			net.Start("map_cleanup_inbound")
-			net.Broadcast()
-			for i, v in pairs(player.GetAll()) do
-				v:notify("World items will be cleared in 10 Minutes!")
-			end
-		end
-	)
-
-	timer.Create(
-		"mapCleanupWarningFinal",
-		lia.config.MapCleanupTime - 60,
-		0,
-		function()
-			net.Start("worlditem_cleanup_inbound_final")
-			net.Broadcast()
-			for i, v in pairs(player.GetAll()) do
-				v:notify("World items will be cleared in 60 Seconds!")
-			end
-		end
-	)
-
-	timer.Create(
-		"AutomaticMapCleanup",
-		lia.config.MapCleanupTime,
-		0,
-		function()
-			net.Start("cleanup_inbound")
-			net.Broadcast()
-			for i, v in pairs(ents.GetAll()) do
-				if v:IsNPC() then
-					v:Remove()
-				end
-			end
-
-			for i, v in pairs(ents.FindByClass("lia_item")) do
-				v:Remove()
-			end
-
-			for i, v in pairs(ents.FindByClass("prop_physics")) do
-				v:Remove()
-			end
-		end
-	)
-end
-
-function GM:InitalizedWorkshopDownloader()
-	resource.AddWorkshop("2959728255")
-	if lia.config.GamemodeWorkshop then
-		for i = 1, #lia.config.GamemodeWorkshop do
-			resource.AddWorkshop(lia.config.GamemodeWorkshop[i])
-		end
-	end
-
-	if lia.config.AutoWorkshopDownloader and engine.GetAddons() then
-		for i = 1, #engine.GetAddons() do
-			resource.AddWorkshop(engine.GetAddons()[i].wsid)
-		end
-	end
-end
 
 function GM:ServerPostInit()
 	local doors = ents.FindByClass("prop_door_rotating")
@@ -529,4 +408,17 @@ function GM:CanPlayerSwitchChar(client, character, newCharacter)
 	if character:getID() == newCharacter:getID() then return false, "You are already using this character!" end
 
 	return true
+end
+
+
+function GM:PreCleanupMap()
+    lia.shuttingDown = true
+    hook.Run("SaveData")
+    hook.Run("PersistenceSave")
+end
+
+function GM:PostCleanupMap()
+    lia.shuttingDown = false
+    hook.Run("LoadData")
+    hook.Run("PostLoadData")
 end

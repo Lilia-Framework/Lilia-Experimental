@@ -13,8 +13,7 @@ function GM:PlayerLoadout(client)
 
         return
     end
-
-    client:SetWeaponColor(Vector(client:GetInfo("cl_weaponcolor")))
+    client:SetWeaponColor(Vector(0.30, 0.80, 0.10))
     client:StripWeapons()
     client:setLocalVar("blur", nil)
     client:SetModel(character:getModel())
