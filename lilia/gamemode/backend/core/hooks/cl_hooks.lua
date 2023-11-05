@@ -7,8 +7,6 @@ local vec
 local aprg, aprg2 = 0, 0
 w, h = ScrW(), ScrH()
 local offset1, offset2, offset3, alpha, y
-
-
 function GM:PlayerBindPress(client, bind, pressed)
     bind = bind:lower()
     if (bind:find("use") or bind:find("attack")) and pressed then
@@ -90,7 +88,7 @@ function GM:PlayerButtonDown(client, button)
     end
 end
 
-function GM:ClientInitializedConfig()
+function GM:InitializedConfig()
     hook.Run("LoadLiliaFonts", lia.config.Font, lia.config.GenericFont)
 end
 
@@ -241,8 +239,6 @@ function GM:FinishChat()
     net.WriteBool(true)
     net.SendToServer()
 end
-
-
 
 concommand.Add(
     "vgui_cleanup",

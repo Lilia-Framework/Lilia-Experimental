@@ -1,4 +1,6 @@
 --------------------------------------------------------------------------------------------------------------------------
+local loop, nicoSeats, nicoEnabled
+--------------------------------------------------------------------------------------------------------------------------
 local vjThink = 0
 --------------------------------------------------------------------------------------------------------------------------
 function GM:ServersideInitializedModules()
@@ -11,19 +13,71 @@ function GM:ServersideInitializedModules()
     end
 
     for k, v in pairs(ents.GetAll()) do
-        if lia.config.EntitiesToBeRemoved[v:GetClass()] then v:Remove() end
+        if lia.config.EntitiesToBeRemoved[v:GetClass()] then
+            v:Remove()
+        end
     end
 end
 
 --------------------------------------------------------------------------------------------------------------------------
 function GM:Think()
-    if not VJ then return end
-    if vjThink <= CurTime() then
+    if VJ and vjThink <= CurTime() then
         for k, v in pairs(lia.config.VJBaseConsoleCommands) do
             RunConsoleCommand(k, v)
         end
 
         vjThink = CurTime() + 180
+    end
+
+    if not nicoSeats or not nicoSeats[loop] then
+        loop = 1
+        nicoSeats = {}
+        for _, seat in ipairs(ents.FindByClass("prop_vehicle_prisoner_pod")) do
+            if seat.nicoSeat then
+                table.insert(nicoSeats, seat)
+            end
+        end
+    end
+
+    while nicoSeats[loop] and not IsValid(nicoSeats[loop]) do
+        loop = loop + 1
+    end
+
+    local seat = nicoSeats[loop]
+    if nicoEnabled ~= seat and IsValid(nicoEnabled) then
+        local saved = nicoEnabled:GetSaveTable()
+        if not saved["m_bEnterAnimOn"] and not saved["m_bExitAnimOn"] then
+            nicoEnabled:AddEFlags(EFL_NO_THINK_FUNCTION)
+            nicoEnabled = nil
+        end
+    end
+
+    if IsValid(seat) then
+        seat:RemoveEFlags(EFL_NO_THINK_FUNCTION)
+        nicoEnabled = seat
+    end
+
+    loop = loop + 1
+end
+
+--------------------------------------------------------------------------------------------------------------------------
+function GM:PlayerEnteredVehicle(client, vehicle)
+    if IsValid(vehicle) and vehicle.nicoSeat then
+        table.insert(nicoSeats, loop, vehicle)
+    end
+end
+
+--------------------------------------------------------------------------------------------------------------------------
+function GM:PlayerLeaveVehicle(client, vehicle)
+    if IsValid(vehicle) and vehicle.nicoSeat then
+        table.insert(nicoSeats, loop, vehicle)
+    end
+end
+
+--------------------------------------------------------------------------------------------------------------------------
+function GM:PropBreak(attacker, ent)
+    if IsValid(ent) and ent:GetPhysicsObject():IsValid() then
+        constraint.RemoveAll(ent)
     end
 end
 --------------------------------------------------------------------------------------------------------------------------

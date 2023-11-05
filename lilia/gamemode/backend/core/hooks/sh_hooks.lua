@@ -1,19 +1,6 @@
 local vectorAngle = FindMetaTable("Vector").Angle
 local normalizeAngle = math.NormalizeAngle
 local oldCalcSeqOverride
-lia.anim.DefaultTposingFixer = {
-    ["models/police.mdl"] = "metrocop",
-    ["models/combine_super_soldier.mdl"] = "overwatch",
-    ["models/combine_soldier_prisonGuard.mdl"] = "overwatch",
-    ["models/combine_soldier.mdl"] = "overwatch",
-    ["models/vortigaunt.mdl"] = "vort",
-    ["models/vortigaunt_blue.mdl"] = "vort",
-    ["models/vortigaunt_doctor.mdl"] = "vort",
-    ["models/vortigaunt_slave.mdl"] = "vort",
-    ["models/alyx.mdl"] = "citizen_female",
-    ["models/mossman.mdl"] = "citizen_female",
-}
-
 HOLDTYPE_TRANSLATOR = HOLDTYPE_TRANSLATOR or {}
 HOLDTYPE_TRANSLATOR[""] = "normal"
 HOLDTYPE_TRANSLATOR["physgun"] = "smg"
@@ -42,18 +29,6 @@ PLAYER_HOLDTYPE_TRANSLATOR["melee2"] = "normal"
 PLAYER_HOLDTYPE_TRANSLATOR["knife"] = "normal"
 PLAYER_HOLDTYPE_TRANSLATOR["duel"] = "normal"
 PLAYER_HOLDTYPE_TRANSLATOR["bugbait"] = "normal"
-function GM:InitializedConfig()
-    if CLIENT then
-        self:ClientInitializedConfig()
-    end
-
-    for tpose, animtype in pairs(lia.anim.DefaultTposingFixer) do
-        lia.anim.setModelClass(tpose, animtype)
-    end
-end
-
-
-
 function GM:TranslateActivity(client, act)
     local model = string.lower(client.GetModel(client))
     local class = lia.anim.getModelClass(model) or "player"
@@ -230,10 +205,6 @@ function GM:OnCharVarChanged(char, varName, oldVar, newVar)
     end
 end
 
-
-
-
-
 function GM:Move(client, moveData)
     local char = client:getChar()
     if char then
@@ -280,23 +251,5 @@ function GM:CanItemBeTransfered(item, curInv, inventory)
         local itemHook = item:onCanBeTransfered(curInv, inventory)
 
         return itemHook ~= false
-    end
-end
-
-
-function GM:InitPostEntity()
-    if CLIENT then
-        if IsValid(g_VoicePanelList) then
-            g_VoicePanelList:Remove()
-        end
-
-        g_VoicePanelList = vgui.Create("DPanel")
-        g_VoicePanelList:ParentToHUD()
-        g_VoicePanelList:SetSize(270, ScrH() - 200)
-        g_VoicePanelList:SetPos(ScrW() - 320, 100)
-        g_VoicePanelList:SetPaintBackground(false)
-        self:ClientPostInit()
-    else
-        self:ServerPostInit()
     end
 end

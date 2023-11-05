@@ -11,6 +11,7 @@ function GM:PlayerStartVoice(client)
         end
 
         VoicePanels[client]:SetAlpha(255)
+
         return
     end
 
@@ -28,6 +29,18 @@ function GM:PlayerEndVoice(client)
         VoicePanels[client].fadeAnim:Start(2)
     end
 end
+--------------------------------------------------------------------------------------------------------------------------
+function GM:InitPostEntity()
+    if IsValid(g_VoicePanelList) then
+        g_VoicePanelList:Remove()
+    end
+
+    g_VoicePanelList = vgui.Create("DPanel")
+    g_VoicePanelList:ParentToHUD()
+    g_VoicePanelList:SetSize(270, ScrH() - 200)
+    g_VoicePanelList:SetPos(ScrW() - 320, 100)
+    g_VoicePanelList:SetPaintBackground(false)
+end
 
 --------------------------------------------------------------------------------------------------------------------------
 timer.Create(
@@ -36,7 +49,9 @@ timer.Create(
     0,
     function()
         for k, v in pairs(VoicePanels) do
-            if not IsValid(k) then hook.Run("PlayerEndVoice", k) end
+            if not IsValid(k) then
+                hook.Run("PlayerEndVoice", k)
+            end
         end
     end
 )

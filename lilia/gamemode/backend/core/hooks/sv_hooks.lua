@@ -1,17 +1,5 @@
 local last_jump_time = 0
-local loop, nicoSeats, nicoEnabled
-local defaultAngleData = {
-	["models/items/car_battery01.mdl"] = Angle(-15, 180, 0),
-	["models/props_junk/harpoon002a.mdl"] = Angle(0, 0, 0),
-	["models/props_junk/propane_tank001a.mdl"] = Angle(-90, 0, 0),
-}
-
-
-
-
-
 function GM:Think()
-
 	if not self.nextThink then
 		self.nextThink = 0
 	end
@@ -29,42 +17,6 @@ function GM:Think()
 
 		self.nextThink = CurTime() + lia.config.HealingTimer
 	end
-
-	if not nicoSeats or not nicoSeats[loop] then
-		loop = 1
-		nicoSeats = {}
-		for _, seat in ipairs(ents.FindByClass("prop_vehicle_prisoner_pod")) do
-			if seat.nicoSeat then
-				table.insert(nicoSeats, seat)
-			end
-		end
-	end
-
-	while nicoSeats[loop] and not IsValid(nicoSeats[loop]) do
-		loop = loop + 1
-	end
-
-	local seat = nicoSeats[loop]
-	if nicoEnabled ~= seat and IsValid(nicoEnabled) then
-		local saved = nicoEnabled:GetSaveTable()
-		if not saved["m_bEnterAnimOn"] and not saved["m_bExitAnimOn"] then
-			nicoEnabled:AddEFlags(EFL_NO_THINK_FUNCTION)
-			nicoEnabled = nil
-		end
-	end
-
-	if IsValid(seat) then
-		seat:RemoveEFlags(EFL_NO_THINK_FUNCTION)
-		nicoEnabled = seat
-	end
-
-	loop = loop + 1
-end
-
-function GM:PropBreak(attacker, ent)
-	if IsValid(ent) and ent:GetPhysicsObject():IsValid() then
-		constraint.RemoveAll(ent)
-	end
 end
 
 function GM:OnPickupMoney(client, moneyEntity)
@@ -72,18 +24,6 @@ function GM:OnPickupMoney(client, moneyEntity)
 		local amount = moneyEntity:getAmount()
 		client:getChar():giveMoney(amount)
 		client:notifyLocalized("moneyTaken", lia.currency.get(amount))
-	end
-end
-
-function GM:PlayerEnteredVehicle(client, vehicle)
-	if IsValid(vehicle) and vehicle.nicoSeat then
-		table.insert(nicoSeats, loop, vehicle)
-	end
-end
-
-function GM:PlayerLeaveVehicle(client, vehicle)
-	if IsValid(vehicle) and vehicle.nicoSeat then
-		table.insert(nicoSeats, loop, vehicle)
 	end
 end
 
@@ -255,22 +195,6 @@ function GM:CharacterPreSave(character)
 	end
 end
 
-function GM:GetPreferredCarryAngles(entity)
-	if entity.preferedAngle then return entity.preferedAngle end
-	local class = entity:GetClass()
-	if class == "lia_item" then
-		local itemTable = entity:getItemTable()
-		if itemTable then
-			local preferedAngle = itemTable.preferedAngle
-			if preferedAngle then return preferedAngle end
-		end
-	elseif class == "prop_physics" then
-		local model = entity:GetModel():lower()
-
-		return defaultAngleData[model]
-	end
-end
-
 function GM:CreateDefaultInventory(character)
 	local charID = character:getID()
 	if lia.inventory.types["grid"] then
@@ -292,7 +216,6 @@ function GM:LiliaTablesLoaded()
 	lia.db.query("ALTER TABLE lia_players ADD COLUMN _lastJoin DATETIME"):catch(ignore)
 	lia.db.query("ALTER TABLE lia_items ADD COLUMN _quantity INTEGER"):catch(ignore)
 end
-
 
 function GM:SetupMove(client, mv, cmd)
 	if client:OnGround() and mv:KeyPressed(IN_JUMP) then
@@ -325,10 +248,6 @@ function GM:OnCharFallover(client, entity, bFallenOver)
 
 	client:setNetVar("fallingover", bFallenOver)
 end
-
-
-
-
 
 function GM:ServerPostInit()
 	local doors = ents.FindByClass("prop_door_rotating")
@@ -412,13 +331,14 @@ end
 
 
 function GM:PreCleanupMap()
-    lia.shuttingDown = true
-    hook.Run("SaveData")
-    hook.Run("PersistenceSave")
+	lia.shuttingDown = true
+	hook.Run("SaveData")
+	hook.Run("PersistenceSave")
 end
 
+
 function GM:PostCleanupMap()
-    lia.shuttingDown = false
-    hook.Run("LoadData")
-    hook.Run("PostLoadData")
+	lia.shuttingDown = false
+	hook.Run("LoadData")
+	hook.Run("PostLoadData")
 end
