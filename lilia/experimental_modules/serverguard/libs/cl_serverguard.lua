@@ -1,6 +1,4 @@
 --------------------------------------------------------------------------------------------------------------------------
-if not serverguard then return end
---------------------------------------------------------------------------------------------------------------------------
 local function OnPrivilegeRegistered(privilege)
     local permission = privilege.Name
     serverguard.permission:Add(permission)

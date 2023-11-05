@@ -96,9 +96,7 @@ if not lia.config.WasInitialized then
         -- Player Model T-posing Fixer
         PlayerModelTposingFixer = {"models/player/Group03/female_03.mdl", "models/player/Group01/male_02.mdl", "models/player/player.mdl",},
         -- Default Staff Ranks
-        DefaultStaff = {
-            ["STEAMID"] = "RANK",
-        },
+       
         -- Restricted Entity List for PhysGun
         PhysGunMoveRestrictedEntityList = {"prop_door_rotating", "lia_vendor"},
         -- Blocked Entities for Remover Tool

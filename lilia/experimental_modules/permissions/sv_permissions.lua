@@ -135,10 +135,5 @@ function GM:CheckSpawnPropBlackList(client, model)
     return true
 end
 
---------------------------------------------------------------------------------------------------------------------------
-if sam then
-    sam.config.set("Restrictions.Tool", false)
-    sam.config.set("Restrictions.Limits", false)
-    sam.config.set("Restrictions.Spawning", false)
-end
+
 --------------------------------------------------------------------------------------------------------------------------
