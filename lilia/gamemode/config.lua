@@ -1,6 +1,6 @@
---
+--------------------------------------------------------------------------------------------------------------------------
 lia.config = lia.config or {}
---
+--------------------------------------------------------------------------------------------------------------------------
 if not lia.config.WasInitialized then
     lia.config = {
         -- General Gameplay Settings
@@ -32,8 +32,6 @@ if not lia.config.WasInitialized then
         DevServer = false, -- Is it a Development Server?
         -- Player Interaction Settings
         WalkRatio = 0.5, -- Walk speed ratio (used in certain interactions)
-        SalaryOverride = true, -- Enable salary override
-        SalaryInterval = 300, -- Salary interval (in seconds)
         JumpCooldown = 0.8, -- Cooldown time between jumps (in seconds)
         MaxAttributes = 30, -- Maximum number of player attributes
         AllowExistNames = true, -- Allow existing character names
@@ -205,6 +203,11 @@ if not lia.config.WasInitialized then
                 Description = "Allows access to removing blocked entities."
             },
             {
+                Name = "Lilia - Spawn Permissions - No Spawn Delay",
+                MinAccess = "admin",
+                Description = "Allows a user to not have spawn delay."
+            },
+            {
                 Name = "Lilia - Spawn Permissions - Can Spawn Cars",
                 MinAccess = "admin",
                 Description = "Allows access to Spawning Cars."
@@ -239,13 +242,6 @@ if not lia.config.WasInitialized then
                 MinAccess = "admin",
                 Description = "Allows access to Spawning SENTs."
             },
-        },
-        SimfphysConsoleCommands = {
-            ["sv_simfphys_gib_lifetime"] = "0",
-            ["sv_simfphys_fuel"] = "0",
-            ["sv_simfphys_teampassenger"] = "0",
-            ["sv_simfphys_traction_snow"] = "1",
-            ["sv_simfphys_damagemultiplicator"] = "100",
         },
         StormFox2ConsoleCommands = {
             ["sf_time_speed"] = "1",
@@ -394,6 +390,8 @@ if not lia.config.WasInitialized then
         },
     }
 end
-
+--------------------------------------------------------------------------------------------------------------------------
 lia.config.WasInitialized = true
+--------------------------------------------------------------------------------------------------------------------------
 hook.Run("InitializedConfig")
+--------------------------------------------------------------------------------------------------------------------------

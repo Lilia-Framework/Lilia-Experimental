@@ -273,7 +273,6 @@ function GM:PlayerInitialSpawn(client)
         end
     )
 
-    if client:IsBot() then return hook.Run("SetupBotCharacter", client) end
     client:SetCanZoom(false)
     local annoying = ents.FindByName("music")
     local val = ents.GetMapCreatedEntity(1733)
@@ -316,4 +315,7 @@ function GM:PostPlayerInitialSpawn(client)
             client:StripAmmo()
         end
     )
+end
+function GM:ModuleShouldLoad(module)
+    return not lia.module.isDisabled(module)
 end

@@ -1,4 +1,3 @@
-local GM = GM
 function GM:CanCollide(ent1, ent2)
     local ShouldCollide = hook.Run("ShouldCollide", ent1, ent2)
     if ShouldCollide == nil then

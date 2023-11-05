@@ -1,4 +1,4 @@
-if not serverguard then return end
+--------------------------------------------------------------------------------------------------------------------------
 local function OnPrivilegeRegistered(privilege)
     local permission = privilege.Name
     serverguard.permission:Add(permission)
@@ -10,7 +10,7 @@ local function OnPrivilegeRegistered(privilege)
         end
     end
 end
-
+--------------------------------------------------------------------------------------------------------------------------
 local function RegisterPrivileges()
     if CAMI then
         for _, v in pairs(CAMI.GetPrivileges()) do
@@ -18,5 +18,6 @@ local function RegisterPrivileges()
         end
     end
 end
-
+--------------------------------------------------------------------------------------------------------------------------
 hook.Add("serverguard.RanksLoaded", "serverguard.RanksLoaded", RegisterPrivileges)
+--------------------------------------------------------------------------------------------------------------------------

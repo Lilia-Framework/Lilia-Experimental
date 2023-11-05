@@ -1,7 +1,3 @@
 --------------------------------------------------------------------------------------------------------------------------
-function MODULE:ShowSpare1(client)
-    if client:getChar() then
-        netstream.Start(client, "rgnMenu")
-    end
-end
+lia.config.SalaryInterval = 300 -- Salary interval (in seconds)
 --------------------------------------------------------------------------------------------------------------------------

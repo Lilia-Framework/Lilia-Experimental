@@ -1,9 +1,13 @@
 --------------------------------------------------------------------------------------------------------------------------
-util.AddNetworkString("liaPACSync")
+lia.config.TimeToEnterVehicle = 1 -- Time required to enter a vehicle (in seconds)
 --------------------------------------------------------------------------------------------------------------------------
-util.AddNetworkString("liaPACPartAdd")
+lia.config.CarEntryDelayEnabled = true -- If Car Entry Delay is Applicable
 --------------------------------------------------------------------------------------------------------------------------
-util.AddNetworkString("liaPACPartRemove")
---------------------------------------------------------------------------------------------------------------------------
-util.AddNetworkString("liaPACPartReset")
+lia.config.SimfphysConsoleCommands = {
+    ["sv_simfphys_gib_lifetime"] = "0",
+    ["sv_simfphys_fuel"] = "0",
+    ["sv_simfphys_teampassenger"] = "0",
+    ["sv_simfphys_traction_snow"] = "1",
+    ["sv_simfphys_damagemultiplicator"] = "100",
+}
 --------------------------------------------------------------------------------------------------------------------------

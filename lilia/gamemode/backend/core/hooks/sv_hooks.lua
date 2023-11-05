@@ -23,24 +23,7 @@ function GM:InitializedExtrasServer()
 	end
 end
 
-function GM:OnPlayerJoinClass(client, class, oldClass)
-	local char = client:getChar()
-	if char and lia.config.PermaClass then
-		char:setData("pclass", class)
-	end
 
-	local info = lia.class.list[class]
-	local info2 = lia.class.list[oldClass]
-	if info.onSet then
-		info:onSet(client)
-	end
-
-	if info2 and info2.onLeave then
-		info2:onLeave(client)
-	end
-
-	netstream.Start(nil, "classUpdate", client)
-end
 
 function GM:Think()
 	if VJ and vjThink <= CurTime() then
@@ -161,8 +144,6 @@ end
 
 function GM:PlayerLoadedChar(client, character, lastChar)
 	local identifier = "RemoveMatSpecular" .. client:SteamID()
-	local data = character:getData("pclass")
-	local class = data and lia.class.list[data]
 	client:Spawn()
 	if timer.Exists(identifier) then
 		timer.Remove(identifier)
@@ -178,19 +159,6 @@ function GM:PlayerLoadedChar(client, character, lastChar)
 			RunConsoleCommand("mat_specular", 0)
 		end
 	)
-
-	if class and data then
-		local oldClass = character:GetClass()
-		if client:Team() == class.faction then
-			timer.Simple(
-				.3,
-				function()
-					character:setClass(class.index)
-					hook.Run("OnPlayerJoinClass", client, class.index, oldClass)
-				end
-			)
-		end
-	end
 
 	local timeStamp = os.date("%Y-%m-%d %H:%M:%S", os.time())
 	lia.db.updateTable(
@@ -208,15 +176,6 @@ function GM:PlayerLoadedChar(client, character, lastChar)
 		end
 
 		lastChar:setVar("charEnts", nil)
-	end
-
-	if character then
-		for _, v in pairs(lia.class.list) do
-			if (v.faction == client:Team()) and v.isDefault then
-				character:setClass(v.index)
-				break
-			end
-		end
 	end
 
 	if IsValid(client.liaRagdoll) then
@@ -356,35 +315,6 @@ function GM:LiliaTablesLoaded()
 	lia.db.query("ALTER TABLE lia_items ADD COLUMN _quantity INTEGER"):catch(ignore)
 end
 
-function GM:CreateSalaryTimer(client)
-	if lia.config.SalaryOverride then return end
-	local character = client:getChar()
-	if not character then return end
-	local faction = lia.faction.indices[character:getFaction()]
-	local class = lia.class.list[character:getClass()]
-	local pay = hook.Run("GetSalaryAmount", client, faction, class) or (class and class.pay) or (faction and faction.pay) or nil
-	local limit = hook.Run("GetSalaryLimit", client, faction, class) or (class and class.payLimit) or (faction and faction.playLimit) or nil
-	if not pay then return end
-	local timerID = "liaSalary" .. client:SteamID()
-	local timerFunc = timer.Exists(timerID) and timer.Adjust or timer.Create
-	local delay = (class and class.payTimer) or (faction and faction.payTimer) or faction.lia.config.SalaryInterval
-	timerFunc(
-		timerID,
-		delay,
-		0,
-		function()
-			if not IsValid(client) or client:getChar() ~= character then
-				timer.Remove(timerID)
-
-				return
-			end
-
-			if limit and character:getMoney() >= limit then return end
-			character:giveMoney(pay)
-			client:notifyLocalized("salary", lia.currency.get(pay))
-		end
-	)
-end
 
 function GM:SetupMove(client, mv, cmd)
 	if client:OnGround() and mv:KeyPressed(IN_JUMP) then

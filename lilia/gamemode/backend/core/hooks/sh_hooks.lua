@@ -52,60 +52,11 @@ function GM:InitializedConfig()
     end
 end
 
-function GM:RegisterCamiPermissions()
-    for _, PrivilegeInfo in pairs(lia.config.CAMIPrivileges) do
-        local privilegeData = {
-            Name = PrivilegeInfo.Name,
-            MinAccess = PrivilegeInfo.MinAccess,
-            Description = PrivilegeInfo.Description
-        }
 
-        if not CAMI.GetPrivilege(PrivilegeInfo.Name) then
-            CAMI.RegisterPrivilege(privilegeData)
-        end
-    end
 
-    for _, wep in pairs(weapons.GetList()) do
-        if wep.ClassName == "gmod_tool" then
-            for ToolName, TOOL in pairs(wep.Tool) do
-                if not ToolName then continue end
-                local privilege = "Lilia - Staff Permissions - Access Tool " .. ToolName:gsub("^%l", string.upper)
-                if not CAMI.GetPrivilege(privilege) then
-                    local privilegeInfo = {
-                        Name = privilege,
-                        MinAccess = "admin",
-                        Description = "Allows access to " .. ToolName:gsub("^%l", string.upper)
-                    }
-
-                    CAMI.RegisterPrivilege(privilegeInfo)
-                end
-            end
-        end
-    end
-
-    for name, _ in pairs(properties.List) do
-        local privilege = "Lilia - Staff Permissions - Access Property " .. name:gsub("^%l", string.upper)
-        if not CAMI.GetPrivilege(privilege) then
-            local privilegeInfo = {
-                Name = privilege,
-                MinAccess = "admin",
-                Description = "Allows access to Entity Property " .. name:gsub("^%l", string.upper)
-            }
-
-            CAMI.RegisterPrivilege(privilegeInfo)
-        end
-    end
-end
-
-local getModelClass = lia.anim.getModelClass
-local IsValid = IsValid
-local string = string
-local type = type
-local PLAYER_HOLDTYPE_TRANSLATOR = PLAYER_HOLDTYPE_TRANSLATOR
-local HOLDTYPE_TRANSLATOR = HOLDTYPE_TRANSLATOR
 function GM:TranslateActivity(client, act)
     local model = string.lower(client.GetModel(client))
-    local class = getModelClass(model) or "player"
+    local class = lia.anim.getModelClass(model) or "player"
     local weapon = client.GetActiveWeapon(client)
     if class == "player" then
         if not lia.config.WepAlwaysRaised and IsValid(weapon) and (client.isWepRaised and not client.isWepRaised(client)) and client:OnGround() then
@@ -279,26 +230,9 @@ function GM:OnCharVarChanged(char, varName, oldVar, newVar)
     end
 end
 
-function GM:GetDefaultCharName(client, faction)
-    local info = lia.faction.indices[faction]
-    if info and info.onGetDefaultName then return info:onGetDefaultName(client) end
-end
 
-function GM:GetDefaultCharDesc(client, faction)
-    local info = lia.faction.indices[faction]
-    if info and info.onGetDefaultDesc then return info:onGetDefaultDesc(client) end
-end
 
-function GM:CheckFactionLimitReached(faction, character, client)
-    if isfunction(faction.onCheckLimitReached) then return faction:onCheckLimitReached(character, client) end
-    if not isnumber(faction.limit) then return false end
-    local maxPlayers = faction.limit
-    if faction.limit < 1 then
-        maxPlayers = math.Round(#player.GetAll() * faction.limit)
-    end
 
-    return team.NumPlayers(faction.index) >= maxPlayers
-end
 
 function GM:Move(client, moveData)
     local char = client:getChar()
@@ -395,11 +329,7 @@ function GM:InitPostEntity()
 end
 
 function GM:InitializedExtrasShared()
-    if simfphys then
-        for k, v in pairs(lia.config.SimfphysConsoleCommands) do
-            RunConsoleCommand(k, v)
-        end
-    end
+    
 
     if StormFox2 then
         for k, v in pairs(lia.config.StormFox2ConsoleCommands) do
@@ -426,42 +356,7 @@ function GM:InitializedExtrasShared()
     end
 end
 
-function GM:simfphysPhysicsCollide()
-    return true
-end
 
-function GM:PlayerSpawn(client)
-    if SERVER then
-        self:PlayerSpawnServer(client)
-    end
-end
-
-function GM:DevelopmentServerLoader()
-    --[[
-    This allows you to make reduced cooldowns or certain scenarios only happen on the Dev server. Example:
-    
-    function GM:PlayerSpawn(ply)
-        if not ply:getChar() then return end  If the character isn't loaded, the function won't run
-    
-         will load after the default spawn
-        timer.Simple(0.5, function()
-             if it detects it is the Dev Server, the HP will be set to 69420, otherwise, it will be 100
-            if DEV then
-                ply:SetMaxHealth(69420)
-                ply:SetHealth(69420)
-            else
-                ply:SetMaxHealth(100)
-                ply:SetHealth(100)
-            end
-        end)
-    end
-]]
-    if lia.config.DevServer then
-        print("This is a Development Server!")
-    else
-        print("This is a Main Server!")
-    end
-end
 
 function GM:PSALoader()
     local TalkModesPSAString = "Please Remove Talk Modes. Our framework has such built in by default."
