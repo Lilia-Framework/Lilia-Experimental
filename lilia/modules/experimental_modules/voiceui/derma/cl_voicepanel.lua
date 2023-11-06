@@ -1,5 +1,6 @@
 --------------------------------------------------------------------------------------------------------------------------
 local PANEL = {}
+VoicePanels = {}
 --------------------------------------------------------------------------------------------------------------------------
 function PANEL:Init()
     local hi = vgui.Create("DLabel", self)
@@ -24,7 +25,7 @@ end
 --------------------------------------------------------------------------------------------------------------------------
 function PANEL:Setup(client)
     self.client = client
-    self.name = hook.Run("ShouldAllowScoreboardOverride", client, "name") and hook.Run("GetDisplayedName", client, nil) or client:Nick()
+    self.name = hook.Run("ShouldAllowScoreboardOverride", client, "name") and hook.Run("GetDisplayedName", client, nil) or client:getChar():getName()
     self.LabelName:SetText(self.name)
     self:InvalidateLayout()
 end
@@ -41,8 +42,13 @@ end
 
 --------------------------------------------------------------------------------------------------------------------------
 function PANEL:Think()
-    if IsValid(self.client) then self.LabelName:SetText(self.name) end
-    if self.fadeAnim then self.fadeAnim:Run() end
+    if IsValid(self.client) then
+        self.LabelName:SetText(self.name)
+    end
+
+    if self.fadeAnim then
+        self.fadeAnim:Run()
+    end
 end
 
 --------------------------------------------------------------------------------------------------------------------------
@@ -51,8 +57,10 @@ function PANEL:FadeOut(anim, delta, data)
         if IsValid(VoicePanels[self.client]) then
             VoicePanels[self.client]:Remove()
             VoicePanels[self.client] = nil
+
             return
         end
+
         return
     end
 

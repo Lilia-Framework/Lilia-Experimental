@@ -1,7 +1,6 @@
 local translations = {}
 lia.anim = lia.anim or {}
 player_manager.anim = player_manager.anim or {}
-lia.anim.DefaultTposingFixer = lia.anim.DefaultTposingFixer or {}
 TranslateModel = TranslateModel or player_manager.TranslateToPlayerModelName
 lia.anim.citizen_male = {
     normal = {
@@ -370,21 +369,4 @@ function player_manager.TranslateToPlayerModelName(model)
     end
 
     return result
-end
-
-lia.config.DefaultTposingFixer = {
-    ["models/police.mdl"] = "metrocop",
-    ["models/combine_super_soldier.mdl"] = "overwatch",
-    ["models/combine_soldier_prisonGuard.mdl"] = "overwatch",
-    ["models/combine_soldier.mdl"] = "overwatch",
-    ["models/vortigaunt.mdl"] = "vort",
-    ["models/vortigaunt_blue.mdl"] = "vort",
-    ["models/vortigaunt_doctor.mdl"] = "vort",
-    ["models/vortigaunt_slave.mdl"] = "vort",
-    ["models/alyx.mdl"] = "citizen_female",
-    ["models/mossman.mdl"] = "citizen_female",
-}
-
-for tpose, animtype in pairs(lia.anim.DefaultTposingFixer) do
-    lia.anim.setModelClass(tpose, animtype)
 end
