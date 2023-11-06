@@ -514,16 +514,6 @@ lia.command.add(
 )
 
 lia.command.add(
-    "checkinventory",
-    {
-        superAdminOnly = true,
-        syntax = "<string target>",
-        privilege = "Check Inventory",
-        onRun = function(client, arguments) end
-    }
-)
-
-lia.command.add(
     "clearinv",
     {
         superAdminOnly = true,

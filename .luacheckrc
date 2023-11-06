@@ -22,8 +22,6 @@ stds.lilia.globals = {
 	"ALWAYS_RAISED",
 	"ICON_RENDER_QUEUE",
 	"USABLE_FUNCS",
-}
-stds.lilia.read_globals = {
 	"L",
 	"L2",
 	"IX_RELOADED",
