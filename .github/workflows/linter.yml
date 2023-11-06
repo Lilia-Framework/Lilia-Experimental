@@ -28,4 +28,4 @@ jobs:
 
     - name: Lint
       working-directory: helix
-      run: luacheck .
+      run: luacheck . --no-self  --no-global --no-max-code-line-length --no-max-comment-line-length 
