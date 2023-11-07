@@ -146,19 +146,7 @@ function GM:InitializedSchema()
 	end
 end
 
-function GM:PlayerCanHearPlayersVoice(listener, speaker)
-	local AllowVoice = lia.config.AllowVoice
-	if not speaker:getChar() then return false end
-	local VoiceBanned = speaker:getChar():getData("VoiceBan", false)
-	local VoiceType = speaker:getNetVar("VoiceType", "Talking")
-	local VoiceDefault = lia.config.TalkRanges["Talking"]
-	local rangeSquared = (lia.config.TalkRanges[VoiceType] or VoiceDefault) * (lia.config.TalkRanges[VoiceType] or VoiceDefault)
-	if not AllowVoice then return false, false end
-	if VoiceBanned then return false, false end
-	if listener:GetPos():DistToSqr(speaker:GetPos()) > rangeSquared then return false, false end
 
-	return true, true
-end
 
 function GM:PrePlayerLoadedChar(client, character, lastChar)
 	client:SetBodyGroups("000000000")

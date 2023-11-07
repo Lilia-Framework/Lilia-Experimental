@@ -1,5 +1,5 @@
-local LAST_WIDTH = ScrW()
-local LAST_HEIGHT = ScrH()
+local useCheapBlur = CreateClientConVar("lia_cheapblur", 0, true):GetBool() 
+
 function lia.util.drawText(text, x, y, color, alignX, alignY, font, alpha)
     color = color or color_white
 
@@ -208,7 +208,7 @@ end
 
 function lia.util.drawBlur(panel, amount, passes)
     amount = amount or 5
-    if CreateClientConVar("lia_cheapblur", 0, true):GetBool() then
+    if useCheapBlurthen
         surface.SetDrawColor(50, 50, 50, amount * 20)
         surface.DrawRect(0, 0, panel:GetWide(), panel:GetTall())
     else
@@ -226,7 +226,7 @@ end
 
 function lia.util.drawBlurAt(x, y, w, h, amount, passes)
     amount = amount or 5
-    if CreateClientConVar("lia_cheapblur", 0, true):GetBool() then
+    if useCheapBlurthen
         surface.SetDrawColor(30, 30, 30, amount * 20)
         surface.DrawRect(x, y, w, h)
     else
@@ -244,19 +244,6 @@ function lia.util.drawBlurAt(x, y, w, h, amount, passes)
     end
 end
 
-timer.Create(
-    "liaResolutionMonitor",
-    1,
-    0,
-    function()
-        local scrW, scrH = ScrW(), ScrH()
-        if scrW ~= LAST_WIDTH or scrH ~= LAST_HEIGHT then
-            hook.Run("ScreenResolutionChanged", LAST_WIDTH, LAST_HEIGHT)
-            LAST_WIDTH = scrW
-            LAST_HEIGHT = scrH
-        end
-    end
-)
 
 function lia.util.getInjuredColor(client)
     local health_color = color_white
@@ -404,3 +391,10 @@ function lia.util.FetchImage(id, callback, failImg, pngParameters, imageProvider
         )
     end
 end
+
+cvars.AddChangeCallback(
+    "lia_cheapblur",
+    function(name, old, new)
+        useCheapBlur = (tonumber(new) or 0) > 0
+    end
+)
