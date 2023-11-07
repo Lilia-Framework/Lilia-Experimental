@@ -1,0 +1,72 @@
+name: Lint GLua
+
+on:
+  workflow_call:
+    inputs:
+      config:
+        type: string
+        required: false
+        default: ""
+        description: "A URL or path (relative to your project root) of the glualint config"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          path: project
+
+      - name: Get GluaLint Download Link
+        id: download-link
+        uses: actions/github-script@v6
+        with:
+          retries: 5
+          script: |
+
+            const latest = await github.rest.repos.getLatestRelease({
+              owner: "FPtje",
+              repo: "GLuaFixer",
+            })
+
+            const latestAsset = latest.data.assets.filter(asset => asset.name.endsWith("-x86_64-linux.zip"))[0]
+            console.log(latestAsset.browser_download_url)
+            return latestAsset.browser_download_url
+
+      - name: Prepare GLuaLint
+        run: |
+          cd $GITHUB_WORKSPACE
+          curl --retry 3 --location "${{steps.download-link.outputs.result}}" --output "$GITHUB_WORKSPACE/glualint.zip"
+
+      - name: Extract GLuaLint
+        run: |
+          cd $GITHUB_WORKSPACE
+          unzip glualint.zip
+
+      - name: Get config file
+        run: |
+          GLUALINT_CONFIG_PATH=${{ inputs.config }}
+          if [[ "$GLUALINT_CONFIG_PATH" != "" ]];
+          then
+            if [[ "$GLUALINT_CONFIG_PATH" == http* ]];
+            then
+                echo "::info:: Given remote glualint path. Downloading..."
+                curl --verbose --retry 3 --location "$GLUALINT_CONFIG_PATH" --output "$GITHUB_WORKSPACE/.glualint.json"
+            else
+                echo "::info:: Given local path to glualint config. Copying..."
+                cp --verbose "$GITHUB_WORKSPACE/project/$GLUALINT_CONFIG_PATH" "$GITHUB_WORKSPACE/.glualint.json"
+            fi
+          else
+            echo "::info:: No explicit path to config file passed, glualint will use config files in the project if present."
+          fi
+
+      - name: Lint with GLuaLint
+        run: |
+          cd "$GITHUB_WORKSPACE/project/"
+          if [[ "${{ inputs.config }}" != "" ]];
+          then
+            "$GITHUB_WORKSPACE/glualint" --output-format github --config "$GITHUB_WORKSPACE/.glualint.json" lint .
+          else
+            "$GITHUB_WORKSPACE/glualint" --output-format github lint .
+          fi
