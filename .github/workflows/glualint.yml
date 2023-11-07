@@ -32,28 +32,3 @@ jobs:
       - name: Lint with gluacheck
         working-directory: helix
         run: luacheck . --no-unused-secondaries --no-unused-args --no-redefined --no-unused --no-global --no-self -i 4.2/.*_ --formatter visual_studio --no-unused --no-max-line-length --no-max-code-line-length --no-max-string-line-length --no-max-comment-line-length --no-max-cyclomatic-complexity
-
-      - name: Checkout code for glualint
-        uses: actions/checkout@v2
-        with:
-          path: glualint
-
-      - name: Download glualint
-        run: |
-          curl -L -o glualint.zip https://github.com/FPtje/GLuaFixer/releases/download/1.26.0/glualint-1.26.0-x86_64-linux.zip
-          unzip glualint.zip -d glualint
-
-      - name: Run glualint pretty-print
-        working-directory: glualint
-        run: |
-          chmod +x glualint
-          ./glualint pretty-print
-
-      - name: Commit and push changes
-        run: |
-          cd $GITHUB_WORKSPACE/glualint
-          git config --global user.email "actions@github.com"
-          git config --global user.name "GitHub Actions"
-          git add .
-          git commit -m "Auto-commit by GitHub Actions"
-          git push https://$GIT_TOKEN@github.com/Lilia-Framework/Lilia-Experimental.git
