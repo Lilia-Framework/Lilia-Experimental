@@ -22,7 +22,13 @@ if SERVER then
         )
     end
 
-    netstream.Hook("liaCharFetchNames", function(client) netstream.Start(client, "liaCharFetchNames", lia.char.names) end)
+    netstream.Hook(
+        "liaCharFetchNames",
+        function(client)
+            netstream.Start(client, "liaCharFetchNames", lia.char.names)
+        end
+    )
+
     hook.Add(
         "liaCharDeleted",
         "liaCharRemoveName",
@@ -43,23 +49,32 @@ if SERVER then
 end
 
 if CLIENT then
-    netstream.Hook("liaCharFetchNames", function(data) lia.char.names = data end)
-    if #lia.char.names < 1 then netstream.Start("liaCharFetchNames") end
+    netstream.Hook(
+        "liaCharFetchNames",
+        function(data)
+            lia.char.names = data
+        end
+    )
+
+    if #lia.char.names < 1 then
+        netstream.Start("liaCharFetchNames")
+    end
 end
 
 function lia.char.new(data, id, client, steamID)
     local character = setmetatable(
         {
             vars = {}
-        },
-        lia.meta.character
+        }, lia.meta.character
     )
 
     for k, v in pairs(lia.char.vars) do
         local value = data[k]
         if value == nil then
             value = v.default
-            if istable(value) then value = table.Copy(value) end
+            if istable(value) then
+                value = table.Copy(value)
+            end
         end
 
         character.vars[k] = value
@@ -67,7 +82,10 @@ function lia.char.new(data, id, client, steamID)
 
     character.id = id or 0
     character.player = client
-    if IsValid(client) or steamID then character.steamID = IsValid(client) and client:SteamID64() or steamID end
+    if IsValid(client) or steamID then
+        character.steamID = IsValid(client) and client:SteamID64() or steamID
+    end
+
     return character
 end
 
@@ -84,12 +102,17 @@ function lia.char.registerVar(key, data)
         if data.onSet then
             charMeta["set" .. upperName] = data.onSet
         elseif data.noNetworking then
-            charMeta["set" .. upperName] = function(self, value) self.vars[key] = value end
+            charMeta["set" .. upperName] = function(self, value)
+                self.vars[key] = value
+            end
         elseif data.isLocal then
             charMeta["set" .. upperName] = function(self, value)
                 local curChar = self:getPlayer() and self:getPlayer():getChar()
                 local sendID = true
-                if curChar and curChar == self then sendID = false end
+                if curChar and curChar == self then
+                    sendID = false
+                end
+
                 local oldVar = self.vars[key]
                 self.vars[key] = value
                 netstream.Start(self.player, "charSet", key, value, sendID and self:getID() or nil)
@@ -112,6 +135,7 @@ function lia.char.registerVar(key, data)
             local value = self.vars[key]
             if value ~= nil then return value end
             if default == nil then return lia.char.vars[key] and lia.char.vars[key].default or nil end
+
             return default
         end
     end
@@ -132,7 +156,12 @@ lia.char.registerVar(
             local allowExistNames = lia.config.AllowExistNames
             if CLIENT and #lia.char.names < 1 and not allowExistNames then
                 netstream.Start("liaCharFetchNames")
-                netstream.Hook("liaCharFetchNames", function(data) lia.char.names = data end)
+                netstream.Hook(
+                    "liaCharFetchNames",
+                    function(data)
+                        lia.char.names = data
+                    end
+                )
             end
 
             if not lia.config.AllowExistNames then
@@ -140,6 +169,7 @@ lia.char.registerVar(
                     if v == value then return false, "A character with this name already exists." end
                 end
             end
+
             return true
         end,
         onAdjust = function(client, data, value, newData)
@@ -187,7 +217,10 @@ lia.char.registerVar(
         onSet = function(character, value)
             local oldVar = character:getModel()
             local client = character:getPlayer()
-            if IsValid(client) and client:getChar() == character then client:SetModel(value) end
+            if IsValid(client) and client:getChar() == character then
+                client:SetModel(value)
+            end
+
             character.vars.model = value
             netstream.Start(nil, "charSet", "model", character.vars.model, character:getID())
             hook.Run("PlayerModelChanged", client, value)
@@ -209,7 +242,10 @@ lia.char.registerVar(
                     local icon = layout:Add("SpawnIcon")
                     icon:SetSize(64, 128)
                     icon:InvalidateLayout(true)
-                    icon.DoClick = function(this) panel.payload.model = k end
+                    icon.DoClick = function(this)
+                        panel.payload.model = k
+                    end
+
                     icon.PaintOver = function(this, w, h)
                         if panel.payload.model == k then
                             local color = lia.config.Color
@@ -232,6 +268,7 @@ lia.char.registerVar(
                     end
                 end
             end
+
             return scroll
         end,
         onValidate = function(value, data)
@@ -293,18 +330,23 @@ lia.char.registerVar(
             character.vars.faction = faction.uniqueID
             netstream.Start(nil, "charSet", "faction", character.vars.faction, character:getID())
             hook.Run("OnCharVarChanged", character, "faction", oldVar, value)
+
             return true
         end,
         onGet = function(character, default)
             local faction = lia.faction.teams[character.vars.faction]
+
             return faction and faction.index or default or 0
         end,
         onValidate = function(value, data, client)
             if not lia.faction.indices[value] then return false, "invalid", "faction" end
             if not client:hasWhitelist(value) then return false, "illegalAccess" end
+
             return true
         end,
-        onAdjust = function(client, data, value, newData) newData.faction = lia.faction.indices[value].uniqueID end
+        onAdjust = function(client, data, value, newData)
+            newData.faction = lia.faction.indices[value].uniqueID
+        end
     }
 )
 
@@ -329,7 +371,10 @@ lia.char.registerVar(
             local data = character:getData()
             local client = character:getPlayer()
             data[key] = value
-            if not noReplication and IsValid(client) then netstream.Start(receiver or client, "charData", character:getID(), key, value) end
+            if not noReplication and IsValid(client) then
+                netstream.Start(receiver or client, "charData", character:getID(), key, value)
+            end
+
             character.vars.data = data
         end,
         onGet = function(character, key, default)
@@ -337,6 +382,7 @@ lia.char.registerVar(
             if key then
                 if not data then return default end
                 local value = data[key]
+
                 return value == nil and default or value
             else
                 return default or data
@@ -373,6 +419,7 @@ lia.char.registerVar(
             if key then
                 if not data then return default end
                 local value = data[key]
+
                 return value == nil and default or value
             else
                 return default or data
@@ -391,6 +438,7 @@ do
 
     function playerMeta:Name()
         local character = self.getChar(self)
+
         return character and character.getName(character) or self.steamName(self)
     end
 

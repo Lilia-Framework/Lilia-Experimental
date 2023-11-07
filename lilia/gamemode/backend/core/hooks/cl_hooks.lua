@@ -14,6 +14,7 @@ function GM:PlayerBindPress(client, bind, pressed)
         lia.command.send("chargetup")
     end
 end
+
 function GM:OnContextMenuOpen()
     self.BaseClass:OnContextMenuOpen()
     vgui.Create("liaQuick")
@@ -25,6 +26,7 @@ function GM:OnContextMenuClose()
         lia.gui.quick:Remove()
     end
 end
+
 function GM:CharacterListLoaded()
     timer.Create(
         "liaWaitUntilPlayerValid",
@@ -78,8 +80,6 @@ function GM:ClientPostInit()
         end
     )
 end
-
-
 
 function GM:TooltipInitialize(var, panel)
     if panel.liaToolTip or panel.itemID then

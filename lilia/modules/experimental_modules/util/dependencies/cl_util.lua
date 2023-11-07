@@ -1,5 +1,4 @@
-local useCheapBlur = CreateClientConVar("lia_cheapblur", 0, true):GetBool() 
-
+local useCheapBlur = CreateClientConVar("lia_cheapblur", 0, true):GetBool()
 function lia.util.drawText(text, x, y, color, alignX, alignY, font, alpha)
     color = color or color_white
 
@@ -208,7 +207,7 @@ end
 
 function lia.util.drawBlur(panel, amount, passes)
     amount = amount or 5
-    if useCheapBlurthen
+    if useCheapBlur then
         surface.SetDrawColor(50, 50, 50, amount * 20)
         surface.DrawRect(0, 0, panel:GetWide(), panel:GetTall())
     else
@@ -223,27 +222,6 @@ function lia.util.drawBlur(panel, amount, passes)
         end
     end
 end
-
-function lia.util.drawBlurAt(x, y, w, h, amount, passes)
-    amount = amount or 5
-    if useCheapBlurthen
-        surface.SetDrawColor(30, 30, 30, amount * 20)
-        surface.DrawRect(x, y, w, h)
-    else
-        surface.SetMaterial(lia.util.getMaterial("pp/blurscreen"))
-        surface.SetDrawColor(255, 255, 255)
-        local scrW, scrH = ScrW(), ScrH()
-        local x2, y2 = x / scrW, y / scrH
-        local w2, h2 = (x + w) / scrW, (y + h) / scrH
-        for i = -(passes or 0.2), 1, 0.2 do
-            lia.util.getMaterial("pp/blurscreen"):SetFloat("$blur", i * amount)
-            lia.util.getMaterial("pp/blurscreen"):Recompute()
-            render.UpdateScreenEffectTexture()
-            surface.DrawTexturedRectUV(x, y, w, h, x2, y2, w2, h2)
-        end
-    end
-end
-
 
 function lia.util.getInjuredColor(client)
     local health_color = color_white

@@ -1,4 +1,3 @@
-
 local function CanAccessIfPlayerHasAccessToBag(inventory, action, context)
 	local bagItemID = inventory:getData("item")
 	if not bagItemID then return end
@@ -16,13 +15,11 @@ local function CanAccessIfPlayerHasAccessToBag(inventory, action, context)
 	return parentInv and parentInv:canAccess(action, contextWithBagInv) or false, "noAccess"
 end
 
-
 local function CanNotTransferBagIntoBag(inventory, action, context)
 	if action ~= "transfer" then return end
 	local item, toInventory = context.item, context.to
-	if toInventory and toInventory:getData("item") and item.isBag then return false, "A bag cannot be placed into another bag" end  if to inventory is not valid, it goes to the ground.
+	if toInventory and toInventory:getData("item") and item.isBag then return false, "A bag cannot be placed into another bag" end
 end
-
 
 local function CanNotTransferBagIfNestedItemCanNotBe(inventory, action, context)
 	if action ~= "transfer" then return end
@@ -36,24 +33,21 @@ local function CanNotTransferBagIfNestedItemCanNotBe(inventory, action, context)
 	end
 end
 
-
 function MODULE:SetupBagInventoryAccessRules(inventory)
 	inventory:addAccessRule(CanNotTransferBagIntoBag, 1)
 	inventory:addAccessRule(CanNotTransferBagIfNestedItemCanNotBe, 1)
 	inventory:addAccessRule(CanAccessIfPlayerHasAccessToBag)
 end
 
-
 function MODULE:ItemCombine(client, item, target)
 	if target.onCombine then
-		if target:call("onCombine", client, nil, item) then return end  when other items dragged into the item.
+		if target:call("onCombine", client, nil, item) then return end
 	end
 
 	if item.onCombineTo then
-		if item and item:call("onCombineTo", client, nil, target) then return end  when you drag the item on something
+		if item and item:call("onCombineTo", client, nil, target) then return end
 	end
 end
-
 
 function MODULE:ItemDraggedOutOfInventory(client, item)
 	item:interact("drop", client)

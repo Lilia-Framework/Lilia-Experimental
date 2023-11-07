@@ -8,6 +8,7 @@ function MODULE:ClientInitializedModules()
         RunConsoleCommand(k, v)
     end
 end
+
 --------------------------------------------------------------------------------------------------------------------------
 function MODULE:PostGamemodeLoaded()
     scripted_ents.GetStored("base_gmodentity").t.Think = nil

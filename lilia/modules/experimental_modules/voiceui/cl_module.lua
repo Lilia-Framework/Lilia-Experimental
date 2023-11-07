@@ -29,6 +29,7 @@ function MODULE:PlayerEndVoice(client)
         VoicePanels[client].fadeAnim:Start(2)
     end
 end
+
 --------------------------------------------------------------------------------------------------------------------------
 function MODULE:InitPostEntity()
     if IsValid(g_VoicePanelList) then

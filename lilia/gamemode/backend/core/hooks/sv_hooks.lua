@@ -81,6 +81,7 @@ function GM:PlayerLoadedChar(client, character, lastChar)
 		client.liaRagdoll.liaIgnoreDelete = true
 		client.liaRagdoll:Remove()
 	end
+
 	local loginTime = os.time()
 	character:setData("loginTime", loginTime)
 	hook.Run("PlayerLoadout", client)
@@ -140,8 +141,6 @@ function GM:InitializedSchema()
 		game.ConsoleCommand("sbox_persist " .. newValue .. "\n")
 	end
 end
-
-
 
 function GM:PrePlayerLoadedChar(client, character, lastChar)
 	client:SetBodyGroups("000000000")

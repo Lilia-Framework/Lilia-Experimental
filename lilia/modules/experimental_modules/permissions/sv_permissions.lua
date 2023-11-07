@@ -1,6 +1,7 @@
 --------------------------------------------------------------------------------------------------------------------------
 function MODULE:PlayerSpawnNPC(client)
     if client:getChar() and CAMI.PlayerHasAccess(client, "Lilia - Spawn Permissions - Can Spawn NPCs", nil) or client:getChar():hasFlags("n") then return true end
+
     return false
 end
 
@@ -12,12 +13,15 @@ function MODULE:PlayerSpawnProp(client, model)
         if not self:CheckSpawnPropBlackList(client, model) then return false end
         if nextSpawnTime < CurTime() then
             client.NextSpawn = CurTime() + 0.75
+
             return true
         else
             client:notify("You can't spawn props that fast!")
+
             return false
         end
     end
+
     return false
 end
 
@@ -28,12 +32,15 @@ function MODULE:PlayerSpawnRagdoll(client)
         if CAMI.PlayerHasAccess(client, "Lilia - Spawn Permissions - No Spawn Delay") and (client.AdvDupe2 and client.AdvDupe2.Pasting) then return true end
         if nextSpawnTime < CurTime() then
             client.NextSpawn = CurTime() + 0.75
+
             return true
         else
             client:notify("You can't spawn ragdolls that fast!")
+
             return false
         end
     end
+
     return false
 end
 
@@ -45,18 +52,21 @@ end
 --------------------------------------------------------------------------------------------------------------------------
 function MODULE:PlayerGiveSWEP(client)
     if client:getChar() and (CAMI.PlayerHasAccess(client, "Lilia - Spawn Permissions - Can Spawn SWEPs", nil) or client:getChar():hasFlags("W")) then return true end
+
     return false
 end
 
 --------------------------------------------------------------------------------------------------------------------------
 function MODULE:PlayerSpawnEffect(client)
     if client:getChar() and CAMI.PlayerHasAccess(client, "Lilia - Spawn Permissions - Can Spawn Effects", nil) or client:getChar():hasFlags("L") then return true end
+
     return false
 end
 
 --------------------------------------------------------------------------------------------------------------------------
 function MODULE:PlayerSpawnSENT(client)
     if client:getChar() and CAMI.PlayerHasAccess(client, "Lilia - Spawn Permissions - Can Spawn SENTs", nil) or client:getChar():hasFlags("E") then return true end
+
     return false
 end
 
@@ -73,6 +83,7 @@ function MODULE:PlayerSpawnVehicle(client, model, name, data)
             return true
         end
     end
+
     return false
 end
 
@@ -84,6 +95,7 @@ function MODULE:CanTool(client, trace, tool)
         if tool == "permaprops" and not string.StartWith(entity:GetClass(), "lia_") or (tool == "advdupe2" and not table.HasValue(lia.config.DuplicatorBlackList, entity:GetClass())) then return true end
         if tool == "remover" and table.HasValue(lia.config.RemoverBlockedEntities, entity:GetClass()) then return CAMI.PlayerHasAccess(client, "Lilia - Staff Permissions - Can Remove Blocked Entities", nil) end
     end
+
     return false
 end
 
@@ -98,6 +110,7 @@ function MODULE:PhysgunPickup(client, entity)
             return CAMI.PlayerHasAccess(client, "Lilia - Staff Permissions - Physgun Pickup on Vehicles", nil)
         end
     end
+
     return false
 end
 
@@ -110,6 +123,7 @@ function MODULE:CanProperty(client, property, entity)
             return true
         end
     end
+
     return false
 end
 
@@ -132,8 +146,7 @@ function MODULE:CheckSpawnPropBlackList(client, model)
     end
 
     if table.HasValue(lia.config.BlackListedProps, model:lower()) then return false end
+
     return true
 end
-
-
 --------------------------------------------------------------------------------------------------------------------------

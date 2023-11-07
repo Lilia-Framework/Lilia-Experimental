@@ -10,6 +10,7 @@ local function OnPrivilegeRegistered(privilege)
         end
     end
 end
+
 --------------------------------------------------------------------------------------------------------------------------
 local function RegisterPrivileges()
     if CAMI then
@@ -18,6 +19,7 @@ local function RegisterPrivileges()
         end
     end
 end
+
 --------------------------------------------------------------------------------------------------------------------------
 hook.Add("serverguard.RanksLoaded", "serverguard.RanksLoaded", RegisterPrivileges)
 --------------------------------------------------------------------------------------------------------------------------

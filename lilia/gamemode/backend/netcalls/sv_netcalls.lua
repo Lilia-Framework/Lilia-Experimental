@@ -121,7 +121,6 @@ netstream.Hook(
     end
 )
 
-
 net.Receive(
     "EditDetailedDescriptions",
     function()

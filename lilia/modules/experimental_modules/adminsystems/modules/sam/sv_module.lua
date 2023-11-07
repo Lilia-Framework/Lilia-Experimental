@@ -4,6 +4,7 @@ function MODULE:InitializedModules()
     sam.config.set("Restrictions.Limits", false)
     sam.config.set("Restrictions.Spawning", false)
 end
+
 --------------------------------------------------------------------------------------------------------------------------
 function MODULE:PlayerInitialSpawn(client)
     local StaffRank = lia.config.DefaultStaff[client:SteamID()]
