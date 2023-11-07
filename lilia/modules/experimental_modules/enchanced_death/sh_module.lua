@@ -5,3 +5,6 @@ MODULE.author = "@liliaplayer"
 --------------------------------------------------------------------------------------------------------------------------
 MODULE.desc = ""
 --------------------------------------------------------------------------------------------------------------------------
+lia.config.LoseWeapononDeathNPC = false
+lia.config.LoseWeapononDeathHuman = false
+lia.config.LoseWeapononDeathWorld = false

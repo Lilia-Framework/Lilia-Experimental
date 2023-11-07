@@ -177,17 +177,6 @@ lia.command.add(
     }
 )
 
-for k, _ in pairs(lia.config.ServerURLs) do
-    lia.command.add(
-        k,
-        {
-            adminOnly = false,
-            privilege = "Default User Commands",
-            onRun = function(client, arguments) end
-        }
-    )
-end
-
 lia.command.add(
     "flip",
     {
@@ -339,17 +328,6 @@ lia.command.add(
     }
 )
 
-if lia.config.FactionBroadcastEnabled then
-    lia.command.add(
-        "factionbroadcast",
-        {
-            adminOnly = false,
-            privilege = "Default User Commands",
-            syntax = "<string factions> <string text>",
-            onRun = function(client, arguments) end
-        }
-    )
-end
 
 if lia.config.AdvertisementEnabled then
     lia.command.add(

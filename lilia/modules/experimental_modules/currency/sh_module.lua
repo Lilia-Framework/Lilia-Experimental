@@ -5,3 +5,6 @@ MODULE.author = "@liliaplayer"
 --------------------------------------------------------------------------------------------------------------------------
 MODULE.desc = ""
 --------------------------------------------------------------------------------------------------------------------------
+lia.config.CurrencySymbol = "$"
+lia.config.CurrencySingularName = "Dollar"
+lia.config.CurrencyPluralName = "Dollars"

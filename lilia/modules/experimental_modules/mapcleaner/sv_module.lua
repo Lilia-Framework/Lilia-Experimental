@@ -35,8 +35,7 @@ function MODULE:InitializedModules()
 				v:Remove()
 			end
 		end
-	)
-
+	)9
 	timer.Create(
 		"mapCleanupWarning",
 		lia.config.MapCleanupTime - (60 * 10),

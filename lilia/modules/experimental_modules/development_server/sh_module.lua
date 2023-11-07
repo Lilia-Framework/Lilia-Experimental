@@ -5,7 +5,7 @@ MODULE.author = "@liliaplayer"
 --------------------------------------------------------------------------------------------------------------------------
 MODULE.desc = ""
 --------------------------------------------------------------------------------------------------------------------------
-
+lia.config.DevServer = false
 --[[
     This allows you to make reduced cooldowns or certain scenarios only happen on the Dev server. Example:
     

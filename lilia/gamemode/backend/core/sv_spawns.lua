@@ -60,8 +60,6 @@ function GM:PostPlayerLoadout(client)
     end
 end
 
-
-
 function GM:PlayerInitialSpawn(client)
     client.liaJoinTime = RealTime()
     client:loadLiliaData(
@@ -78,23 +76,8 @@ function GM:PlayerInitialSpawn(client)
 
             hook.Run("PlayerLiliaDataLoaded", client)
         end
-    )
-
-    client:SetCanZoom(false)
-    local annoying = ents.FindByName("music")
-    local val = ents.GetMapCreatedEntity(1733)
-    if #annoying > 0 then
-        annoying[1]:SetKeyValue("RefireTime", 99999999)
-        annoying[1]:Fire("Disable")
-        annoying[1]:Fire("Kill")
-        val:SetKeyValue("RefireTime", 99999999)
-        val:Fire("Disable")
-        val:Fire("Kill")
-    end
-
-    self:RegisterPlayer(client)
+    ) 
     hook.Run("PostPlayerInitialSpawn", client)
-    hook.Run("ReRunNames")
 end
 
 function GM:PostPlayerInitialSpawn(client)
@@ -109,8 +92,4 @@ function GM:PostPlayerInitialSpawn(client)
             client:StripAmmo()
         end
     )
-end
-
-function GM:ModuleShouldLoad(module)
-    return not lia.module.isDisabled(module)
 end

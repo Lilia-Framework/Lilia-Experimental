@@ -2,7 +2,7 @@
 VoicePanels = {}
 --------------------------------------------------------------------------------------------------------------------------
 function MODULE:PlayerStartVoice(client)
-    if not IsValid(g_VoicePanelList) or not lia.config.AllowVoice then return end
+    if not IsValid(g_VoicePanelList) or not lia.config.IsVoiceEnabled then return end
     hook.Run("PlayerEndVoice", client)
     if IsValid(VoicePanels[client]) then
         if VoicePanels[client].fadeAnim then

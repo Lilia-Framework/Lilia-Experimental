@@ -1,6 +1,6 @@
 lia.config.DrowningEnabled = true
 lia.config.DamageScalerEnabled = true
-lia.config.HurtSoundEnabled = true
+lia.config.PainSoundEnabled = true
 lia.config.DeathSoundEnabled = true
 lia.config.BreakableLegsEnabled = false
 lia.config.LimbDamage = 0.5

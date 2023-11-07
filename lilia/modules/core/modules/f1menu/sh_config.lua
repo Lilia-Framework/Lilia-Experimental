@@ -78,3 +78,4 @@ end
 
 lia.config.RulesEnabled = false
 lia.config.TutorialEnabled = false
+lia.config.KickOnEnteringMainMenu = true
