@@ -1,0 +1,1 @@
+exclude_files = {"/gamemode/backend/libs/thirdparty/**/*.lua"}

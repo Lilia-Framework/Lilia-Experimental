@@ -76,7 +76,8 @@ function GM:PlayerInitialSpawn(client)
 
             hook.Run("PlayerLiliaDataLoaded", client)
         end
-    ) 
+    )
+
     hook.Run("PostPlayerInitialSpawn", client)
 end
 
