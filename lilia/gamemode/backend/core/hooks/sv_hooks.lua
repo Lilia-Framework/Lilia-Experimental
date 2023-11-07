@@ -81,11 +81,6 @@ function GM:PlayerLoadedChar(client, character, lastChar)
 		client.liaRagdoll.liaIgnoreDelete = true
 		client.liaRagdoll:Remove()
 	end
-
-	for _, ply in ipairs(player.GetAll()) do
-		hook.Run("CreateSalaryTimer", ply)
-	end
-
 	local loginTime = os.time()
 	character:setData("loginTime", loginTime)
 	hook.Run("PlayerLoadout", client)

@@ -1804,3 +1804,7 @@ function GM:LoadLiliaFonts(font, genericFont)
 
     hook.Run("LoadFonts", oldFont, oldGenericFont)
 end
+
+function GM:OnReloaded()
+    hook.Run("LoadLiliaFonts", lia.config.Font, lia.config.GenericFont)
+end

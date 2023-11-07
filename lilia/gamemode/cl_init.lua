@@ -5,7 +5,9 @@ lia = lia or {
     meta = {}
 }
 
-include("config.lua")
-include("includer.lua")
-include("loader.lua")
+include("lilia/core/config.lua")
+include("lilia/core/includer.lua")
+include("lilia/core/loader.lua")
+include("lilia/core/initialize.lua")
+include("lilia/core/pre_initialize.lua")
 include("shared.lua")
