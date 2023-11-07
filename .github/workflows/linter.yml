@@ -28,4 +28,4 @@ jobs:
 
     - name: Lint
       working-directory: helix
-      run: luacheck . -s | --no-unused-secondaries -a | --no-unused-args -r | --no-redefined -u | --no-unused -g | --no-global --no-self --ignore | -i 4.2/.*_ --formatter visual_studio --no-unused --no-unused-secondaries
+      run: luacheck . --no-unused-secondaries --no-unused-args --no-redefined --no-unused --no-global --no-self -i 4.2/.*_ --formatter visual_studio --no-unused
