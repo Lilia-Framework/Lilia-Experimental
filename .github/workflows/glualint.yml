@@ -63,7 +63,7 @@ jobs:
           # Step 4: Run glualint pretty-print
           echo "Step 4: Running glualint pretty-print..."
           chmod +x glualint_executable
-          ./glualint_executable pretty-print /workspaces/Lilia-Experimental/lilia/*
+          ./glualint_executable pretty-print /path/to/your/lua/files/*.lua  # Replace with the actual path to your Lua files
 
           # Step 5: Remove the glualint folder
           echo "Step 5: Removing the glualint folder..."
@@ -72,14 +72,4 @@ jobs:
           # Step 6: Delete the zip file
           echo "Step 6: Deleting glualint.zip..."
           rm glualint.zip
-        working-directory: ${{ github.workspace }}
         shell: bash
-
-      - name: Commit changes
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add -A
-          git commit -m "Auto-commit after running GLuaFixer"
-          git push
-        working-directory: ${{ github.workspace }}
