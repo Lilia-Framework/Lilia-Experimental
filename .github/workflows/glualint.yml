@@ -67,14 +67,10 @@ jobs:
           ls
         working-directory: '${{ github.workspace }}/lilia'
       - name: Download GLuaFixer (Step 1)
-        run: >
+        run: |
           echo "Step 1: Downloading glualint..."
-
-          curl -L -o glualint.zip
-          https://github.com/FPtje/GLuaFixer/releases/download/1.26.0/glualint-1.26.0-x86_64-linux.zip
-
+          curl -L -o glualint.zip https://github.com/FPtje/GLuaFixer/releases/download/1.26.0/glualint-1.26.0-x86_64-linux.zip
           unzip glualint.zip -d glualint
-
           mv glualint/glualint glualint_executable
         working-directory: '${{ github.workspace }}'
         shell: bash
@@ -109,26 +105,26 @@ jobs:
         run: |
           echo "Step 6: Running glualint pretty-print on /netcalls/"
           sudo ./glualint_executable pretty-print lilia/netcalls/*
-      - name: Run GLuaFixer on /modules/ (Step 6)
+      - name: Run GLuaFixer on /modules/ (Step 7)
         run: |
-          echo "Step 6: Running glualint pretty-print on /modules/"
+          echo "Step 7: Running glualint pretty-print on /modules/"
           sudo ./glualint_executable pretty-print lilia/modules/*
         working-directory: '${{ github.workspace }}'
         shell: bash
-      - name: Remove the glualint folder (Step 7)
+      - name: Remove the glualint folder (Step 8)
         run: |
-          echo "Step 7: Removing the glualint folder..."
+          echo "Step 8: Removing the glualint folder..."
           rm -r glualint
         working-directory: '${{ github.workspace }}'
         shell: bash
-      - name: Delete the zip file (Step 8)
+      - name: Delete the zip file (Step 9)
         run: |
-          echo "Step 8: Deleting glualint.zip..."
+          echo "Step 9: Deleting glualint.zip..."
           rm glualint.zip
         working-directory: '${{ github.workspace }}'
-      - name: Delete the zip file (Step 8)
+      - name: Delete the glualint_executable (Step 10)
         run: |
-          echo "Step 9: Deleting glualint_executable..."
+          echo "Step 10: Deleting glualint_executable..."
           rm glualint_executable
         working-directory: '${{ github.workspace }}'
         shell: bash
@@ -136,7 +132,11 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add -A
-          git commit -m "Auto-commit after running GLuaFixer"
-          git push
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git add -A
+            git commit -m "Auto-commit after running GLuaFixer"
+            git push
+          else
+            echo "No changes to commit."
+          fi
         working-directory: '${{ github.workspace }}'
