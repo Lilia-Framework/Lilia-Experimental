@@ -16,6 +16,9 @@ unzip glualint.zip -d glualint
 echo "Step 3: Running glualint pretty-print..."
 cd glualint
 chmod +x glualint
-./glualint pretty-print
+./glualint --pretty-print	
+# Step 4: Delete the zip file
+echo "Step 4: Deleting glualint.zip..."
+rm ../glualint.zip
 
 echo "Script completed."
