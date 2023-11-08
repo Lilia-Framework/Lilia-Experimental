@@ -4,6 +4,8 @@ on: [push, pull_request]
 jobs:
   linter:
     runs-on: ubuntu-latest
+    permissions: read-all
+    permissions: write-all
 
     steps:
       - name: Checkout code
@@ -35,6 +37,8 @@ jobs:
 
   glualint:
     runs-on: ubuntu-latest
+    permissions: read-all
+    permissions: write-all
 
     steps:
       - name: Checkout code
