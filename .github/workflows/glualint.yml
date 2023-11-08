@@ -49,6 +49,7 @@ jobs:
       - name: List files in the working directory
         run: |
           ls
+          cd lilia
         working-directory: ${{ github.workspace }}
 
       - name: Download and run GLuaFixer
