@@ -80,6 +80,7 @@ jobs:
       - name: Run GLuaFixer on /core/
         run: |
           # Step 3: Running glualint pretty-print on /core/
+          ls
           echo "Step 3: Running glualint pretty-print on /core/"
           sudo ./glualint_executable pretty-print /core/**/*.lua
         working-directory: ${{ github.workspace }}
