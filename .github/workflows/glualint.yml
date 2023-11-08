@@ -46,10 +46,14 @@ jobs:
           sudo apt install -y unzip
         shell: bash
 
-      - name: List files in the working directory & set location of Lilia
+      - name: List files in the working directory
         run: |
           ls
-          cd lilia
+      - name: Set location of Lilia
+        run: |
+        cd lilia
+      - name: List files in lilia
+        run: |     
           ls
         working-directory: ${{ github.workspace }}
 
@@ -70,7 +74,7 @@ jobs:
           # Step 4: Run glualint pretty-print
           echo "Step 4: Running glualint pretty-print..."
           chmod +x glualint_executable
-          ./glualint_executable pretty-print /workspaces/Lilia-Experimental/lilia/*
+          ./glualint_executable pretty-print /lilia/*
 
           # Step 5: Remove the glualint folder
           echo "Step 5: Removing the glualint folder..."
