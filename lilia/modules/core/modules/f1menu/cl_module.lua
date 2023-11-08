@@ -172,6 +172,7 @@ function MODULE:BuildHelpMenu(tabs)
     tabs["modules"] = function(node)
         local body = ""
         for _, v in SortedPairsByMemberValue(lia.module.list, "name") do
+            if v.MenuNoShow then continue end
             body = (body .. [[
                 <p>
                     <span style="font-size: 22;"><b>%s</b><br /></span>

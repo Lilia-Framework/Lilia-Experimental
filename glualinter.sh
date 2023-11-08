@@ -16,7 +16,7 @@ mv glualint/glualint glualint_executable
 echo "Step 4: Running glualint pretty-print..."
 chmod +x glualint_executable
 ./glualint_executable pretty-print /workspaces/Lilia-Experimental/lilia/*
-
+ 
 # Step 5: Remove the glualint folder
 echo "Step 5: Removing the glualint folder..."
 rm -r glualint
