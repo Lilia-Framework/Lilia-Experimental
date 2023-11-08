@@ -4,4 +4,4 @@
 chmod +x glualinter.sh
 
 # Run the script
-./glualinter.sh
+./sudo glualinter.sh
