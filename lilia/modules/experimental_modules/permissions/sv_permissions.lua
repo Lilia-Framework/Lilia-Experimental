@@ -89,13 +89,17 @@ end
 
 --------------------------------------------------------------------------------------------------------------------------
 function MODULE:PhysgunPickup(client, entity)
-    if client:getChar() and entity:GetCreator() == client and entity:GetClass() == "prop_physics" then
-        return true
-    elseif client:getChar() and CAMI.PlayerHasAccess(client, "Lilia - Staff Permissions - Physgun Pickup", nil) then
-        if table.HasValue(lia.config.PhysGunMoveRestrictedEntityList, entity:GetClass()) then
-            return CAMI.PlayerHasAccess(client, "Lilia - Staff Permissions - Physgun Pickup on Restricted Entities", nil)
-        elseif entity:IsVehicle() then
-            return CAMI.PlayerHasAccess(client, "Lilia - Staff Permissions - Physgun Pickup on Vehicles", nil)
+    if client:getChar() then
+        if entity:GetCreator() == client and entity:GetClass() == "prop_physics" then
+            return true
+        elseif CAMI.PlayerHasAccess(client, "Lilia - Staff Permissions - Physgun Pickup", nil) then
+            if table.HasValue(lia.config.PhysGunMoveRestrictedEntityList, entity:GetClass()) then
+                return CAMI.PlayerHasAccess(client, "Lilia - Staff Permissions - Physgun Pickup on Restricted Entities", nil)
+            elseif entity:IsVehicle() then
+                return CAMI.PlayerHasAccess(client, "Lilia - Staff Permissions - Physgun Pickup on Vehicles", nil)
+            else
+                return true
+            end
         end
     end
     return false
@@ -133,5 +137,12 @@ function MODULE:CheckSpawnPropBlackList(client, model)
 
     if table.HasValue(lia.config.BlackListedProps, model:lower()) then return false end
     return true
+end
+
+--------------------------------------------------------------------------------------------------------------------------
+if sam then
+    sam.config.set("Restrictions.Tool", false)
+    sam.config.set("Restrictions.Limits", false)
+    sam.config.set("Restrictions.Spawning", false)
 end
 --------------------------------------------------------------------------------------------------------------------------
