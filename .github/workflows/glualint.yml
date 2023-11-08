@@ -46,6 +46,11 @@ jobs:
           sudo apt install -y unzip
         shell: bash
 
+      - name: List files in the working directory
+        run: |
+          ls
+        working-directory: ${{ github.workspace }}
+
       - name: Download and run GLuaFixer
         run: |
           # Step 1: Download glualint
@@ -60,10 +65,10 @@ jobs:
           echo "Step 3: Moving glualint executable to the root directory..."
           mv glualint/glualint glualint_executable
 
-          # Step 4: Run glualint pretty-print within the repository (Apply changes here)
+          # Step 4: Run glualint pretty-print
           echo "Step 4: Running glualint pretty-print..."
           chmod +x glualint_executable
-          ./glualint_executable pretty-print /lilia/*
+          ./glualint_executable pretty-print /workspaces/Lilia-Experimental/lilia/*
 
           # Step 5: Remove the glualint folder
           echo "Step 5: Removing the glualint folder..."
@@ -72,7 +77,7 @@ jobs:
           # Step 6: Delete the zip file
           echo "Step 6: Deleting glualint.zip..."
           rm glualint.zip
-        working-directory: ${{ github.workspace }}/lilia
+        working-directory: ${{ github.workspace }}
         shell: bash
 
       - name: Commit changes
@@ -82,4 +87,4 @@ jobs:
           git add -A
           git commit -m "Auto-commit after running GLuaFixer"
           git push
-        working-directory: ${{ github.workspace }}/lilia
+        working-directory: ${{ github.workspace }}
