@@ -84,7 +84,7 @@ jobs:
         run: |
           # Step 3: Running glualint pretty-print on /core/
           echo "Step 3: Running glualint pretty-print on /core/"
-          sudo ./glualint_executable pretty-print lilia/core/**/*.lua
+          sudo ./glualint_executable pretty-print lilia/core/*
         working-directory: ${{ github.workspace }}
         shell: bash
 
@@ -92,7 +92,7 @@ jobs:
         run: |
           # Step 4: Running glualint pretty-print on /gamemode/
           echo "Step 4: Running glualint pretty-print on /gamemode/"
-          sudo ./glualint_executable pretty-print lilia/gamemode/**/*.lua
+          sudo ./glualint_executable pretty-print lilia/gamemode/*
         working-directory: ${{ github.workspace }}
         shell: bash
 
@@ -100,7 +100,7 @@ jobs:
         run: |
           # Step 5: Running glualint pretty-print on /entities/
           echo "Step 5: Running glualint pretty-print on /entities/"
-          sudo ./glualint_executable pretty-print lilia/entities/**/*.lua
+          sudo ./glualint_executable pretty-print lilia/entities/*
         working-directory: ${{ github.workspace }}
         shell: bash
 
@@ -108,7 +108,7 @@ jobs:
         run: |
           # Step 6: Running glualint pretty-print on /modules/
           echo "Step 6: Running glualint pretty-print on /modules/"
-          sudo ./glualint_executable pretty-print lilia/modules/**/*.lua
+          sudo ./glualint_executable pretty-print lilia/modules/*
         working-directory: ${{ github.workspace }}
         shell: bash
 
