@@ -49,13 +49,15 @@ jobs:
       - name: List files in the working directory
         run: |
           ls
+          
       - name: Set location of Lilia
         run: |
-        cd lilia
+          cd lilia
+          
       - name: List files in lilia
-        run: |     
+        run: |
           ls
-        working-directory: ${{ github.workspace }}
+        working-directory: ${{ github.workspace }}/lilia
 
       - name: Download and run GLuaFixer
         run: |
