@@ -9,7 +9,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          path: helix
+          path: lilia
 
       - name: Setup Lua
         uses: leafo/gh-actions-lua@v8.0.0
@@ -30,7 +30,7 @@ jobs:
         run: luarocks make
 
       - name: Lint with gluacheck
-        working-directory: helix
+        working-directory: lilia
         run: luacheck . --no-unused-secondaries --no-unused-args --no-redefined --no-unused --no-global --no-self -i 4.2/.*_ --formatter visual_studio --no-unused --no-max-line-length --no-max-code-line-length --no-max-string-line-length --no-max-comment-line-length --no-max-cyclomatic-complexity
 
   glualint:
@@ -59,35 +59,68 @@ jobs:
           ls
         working-directory: ${{ github.workspace }}/lilia
 
-      - name: Download and run GLuaFixer
+      - name: Download GLuaFixer
         run: |
           # Step 1: Download glualint
           echo "Step 1: Downloading glualint..."
           curl -L -o glualint.zip https://github.com/FPtje/GLuaFixer/releases/download/1.26.0/glualint-1.26.0-x86_64-linux.zip
-
-          # Step 2: Unzip glualint
-          echo "Step 2: Unzipping glualint..."
           unzip glualint.zip -d glualint
-
-          # Step 3: Move glualint executable to the root directory
-          echo "Step 3: Moving glualint executable to the root directory..."
           mv glualint/glualint glualint_executable
+        working-directory: ${{ github.workspace }}
+        shell: bash
 
-          # Step 4: Run glualint pretty-print
-          echo "Step 4: Running glualint pretty-print..."
+      - name: Set execution permissions
+        run: |
+          # Step 2: Set execution permissions
+          echo "Step 2: Setting execution permissions..."
           sudo chmod +x glualint_executable
-          
+        working-directory: ${{ github.workspace }}
+        shell: bash
+
+      - name: Run GLuaFixer on /core/
+        run: |
+          # Step 3: Running glualint pretty-print on /core/
+          echo "Step 3: Running glualint pretty-print on /core/"
           sudo ./glualint_executable pretty-print /core/
+        working-directory: ${{ github.workspace }}
+        shell: bash
+
+      - name: Run GLuaFixer on /gamemode/
+        run: |
+          # Step 4: Running glualint pretty-print on /gamemode/
+          echo "Step 4: Running glualint pretty-print on /gamemode/"
           sudo ./glualint_executable pretty-print /gamemode/
+        working-directory: ${{ github.workspace }}
+        shell: bash
+
+      - name: Run GLuaFixer on /entities/
+        run: |
+          # Step 5: Running glualint pretty-print on /entities/
+          echo "Step 5: Running glualint pretty-print on /entities/"
           sudo ./glualint_executable pretty-print /entities/
+        working-directory: ${{ github.workspace }}
+        shell: bash
+
+      - name: Run GLuaFixer on /modules/
+        run: |
+          # Step 6: Running glualint pretty-print on /modules/
+          echo "Step 6: Running glualint pretty-print on /modules/"
           sudo ./glualint_executable pretty-print /modules/
+        working-directory: ${{ github.workspace }}
+        shell: bash
 
-          # Step 5: Remove the glualint folder
-          echo "Step 5: Removing the glualint folder..."
+      - name: Remove the glualint folder
+        run: |
+          # Step 7: Removing the glualint folder
+          echo "Step 7: Removing the glualint folder..."
           rm -r glualint
+        working-directory: ${{ github.workspace }}
+        shell: bash
 
-          # Step 6: Delete the zip file
-          echo "Step 6: Deleting glualint.zip..."
+      - name: Delete the zip file
+        run: |
+          # Step 8: Deleting glualint.zip
+          echo "Step 8: Deleting glualint.zip..."
           rm glualint.zip
         working-directory: ${{ github.workspace }}
         shell: bash
