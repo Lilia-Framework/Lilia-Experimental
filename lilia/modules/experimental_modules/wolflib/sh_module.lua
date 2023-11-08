@@ -1,6 +1,6 @@
 local MODULE = MODULE or {}
-MODULE.name = "Derma Banking Sub-Module" 
-MODULE.author = "76561198312513285" // Extra Credit to Robert Bearson for the NS version of this Derma Library 
+MODULE.name = "Derma Banking Sub-Module"
+MODULE.author = "76561198312513285" -- Extra Credit to Robert Bearson for the NS version of this Derma Library 
 --------------------------------------------------------------------------------------------------------------------------
 MODULE.discord = "@liliaplayer"
 --------------------------------------------------------------------------------------------------------------------------
@@ -25,7 +25,6 @@ BC_NEUTRAL = Color(206, 80, 80)
 BC_NEUTRAL_HOV = Color(70, 163, 255)
 function getHovCol(col)
     if not col then return end
-
     return Color(col.r + 10, col.g + 10, col.b + 10, col.a)
 end
 
@@ -42,7 +41,6 @@ function strPosAngConv(str)
     pos = Vector(pos[2], pos[3], pos[4])
     local ang = str:Split(";")[2]:Split("setang")[2]:Split(" ")
     ang = Angle(ang[2], ang[3], ang[4])
-
     return pos, ang
 end
 
@@ -170,17 +168,7 @@ if CLIENT then
         blur:Center()
         blur:MakePopup()
         blur:SetAlpha(0)
-        blur:AlphaTo(
-            255,
-            0.15,
-            0,
-            function()
-                if callback then
-                    callback(blur)
-                end
-            end
-        )
-
+        blur:AlphaTo(255, 0.15, 0, function() if callback then callback(blur) end end)
         function blur:Paint(w, h)
             draw.RoundedBox(0, 0, 0, w, h, Color(30, 30, 30, 150))
             lia.util.drawBlur(self, 6)
@@ -190,29 +178,17 @@ if CLIENT then
         function blur:Think()
             if self:HasFocus() then
                 local c = self:GetChildren()
-                if #c > 0 then
-                    c[1]:MakePopup()
-                end
+                if #c > 0 then c[1]:MakePopup() end
             end
         end
 
         function blur:OnKeyCodePressed(key)
-            if key == KEY_F1 then
-                self:Remove()
-            end
+            if key == KEY_F1 then self:Remove() end
         end
 
         function blur:SmoothClose()
-            self:AlphaTo(
-                0,
-                0.2,
-                0.15,
-                function()
-                    self:Remove()
-                end
-            )
+            self:AlphaTo(0, 0.2, 0.15, function() self:Remove() end)
         end
-
         return blur
     end
 
@@ -233,6 +209,5 @@ local PLAYER = FindMetaTable("Player")
 function PLAYER:getEyeEnt(distance)
     distance = distance or 150
     local e = self:GetEyeTrace().Entity
-
     return e:GetPos():Distance(self:GetPos()) <= distance and e or nil
 end
