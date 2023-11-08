@@ -1,15 +1,9 @@
-function lia.util.include(fileName, state)
-    if not fileName then
-        error("[Lilia] No file name specified for including.")
-    end
-
+﻿function lia.util.include(fileName, state)
+    if not fileName then error("[Lilia] No file name specified for including.") end
     if (state == "server" or fileName:find("sv_")) and SERVER then
         return include(fileName)
     elseif state == "shared" or fileName:find("sh_") then
-        if SERVER then
-            AddCSLuaFile(fileName)
-        end
-
+        if SERVER then AddCSLuaFile(fileName) end
         return include(fileName)
     elseif state == "client" or fileName:find("cl_") then
         if SERVER then
@@ -33,7 +27,6 @@ function lia.util.includeDir(directory, fromLua, recursive)
             local files, folders = file.Find(folder .. "/*", "LUA")
             if not files then
                 MsgN("Warning! This folder is empty!")
-
                 return
             end
 

@@ -1,4 +1,4 @@
-function MODULE:SaveScenes()
+﻿function MODULE:SaveScenes()
     self:setData(self.scenes)
 end
 

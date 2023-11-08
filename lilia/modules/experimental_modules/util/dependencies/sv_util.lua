@@ -1,4 +1,4 @@
-function lia.util.notify(message, recipient)
+﻿function lia.util.notify(message, recipient)
     net.Start("liaNotify")
     net.WriteString(message)
     if recipient == nil then
@@ -55,6 +55,5 @@ function lia.util.findEmptySpace(entity, filter, spacing, size, height, toleranc
     end
 
     table.sort(output, function(a, b) return a:Distance(position) < b:Distance(position) end)
-
     return output
 end

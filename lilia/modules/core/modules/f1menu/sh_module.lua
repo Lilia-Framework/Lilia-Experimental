@@ -1,4 +1,4 @@
-local MODULE = MODULE
+﻿local MODULE = MODULE
 MODULE.name = "F1 Menu"
 MODULE.author = "@liliaplayer"
 MODULE.desc = "A menu that shows up upon pressing F1."

@@ -1,4 +1,4 @@
-local toScreen = FindMetaTable("Vector").ToScreen
+﻿local toScreen = FindMetaTable("Vector").ToScreen
 function MODULE:ShouldDrawEntityInfo(entity)
     if entity.isDoor(entity) and not entity.getNetVar(entity, "disabled") then return true end
 end

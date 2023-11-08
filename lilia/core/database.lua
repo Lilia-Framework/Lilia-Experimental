@@ -1,4 +1,4 @@
-lia.db = lia.db or {}
+﻿lia.db = lia.db or {}
 lia.db.queryQueue = lia.db.queue or {}
 local function ThrowQueryFault(query, fault)
     MsgC(Color(255, 0, 0), "* " .. query .. "\n")

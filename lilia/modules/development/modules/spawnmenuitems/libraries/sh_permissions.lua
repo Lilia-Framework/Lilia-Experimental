@@ -1,4 +1,4 @@
-CAMI.RegisterPrivilege(
+﻿CAMI.RegisterPrivilege(
     {
         Name = "Lilia - Staff Permissions - Can Spawn Menu Items",
         MinAccess = "superadmin",

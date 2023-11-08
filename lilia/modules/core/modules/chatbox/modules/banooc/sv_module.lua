@@ -1,4 +1,4 @@
-local MODULE = MODULE
+﻿local MODULE = MODULE
 function MODULE:SaveData()
     self:setData(self.oocBans)
 end

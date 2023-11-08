@@ -1,4 +1,4 @@
-netstream.Hook(
+﻿netstream.Hook(
     "msg",
     function(client, text)
         local charlimit = lia.config.MaxChatLength

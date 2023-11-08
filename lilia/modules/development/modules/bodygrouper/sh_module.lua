@@ -1,4 +1,4 @@
-local MODULE = MODULE
+﻿local MODULE = MODULE
 MODULE.name = "Bodygrouper"
 MODULE.author = "DoopieWop [Base Code] || Leonheart [Lilia Port]"
 MODULE.desc = "Adds a bodygroup menu and bodygroup closet, akin to BodygroupR on GModStore"

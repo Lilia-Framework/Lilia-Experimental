@@ -1,4 +1,4 @@
-CAMI.RegisterPrivilege(
+﻿CAMI.RegisterPrivilege(
     {
         Name = "Lilia - Staff Permissions - No Clip",
         MinAccess = "superadmin",

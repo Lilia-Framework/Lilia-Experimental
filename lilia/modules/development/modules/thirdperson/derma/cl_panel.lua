@@ -1,4 +1,4 @@
-local PANEL = {}
+﻿local PANEL = {}
 function PANEL:Init()
     self:SetTitle(L("thirdpersonConfig"))
     self:SetSize(300, 140)

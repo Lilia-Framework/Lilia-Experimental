@@ -1,4 +1,4 @@
-renderedIcons = renderedIcons or {}
+﻿renderedIcons = renderedIcons or {}
 function renderNewIcon(panel, itemTable)
     if (itemTable.iconCam and not renderedIcons[string.lower(itemTable.model)]) or itemTable.forceRender then
         local iconCam = itemTable.iconCam
@@ -53,9 +53,7 @@ function PANEL:setItemType(itemTypeOrID)
         end
     elseif item.icon then
         self.Icon:SetVisible(false)
-        self.ExtraPaint = function(self, w, h)
-            drawIcon(item.icon, self, w, h)
-        end
+        self.ExtraPaint = function(self, w, h) drawIcon(item.icon, self, w, h) end
     else
         renderNewIcon(self, item)
     end
@@ -102,13 +100,10 @@ function PANEL:Paint(w, h)
 end
 
 local buildActionFunc = function(action, actionIndex, itemTable, invID, sub)
-    return function()
+    return     function()
         itemTable.player = LocalPlayer()
         local send = true
-        if action.onClick then
-            send = action.onClick(itemTable, sub and sub.data)
-        end
-
+        if action.onClick then send = action.onClick(itemTable, sub and sub.data) end
         local snd = action.sound or SOUND_INVENTORY_INTERACT
         if snd then
             if istable(snd) then
@@ -118,10 +113,7 @@ local buildActionFunc = function(action, actionIndex, itemTable, invID, sub)
             end
         end
 
-        if send ~= false then
-            netstream.Start("invAct", actionIndex, itemTable.id, invID, sub and sub.data)
-        end
-
+        if send ~= false then netstream.Start("invAct", actionIndex, itemTable.id, invID, sub and sub.data) end
         itemTable.player = nil
     end
 end
@@ -133,10 +125,7 @@ function PANEL:openActionMenu()
     local menu = DermaMenu()
     local override = hook.Run("OnCreateItemInteractionMenu", self, menu, itemTable)
     if override then
-        if IsValid(menu) then
-            menu:Remove()
-        end
-
+        if IsValid(menu) then menu:Remove() end
         return
     end
 
@@ -181,9 +170,7 @@ function PANEL:InventoryDataChanged(key, oldValue, newValue)
 end
 
 function PANEL:InventoryDeleted(inventory)
-    if self.inventory == inventory then
-        self:Remove()
-    end
+    if self.inventory == inventory then self:Remove() end
 end
 
 function PANEL:InventoryItemAdded(item)
@@ -220,11 +207,7 @@ function PANEL:setInventory(inventory)
     self:InvalidateLayout(true)
     self.content:setGridSize(self.gridW, self.gridH)
     self.content:setInventory(inventory)
-    self.content.InventoryDeleted = function(content, deletedInventory)
-        if deletedInventory == inventory then
-            self:InventoryDeleted()
-        end
-    end
+    self.content.InventoryDeleted = function(content, deletedInventory) if deletedInventory == inventory then self:InventoryDeleted() end end
 end
 
 function PANEL:InventoryDeleted()

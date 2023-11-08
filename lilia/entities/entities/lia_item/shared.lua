@@ -1,4 +1,4 @@
-ENT.Base = "base_entity"
+﻿ENT.Base = "base_entity"
 ENT.Type = "anim"
 ENT.PrintName = "Item"
 ENT.Category = "Lilia"
@@ -16,6 +16,5 @@ end
 function ENT:getData(key, default)
     local data = self:getNetVar("data", {})
     if data[key] == nil then return default end
-
     return data[key]
 end

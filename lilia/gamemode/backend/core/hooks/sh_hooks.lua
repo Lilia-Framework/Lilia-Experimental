@@ -1,4 +1,4 @@
-function GM:EntityEmitSound(data)
+﻿function GM:EntityEmitSound(data)
     if data.Entity.liaIsMuted then return false end
 end
 

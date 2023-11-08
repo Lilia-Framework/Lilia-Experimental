@@ -1,4 +1,4 @@
-local function drawdot(pos, size, col)
+﻿local function drawdot(pos, size, col)
     pos[1] = math.Round(pos[1])
     pos[2] = math.Round(pos[2])
     draw.RoundedBox(0, pos[1] - size / 2, pos[2] - size / 2, size, size, col[1])
@@ -25,7 +25,6 @@ function MODULE:ShouldDrawCrosshair()
         local className = wep:GetClass()
         if className == "gmod_tool" or string.find(className, "lia_") or string.find(className, "detector_") then return true end
         if lia.config.NoDrawCrosshairWeapon[wep:GetClass()] then return false end
-
         return true
     end
 end

@@ -1,4 +1,4 @@
-ACCESS_LABELS = {}
+﻿ACCESS_LABELS = {}
 MODULE.name = "Doors"
 MODULE.author = "@liliaplayer"
 MODULE.desc = "A simple door system."

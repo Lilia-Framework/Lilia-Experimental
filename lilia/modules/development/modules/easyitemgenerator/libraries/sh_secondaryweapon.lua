@@ -1,4 +1,4 @@
-lia.EasyRegister.secondary = {
+﻿lia.EasyRegister.secondary = {
     ["weapon_pistol"] = {
         ["name"] = "9MM Pistol",
         ["desc"] = "A sidearm utilising 9mm Ammunition",

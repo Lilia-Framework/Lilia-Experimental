@@ -1,4 +1,4 @@
-lia.config.KeepAmmoOnDeath = false
+﻿lia.config.KeepAmmoOnDeath = false
 lia.config.AmmoRegister = {"ar2", "pistol", "357", "smg1", "xbowbolt", "buckshot", "rpg_round", "smg1_grenade", "grenade", "ar2altfire", "slam", "alyxgun", "sniperround", "sniperpenetratedround", "thumper", "gravity", "battery", "gaussenergy", "combinecannon", "airboatgun", "striderminigun", "helicoptergun"}
 lia.config.Ammo = {
     ["7.92x33mm Kurz"] = "ar2",

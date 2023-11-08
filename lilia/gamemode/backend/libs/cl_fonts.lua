@@ -1,4 +1,4 @@
-function GM:LoadLiliaFonts(font, genericFont)
+﻿function GM:LoadLiliaFonts(font, genericFont)
     local oldFont, oldGenericFont = font, genericFont
     local scale = math.Round(1, 2)
     surface.CreateFont(

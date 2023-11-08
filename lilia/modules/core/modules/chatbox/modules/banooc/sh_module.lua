@@ -1,4 +1,4 @@
-local MODULE = MODULE
+﻿local MODULE = MODULE
 MODULE.oocBans = MODULE.oocBans or {}
 MODULE.name = "OOC Bans"
 MODULE.author = "@liliaplayer"

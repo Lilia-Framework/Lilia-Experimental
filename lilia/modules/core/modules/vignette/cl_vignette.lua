@@ -1,4 +1,4 @@
-local vignetteAlphaGoal = 0
+﻿local vignetteAlphaGoal = 0
 local vignetteAlphaDelta = 0
 local hasVignetteMaterial = lia.util.getMaterial("lilia/gui/vignette.png") ~= "___error"
 function MODULE:HUDPaintBackground()

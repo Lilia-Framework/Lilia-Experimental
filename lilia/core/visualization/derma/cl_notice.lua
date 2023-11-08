@@ -1,4 +1,4 @@
-local PANEL = {}
+﻿local PANEL = {}
 function PANEL:Init()
     self:SetSize(256, 36)
     self:SetContentAlignment(5)
@@ -23,7 +23,6 @@ function PANEL:Paint(w, h)
 end
 
 vgui.Register("liaNotice", PANEL, "DLabel")
-
 PANEL = {}
 function PANEL:Init()
     self.padding = 60

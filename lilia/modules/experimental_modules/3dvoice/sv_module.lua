@@ -1,4 +1,4 @@
-local VoiceData = {}
+﻿local VoiceData = {}
 VoiceData.cache = CurTime()
 VoiceData.CanHearCache = false
 function GM:PlayerCanHearPlayersVoice(listener, speaker)

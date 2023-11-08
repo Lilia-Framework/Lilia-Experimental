@@ -1,4 +1,4 @@
-DynamicBackgrounds = MODULE
+﻿DynamicBackgrounds = MODULE
 MODULE.scenes = MODULE.scenes or {}
 MODULE.name = "Dynamic Backgrounds"
 MODULE.author = "@liliaplayer & Chessnut"

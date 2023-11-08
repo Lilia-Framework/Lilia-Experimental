@@ -1,11 +1,10 @@
-local toScreen = FindMetaTable("Vector").ToScreen
+﻿local toScreen = FindMetaTable("Vector").ToScreen
 include("shared.lua")
 function ENT:computeDescMarkup(description)
     if self.desc ~= description then
         self.desc = description
         self.markup = lia.markup.parse("<font=liaItemDescFont>" .. description .. "</font>", ScrW() * 0.5)
     end
-
     return self.markup
 end
 
@@ -22,10 +21,7 @@ function ENT:onDrawEntityInfo(alpha)
     self:computeDescMarkup(description)
     lia.util.drawText(L(itemTable.getName and itemTable:getName() or itemTable.name), x, y, ColorAlpha(lia.config.Color, alpha), 1, 1, nil, alpha * 0.65)
     y = y + 12
-    if self.markup then
-        self.markup:draw(x, y, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, alpha)
-    end
-
+    if self.markup then self.markup:draw(x, y, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, alpha) end
     hook.Run("DrawItemDescription", self, x, y, ColorAlpha(color_white, alpha), alpha * 0.65)
     itemTable.data = oldData
     itemTable.entity = oldEntity

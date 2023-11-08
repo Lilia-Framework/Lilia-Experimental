@@ -1,3 +1,3 @@
-function GM:PlayerSpawn(client)
+﻿function GM:PlayerSpawn(client)
     client:ConCommand("pac_restart")
 end

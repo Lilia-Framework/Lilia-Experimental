@@ -1,4 +1,4 @@
-function GM:LiliaLoaded()
+﻿function GM:LiliaLoaded()
     local namecache = {}
     for _, MODULE in pairs(lia.module.list) do
         local authorID = (tonumber(MODULE.author) and tostring(MODULE.author)) or (string.match(MODULE.author, "STEAM_") and util.SteamIDTo64(MODULE.author)) or nil

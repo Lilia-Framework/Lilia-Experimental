@@ -1,4 +1,4 @@
-local function HandleDrowning(client)
+﻿local function HandleDrowning(client)
     if not client:getChar() or not client:Alive() or hook.Run("ShouldclientDrown", client) == false then return end
     if client:WaterLevel() >= 3 then
         client.drowningTime = client.drowningTime or (CurTime() + lia.config.DrownTime)

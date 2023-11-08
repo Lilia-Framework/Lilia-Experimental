@@ -1,4 +1,4 @@
-lia.EasyRegister.ammo = {
+﻿lia.EasyRegister.ammo = {
     ["357_ammo"] = {
         ["name"] = ".357 Ammo",
         ["desc"] = "A Box that contains %s of .357 Ammo",

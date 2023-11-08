@@ -1,4 +1,4 @@
-lia.command.add(
+﻿lia.command.add(
     "whitelistadd",
     {
         privilege = "Whitelist Change",

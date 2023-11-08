@@ -1,4 +1,4 @@
-lia.config.DrowningEnabled = true
+﻿lia.config.DrowningEnabled = true
 lia.config.DamageScalerEnabled = true
 lia.config.PainSoundEnabled = true
 lia.config.DeathSoundEnabled = true

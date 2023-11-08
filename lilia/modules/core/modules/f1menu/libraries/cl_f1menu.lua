@@ -1,11 +1,10 @@
-function MODULE:PlayerBindPress(client, bind, pressed)
+﻿function MODULE:PlayerBindPress(client, bind, pressed)
     if bind:lower():find("gm_showhelp") and pressed then
         if IsValid(lia.gui.menu) then
             lia.gui.menu:remove()
         elseif LocalPlayer():getChar() then
             vgui.Create("liaMenu")
         end
-
         return true
     end
 end

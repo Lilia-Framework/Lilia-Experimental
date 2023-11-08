@@ -1,4 +1,4 @@
-AddCSLuaFile()
+﻿AddCSLuaFile()
 ENT.Type = "anim"
 ENT.PrintName = "Bodygroup Closet"
 ENT.Category = "Lilia"
@@ -27,7 +27,6 @@ end
 
 function ENT:HasUser(user)
     self.users = self.users or {}
-
     return self.users[user] == true
 end
 

@@ -1,4 +1,4 @@
-function MODULE:ChatAddText(text, ...)
+﻿function MODULE:ChatAddText(text, ...)
     if lia.config.ChatSizeDiff then
         local chatText = {...}
         local chatMode = #chatText <= 4 and chatText[2] or chatText[3]

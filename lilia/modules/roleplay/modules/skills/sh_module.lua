@@ -1,4 +1,4 @@
-MODULE.name = "Skills"
+﻿MODULE.name = "Skills"
 MODULE.author = "@liliaplayer"
 MODULE.desc = "Adds Skills."
 MODULE.DevMode = false

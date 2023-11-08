@@ -1,4 +1,4 @@
-function GM:StartChat()
+﻿function GM:StartChat()
     net.Start("liaTypeStatus")
     net.WriteBool(false)
     net.SendToServer()

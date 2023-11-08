@@ -1,4 +1,4 @@
-lia.command.add(
+﻿lia.command.add(
     "freezeallprops",
     {
         superAdminOnly = true,
@@ -232,7 +232,6 @@ lia.command.add(
     }
 )
 
-
 lia.command.add(
     "chardesc",
     {
@@ -327,7 +326,6 @@ lia.command.add(
         onRun = function(client, arguments) end
     }
 )
-
 
 if lia.config.AdvertisementEnabled then
     lia.command.add(

@@ -1,4 +1,4 @@
-lia.ammo = lia.ammo or {}
+﻿lia.ammo = lia.ammo or {}
 MODULE.ammoList = {}
 MODULE.name = "Ammo Saver"
 MODULE.author = "@liliaplayer/Black Tea"

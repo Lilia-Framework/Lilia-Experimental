@@ -1,4 +1,4 @@
-local MODULE = MODULE
+﻿local MODULE = MODULE
 MODULE.predictedStamina = 100
 MODULE.stmBlurAlpha = 0
 MODULE.stmBlurAmount = 0
@@ -9,9 +9,7 @@ function MODULE:Think()
     local maxStamina = char:GetMaxStamina()
     local offset = self:CalcStaminaChange(ply)
     offset = math.Remap(FrameTime(), 0, 0.25, 0, offset)
-    if offset ~= 0 then
-        self.predictedStamina = math.Clamp(self.predictedStamina + offset, 0, maxStamina)
-    end
+    if offset ~= 0 then self.predictedStamina = math.Clamp(self.predictedStamina + offset, 0, maxStamina) end
 end
 
 function MODULE:HUDPaintBackground()

@@ -1,4 +1,4 @@
-lia.config.DefaultStamina = 100
+﻿lia.config.DefaultStamina = 100
 lia.config.RollMultiplier = 1
 lia.config.StrengthMultiplier = 2.0
 lia.config.PunchStrengthMultiplier = 0.7

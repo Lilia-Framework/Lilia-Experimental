@@ -1,4 +1,4 @@
---------------------------------------------------------------------------------------------------------------------------
+﻿--------------------------------------------------------------------------------------------------------------------------
 lia.config.PlayerModelTposingFixer = {"models/player/Group03/female_03.mdl", "models/player/Group01/male_02.mdl", "models/player/player.mdl",}
 --------------------------------------------------------------------------------------------------------------------------.
 lia.config.HoldTypeTranslator = {
@@ -17,6 +17,7 @@ lia.config.HoldTypeTranslator = {
     ["magic"] = "normal",
     ["revolver"] = "pistol"
 }
+
 --------------------------------------------------------------------------------------------------------------------------.
 lia.config.Playerlia.config.HoldTypeTranslator = {
     [""] = "normal",
@@ -32,6 +33,7 @@ lia.config.Playerlia.config.HoldTypeTranslator = {
     ["duel"] = "normal",
     ["bugbait"] = "normal"
 }
+
 --------------------------------------------------------------------------------------------------------------------------.
 lia.config.DefaultTposingFixer = {
     ["models/police.mdl"] = "metrocop",

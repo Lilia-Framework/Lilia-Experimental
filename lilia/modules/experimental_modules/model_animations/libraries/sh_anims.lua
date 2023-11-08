@@ -1,6 +1,5 @@
-local vectorAngle = FindMetaTable("Vector").Angle
+﻿local vectorAngle = FindMetaTable("Vector").Angle
 local oldCalcSeqOverride
-
 function GM:TranslateActivity(client, act)
     local model = string.lower(client.GetModel(client))
     local class = lia.anim.getModelClass(model) or "player"

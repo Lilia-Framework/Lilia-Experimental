@@ -1,4 +1,4 @@
-function MODULE:LoadFonts(font)
+﻿function MODULE:LoadFonts(font)
     surface.CreateFont(
         "3dvoicedebug",
         {

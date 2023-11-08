@@ -1,4 +1,4 @@
-MODULE.name = "Spawn Menu Items"
+﻿MODULE.name = "Spawn Menu Items"
 MODULE.author = "@liliaplayer"
 MODULE.desc = "Adds a tab to the spawn menu for spawning items."
 lia.config.cooldown = 0.5

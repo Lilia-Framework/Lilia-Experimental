@@ -1,4 +1,4 @@
-local SKIN = {}
+﻿local SKIN = {}
 SKIN.fontFrame = "BudgetLabel"
 SKIN.fontTab = "liaSmallFont"
 SKIN.fontButton = "liaSmallFont"

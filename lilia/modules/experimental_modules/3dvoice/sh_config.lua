@@ -1,4 +1,4 @@
-lia.config.IsVoicePropBlockingEnabled = true
+﻿lia.config.IsVoicePropBlockingEnabled = true
 lia.config.VoiceRefreshRate = 2
 lia.config.VoiceDebugMode = false
 lia.config.IsVoiceEnabled = true

@@ -1,4 +1,4 @@
-MODULE.name = "Permakill"
+﻿MODULE.name = "Permakill"
 MODULE.author = "@liliaplayer"
 MODULE.desc = "Adds permanent death toggle command."
 lia.util.include("sv_module.lua")

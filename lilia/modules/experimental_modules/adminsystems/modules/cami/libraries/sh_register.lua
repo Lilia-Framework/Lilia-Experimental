@@ -1,4 +1,4 @@
---------------------------------------------------------------------------------------------------------------------------
+﻿--------------------------------------------------------------------------------------------------------------------------
 function MODULE:InitializedModules()
     for _, PrivilegeInfo in pairs(lia.config.CAMIPrivileges) do
         local privilegeData = {
@@ -7,9 +7,7 @@ function MODULE:InitializedModules()
             Description = PrivilegeInfo.Description
         }
 
-        if not CAMI.GetPrivilege(PrivilegeInfo.Name) then
-            CAMI.RegisterPrivilege(privilegeData)
-        end
+        if not CAMI.GetPrivilege(PrivilegeInfo.Name) then CAMI.RegisterPrivilege(privilegeData) end
     end
 
     for _, wep in pairs(weapons.GetList()) do

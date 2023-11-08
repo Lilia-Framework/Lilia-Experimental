@@ -1,4 +1,4 @@
-lia.EasyRegister.entities = {
+﻿lia.EasyRegister.entities = {
     ["item_suit"] = {
         ["name"] = "Item Suit",
         ["desc"] = "An HL2 Item Suit",

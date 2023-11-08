@@ -1,4 +1,4 @@
-function MODULE:CalcStaminaChange(client)
+﻿function MODULE:CalcStaminaChange(client)
     local character = client:getChar()
     if not character or client:IsNoClipping() then return 0 end
     local walkSpeed = client:GetWalkSpeed()

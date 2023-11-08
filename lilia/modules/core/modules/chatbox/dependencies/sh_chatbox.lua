@@ -1,4 +1,4 @@
-lia.chat = lia.chat or {}
+﻿lia.chat = lia.chat or {}
 lia.chat.classes = lia.char.classes or {}
 local DUMMY_COMMAND = {
     syntax = "<string text>",
@@ -28,10 +28,8 @@ function lia.chat.register(chatType, data)
         data.onCanSay = function(speaker, text)
             if not data.deadCanChat and not speaker:Alive() then
                 speaker:notifyLocalized("noPerm")
-
                 return false
             end
-
             return true
         end
     end
@@ -42,10 +40,7 @@ function lia.chat.register(chatType, data)
         data.onChatAdd = function(speaker, text, anonymous)
             local color = data.color
             local name = anonymous and L("someone") or hook.Run("GetDisplayedName", speaker, chatType) or (IsValid(speaker) and speaker:Name() or "Console")
-            if data.onGetColor then
-                color = data.onGetColor(speaker, text)
-            end
-
+            if data.onGetColor then color = data.onGetColor(speaker, text) end
             local timestamp = lia.chat.timestamp(false)
             local translated = L2(chatType .. "Format", name, text)
             chat.AddText(timestamp, color, translated or string.format(data.format, name, text))
@@ -55,9 +50,7 @@ function lia.chat.register(chatType, data)
     if CLIENT and data.prefix then
         if type(data.prefix) == "table" then
             for _, v in ipairs(data.prefix) do
-                if v:sub(1, 1) == "/" then
-                    lia.command.add(v:sub(2), DUMMY_COMMAND)
-                end
+                if v:sub(1, 1) == "/" then lia.command.add(v:sub(2), DUMMY_COMMAND) end
             end
         else
             lia.command.add(chatType, DUMMY_COMMAND)
@@ -91,18 +84,12 @@ function lia.chat.parse(client, message, noSend)
         if isChosen then
             chatType = k
             message = message:sub(#chosenPrefix + 1)
-            if lia.chat.classes[k].noSpaceAfter and message:sub(1, 1):match("%s") then
-                message = message:sub(2)
-            end
-
+            if lia.chat.classes[k].noSpaceAfter and message:sub(1, 1):match("%s") then message = message:sub(2) end
             break
         end
     end
 
     if not message:find("%S") then return end
-    if SERVER and not noSend then
-        lia.chat.send(client, chatType, hook.Run("PlayerMessageSend", client, chatType, message, anonymous) or message, anonymous)
-    end
-
+    if SERVER and not noSend then lia.chat.send(client, chatType, hook.Run("PlayerMessageSend", client, chatType, message, anonymous) or message, anonymous) end
     return chatType, message, anonymous
 end

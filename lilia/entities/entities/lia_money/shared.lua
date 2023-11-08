@@ -1,4 +1,4 @@
-ENT.Type = "anim"
+﻿ENT.Type = "anim"
 ENT.PrintName = "Money"
 ENT.Category = "Lilia"
 ENT.Spawnable = false

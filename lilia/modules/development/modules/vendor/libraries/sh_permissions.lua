@@ -1,4 +1,4 @@
-CAMI.RegisterPrivilege(
+﻿CAMI.RegisterPrivilege(
     {
         Name = "Lilia - Staff Permissions - Can Edit Vendors",
         MinAccess = "admin",

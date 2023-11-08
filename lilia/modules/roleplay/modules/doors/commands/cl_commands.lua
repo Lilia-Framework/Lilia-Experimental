@@ -1,4 +1,4 @@
-lia.command.add(
+﻿lia.command.add(
     "doorsell",
     {
         privilege = "Default User Commands",

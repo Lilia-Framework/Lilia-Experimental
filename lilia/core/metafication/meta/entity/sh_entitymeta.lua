@@ -1,4 +1,4 @@
-local entityMeta = FindMetaTable("Entity")
+﻿local entityMeta = FindMetaTable("Entity")
 local ChairCache = {}
 function entityMeta:isProp()
     return self:GetClass() == "prop_physics"

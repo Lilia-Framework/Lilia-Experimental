@@ -1,4 +1,4 @@
-lia.command.add(
+﻿lia.command.add(
     "dynamicsceneadd",
     {
         privilege = "Add Map Scene",

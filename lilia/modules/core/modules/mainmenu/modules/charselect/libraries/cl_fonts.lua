@@ -1,4 +1,4 @@
-local function ScreenScale(size)
+﻿local function ScreenScale(size)
     return size * (ScrH() / 900) + 10
 end
 

@@ -1,4 +1,4 @@
-MODULE.name = "Vendors"
+﻿MODULE.name = "Vendors"
 MODULE.author = "@liliaplayer/Cheesenut"
 MODULE.desc = "Adds NPC vendors that can sell things."
 lia.util.include("sv_module.lua")

@@ -1,4 +1,4 @@
-local MODULE = MODULE
+﻿local MODULE = MODULE
 MODULE.name = "Weapon Select"
 MODULE.author = "@liliaplayer/Cheesenut"
 MODULE.desc = "A replacement for the default weapon selection."

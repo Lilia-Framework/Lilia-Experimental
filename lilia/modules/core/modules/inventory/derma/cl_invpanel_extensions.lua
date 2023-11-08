@@ -1,4 +1,4 @@
-local PANEL = FindMetaTable("Panel")
+﻿local PANEL = FindMetaTable("Panel")
 function PANEL:liaListenForInventoryChanges(inventory)
     assert(inventory, "No inventory has been set!")
     local id = inventory:getID()
@@ -20,9 +20,7 @@ function PANEL:liaListenForInventoryChanges(inventory)
                 local args = {...}
                 args[#args + 1] = inventory
                 self[panelHook](self, unpack(args))
-                if name == "InventoryDeleted" and self.deleteInventoryHooks then
-                    self:deleteInventoryHooks(id)
-                end
+                if name == "InventoryDeleted" and self.deleteInventoryHooks then self:deleteInventoryHooks(id) end
             end
         )
 
@@ -52,14 +50,11 @@ function PANEL:liaDeleteInventoryHooks(id)
     if id == nil then
         for invID, hookIDs in pairs(self.liaToRemoveHooks) do
             for i = 1, #hookIDs do
-                if IsValid(self.liaHookID) then
-                    hook.Remove(hookIDs[i], self.liaHookID)
-                end
+                if IsValid(self.liaHookID) then hook.Remove(hookIDs[i], self.liaHookID) end
             end
 
             self.liaToRemoveHooks[invID] = nil
         end
-
         return
     end
 

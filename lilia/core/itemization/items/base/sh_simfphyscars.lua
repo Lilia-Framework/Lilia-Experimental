@@ -1,4 +1,4 @@
-ITEM.name = "Vehicles Simphys Base"
+﻿ITEM.name = "Vehicles Simphys Base"
 ITEM.model = ""
 ITEM.description = ""
 ITEM.category = "Vehicles"

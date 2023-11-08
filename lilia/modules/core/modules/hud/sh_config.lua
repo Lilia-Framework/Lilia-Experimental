@@ -1,4 +1,4 @@
-lia.config.BarsDisabled = false
+﻿lia.config.BarsDisabled = false
 lia.config.AmmoDrawEnabled = true
 lia.config.BranchWarning = true
 lia.config.VersionEnabled = true

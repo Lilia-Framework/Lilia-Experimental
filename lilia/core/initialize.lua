@@ -1,4 +1,4 @@
-ModulesLoaded = false
+﻿ModulesLoaded = false
 function GM:Initialize()
     lia.module.initialize()
 end

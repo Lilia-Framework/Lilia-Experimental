@@ -1,4 +1,4 @@
-lia.config.KnownExploits = {
+﻿lia.config.KnownExploits = {
     ["npctool_relman_up"] = true,
     ["npctool_spawner_clearundo"] = true,
     ["sv_npctool_spawner_ppoint"] = true,

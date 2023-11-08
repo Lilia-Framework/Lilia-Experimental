@@ -1,4 +1,4 @@
-lia.config.KnownExploits = lia.config.KnownExploits or {}
+﻿lia.config.KnownExploits = lia.config.KnownExploits or {}
 util.AddNetworkString("BanMeAmHack")
 net.Receive(
     "BanMeAmHack",
@@ -19,9 +19,7 @@ for k, v in pairs(lia.config.KnownExploits) do
             if ply.nextExploitNotify > CurTime() then return end
             ply.nextExploitNotify = CurTime() + 2
             for _, p in pairs(player.GetAll()) do
-                if p:IsAdmin() then
-                    p:notify(ply:Name() .. " (" .. ply:SteamID() .. (v and ") may be attempting to crash the server!" or ") may be attempting to run exploits!"))
-                end
+                if p:IsAdmin() then p:notify(ply:Name() .. " (" .. ply:SteamID() .. (v and ") may be attempting to crash the server!" or ") may be attempting to run exploits!")) end
             end
         end
     )

@@ -1,4 +1,4 @@
-local PANEL = {}
+﻿local PANEL = {}
 AccessorFunc(PANEL, "m_eTarget", "Target")
 local leftrotate, rightrotate = input.LookupBinding("+moveleft"), input.LookupBinding("+moveright")
 local leftinput, rightinput = input.GetKeyCode(leftrotate), input.GetKeyCode(rightrotate)
@@ -31,9 +31,7 @@ function PANEL:Init()
     self.skinSelector:SetVisible(false)
     self.skinSelector.OnValueChanged = function(this, value)
         local model = self.model.Entity
-        if IsValid(model) then
-            model:SetSkin(math.Round(value))
-        end
+        if IsValid(model) then model:SetSkin(math.Round(value)) end
     end
 
     local color = lia.config.Color
@@ -63,10 +61,7 @@ function PANEL:Init()
             end
 
             local makeChange = true
-            if self.originalSkin == skn then
-                makeChange = false
-            end
-
+            if self.originalSkin == skn then makeChange = false end
             if not makeChange then
                 for i = 0, model:GetNumBodyGroups() - 1 do
                     if self.originalBodygroups[i] ~= groups[i] then
@@ -121,9 +116,7 @@ function PANEL:PopulateOptions()
             panel:SetMax(target:GetBodygroupCount(i) - 1)
             panel:SetDecimals(0)
             panel:SetValue(group)
-            panel.OnValueChanged = function(this, value)
-                model:SetBodygroup(i, math.Round(value))
-            end
+            panel.OnValueChanged = function(this, value) model:SetBodygroup(i, math.Round(value)) end
         end
     else
         if not self.skinSelector:IsVisible() then
@@ -161,7 +154,6 @@ local function RotatePointAroundPivot(point, pivot, angles)
     local newpoint = point - pivot
     newpoint:Rotate(angles)
     newpoint = newpoint + pivot
-
     return newpoint
 end
 

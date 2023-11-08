@@ -1,4 +1,4 @@
-SWEP.Author = "Leonheart"
+﻿SWEP.Author = "Leonheart"
 SWEP.Instructions = "Primary Fire: Lock\nSecondary Fire: Unlock"
 SWEP.Purpose = "Locking and Unlocking Stuff."
 SWEP.Drop = false
@@ -27,7 +27,6 @@ SWEP.HoldType = "normal"
 ACT_VM_FISTS_HOLSTER = 2
 function SWEP:Deploy()
     if not IsValid(self:GetOwner()) then return end
-
     return true
 end
 
@@ -38,7 +37,6 @@ function SWEP:Holster()
         viewModel:SetPlaybackRate(1)
         viewModel:ResetSequence(ACT_VM_FISTS_HOLSTER)
     end
-
     return true
 end
 
@@ -63,9 +61,7 @@ function SWEP:PrimaryAttack()
     if not IsFirstTimePredicted() then return end
     if not IsValid(entity) then return end
     if hook.Run("KeyLockOverride", owner, entity) then return end
-    if SERVER then
-        self:ServerPrimaryAttack(owner, entity, time)
-    end
+    if SERVER then self:ServerPrimaryAttack(owner, entity, time) end
 end
 
 function SWEP:SecondaryAttack()
@@ -82,7 +78,5 @@ function SWEP:SecondaryAttack()
     if not IsFirstTimePredicted() then return end
     if not IsValid(entity) then return end
     if hook.Run("KeyUnlockOverride", owner, entity) then return end
-    if SERVER then
-        self:ServerSecondaryAttack(owner, entity, time)
-    end
+    if SERVER then self:ServerSecondaryAttack(owner, entity, time) end
 end

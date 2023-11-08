@@ -1,19 +1,10 @@
-function GM:OnPlayerJoinClass(client, class, oldClass)
+﻿function GM:OnPlayerJoinClass(client, class, oldClass)
     local char = client:getChar()
-    if char and lia.config.PermaClass then
-        char:setData("pclass", class)
-    end
-
+    if char and lia.config.PermaClass then char:setData("pclass", class) end
     local info = lia.class.list[class]
     local info2 = lia.class.list[oldClass]
-    if info.onSet then
-        info:onSet(client)
-    end
-
-    if info2 and info2.onLeave then
-        info2:onLeave(client)
-    end
-
+    if info.onSet then info:onSet(client) end
+    if info2 and info2.onLeave then info2:onLeave(client) end
     netstream.Start(nil, "classUpdate", client)
 end
 
@@ -48,10 +39,7 @@ function GM:CheckFactionLimitReached(faction, character, client)
     if isfunction(faction.onCheckLimitReached) then return faction:onCheckLimitReached(character, client) end
     if not isnumber(faction.limit) then return false end
     local maxPlayers = faction.limit
-    if faction.limit < 1 then
-        maxPlayers = math.Round(#player.GetAll() * faction.limit)
-    end
-
+    if faction.limit < 1 then maxPlayers = math.Round(#player.GetAll() * faction.limit) end
     return team.NumPlayers(faction.index) >= maxPlayers
 end
 
@@ -116,19 +104,14 @@ function GM:FactionOnLoadout(client)
         client:SetHealth(faction.health)
     end
 
-    if faction.armor then
-        client:SetArmor(faction.armor)
-    end
-
+    if faction.armor then client:SetArmor(faction.armor) end
     if faction.weapons then
         for _, v in ipairs(faction.weapons) do
             client:Give(v)
         end
     end
 
-    if faction.onSpawn then
-        faction:onSpawn(client)
-    end
+    if faction.onSpawn then faction:onSpawn(client) end
 end
 
 function GM:ClassOnLoadout(client)
@@ -184,14 +167,8 @@ function GM:ClassOnLoadout(client)
         client:SetHealth(class.health)
     end
 
-    if class.armor then
-        client:SetArmor(class.armor)
-    end
-
-    if class.onSpawn then
-        class:onSpawn(client)
-    end
-
+    if class.armor then client:SetArmor(class.armor) end
+    if class.onSpawn then class:onSpawn(client) end
     if class.weapons then
         for _, v in ipairs(class.weapons) do
             client:Give(v)

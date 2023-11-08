@@ -1,4 +1,4 @@
-lia.EasyRegister.Misc = {
+﻿lia.EasyRegister.Misc = {
     ["TestItem"] = {
         ["name"] = "Test Item",
         ["desc"] = "A test item!.",

@@ -1,4 +1,4 @@
-paintedEntitiesCache = {}
+﻿paintedEntitiesCache = {}
 local charInfo = {}
 local nextUpdate = 0
 local lastTrace = {}
@@ -7,20 +7,13 @@ local toScreen = FindMetaTable("Vector").ToScreen
 local DescWidth = CreateClientConVar("lia_hud_descwidth", 0.5, true, false)
 local blurGoal = 0
 local blurValue = 0
-
 function GM:HUDPaintBackground()
     local localPlayer = LocalPlayer()
     local frameTime = FrameTime()
     local scrW, scrH = ScrW(), ScrH()
     blurGoal = localPlayer:getLocalVar("blur", 0) + (hook.Run("AdjustBlurAmount", blurGoal) or 0)
-    if blurValue ~= blurGoal then
-        blurValue = math.Approach(blurValue, blurGoal, frameTime * 20)
-    end
-
-    if blurValue > 0 and not localPlayer:ShouldDrawLocalPlayer() then
-        lia.util.drawBlurAt(0, 0, scrW, scrH, blurValue)
-    end
-
+    if blurValue ~= blurGoal then blurValue = math.Approach(blurValue, blurGoal, frameTime * 20) end
+    if blurValue > 0 and not localPlayer:ShouldDrawLocalPlayer() then lia.util.drawBlurAt(0, 0, scrW, scrH, blurValue) end
     self.BaseClass.PaintWorldTips(self.BaseClass)
     lia.menu.drawAll()
 end
@@ -61,20 +54,17 @@ function MODULE:HUDPaint()
         surface.DrawText("Server Current Version: " .. lia.config.version)
     end
 
-    if lia.config.BranchWarning and BRANCH ~= "x86-64" then
-        draw.SimpleText("We recommend the use of the x86-64 Garry's Mod Branch for this server, consider swapping as soon as possible.", "liaSmallFont", ScrW() * .5, ScrH() * .97, Color(255, 255, 255, 10), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-    end
-
+    if lia.config.BranchWarning and BRANCH ~= "x86-64" then draw.SimpleText("We recommend the use of the x86-64 Garry's Mod Branch for this server, consider swapping as soon as possible.", "liaSmallFont", ScrW() * .5, ScrH() * .97, Color(255, 255, 255, 10), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER) end
     lia.bar.drawAll()
 end
 
 local LAST_WIDTH = ScrW()
 local LAST_HEIGHT = ScrH()
-
 function GM:ScreenResolutionChanged(oldW, oldH)
     RunConsoleCommand("fixchatplz")
     hook.Run("LoadLiliaFonts", lia.config.Font, lia.config.GenericFont)
 end
+
 timer.Create(
     "liaResolutionMonitor",
     1,
@@ -88,6 +78,7 @@ timer.Create(
         end
     end
 )
+
 function MODULE:HUDPaintBackground()
     local localPlayer = LocalPlayer()
     if not localPlayer.getChar(localPlayer) then return end
@@ -101,19 +92,14 @@ function MODULE:HUDPaintBackground()
         lastTrace.maxs = Vector(4, 4, 4)
         lastTrace.mask = MASK_SHOT_HULL
         lastEntity = util.TraceHull(lastTrace).Entity
-        if IsValid(lastEntity) and hook.Run("ShouldDrawEntityInfo", lastEntity) then
-            paintedEntitiesCache[lastEntity] = true
-        end
+        if IsValid(lastEntity) and hook.Run("ShouldDrawEntityInfo", lastEntity) then paintedEntitiesCache[lastEntity] = true end
     end
 
     for entity, drawing in pairs(paintedEntitiesCache) do
         if IsValid(entity) then
             local goal = drawing and 255 or 0
             local alpha = math.Approach(entity.liaAlpha or 0, goal, frameTime * 1000)
-            if lastEntity ~= entity then
-                paintedEntitiesCache[entity] = false
-            end
-
+            if lastEntity ~= entity then paintedEntitiesCache[entity] = false end
             if alpha > 0 then
                 local client = entity.getNetVar(entity, "player")
                 if IsValid(client) then
@@ -127,18 +113,14 @@ function MODULE:HUDPaintBackground()
             end
 
             entity.liaAlpha = alpha
-            if alpha == 0 and goal == 0 then
-                paintedEntitiesCache[entity] = nil
-            end
+            if alpha == 0 and goal == 0 then paintedEntitiesCache[entity] = nil end
         else
             paintedEntitiesCache[entity] = nil
         end
     end
 
     local weapon = localPlayer:GetActiveWeapon()
-    if hook.Run("CanDrawAmmoHUD", weapon) ~= false then
-        hook.Run("DrawAmmoHUD", weapon)
-    end
+    if hook.Run("CanDrawAmmoHUD", weapon) ~= false then hook.Run("DrawAmmoHUD", weapon) end
 end
 
 function GM:SetupQuickMenu(menu)
@@ -165,26 +147,19 @@ function GM:SetupQuickMenu(menu)
 
                 current = panel
                 RunConsoleCommand("lia_language", k)
-            end, enabled
+            end,
+            enabled
         )
 
-        if enabled and not IsValid(current) then
-            current = button
-        end
+        if enabled and not IsValid(current) then current = button end
     end
 
-    menu:addSlider(
-        "HUD Desc Width Modifier",
-        function(panel, value)
-            DescWidth:SetFloat(value)
-        end, DescWidth:GetFloat(), 0.1, 1, 2
-    )
-
+    menu:addSlider("HUD Desc Width Modifier", function(panel, value) DescWidth:SetFloat(value) end, DescWidth:GetFloat(), 0.1, 1, 2)
     menu:addSpacer()
 end
+
 function MODULE:CanDrawAmmoHUD(weapon)
     if IsValid(weapon) and weapon.DrawAmmo ~= false and LocalPlayer():Alive() then return true end
-
     return false
 end
 
@@ -217,9 +192,7 @@ end
 
 function MODULE:DrawCharInfo(client, character, info)
     local injText, injColor = hook.Run("GetInjuredText", client)
-    if injText then
-        info[#info + 1] = {L(injText), injColor}
-    end
+    if injText then info[#info + 1] = {L(injText), injColor} end
 end
 
 function MODULE:DrawEntityInfo(entity, alpha, position)
@@ -242,10 +215,7 @@ function MODULE:DrawEntityInfo(entity, alpha, position)
     local name = hook.Run("GetDisplayedName", entity, nil) or character.getName(character)
     if name ~= entity.liaNameCache then
         entity.liaNameCache = name
-        if name:len() > 250 then
-            name = name:sub(1, 250) .. "..."
-        end
-
+        if name:len() > 250 then name = name:sub(1, 250) .. "..." end
         entity.liaNameLines = lia.util.wrapText(name, ScrW() * entity.widthCache, "liaSmallFont")
     end
 
@@ -256,10 +226,7 @@ function MODULE:DrawEntityInfo(entity, alpha, position)
     local description = hook.Run("GetDisplayedDescription", entity, "hud") or character.getDesc(character)
     if description ~= entity.liaDescCache then
         entity.liaDescCache = description
-        if description:len() > 250 then
-            description = description:sub(1, 250) .. "..."
-        end
-
+        if description:len() > 250 then description = description:sub(1, 250) .. "..." end
         entity.liaDescLines = lia.util.wrapText(description, ScrW() * entity.widthCache, "liaSmallFont")
     end
 

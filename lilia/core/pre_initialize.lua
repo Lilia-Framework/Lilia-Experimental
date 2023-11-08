@@ -1,4 +1,4 @@
-timer.Simple(
+﻿timer.Simple(
     0,
     function()
         hook.Run("SetupDatabase")
@@ -12,6 +12,7 @@ timer.Simple(
         )
     end
 )
+
 cvars.AddChangeCallback(
     "sbox_persist",
     function(name, old, new)
@@ -26,5 +27,6 @@ cvars.AddChangeCallback(
                 hook.Run("PersistenceLoad", new)
             end
         )
-    end, "sbox_persist_load"
+    end,
+    "sbox_persist_load"
 )

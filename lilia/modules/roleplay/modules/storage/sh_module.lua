@@ -1,4 +1,4 @@
-LiliaStorage = MODULE
+﻿LiliaStorage = MODULE
 MODULE.name = "Storage Base"
 MODULE.author = "@liliaplayer/Cheesenut"
 MODULE.desc = "Useful things for storage modules."

@@ -1,4 +1,4 @@
-function lia.ammo.register(name)
+﻿function lia.ammo.register(name)
     table.insert(MODULE.ammoList, name)
 end
 

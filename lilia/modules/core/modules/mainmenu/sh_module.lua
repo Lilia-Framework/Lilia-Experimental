@@ -1,4 +1,4 @@
-MainMenu = MODULE
+﻿MainMenu = MODULE
 MODULE.name = "Main Menu"
 MODULE.author = "@liliaplayer"
 MODULE.desc = "Allows players to have multiple characters."

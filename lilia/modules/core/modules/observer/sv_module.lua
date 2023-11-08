@@ -1,4 +1,4 @@
-function MODULE:PlayerNoClip(client, state)
+﻿function MODULE:PlayerNoClip(client, state)
     if CAMI.PlayerHasAccess(client, "Lilia - Staff Permissions - No Clip", nil) then
         if state then
             client.liaObsData = {client:GetPos(), client:EyeAngles()}

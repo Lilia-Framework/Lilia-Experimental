@@ -1,4 +1,4 @@
-function MODULE:RegisterWeapons()
+﻿function MODULE:RegisterWeapons()
     for _, wep in ipairs(weapons.GetList()) do
         if table.HasValue(lia.config.RegisterWeaponsBlackList, wep.ClassName) then continue end
         local ITEM = lia.item.register(wep.ClassName, "base_weapons", nil, nil, true)
@@ -105,9 +105,7 @@ function MODULE:InitializedModules()
                 end
             end
 
-            if lia.config.AutomaticWeaponRegister then
-                self:RegisterWeapons()
-            end
+            if lia.config.AutomaticWeaponRegister then self:RegisterWeapons() end
         end
     )
 end

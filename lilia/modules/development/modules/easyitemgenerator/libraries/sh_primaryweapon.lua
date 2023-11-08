@@ -1,4 +1,4 @@
-lia.EasyRegister.primary = {
+﻿lia.EasyRegister.primary = {
     ["weapon_smg1"] = {
         ["name"] = "Sub Machine Gun",
         ["desc"] = "A Sub Machine Gun",

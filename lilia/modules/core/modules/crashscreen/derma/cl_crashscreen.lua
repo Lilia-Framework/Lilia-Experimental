@@ -1,4 +1,4 @@
-local PANEL = {}
+﻿local PANEL = {}
 local waits = {}
 local w, h = ScrW(), ScrH()
 function PANEL:Init()
@@ -8,17 +8,7 @@ function PANEL:Init()
     self:SetAlpha(0)
     self:AlphaTo(255, 1.2)
     local function wait(s, f)
-        table.insert(
-            waits,
-            {
-                SysTime() + s,
-                function()
-                    if IsValid(self) then
-                        f()
-                    end
-                end
-            }
-        )
+        table.insert(waits, {SysTime() + s, function() if IsValid(self) then f() end end})
     end
 
     wait(
@@ -47,17 +37,7 @@ end
 
 function PANEL:DoLamar()
     local function wait(s, f)
-        table.insert(
-            waits,
-            {
-                SysTime() + s,
-                function()
-                    if IsValid(self) then
-                        f()
-                    end
-                end
-            }
-        )
+        table.insert(waits, {SysTime() + s, function() if IsValid(self) then f() end end})
     end
 
     local function doAnim()
@@ -68,7 +48,6 @@ function PANEL:DoLamar()
         self.lamar:SetAnimated(true)
         function self.lamar:LayoutEntity(ent)
             ent:FrameAdvance()
-
             return
         end
 
@@ -87,14 +66,7 @@ function PANEL:DoLamar()
         self.backsoon:Center()
         self.backsoon:SetAlpha(0)
         self.backsoon:AlphaTo(200, 8)
-        timer.Simple(
-            8,
-            function()
-                if IsValid(self) then
-                    self.backsoon:AlphaTo(0, 10)
-                end
-            end
-        )
+        timer.Simple(8, function() if IsValid(self) then self.backsoon:AlphaTo(0, 10) end end)
     end
 
     local r = 1
@@ -104,86 +76,34 @@ function PANEL:DoLamar()
             surface.PlaySound("npc/headcrab/pain1.wav")
             local x = 0
             x = x + 1
-            wait(
-                x,
-                function()
-                    surface.PlaySound("vo/k_lab/kl_comeout.wav")
-                end
-            )
-
+            wait(x, function() surface.PlaySound("vo/k_lab/kl_comeout.wav") end)
             x = x + 2.3
-            wait(
-                x,
-                function()
-                    surface.PlaySound("npc/headcrab/alert1.wav")
-                end
-            )
-
+            wait(x, function() surface.PlaySound("npc/headcrab/alert1.wav") end)
             x = x + 2
-            wait(
-                x,
-                function()
-                    surface.PlaySound("vo/k_lab/kl_lamarr.wav")
-                end
-            )
-
+            wait(x, function() surface.PlaySound("vo/k_lab/kl_lamarr.wav") end)
             x = x + 2.6
-            wait(
-                x,
-                function()
-                    surface.PlaySound("npc/headcrab/pain3.wav")
-                end
-            )
-
+            wait(x, function() surface.PlaySound("npc/headcrab/pain3.wav") end)
             x = x + 2
-            wait(
-                x,
-                function()
-                    surface.PlaySound("vo/k_lab/kl_nocareful.wav")
-                end
-            )
-
+            wait(x, function() surface.PlaySound("vo/k_lab/kl_nocareful.wav") end)
             x = x + 2.1
             wait(x, doAnim)
             x = x + 1.6
-            wait(
-                x,
-                function()
-                    surface.PlaySound("npc/headcrab/attack2.wav")
-                end
-            )
-
+            wait(x, function() surface.PlaySound("npc/headcrab/attack2.wav") end)
             x = x + 0.6
             wait(
                 x,
                 function()
                     surface.PlaySound("vehicles/v8/vehicle_impact_heavy1.wav")
                     surface.PlaySound("ambient/energy/zap6.wav")
-                    timer.Simple(
-                        0.3,
-                        function()
-                            surface.PlaySound("ambient/energy/zap7.wav")
-                        end
-                    )
+                    timer.Simple(0.3, function() surface.PlaySound("ambient/energy/zap7.wav") end)
                 end
             )
 
             wait(x + 2.5, doPostText)
             x = x + 3
-            wait(
-                x,
-                function()
-                    surface.PlaySound("ambient/energy/spark1.wav")
-                end
-            )
-
+            wait(x, function() surface.PlaySound("ambient/energy/spark1.wav") end)
             x = x + 1.2
-            wait(
-                x,
-                function()
-                    surface.PlaySound("ambient/energy/spark3.wav")
-                end
-            )
+            wait(x, function() surface.PlaySound("ambient/energy/spark3.wav") end)
         end
     )
 end
@@ -207,7 +127,6 @@ function PANEL:PaintOver()
     draw.DrawText(":( Connection lost", "liaTitleFont", w / 2, 10, color_white, TEXT_ALIGN_CENTER)
     if self.ServerIsOff == nil then
         draw.DrawText("Checking server status...", "liaBigFont", w / 2, 130, color_white, TEXT_ALIGN_CENTER)
-
         return
     end
 

@@ -1,4 +1,4 @@
-chat.liaAddText = chat.liaAddText or chat.AddText
+﻿chat.liaAddText = chat.liaAddText or chat.AddText
 local MODULE = MODULE
 LIA_CVAR_CHATFILTER = CreateClientConVar("lia_chatfilter", "", true, false)
 function MODULE:createChat()
@@ -13,10 +13,7 @@ end
 function MODULE:PlayerBindPress(client, bind, pressed)
     bind = bind:lower()
     if bind:find("messagemode") and pressed then
-        if not self.panel.active then
-            self.panel:setActive(true)
-        end
-
+        if not self.panel.active then self.panel:setActive(true) end
         return true
     end
 end
@@ -27,13 +24,8 @@ end
 
 function chat.AddText(...)
     local show = true
-    if IsValid(MODULE.panel) then
-        show = MODULE.panel:addText(...)
-    end
-
-    if show then
-        chat.liaAddText(...)
-    end
+    if IsValid(MODULE.panel) then show = MODULE.panel:addText(...) end
+    if show then chat.liaAddText(...) end
 end
 
 function MODULE:ChatText(index, name, text, messageType)

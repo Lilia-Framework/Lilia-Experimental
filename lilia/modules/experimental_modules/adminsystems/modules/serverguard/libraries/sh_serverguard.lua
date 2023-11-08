@@ -1,4 +1,4 @@
---------------------------------------------------------------------------------------------------------------------------
+﻿--------------------------------------------------------------------------------------------------------------------------
 serverguard.plugin:Toggle("restrictions", false)
 --------------------------------------------------------------------------------------------------------------------------
 hook.Add(
@@ -11,9 +11,7 @@ hook.Add(
             local defaultRank = privilege.MinAccess
             defaultRank = defaultRank:sub(1, 1):upper() .. defaultRank:sub(2)
             for rank, _ in pairs(serverguard.ranks:GetStored()) do
-                if serverguard.ranks:HasPermission(rank, permission) == nil and (defaultRank == "User" or serverguard.ranks:HasPermission(rank, defaultRank)) then
-                    serverguard.ranks:GivePermission(rank, permission)
-                end
+                if serverguard.ranks:HasPermission(rank, permission) == nil and (defaultRank == "User" or serverguard.ranks:HasPermission(rank, defaultRank)) then serverguard.ranks:GivePermission(rank, permission) end
             end
         end
     end
@@ -25,7 +23,6 @@ hook.Add(
     "serverguard.CAMI.PlayerHasAccess",
     function(client, privilege, callback)
         callback(not not serverguard.player:HasPermission(client, privilege), "serverguard")
-
         return true
     end
 )

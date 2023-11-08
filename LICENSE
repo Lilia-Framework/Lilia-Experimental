@@ -1,21 +1,33 @@
-MIT License
-
-Copyright (c) 2023 Leonheart
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+﻿MIT = License
+Copyright(c)
+goto hereby
+granted, free = charge, to
+any = of
+this(software and associated)
+files(the"Software")
+goto, to = deal
+goto without
+restriction, including = to
+use, copy, modify, merge, publish, distribute, sublicense, sell = of
+the"someString"
+Software, to = is
+furnished = to
+do
+    so, subject = following
+    conditions:The(copyright, notice and this)
+    permission = shall
+    be"someString"
+    included(all, copies or substantial)
+    portions = Software.THE
+    SOFTWARE(PROVIDED"AS IS", WITHOUT)
+    WARRANTY = KIND
+    OR"someString"
+    IMPLIED, INCLUDING = MERCHANTABILITY, FITNESS
+    FOR = NONINFRINGEMENT.IN
+    NO = CLAIM
+    OR = LIABILITY
+    IN = CONTRACT
+    OR = OTHERWISE
+    FROM, OUT = IN
+    THE = SOFTWARE.someVariable
+end

@@ -1,8 +1,7 @@
-function GM:PlayerLoadout(client)
+﻿function GM:PlayerLoadout(client)
     local character = client:getChar()
     if client.liaSkipLoadout then
         client.liaSkipLoadout = nil
-
         return
     end
 
@@ -10,7 +9,6 @@ function GM:PlayerLoadout(client)
         client:SetNoDraw(true)
         client:Lock()
         client:SetNotSolid(true)
-
         return
     end
 
@@ -38,9 +36,7 @@ end
 
 function GM:OnCharAttribBoosted(client, character, attribID)
     local attribute = lia.attribs.list[attribID]
-    if attribute and isfunction(attribute.onSetup) then
-        attribute:onSetup(client, character:getAttrib(attribID, 0))
-    end
+    if attribute and isfunction(attribute.onSetup) then attribute:onSetup(client, character:getAttrib(attribID, 0)) end
 end
 
 function GM:PostPlayerLoadout(client)
@@ -69,9 +65,7 @@ function GM:PlayerInitialSpawn(client)
             client:setLiliaData("lastIP", address)
             netstream.Start(client, "liaDataSync", data, client.firstJoin, client.lastJoin)
             for _, v in pairs(lia.item.instances) do
-                if v.entity and v.invID == 0 then
-                    v:sync(client)
-                end
+                if v.entity and v.invID == 0 then v:sync(client) end
             end
 
             hook.Run("PlayerLiliaDataLoaded", client)
