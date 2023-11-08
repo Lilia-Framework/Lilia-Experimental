@@ -48,8 +48,7 @@ jobs:
 
       - name: Download and run GLuaFixer
         run: |
-          print( ${{ github.workspace }})
-          # Step 1: Download glualint (Download happens here)
+          # Step 1: Download glualint
           echo "Step 1: Downloading glualint..."
           curl -L -o glualint.zip https://github.com/FPtje/GLuaFixer/releases/download/1.26.0/glualint-1.26.0-x86_64-linux.zip
 
