@@ -1,6 +1,6 @@
 local MODULE = MODULE or {}
 MODULE.name = "Derma Banking Sub-Module"
-MODULE.author = "76561198312513285" -- Extra Credit to Robert Bearson for the NS version of this Derma Library 
+MODULE.author = "76561198312513285" -- Extra Credit to Robert Bearson for the NS version of this Derma Library
 --------------------------------------------------------------------------------------------------------------------------
 MODULE.discord = "@liliaplayer"
 --------------------------------------------------------------------------------------------------------------------------
