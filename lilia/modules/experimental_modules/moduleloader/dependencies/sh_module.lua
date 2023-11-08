@@ -15,6 +15,7 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
         name = "Unknown",
         desc = "Description not available",
         author = "Anonymous",
+        identifier = nil,
         IsValid = function(module) return true end
     }
 
@@ -51,6 +52,14 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
             return true
         end
     else
+        if MODULE.identifier then
+            if _G[MODULE.identifier] then
+                print("The identifier '" .. MODULE.identifier .. "' already exists as a global variable.")
+            else
+                if MODULE.identifier then _G[MODULE.identifier] = MODULE end
+            end
+        end
+
         lia.module.list[uniqueID] = MODULE
         _G[variable] = oldModule
     end

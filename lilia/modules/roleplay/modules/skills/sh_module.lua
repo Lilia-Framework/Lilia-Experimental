@@ -1,4 +1,5 @@
-﻿MODULE.name = "Skills"
+﻿
+MODULE.name = "Skills"
 MODULE.discord = "@liliaplayer"
 MODULE.desc = "Adds Skills."
 MODULE.DevMode = false
