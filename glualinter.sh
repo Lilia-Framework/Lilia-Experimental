@@ -25,4 +25,7 @@ rm -r glualint
 echo "Step 6: Deleting glualint.zip..."
 rm glualint.zip
 
+# Step 7: Delete glualint_executable file
+echo "Step 7: Deleting glualint_executable..."
+rm glualint_executable
 echo "Script completed."

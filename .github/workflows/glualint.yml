@@ -122,6 +122,11 @@ jobs:
           echo "Step 8: Deleting glualint.zip..."
           rm glualint.zip
         working-directory: '${{ github.workspace }}'
+      - name: Delete the zip file (Step 8)
+        run: |
+          echo "Step 9: Deleting glualint_executable..."
+          rm glualint_executable
+        working-directory: '${{ github.workspace }}'
         shell: bash
       - name: Commit changes
         run: |
