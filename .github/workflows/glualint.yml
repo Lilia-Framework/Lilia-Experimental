@@ -1,4 +1,4 @@
-name: GluaLinter
+name: GluaLinter and GLuaFixer
 on: [push, pull_request]
 
 jobs:
@@ -32,3 +32,54 @@ jobs:
       - name: Lint with gluacheck
         working-directory: helix
         run: luacheck . --no-unused-secondaries --no-unused-args --no-redefined --no-unused --no-global --no-self -i 4.2/.*_ --formatter visual_studio --no-unused --no-max-line-length --no-max-code-line-length --no-max-string-line-length --no-max-comment-line-length --no-max-cyclomatic-complexity
+
+  glualint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Bash
+        run: |
+          sudo apt update
+          sudo apt install -y unzip
+        shell: bash
+
+      - name: Download and run GLuaFixer
+        run: |
+          # Step 1: Download glualint
+          echo "Step 1: Downloading glualint..."
+          curl -L -o glualint.zip https://github.com/FPtje/GLuaFixer/releases/download/1.26.0/glualint-1.26.0-x86_64-linux.zip
+
+          # Step 2: Unzip glualint
+          echo "Step 2: Unzipping glualint..."
+          unzip glualint.zip -d glualint
+
+          # Step 3: Move glualint executable to the root directory
+          echo "Step 3: Moving glualint executable to the root directory..."
+          mv glualint/glualint glualint_executable
+
+          # Step 4: Run glualint pretty-print
+          echo "Step 4: Running glualint pretty-print..."
+          chmod +x glualint_executable
+          ./glualint_executable pretty-print /workspaces/Lilia-Experimental/lilia/*
+
+          # Step 5: Remove the glualint folder
+          echo "Step 5: Removing the glualint folder..."
+          rm -r glualint
+
+          # Step 6: Delete the zip file
+          echo "Step 6: Deleting glualint.zip..."
+          rm glualint.zip
+        working-directory: ${{ github.workspace }}
+        shell: bash
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git commit -m "Auto-commit after running GLuaFixer"
+          git push
+        working-directory: ${{ github.workspace }}
