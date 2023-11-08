@@ -1,6 +1,11 @@
-﻿lia.config.KnownExploits = lia.config.KnownExploits or {}
+﻿
+
+lia.config.KnownExploits = lia.config.KnownExploits or {}
+
 util.AddNetworkString("BanMeAmHack")
+
 net.Receive(
+    
     "BanMeAmHack",
     function(len, ply)
         local kickReason = "Kicked for cheating."

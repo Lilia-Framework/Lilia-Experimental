@@ -59,9 +59,8 @@ jobs:
           ls
         working-directory: ${{ github.workspace }}/lilia
 
-      - name: Download GLuaFixer
+      - name: Download GLuaFixer (Step 1)
         run: |
-          # Step 1: Download glualint
           echo "Step 1: Downloading glualint..."
           curl -L -o glualint.zip https://github.com/FPtje/GLuaFixer/releases/download/1.26.0/glualint-1.26.0-x86_64-linux.zip
           unzip glualint.zip -d glualint
@@ -69,60 +68,54 @@ jobs:
         working-directory: ${{ github.workspace }}
         shell: bash
 
-      - name: Set execution permissions
+      - name: Set execution permissions (Step 2)
         run: |
-          # Step 2: Set execution permissions
           echo "Step 2: Setting execution permissions..."
           sudo chmod +x glualint_executable
         working-directory: ${{ github.workspace }}
         shell: bash
+
       - name: List files in the working directory (After downloading GLuaFixer)
         run: |
           ls
           
-      - name: Run GLuaFixer on /core/
+      - name: Run GLuaFixer on /core/ (Step 3)
         run: |
-          # Step 3: Running glualint pretty-print on /core/
           echo "Step 3: Running glualint pretty-print on /core/"
           sudo ./glualint_executable pretty-print lilia/core/*
         working-directory: ${{ github.workspace }}
         shell: bash
 
-      - name: Run GLuaFixer on /gamemode/
+      - name: Run GLuaFixer on /gamemode/ (Step 4)
         run: |
-          # Step 4: Running glualint pretty-print on /gamemode/
           echo "Step 4: Running glualint pretty-print on /gamemode/"
           sudo ./glualint_executable pretty-print lilia/gamemode/*
         working-directory: ${{ github.workspace }}
         shell: bash
 
-      - name: Run GLuaFixer on /entities/
+      - name: Run GLuaFixer on /entities/ (Step 5)
         run: |
-          # Step 5: Running glualint pretty-print on /entities/
           echo "Step 5: Running glualint pretty-print on /entities/"
           sudo ./glualint_executable pretty-print lilia/entities/*
         working-directory: ${{ github.workspace }}
         shell: bash
 
-      - name: Run GLuaFixer on /modules/
+      - name: Run GLuaFixer on /modules/ (Step 6)
         run: |
-          # Step 6: Running glualint pretty-print on /modules/
           echo "Step 6: Running glualint pretty-print on /modules/"
           sudo ./glualint_executable pretty-print lilia/modules/*
         working-directory: ${{ github.workspace }}
         shell: bash
 
-      - name: Remove the glualint folder
+      - name: Remove the glualint folder (Step 7)
         run: |
-          # Step 7: Removing the glualint folder
           echo "Step 7: Removing the glualint folder..."
           rm -r glualint
         working-directory: ${{ github.workspace }}
         shell: bash
 
-      - name: Delete the zip file
+      - name: Delete the zip file (Step 8)
         run: |
-          # Step 8: Deleting glualint.zip
           echo "Step 8: Deleting glualint.zip..."
           rm glualint.zip
         working-directory: ${{ github.workspace }}
