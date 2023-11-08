@@ -26,16 +26,6 @@ jobs:
           luaVersion: '5.2'
       - name: Setup LuaRocks
         uses: leafo/gh-actions-luarocks@v4.0.0
-      - name: Pull gluacheck
-        uses: actions/checkout@v2
-        with:
-          repository: impulsh/gluacheck
-          path: luacheck
-      - name: Build gluacheck
-        working-directory: luacheck
-        run: luarocks make
-      - name: Checkout code
-        uses: actions/checkout@v2
       - name: Set up Bash
         run: |
           sudo apt update
@@ -125,6 +115,16 @@ jobs:
             echo "No changes to commit."
           fi
         working-directory: '${{ github.workspace }}'
+      - name: Pull gluacheck
+        uses: actions/checkout@v2
+        with:
+          repository: impulsh/gluacheck
+          path: luacheck
+      - name: Build gluacheck
+        working-directory: luacheck
+        run: luarocks make
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: Lint with gluacheck
         working-directory: lilia
         run: >-
