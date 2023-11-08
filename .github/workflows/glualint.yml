@@ -46,10 +46,11 @@ jobs:
           sudo apt install -y unzip
         shell: bash
 
-      - name: List files in the working directory
+      - name: List files in the working directory & set location of Lilia
         run: |
           ls
           cd lilia
+          ls
         working-directory: ${{ github.workspace }}
 
       - name: Download and run GLuaFixer
