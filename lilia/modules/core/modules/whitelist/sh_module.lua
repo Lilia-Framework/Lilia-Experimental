@@ -1,5 +1,8 @@
 ﻿MODULE.name = "Whitelist"
-MODULE.author = "Wildflowericecoffee/@liliaplayer"
+MODULE.author = "76561198312513285"
+--------------------------------------------------------------------------------------------------------------------------
+MODULE.discord = "@liliaplayer"
+--------------------------------------------------------------------------------------------------------------------------
 MODULE.desc = "Adds a server whitelist"
 lia.util.include("sv_module.lua")
 lia.config.WhitelistEnabled = false

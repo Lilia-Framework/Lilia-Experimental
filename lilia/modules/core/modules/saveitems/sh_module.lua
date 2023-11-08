@@ -1,4 +1,7 @@
 ﻿MODULE.name = "Save Items"
-MODULE.author = "@liliaplayer/Cheesenut"
+MODULE.author = "76561198312513285"
+--------------------------------------------------------------------------------------------------------------------------
+MODULE.discord = "@liliaplayer"
+--------------------------------------------------------------------------------------------------------------------------
 MODULE.desc = "Saves items that were dropped."
 lia.util.include("sv_module.lua")

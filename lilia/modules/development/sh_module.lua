@@ -1,3 +1,3 @@
 ﻿MODULE.name = "Development Enchanters"
-MODULE.author = "@liliaplayer"
+MODULE.discord = "@liliaplayer"
 MODULE.desc = "A Module To Several Development Sub-Modules."

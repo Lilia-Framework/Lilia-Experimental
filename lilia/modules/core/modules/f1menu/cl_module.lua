@@ -179,7 +179,8 @@ function MODULE:BuildHelpMenu(tabs)
                     <span style="font-size: smaller;">
                     <b>%s</b>: %s<br />
                     <b>%s</b>: %s
-            ]]):format(v.name or "Unknown", L"desc", v.desc or L"noDesc", L"author", lia.module.namecache[v.author] or v.author)
+                    <b>%s</b>: %s
+            ]]):format(v.name or "Unknown", L"desc", v.desc or L"noDesc", L"author", lia.module.namecache[v.author] or v.author, "Discord", v.discord)
             if v.version then body = body .. "<br /><b>" .. L"version" .. "</b>: " .. v.version end
             body = body .. "</span></p>"
         end

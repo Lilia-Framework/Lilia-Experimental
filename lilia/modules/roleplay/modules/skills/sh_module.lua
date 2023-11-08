@@ -1,5 +1,5 @@
 ﻿MODULE.name = "Skills"
-MODULE.author = "@liliaplayer"
+MODULE.discord = "@liliaplayer"
 MODULE.desc = "Adds Skills."
 MODULE.DevMode = false
 lia.util.include("sh_config.lua")

@@ -10,7 +10,7 @@
                     authorID,
                     function(newName)
                         namecache[authorID] = newName
-                        MODULE.author = newName or MODULE.author
+                        MODULE.author = newName or MODULE.author 
                     end
                 )
             end

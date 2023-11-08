@@ -1,6 +1,6 @@
 ﻿ACCESS_LABELS = {}
 MODULE.name = "Doors"
-MODULE.author = "@liliaplayer"
+MODULE.discord = "@liliaplayer"
 MODULE.desc = "A simple door system."
 lia.util.include("sv_module.lua")
 lia.util.include("cl_module.lua")
