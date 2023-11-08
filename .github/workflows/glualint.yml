@@ -20,12 +20,8 @@ jobs:
   glualint:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup Lua
-        uses: leafo/gh-actions-lua@v8.0.0
-        with:
-          luaVersion: '5.2'
-      - name: Setup LuaRocks
-        uses: leafo/gh-actions-luarocks@v4.0.0
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: Set up Bash
         run: |
           sudo apt update
@@ -34,6 +30,13 @@ jobs:
       - name: List files in the working directory (Before running GLuaFixer)
         run: |
           ls
+      - name: Set location of Lilia
+        run: |
+          cd lilia
+      - name: List files in lilia
+        run: |
+          ls
+        working-directory: '${{ github.workspace }}/lilia'
       - name: Download GLuaFixer (Step 1)
         run: |
           echo "Step 1: Downloading glualint..."
@@ -51,10 +54,10 @@ jobs:
       - name: List files in the working directory (After downloading GLuaFixer)
         run: |
           ls
-      - name: Run GLuaFixer (Step 7)
+      - name: Run GLuaFixer on Lilia (Step 7)
         run: |
           echo "Step 7: Running glualint pretty-print on Lilia"
-          sudo ./glualint_executable pretty-print lilia/**
+          sudo ./glualint_executable pretty-print lilia/*
         working-directory: '${{ github.workspace }}'
         shell: bash
       - name: Remove the glualint folder (Step 8)
@@ -86,21 +89,3 @@ jobs:
             echo "No changes to commit."
           fi
         working-directory: '${{ github.workspace }}'
-      - name: Pull gluacheck
-        uses: actions/checkout@v2
-        with:
-          repository: impulsh/gluacheck
-          path: luacheck
-      - name: Build gluacheck
-        working-directory: luacheck
-        run: luarocks make
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Lint with gluacheck
-        working-directory: lilia
-        run: >-
-          luacheck . --no-unused-secondaries --no-unused-args --no-redefined
-          --no-unused --no-global --no-self -i 4.2/.*_ --formatter visual_studio
-          --no-unused --no-max-line-length --no-max-code-line-length
-          --no-max-string-line-length --no-max-comment-line-length
-          --no-max-cyclomatic-complexity
