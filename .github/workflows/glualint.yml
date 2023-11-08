@@ -9,7 +9,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          path: lilia
+          path: helix
 
       - name: Setup Lua
         uses: leafo/gh-actions-lua@v8.0.0
@@ -30,7 +30,7 @@ jobs:
         run: luarocks make
 
       - name: Lint with gluacheck
-        working-directory: lilia
+        working-directory: helix
         run: luacheck . --no-unused-secondaries --no-unused-args --no-redefined --no-unused --no-global --no-self -i 4.2/.*_ --formatter visual_studio --no-unused --no-max-line-length --no-max-code-line-length --no-max-string-line-length --no-max-comment-line-length --no-max-cyclomatic-complexity
 
   glualint:
@@ -76,12 +76,12 @@ jobs:
           sudo chmod +x glualint_executable
         working-directory: ${{ github.workspace }}
         shell: bash
+
       - name: Run GLuaFixer on /core/
         run: |
           # Step 3: Running glualint pretty-print on /core/
-          ls
           echo "Step 3: Running glualint pretty-print on /core/"
-          sudo ./glualint_executable pretty-print lilia/core/**/*.lua
+          sudo ./glualint_executable pretty-print /core/
         working-directory: ${{ github.workspace }}
         shell: bash
 
@@ -89,7 +89,7 @@ jobs:
         run: |
           # Step 4: Running glualint pretty-print on /gamemode/
           echo "Step 4: Running glualint pretty-print on /gamemode/"
-          sudo ./glualint_executable pretty-print lilia/gamemode/**/*.lua
+          sudo ./glualint_executable pretty-print /gamemode/
         working-directory: ${{ github.workspace }}
         shell: bash
 
@@ -97,7 +97,7 @@ jobs:
         run: |
           # Step 5: Running glualint pretty-print on /entities/
           echo "Step 5: Running glualint pretty-print on /entities/"
-          sudo ./glualint_executable pretty-print lilia/entities/**/*.lua
+          sudo ./glualint_executable pretty-print /entities/
         working-directory: ${{ github.workspace }}
         shell: bash
 
@@ -105,7 +105,7 @@ jobs:
         run: |
           # Step 6: Running glualint pretty-print on /modules/
           echo "Step 6: Running glualint pretty-print on /modules/"
-          sudo ./glualint_executable pretty-print lilia/modules/**/*.lua
+          sudo ./glualint_executable pretty-print /modules/
         working-directory: ${{ github.workspace }}
         shell: bash
 
