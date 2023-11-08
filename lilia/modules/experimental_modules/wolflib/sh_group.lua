@@ -1,4 +1,4 @@
-function group()
+﻿function group()
     local g = {}
     function g:FadeOutRem(callback, fullRem)
         fullRem = fullRem or false
@@ -9,16 +9,12 @@ function group()
                 0,
                 function()
                     v:Hide()
-                    if fullRem then
-                        v:Remove()
-                    end
+                    if fullRem then v:Remove() end
                 end
             )
         end
 
-        if callback then
-            timer.Simple(0.2, callback)
-        end
+        if callback then timer.Simple(0.2, callback) end
     end
 
     function g:FadeIn(delay)
@@ -38,9 +34,7 @@ function group()
             v:Hide()
         end
 
-        if callback then
-            timer.Simple(time, callback)
-        end
+        if callback then timer.Simple(time, callback) end
     end
 
     function g:GetChildren()
@@ -49,7 +43,6 @@ function group()
             if isfunction(v) then continue end
             c[#c + 1] = v
         end
-
         return c
     end
 
@@ -58,6 +51,5 @@ function group()
             table.insert(g, pnl)
         end
     end
-
     return g
 end

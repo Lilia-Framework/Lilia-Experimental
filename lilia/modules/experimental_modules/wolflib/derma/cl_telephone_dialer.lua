@@ -1,4 +1,4 @@
---Keypad
+﻿--Keypad
 local keys = {
     ["1"] = {1, KEY_1, KEY_PAD_1},
     ["2"] = {2, KEY_2, KEY_PAD_2},
@@ -41,16 +41,12 @@ local function openDialer(telent)
         self:Center()
         if not IsValid(self.hangup) or (self.LastDistanceCheck and SysTime() - self.LastDistanceCheck < 0.5) then return end
         self.LastDistanceCheck = SysTime()
-        if LocalPlayer():GetPos():DistToSqr(telent:GetPos()) > 10000 then
-            self.hangup:DoClick()
-        end
+        if LocalPlayer():GetPos():DistToSqr(telent:GetPos()) > 10000 then self.hangup:DoClick() end
     end
 
     function frame:OnKeyCodePressed(key)
         for k, v in pairs(keys) do
-            if key == v[2] or key == v[3] then
-                self:AddNumber(k)
-            end
+            if key == v[2] or key == v[3] then self:AddNumber(k) end
         end
     end
 
@@ -82,16 +78,7 @@ local function openDialer(telent)
     end
 
     function frame.close:DoClick()
-        frame:SizeTo(
-            0,
-            0,
-            0.2,
-            0,
-            -0.1,
-            function()
-                frame:Remove()
-            end
-        )
+        frame:SizeTo(0, 0, 0.2, 0, -0.1, function() frame:Remove() end)
     end
 
     frame.hint = frame:Add("DLabel")
@@ -121,7 +108,6 @@ local function openDialer(telent)
 
             surface.DrawRect(0, 0, w, h)
         end
-
         return acb
     end
 
@@ -129,14 +115,7 @@ local function openDialer(telent)
         frame.keypad:MoveTo(-frame.keypad:GetWide(), frame.keypad:GetY(), 0.5, 0, 0.5)
         frame.savedNums:MoveTo(frame:GetWide(), frame.savedNums:GetY(), 0.5, 0, 0.5)
         timer.Pause("HintCycler")
-        frame.hint:AlphaTo(
-            0,
-            0.2,
-            0,
-            function()
-                frame.hint:SetVisible(false)
-            end
-        )
+        frame.hint:AlphaTo(0, 0.2, 0, function() frame.hint:SetVisible(false) end)
     end
 
     local function pullBack()
@@ -173,10 +152,7 @@ local function openDialer(telent)
             "startPhoneCallResponse",
             function(text)
                 netstream.Hook("startPhoneCallResponse", nil)
-                if text == "busy" then
-                    pullBack()
-                end
-
+                if text == "busy" then pullBack() end
                 if foundNum and text == "started" then
                     frame.OnRemove = function()
                         if IsValid(frame.hangup) and LocalPlayer():getNetVar("talkingTo") then
@@ -188,9 +164,7 @@ local function openDialer(telent)
                                 }
                             )
                         elseif IsValid(frame.hangup) then
-                            if frame.dialNum then
-                                netstream.Start("stopPhoneRinging", frame.dialNum)
-                            end
+                            if frame.dialNum then netstream.Start("stopPhoneRinging", frame.dialNum) end
                         end
                     end
 
@@ -236,10 +210,7 @@ local function openDialer(telent)
                             function hangup:DoClick()
                                 --Fading all the other panels
                                 name:AlphaTo(0, 0.2)
-                                if dots and IsValid(dots) then
-                                    dots:AlphaTo(0, 0.2)
-                                end
-
+                                if dots and IsValid(dots) then dots:AlphaTo(0, 0.2) end
                                 self:AlphaTo(
                                     0,
                                     0.2,
@@ -264,9 +235,7 @@ local function openDialer(telent)
                                 )
 
                                 frame.OnRemove = nil
-                                if frame.dialNum then
-                                    netstream.Start("stopPhoneRinging", frame.dialNum)
-                                end
+                                if frame.dialNum then netstream.Start("stopPhoneRinging", frame.dialNum) end
                             end
 
                             --Caller updates
@@ -276,32 +245,9 @@ local function openDialer(telent)
                                     if data.update == "hangup" then
                                         netstream.Hook("updateCallListener", nil)
                                         --Removing necessary panels
-                                        if dots and IsValid(dots) then
-                                            dots:Remove()
-                                        end
-
-                                        if name and IsValid(name) then
-                                            name:AlphaTo(
-                                                0,
-                                                0.2,
-                                                0,
-                                                function()
-                                                    name:Remove()
-                                                end
-                                            )
-                                        end
-
-                                        if hangup and IsValid(hangup) then
-                                            hangup:AlphaTo(
-                                                0,
-                                                0.2,
-                                                0,
-                                                function()
-                                                    hangup:Remove()
-                                                end
-                                            )
-                                        end
-
+                                        if dots and IsValid(dots) then dots:Remove() end
+                                        if name and IsValid(name) then name:AlphaTo(0, 0.2, 0, function() name:Remove() end) end
+                                        if hangup and IsValid(hangup) then hangup:AlphaTo(0, 0.2, 0, function() hangup:Remove() end) end
                                         if frame and IsValid(frame) then
                                             pullBack()
                                             frame:SetKeyboardInputEnabled(true)
@@ -335,10 +281,7 @@ local function openDialer(telent)
     end
 
     --Reposition keypad if the phone is being called or not
-    if beingCalled then
-        frame.keypad:SetPos(-frame.keypad:GetWide(), 0)
-    end
-
+    if beingCalled then frame.keypad:SetPos(-frame.keypad:GetWide(), 0) end
     frame.keypad.numdis = frame.keypad:Add("DPanel") --The number display
     frame.keypad.numdis:SetSize(frame.keypad:GetWide() - 2, 80)
     frame.keypad.numdis:SetPos(0, 0)
@@ -383,9 +326,7 @@ local function openDialer(telent)
         end
 
         function key:DoClick()
-            if not k:find("-") then
-                frame:AddNumber(k)
-            end
+            if not k:find("-") then frame:AddNumber(k) end
         end
     end
 
@@ -394,9 +335,7 @@ local function openDialer(telent)
         if #frame.dialNum == 7 then
             local conName
             for k, v in pairs(savedNumbersTbl) do
-                if v.number == frame.dialNum then
-                    conName = v.name
-                end
+                if v.number == frame.dialNum then conName = v.name end
             end
 
             frame:Compose(frame.dialNum, conName or nil)
@@ -414,21 +353,7 @@ local function openDialer(telent)
     -- 	"You can click on one of your saved numbers to auto-compose.",
     -- 	"You can use your keypad numbers to compose."
     -- })
-    if not beingCalled then
-        frame.savedNums:MoveTo(
-            frame:GetWide() / 2,
-            25,
-            0.3,
-            0.4,
-            0.5,
-            function()
-                if frame.hint and IsValid(frame.hint) then
-                    frame.hint:AlphaTo(255, 0.2)
-                end
-            end
-        )
-    end
-
+    if not beingCalled then frame.savedNums:MoveTo(frame:GetWide() / 2, 25, 0.3, 0.4, 0.5, function() if frame.hint and IsValid(frame.hint) then frame.hint:AlphaTo(255, 0.2) end end) end
     function frame.savedNums:Paint(w, h)
         surface.SetDrawColor(33, 33, 33)
         surface.DrawRect(0, 0, w, h)
@@ -448,9 +373,7 @@ local function openDialer(telent)
             function te:Think()
                 local txt = self:GetText()
                 if not self:IsEditing() then
-                    if txt == "" then
-                        self:SetText(self.placeholder)
-                    end
+                    if txt == "" then self:SetText(self.placeholder) end
                 elseif self:IsEditing() and txt == self.placeholder then
                     self:SetText("")
                 end
@@ -541,16 +464,7 @@ local function openDialer(telent)
                 frame.savedNums:DisplayList() --Update list
             end
 
-            newNum:MoveTo(
-                newNum:GetX(),
-                frame.savedNums:GetTall(),
-                0.2,
-                0,
-                0.5,
-                function()
-                    newNum:Remove()
-                end
-            )
+            newNum:MoveTo(newNum:GetX(), frame.savedNums:GetTall(), 0.2, 0, 0.5, function() newNum:Remove() end)
         end
     end
 
@@ -591,10 +505,7 @@ local function openDialer(telent)
             surface.SetDrawColor(215, 65, 65)
         end
 
-        if not self:IsEnabled() then
-            surface.SetDrawColor(181, 181, 181)
-        end
-
+        if not self:IsEnabled() then surface.SetDrawColor(181, 181, 181) end
         surface.DrawRect(0, 0, w, h)
     end
 
@@ -613,15 +524,7 @@ local function openDialer(telent)
     function frame.savedNums:DisplayList(delay)
         local delay = delay or 0
         if self.list and IsValid(self.list) then
-            self.list:AlphaTo(
-                0,
-                0.2,
-                0,
-                function()
-                    self.list:Remove()
-                end
-            )
-
+            self.list:AlphaTo(0, 0.2, 0, function() self.list:Remove() end)
             delay = 0.4
         end
 

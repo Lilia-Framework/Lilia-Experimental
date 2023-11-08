@@ -1,4 +1,4 @@
-local PANEL = {}
+﻿local PANEL = {}
 function PANEL:Init()
     self.btnClose:Hide()
     self.close = self:Add("DButton") --Changing default appearance of close button
@@ -56,14 +56,11 @@ function PANEL:GetWorkPanel()
             surface.DrawRect(0, 0, w, h)
         end
     end
-
     return wp
 end
 
 function PANEL:OnKeyCodePressed(key)
-    if key == KEY_F1 then
-        self:Remove()
-    end
+    if key == KEY_F1 then self:Remove() end
 end
 
 function PANEL:Paint(w, h)

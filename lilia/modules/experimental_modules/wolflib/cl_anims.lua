@@ -1,4 +1,4 @@
-ANIM = {}
+﻿ANIM = {}
 ANIM.runAnim = nil
 ANIM.running = false
 ANIM.curAlpha = 0
@@ -25,9 +25,7 @@ function ANIM:CreateDermaOverlay()
 end
 
 function ANIM:ClearDerma()
-    if self.overlay and IsValid(self.overlay) then
-        self.overlay:Remove()
-    end
+    if self.overlay and IsValid(self.overlay) then self.overlay:Remove() end
 end
 
 --Quick animation
@@ -41,7 +39,6 @@ function qa:Think()
         local dt = math.TimeFraction(self.start, self.start + self.time, CurTime())
         local posLerp = LerpVector(dt, self.pos1, self.pos2)
         local angLerp = LerpAngle(dt, self.ang1, self.ang2)
-
         return posLerp, angLerp
     end
 end
@@ -58,7 +55,6 @@ function qa:Init(time, pos1, ang1, pos2, ang2)
     nqa.ang1 = ang1
     nqa.pos2 = pos2
     nqa.ang2 = ang2
-
     return nqa
 end
 
@@ -116,19 +112,16 @@ hook.Add(
             view.angles = ang
             view.fov = fov
             view.drawviewer = true
-
             return view
         else
             pointID = pointID + 1
             if anim.points[pointID] == nil then
                 if anim.settings.loopAnim then
                     ANIM:Run(ANIM.runAnim, true)
-
                     return
                 end
 
                 ANIM:Stop()
-
                 return nil
             end
 
@@ -160,13 +153,11 @@ hook.Add(
 function ANIM:Run(animName, restart, callback)
     if not animName then
         Error("No animation name provided")
-
         return
     end
 
     if not self.anims[animName] then
         Error("No animation called '" .. animName .. "'")
-
         return
     end
 
@@ -179,7 +170,6 @@ function ANIM:Run(animName, restart, callback)
         local map = game.GetMap()
         if anim.settings.map ~= map then
             MsgC(Color(255, 0, 0), "[ANIM] ", color_white, "Animation '" .. animName .. "' can't run on map '" .. map .. "'\n")
-
             return
         end
     end
@@ -187,10 +177,7 @@ function ANIM:Run(animName, restart, callback)
     --Telling the game we're about to run an animation
     self.runAnim = animName
     self.running = true
-    if callback and isfunction(callback) then
-        animCallback = callback
-    end
-
+    if callback and isfunction(callback) then animCallback = callback end
     --Don't set new variables for nothing if restarted
     if not restart then
         --Getting 'from' points
@@ -205,10 +192,7 @@ function ANIM:Run(animName, restart, callback)
 
         netstream.Start("AddPosToPVS", PVSPoints)
         --Start overlay if applicable
-        if anim.settings.showSkipButton then
-            self:CreateDermaOverlay()
-        end
-
+        if anim.settings.showSkipButton then self:CreateDermaOverlay() end
         --Creating song if necessary
         if anim.music and anim.music.path and LocalPlayer() then
             print("SONG START", LocalPlayer(), ply)
@@ -216,7 +200,6 @@ function ANIM:Run(animName, restart, callback)
             song:Play()
             song:ChangeVolume(0.5)
         end
-
         return duration
     end
 end
@@ -229,19 +212,12 @@ function ANIM:Stop(smooth)
     end
 
     if smooth then
-        self.overlay:Fade(
-            function()
-                resetVals(self)
-            end
-        )
+        self.overlay:Fade(function() resetVals(self) end)
     else
         resetVals(self)
     end
 
-    if animCallback then
-        animCallback()
-    end
-
+    if animCallback then animCallback() end
     --Removing PVS points
     netstream.Start("ClearPVS")
     --Stoping music
@@ -287,14 +263,12 @@ function ANIM:QuickAnim(time, pos1, pos2, ang1, ang2)
         if CurTime() >= self.q.start + time then
             local pos2, ang2 = self.q.pos2, self.q.ang2
             self.q = nil
-
             return false, pos2, ang2
         end
 
         local dt = math.TimeFraction(self.q.start, self.q.start + time, CurTime())
         local v = LerpVector(dt, self.q.pos1, self.q.pos2)
         local a = LerpAngle(dt, self.q.ang1, self.q.ang2)
-
         return v, a, q
     end
 end
@@ -302,7 +276,6 @@ end
 function ANIM:Add(animTable)
     if not animTable.settings then
         Error("Unable to find the 'settings' table in the animation table")
-
         return
     end
 
@@ -311,16 +284,5 @@ function ANIM:Add(animTable)
     MsgC(Color(0, 255, 0), "[ANIM] ", color_white, "Added animation " .. name .. "\n")
 end
 
-concommand.Add(
-    "forceStartAnimation",
-    function(ply, cmd, args)
-        ANIM:Run(args[1])
-    end
-)
-
-concommand.Add(
-    "forceStopAnimation",
-    function()
-        ANIM:Stop()
-    end
-)
+concommand.Add("forceStartAnimation", function(ply, cmd, args) ANIM:Run(args[1]) end)
+concommand.Add("forceStopAnimation", function() ANIM:Stop() end)

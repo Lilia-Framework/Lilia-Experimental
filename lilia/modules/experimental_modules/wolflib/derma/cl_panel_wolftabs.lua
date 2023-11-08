@@ -1,4 +1,4 @@
-local PANEL = {}
+﻿local PANEL = {}
 function PANEL:Init()
     self.tabs = {}
     self.btnTextCol = color_black
@@ -8,9 +8,9 @@ function PANEL:Init()
     --GET/SET
     AccessorFunc(self, "btnTxtCol", "TextColor")
     AccessorFunc(self, "btnCol", "ButtonColor")
-    -- AccessorFunc(self, "wpPnlType", "PanelType", FORCE_STRING)
 end
 
+-- AccessorFunc(self, "wpPnlType", "PanelType", FORCE_STRING)
 --Get/Set of pnl type
 function PANEL:SetPanelType(pt, setCall)
     self.wpPnlType = pt
@@ -29,34 +29,25 @@ function PANEL:AddTab(title, onClick)
 end
 
 function PANEL:WorkPanel()
-    if self.wp and IsValid(self.wp) then
-        self.wp:Remove()
-    end
-
+    if self.wp and IsValid(self.wp) then self.wp:Remove() end
     local panel, cCall = self:GetPanelType()
     self.wp = self:Add(panel)
     self.wp:SetSize(self:GetWide(), self:GetTall() - self.scroll:GetTall())
     self.wp:SetPos(0, self.scroll:GetTall())
     self.wp.Paint = nil
-
     return self.wp
 end
 
 function PANEL:SwitchTab(onClick)
     local er = nil
-    if self.OnTabSwitch then
-        er = self.OnTabSwitch()
-    end
-
+    if self.OnTabSwitch then er = self.OnTabSwitch() end
     local wp = self:WorkPanel()
     function wp.Reopen()
         self.SwitchTab(self, onClick)
     end
 
     onClick(wp, er) --Open Tab
-    if self.OnTabSwitchFinished then
-        self.OnTabSwitchFinished(er)
-    end
+    if self.OnTabSwitchFinished then self.OnTabSwitchFinished(er) end
 end
 
 function PANEL:ShowTabs()
@@ -92,9 +83,7 @@ function PANEL:ShowTabs()
         end
 
         --Open first tab automatically
-        if k == 1 then
-            t:DoClick()
-        end
+        if k == 1 then t:DoClick() end
     end
 end
 
