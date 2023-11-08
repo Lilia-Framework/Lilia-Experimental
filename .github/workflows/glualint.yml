@@ -34,13 +34,6 @@ jobs:
       - name: List files in the working directory (Before running GLuaFixer)
         run: |
           ls
-      - name: Set location of Lilia
-        run: |
-          cd lilia
-      - name: List files in lilia
-        run: |
-          ls
-        working-directory: '${{ github.workspace }}/lilia'
       - name: Download GLuaFixer (Step 1)
         run: |
           echo "Step 1: Downloading glualint..."
@@ -58,32 +51,10 @@ jobs:
       - name: List files in the working directory (After downloading GLuaFixer)
         run: |
           ls
-      - name: Run GLuaFixer on /entities/ (Step 3)
+      - name: Run GLuaFixer (Step 7)
         run: |
-          echo "Step 3: Running glualint pretty-print on /entities/"
-          sudo ./glualint_executable pretty-print lilia/entities/*
-        working-directory: '${{ github.workspace }}'
-        shell: bash
-      - name: Run GLuaFixer on /gamemode/ (Step 4)
-        run: |
-          echo "Step 4: Running glualint pretty-print on /gamemode/"
-          sudo ./glualint_executable pretty-print lilia/gamemode/*
-        working-directory: '${{ github.workspace }}'
-        shell: bash
-      - name: Run GLuaFixer on /libs/ (Step 5)
-        run: |
-          echo "Step 5: Running glualint pretty-print on /libs/"
-          sudo ./glualint_executable pretty-print lilia/libs/*
-        working-directory: '${{ github.workspace }}'
-        shell: bash
-      - name: Run GLuaFixer on /netcalls/ (Step 6)
-        run: |
-          echo "Step 6: Running glualint pretty-print on /netcalls/"
-          sudo ./glualint_executable pretty-print lilia/netcalls/*
-      - name: Run GLuaFixer on /modules/ (Step 7)
-        run: |
-          echo "Step 7: Running glualint pretty-print on /modules/"
-          sudo ./glualint_executable pretty-print lilia/modules/*
+          echo "Step 7: Running glualint pretty-print on Lilia"
+          sudo ./glualint_executable pretty-print lilia/**
         working-directory: '${{ github.workspace }}'
         shell: bash
       - name: Remove the glualint folder (Step 8)
