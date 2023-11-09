@@ -1,4 +1,4 @@
-WB.colors.accentColor = Color(225, 75, 75)
+﻿WB.colors.accentColor = Color(225, 75, 75)
 WB.colors.darkL1 = Color(25, 25, 25)
 WB.colors.darkL2 = Color(30, 30, 30)
 WB.colors.darkL3 = Color(35, 35, 35)
