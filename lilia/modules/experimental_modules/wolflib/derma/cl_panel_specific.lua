@@ -1,6 +1,4 @@
-﻿--[[Button Specific]]
---
-local b = vgui.GetControlTable("DButton")
+﻿local b = vgui.GetControlTable("DButton")
 function b:SetColorAcc(col)
     self.defaultColor = col or Color(255, 0, 0)
     self.color = col or Color(255, 0, 0)
@@ -26,19 +24,16 @@ function b:Flash(text, color, time, noAdjust, callback)
     local ogText = self:GetText()
     local ogPaint = self.Paint
     local ogSizeW, ogSizeH = self:GetSize()
-    self:SetText(text) --Changing to temp text
+    self:SetText(text)
     self.flashing = true
-    --Justify new width
     if not noAdjust then
         local cw, ch = self:GetContentSize()
         self:SizeTo(cw + 15, self:GetTall(), 0.2, 0, -1)
     end
 
-    --Has Smooth functions
     if self.GetColor and self.SetColor then
-        self.ogCol = self:GetColor() --Getting previous button color
+        self.ogCol = self:GetColor()
         self:ColorTo(color, 0.3, 0)
-        --Saving previous button state
         self.ogOCEn = self.OnCursorEntered
         self.ogOCEx = self.OnCursorExited
         self.OnCursorEntered = nil
@@ -49,7 +44,6 @@ function b:Flash(text, color, time, noAdjust, callback)
         end
     end
 
-    --Revert back to original button after timer
     timer.Simple(
         time,
         function()
@@ -63,7 +57,6 @@ function b:Flash(text, color, time, noAdjust, callback)
                 self:ColorTo(self.ogCol, 0.3, 0)
             end
 
-            --Call callback
             if callback then callback() end
         end
     )
@@ -80,10 +73,8 @@ function b:GInflate(color, over)
     function self:Paint(w, h)
         local dt = math.TimeFraction(self.animStart, self.animStart + self.animDur, CurTime())
         local r = Lerp(dt, 0, w / 1.5)
-        --The end of the expansion animation
         if CurTime() >= (self.animStart + self.animDur) then
-            --Start Fade out animation
-            local dtfo = math.TimeFraction(self.fadeoutStart, self.fadeoutStart + 0.8, CurTime()) --New DT
+            local dtfo = math.TimeFraction(self.fadeoutStart, self.fadeoutStart + 0.8, CurTime())
             local curAlpha = Lerp(dtfo, color.a, 0)
             color.a = math.Round(curAlpha)
             if CurTime() >= self.fadeoutStart + 3.8 then self.Paint = ogPaint end
@@ -96,8 +87,6 @@ function b:GInflate(color, over)
     end
 end
 
---[[Text Entry Specific]]
---
 local te = vgui.GetControlTable("DTextEntry")
 function te:SetPlaceholder(text)
     local ogThink = self.Think
@@ -106,17 +95,15 @@ function te:SetPlaceholder(text)
     function self:Think()
         if self:IsEditing() and self:GetText() == self.placeholder then self:SetText("") end
         if not self:IsEditing() and self:GetText() == "" then self:SetText(self.placeholder) end
-        ogThink(self) --Call original think method.
+        ogThink(self)
     end
 end
 
 function te:SetError(err, ogCol)
-    AccessorFunc(self, "color", "Color") --Create getters/setters
+    AccessorFunc(self, "color", "Color")
     self:SetEditable(false)
-    --Set error text
     local ogText = self:GetText()
     self:SetText(err)
-    --Reset text
     timer.Simple(
         1,
         function()
@@ -127,17 +114,14 @@ function te:SetError(err, ogCol)
         end
     )
 
-    --Color flash
     self.color = Color(255, 0, 0)
     self:ColorTo(ogCol, 0.5, 0)
-    --Draw outline
     function self:PaintOver(w, h)
         surface.SetDrawColor(255, 0, 0)
         surface.DrawOutlinedRect(0, 0, w, h)
     end
 end
 
---[[Major Panels Specific]]
 local mps = {"DPanel", "DButton", "DLabel", "DFrame", "DTextEntry", "WButton", "WLabel", "WScrollList"}
 for k, v in pairs(mps) do
     local m = vgui.GetControlTable(v)
@@ -171,8 +155,6 @@ for k, v in pairs(mps) do
     end
 end
 
---[[CONTAINERS SPECIFIC]]
---
 function WB.GetWorkPanel(panel, paddingTop, paddingLeft, paddingRight, paddingBottom, center)
     center = center or false
     if paddingTop ~= nil and not paddingLeft and not paddingRight and not paddingBottom then

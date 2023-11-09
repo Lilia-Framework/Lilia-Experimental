@@ -1,5 +1,4 @@
-﻿MsgC(Color(50, 100, 255), "  Web Image Loaded")
-local c = {}
+﻿local c = {}
 c.__index = c
 if not file.IsDir("webimage", "DATA") then file.CreateDir("webimage") end
 function c:Download()
