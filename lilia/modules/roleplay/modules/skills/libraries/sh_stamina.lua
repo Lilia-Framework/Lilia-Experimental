@@ -14,7 +14,7 @@
     if CLIENT then
         return offset
     else
-        local maxStamina = character:GetMaxStamina()
+        local maxStamina = character:getMaxStamina()
         local current = client:getLocalVar("stamina", 0)
         local value = math.Clamp(current + offset, 0, maxStamina)
         if current ~= value then

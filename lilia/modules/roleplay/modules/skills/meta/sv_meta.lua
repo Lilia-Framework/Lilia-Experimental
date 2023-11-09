@@ -1,7 +1,7 @@
 ﻿local playerMeta = FindMetaTable("Player")
 function playerMeta:RestoreStamina(amount)
     local current = self:getLocalVar("stamina", 0)
-    local maxStamina = self:getChar():GetMaxStamina()
+    local maxStamina = self:getChar():getMaxStamina()
     local value = math.Clamp(current + amount, 0, maxStamina)
     self:setLocalVar("stamina", value)
     if value >= (maxStamina * 0.5) and self:getNetVar("brth", false) then
@@ -12,7 +12,7 @@ end
 
 function playerMeta:ConsumeStamina(amount)
     local current = self:getLocalVar("stamina", 0)
-    local value = math.Clamp(current - amount, 0, self:getChar():GetMaxStamina())
+    local value = math.Clamp(current - amount, 0, self:getChar():getMaxStamina())
     self:setLocalVar("stamina", value)
     if value == 0 and not self:getNetVar("brth", false) then
         self:setNetVar("brth", true)
