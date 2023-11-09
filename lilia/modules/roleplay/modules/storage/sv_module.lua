@@ -1,7 +1,12 @@
-﻿util.AddNetworkString("liaStorageOpen")
+﻿--------------------------------------------------------------------------------------------------------------------------
+util.AddNetworkString("liaStorageOpen")
+--------------------------------------------------------------------------------------------------------------------------
 util.AddNetworkString("liaStorageExit")
+--------------------------------------------------------------------------------------------------------------------------
 util.AddNetworkString("liaStorageUnlock")
+--------------------------------------------------------------------------------------------------------------------------
 util.AddNetworkString("liaStorageTransfer")
+--------------------------------------------------------------------------------------------------------------------------
 function MODULE:PlayerSpawnedProp(client, model, entity)
     local data = lia.config.StorageDefinitions[model:lower()]
     if not data then return end
@@ -31,14 +36,18 @@ function MODULE:PlayerSpawnedProp(client, model, entity)
     entity:Remove()
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function MODULE:CanPlayerSpawnStorage(client, entity, info)
+    if not CAMI.PlayerHasAccess(client, "Lilia - Staff Permissions - Can Spawn Storage", nil) then return false end
     if not info.invType or not lia.inventory.types[info.invType] then return false end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function MODULE:CanSaveStorage(entity, inventory)
     return lia.config.SaveStorage
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function MODULE:saveStorage()
     local data = {}
     for _, entity in ipairs(ents.FindByClass("lia_storage")) do
@@ -53,10 +62,12 @@ function MODULE:saveStorage()
     self:setData(data)
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function MODULE:StorageItemRemoved(entity, inventory)
     self:saveStorage()
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function MODULE:LoadData()
     local data = self:getData()
     if not data then return end
@@ -95,16 +106,19 @@ function MODULE:LoadData()
     self.loadedData = true
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 local PROHIBITED_ACTIONS = {
     ["Equip"] = true,
     ["EquipUn"] = true,
 }
 
+--------------------------------------------------------------------------------------------------------------------------
 function MODULE:CanPlayerInteractItem(client, action, itemObject, data)
     local inventory = lia.inventory.instances[itemObject.invID]
     if inventory and inventory.isStorage == true then if PROHIBITED_ACTIONS[action] then return false, "forbiddenActionStorage" end end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 local RULES = {
     AccessIfStorageReceiver = function(inventory, action, context)
         local client = context.client
@@ -118,7 +132,9 @@ local RULES = {
     end
 }
 
+--------------------------------------------------------------------------------------------------------------------------
 function MODULE:StorageInventorySet(storage, inventory)
     inventory:addAccessRule(RULES.AccessIfStorageReceiver)
 end
 return RULES
+--------------------------------------------------------------------------------------------------------------------------
