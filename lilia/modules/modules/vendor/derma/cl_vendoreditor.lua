@@ -10,10 +10,7 @@ local COLS_PRICE = 3
 local COLS_STOCK = 4
 --------------------------------------------------------------------------------------------------------------------------
 function PANEL:Init()
-    if IsValid(lia.gui.vendorEditor) then
-        lia.gui.vendorEditor:Remove()
-    end
-
+    if IsValid(lia.gui.vendorEditor) then lia.gui.vendorEditor:Remove() end
     lia.gui.vendorEditor = self
     local entity = liaVendorEnt
     local width = math.min(ScrW() * 0.75, 480)
@@ -26,23 +23,13 @@ function PANEL:Init()
     self.name:Dock(TOP)
     self.name:SetTooltip(L"name")
     self.name:SetText(entity:getName())
-    self.name.OnEnter = function(this)
-        if entity:getNetVar("name") ~= this:GetText() then
-            EDITOR.name(this:GetText())
-        end
-    end
-
+    self.name.OnEnter = function(this) if entity:getNetVar("name") ~= this:GetText() then EDITOR.name(this:GetText()) end end
     self.desc = self:Add("DTextEntry")
     self.desc:Dock(TOP)
     self.desc:SetTooltip(L"desc")
     self.desc:DockMargin(0, 4, 0, 0)
     self.desc:SetText(entity:getDesc())
-    self.desc.OnEnter = function(this)
-        if entity:getNetVar("desc") ~= this:GetText() then
-            EDITOR.desc(this:GetText())
-        end
-    end
-
+    self.desc.OnEnter = function(this) if entity:getNetVar("desc") ~= this:GetText() then EDITOR.desc(this:GetText()) end end
     self.model = self:Add("DTextEntry")
     self.model:Dock(TOP)
     self.model:SetTooltip(L"model")
@@ -50,9 +37,7 @@ function PANEL:Init()
     self.model:SetText(entity:GetModel())
     self.model.OnEnter = function(this)
         local model = this:GetText():lower()
-        if entity:GetModel():lower() ~= model then
-            EDITOR.model(model)
-        end
+        if entity:GetModel():lower() ~= model then EDITOR.model(model) end
     end
 
     local useMoney = tonumber(entity:getMoney()) ~= nil
@@ -65,9 +50,7 @@ function PANEL:Init()
         local value = tonumber(this:GetText()) or entity:getMoney()
         value = math.Round(value)
         value = math.max(value, 0)
-        if value ~= entity:getMoney() then
-            EDITOR.money(value)
-        end
+        if value ~= entity:getMoney() then EDITOR.money(value) end
     end
 
     self.bubble = self:Add("DCheckBoxLabel")
@@ -75,18 +58,12 @@ function PANEL:Init()
     self.bubble:Dock(TOP)
     self.bubble:DockMargin(0, 4, 0, 0)
     self.bubble:SetValue(entity:getNetVar("noBubble") and 1 or 0)
-    self.bubble.OnChange = function(this, value)
-        EDITOR.bubble(value)
-    end
-
+    self.bubble.OnChange = function(this, value) EDITOR.bubble(value) end
     self.useMoney = self:Add("DCheckBoxLabel")
     self.useMoney:SetText(L"vendorUseMoney")
     self.useMoney:Dock(TOP)
     self.useMoney:DockMargin(0, 4, 0, 0)
-    self.useMoney.OnChange = function(this, value)
-        EDITOR.useMoney(value)
-    end
-
+    self.useMoney.OnChange = function(this, value) EDITOR.useMoney(value) end
     self.sellScale = self:Add("DNumSlider")
     self.sellScale:Dock(TOP)
     self.sellScale:DockMargin(0, 4, 0, 0)
@@ -103,9 +80,7 @@ function PANEL:Init()
                 if IsValid(self) and IsValid(self.sellScale) then
                     value = self.sellScale:GetValue()
                     local diff = math.abs(value - entity:getSellScale())
-                    if diff > 0.05 then
-                        EDITOR.scale(value)
-                    end
+                    if diff > 0.05 then EDITOR.scale(value) end
                 end
             end
         )
@@ -116,10 +91,7 @@ function PANEL:Init()
     self.faction:Dock(TOP)
     self.faction:SetTextColor(color_white)
     self.faction:DockMargin(0, 4, 0, 0)
-    self.faction.DoClick = function(this)
-        vgui.Create("liaVendorFactionEditor"):MoveLeftOf(self, 4)
-    end
-
+    self.faction.DoClick = function(this) vgui.Create("liaVendorFactionEditor"):MoveLeftOf(self, 4) end
     local menu
     self.items = self:Add("DListView")
     self.items:Dock(FILL)
@@ -130,43 +102,16 @@ function PANEL:Init()
     self.items:AddColumn(L"stock").Header:SetTextColor(color_black)
     self.items:SetMultiSelect(false)
     self.items.OnRowRightClick = function(this, index, line)
-        if IsValid(menu) then
-            menu:Remove()
-        end
-
+        if IsValid(menu) then menu:Remove() end
         local uniqueID = line.item
         local itemTable = lia.item.list[uniqueID]
         menu = DermaMenu()
         local mode, panel = menu:AddSubMenu(L"mode")
         panel:SetImage("icon16/key.png")
-        mode:AddOption(
-            L"none",
-            function()
-                EDITOR.mode(uniqueID, nil)
-            end
-        ):SetImage("icon16/cog_error.png")
-
-        mode:AddOption(
-            L"vendorBoth",
-            function()
-                EDITOR.mode(uniqueID, VENDOR_SELLANDBUY)
-            end
-        ):SetImage("icon16/cog.png")
-
-        mode:AddOption(
-            L"vendorBuy",
-            function()
-                EDITOR.mode(uniqueID, VENDOR_BUYONLY)
-            end
-        ):SetImage("icon16/cog_delete.png")
-
-        mode:AddOption(
-            L"vendorSell",
-            function()
-                EDITOR.mode(uniqueID, VENDOR_SELLONLY)
-            end
-        ):SetImage("icon16/cog_add.png")
-
+        mode:AddOption(L"none", function() EDITOR.mode(uniqueID, nil) end):SetImage("icon16/cog_error.png")
+        mode:AddOption(L"vendorBoth", function() EDITOR.mode(uniqueID, VENDOR_SELLANDBUY) end):SetImage("icon16/cog.png")
+        mode:AddOption(L"vendorBuy", function() EDITOR.mode(uniqueID, VENDOR_BUYONLY) end):SetImage("icon16/cog_delete.png")
+        mode:AddOption(L"vendorSell", function() EDITOR.mode(uniqueID, VENDOR_SELLONLY) end):SetImage("icon16/cog_add.png")
         menu:AddOption(
             L"price",
             function()
@@ -184,13 +129,7 @@ function PANEL:Init()
 
         local stock, panel = menu:AddSubMenu(L"stock")
         panel:SetImage("icon16/table.png")
-        stock:AddOption(
-            L"disable",
-            function()
-                EDITOR.stockDisable(uniqueID)
-            end
-        ):SetImage("icon16/table_delete.png")
-
+        stock:AddOption(L"disable", function() EDITOR.stockDisable(uniqueID) end):SetImage("icon16/table_delete.png")
         stock:AddOption(
             L"edit",
             function()
@@ -246,9 +185,7 @@ end
 
 --------------------------------------------------------------------------------------------------------------------------
 function PANEL:OnRemove()
-    if IsValid(lia.gui.editorFaction) then
-        lia.gui.editorFaction:Remove()
-    end
+    if IsValid(lia.gui.editorFaction) then lia.gui.editorFaction:Remove() end
 end
 
 --------------------------------------------------------------------------------------------------------------------------

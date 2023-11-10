@@ -13,9 +13,7 @@ function ENT:onDrawEntityInfo(alpha)
     local def = self:getStorageInfo()
     if def then
         y = y + ty + 1
-        if def.desc then
-            lia.util.drawText(L(def.desc), x, y, ColorAlpha(color_white, alpha), 1, 1, nil, alpha * 0.65)
-        end
+        if def.desc then lia.util.drawText(L(def.desc), x, y, ColorAlpha(color_white, alpha), 1, 1, nil, alpha * 0.65) end
     end
 end
 --------------------------------------------------------------------------------------------------------------------------

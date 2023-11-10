@@ -15,10 +15,7 @@ function PANEL:Init()
     end
 
     self.faction:SetTextColor(color_white)
-    self.faction.OnSelect = function(faction, index, value, id)
-        self:onFactionSelected(lia.faction.teams[id])
-    end
-
+    self.faction.OnSelect = function(faction, index, value, id) self:onFactionSelected(lia.faction.teams[id]) end
     self.desc = self:addLabel("desc")
     self.desc:DockMargin(0, 8, 0, 0)
     self.desc:SetFont("liaCharSubTitleFont")
@@ -38,9 +35,7 @@ function PANEL:onDisplay()
     self.skipFirstSelect = true
     local _, id = self.faction:GetSelected()
     local faction = lia.faction.teams[id]
-    if faction then
-        self:onFactionSelected(faction)
-    end
+    if faction then self:onFactionSelected(faction) end
 end
 
 --------------------------------------------------------------------------------------------------------------------------
@@ -53,7 +48,6 @@ function PANEL:onFactionSelected(faction)
     self:updateModelPanel()
     if self.skipFirstSelect then
         self.skipFirstSelect = false
-
         return
     end
 

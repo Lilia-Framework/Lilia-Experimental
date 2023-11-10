@@ -10,13 +10,7 @@ lia.command.add(
                 if client == entity:GetDTEntity(0) then
                     local price = math.Round(entity:getNetVar("price", lia.config.DoorCost) * lia.config.DoorSellRatio)
                     entity:removeDoorAccessData()
-                    MODULE:callOnDoorChildren(
-                        entity,
-                        function(child)
-                            child:removeDoorAccessData()
-                        end
-                    )
-
+                    MODULE:callOnDoorChildren(entity, function(child) child:removeDoorAccessData() end)
                     client:getChar():giveMoney(price)
                     client:notifyLocalized("dSold", lia.currency.get(price))
                     hook.Run("OnPlayerPurchaseDoor", client, entity, false, MODULE.callOnDoorChildren)
@@ -41,7 +35,6 @@ lia.command.add(
                 if entity:getNetVar("noSell") or entity:getNetVar("faction") or entity:getNetVar("class") then return client:notifyLocalized("dNotAllowedToOwn") end
                 if IsValid(entity:GetDTEntity(0)) then
                     client:notifyLocalized("dOwnedBy", entity:GetDTEntity(0):Name())
-
                     return false
                 end
 
@@ -52,13 +45,7 @@ lia.command.add(
                         [client] = DOOR_OWNER
                     }
 
-                    MODULE:callOnDoorChildren(
-                        entity,
-                        function(child)
-                            child:SetDTEntity(0, client)
-                        end
-                    )
-
+                    MODULE:callOnDoorChildren(entity, function(child) child:SetDTEntity(0, client) end)
                     client:getChar():takeMoney(price)
                     client:notifyLocalized("dPurchased", lia.currency.get(price))
                     hook.Run("OnPlayerPurchaseDoor", client, entity, true, MODULE.callOnDoorChildren)
@@ -84,17 +71,12 @@ lia.command.add(
             local name = table.concat(arguments, " ")
             if IsValid(entity) and entity:isDoor() and not entity:getNetVar("disabled") then
                 entity:setNetVar("noSell", true)
-                if arguments[1] and name:find("%S") then
-                    entity:setNetVar("name", name)
-                end
-
+                if arguments[1] and name:find("%S") then entity:setNetVar("name", name) end
                 MODULE:callOnDoorChildren(
                     entity,
                     function(child)
                         child:setNetVar("noSell", true)
-                        if arguments[1] and name:find("%S") then
-                            child:setNetVar("name", name)
-                        end
+                        if arguments[1] and name:find("%S") then child:setNetVar("name", name) end
                     end
                 )
 
@@ -119,17 +101,12 @@ lia.command.add(
             local name = table.concat(arguments, " ")
             if IsValid(entity) and entity:isDoor() and not entity:getNetVar("disabled") then
                 entity:setNetVar("noSell", nil)
-                if arguments[1] and name:find("%S") then
-                    entity:setNetVar("name", name)
-                end
-
+                if arguments[1] and name:find("%S") then entity:setNetVar("name", name) end
                 MODULE:callOnDoorChildren(
                     entity,
                     function(child)
                         child:setNetVar("noSell", nil)
-                        if arguments[1] and name:find("%S") then
-                            child:setNetVar("name", name)
-                        end
+                        if arguments[1] and name:find("%S") then child:setNetVar("name", name) end
                     end
                 )
 
@@ -186,13 +163,7 @@ lia.command.add(
                     client:notifyLocalized("invalidFaction")
                 else
                     entity:setNetVar("factions", "[]")
-                    MODULE:callOnDoorChildren(
-                        entity,
-                        function()
-                            entity:setNetVar("factions", "[]")
-                        end
-                    )
-
+                    MODULE:callOnDoorChildren(entity, function() entity:setNetVar("factions", "[]") end)
                     client:notifyLocalized("dRemoveFaction")
                 end
 
@@ -246,13 +217,7 @@ lia.command.add(
                     client:notifyLocalized("invalidFaction")
                 else
                     entity:setNetVar("factions", "[]")
-                    MODULE:callOnDoorChildren(
-                        entity,
-                        function()
-                            entity:setNetVar("factions", "[]")
-                        end
-                    )
-
+                    MODULE:callOnDoorChildren(entity, function() entity:setNetVar("factions", "[]") end)
                     client:notifyLocalized("dRemoveFaction")
                 end
 
@@ -274,13 +239,7 @@ lia.command.add(
             if IsValid(entity) and entity:isDoor() then
                 local disabled = tobool(arguments[1] or true)
                 entity:setNetVar("disabled", disabled)
-                MODULE:callOnDoorChildren(
-                    entity,
-                    function(child)
-                        child:setNetVar("disabled", disabled)
-                    end
-                )
-
+                MODULE:callOnDoorChildren(entity, function(child) child:setNetVar("disabled", disabled) end)
                 client:notifyLocalized("dSet" .. (disabled and "" or "Not") .. "Disabled")
                 MODULE:SaveDoorData()
             else
@@ -305,12 +264,7 @@ lia.command.add(
                     entity:setNetVar("title", name)
                 elseif client:IsAdmin() then
                     entity:setNetVar("name", name)
-                    MODULE:callOnDoorChildren(
-                        entity,
-                        function(child)
-                            child:setNetVar("name", name)
-                        end
-                    )
+                    MODULE:callOnDoorChildren(entity, function(child) child:setNetVar("name", name) end)
                 else
                     client:notifyLocalized("notOwner")
                 end
@@ -376,15 +330,8 @@ lia.command.add(
             local entity = client:GetEyeTrace().Entity
             if IsValid(entity) and entity:isDoor() and not entity:getNetVar("disabled") then
                 if client.liaDoorParent == entity then
-                    MODULE:callOnDoorChildren(
-                        entity,
-                        function(child)
-                            child.liaParent = nil
-                        end
-                    )
-
+                    MODULE:callOnDoorChildren(entity, function(child) child.liaParent = nil end)
                     entity.liaChildren = nil
-
                     return client:notifyLocalized("dRemoveChildren")
                 end
 
@@ -413,13 +360,7 @@ lia.command.add(
             if IsValid(entity) and entity:isDoor() then
                 local hidden = tobool(arguments[1] or true)
                 entity:setNetVar("hidden", hidden)
-                MODULE:callOnDoorChildren(
-                    entity,
-                    function(child)
-                        child:setNetVar("hidden", hidden)
-                    end
-                )
-
+                MODULE:callOnDoorChildren(entity, function(child) child:setNetVar("hidden", hidden) end)
                 client:notifyLocalized("dSet" .. (hidden and "" or "Not") .. "Hidden")
                 MODULE:SaveDoorData()
             else
@@ -466,13 +407,7 @@ lia.command.add(
                     client:notifyLocalized("invalidClass")
                 else
                     entity:setNetVar("class", nil)
-                    MODULE:callOnDoorChildren(
-                        entity,
-                        function()
-                            entity:setNetVar("class", nil)
-                        end
-                    )
-
+                    MODULE:callOnDoorChildren(entity, function() entity:setNetVar("class", nil) end)
                     client:notifyLocalized("dRemoveClass")
                 end
 

@@ -39,7 +39,6 @@ function ENT:Initialize()
                 self:setAnim()
             end
         )
-
         return
     end
 
@@ -68,7 +67,6 @@ end
 function ENT:hasMoney(amount)
     local money = self:getMoney()
     if not money then return true end
-
     return money >= amount
 end
 
@@ -89,17 +87,13 @@ function ENT:isItemInStock(itemType, amount)
     local info = self.items[itemType]
     if not info then return false end
     if not info[VENDOR_MAXSTOCK] then return true end
-
     return info[VENDOR_STOCK] >= amount
 end
 
 --------------------------------------------------------------------------------------------------------------------------
 function ENT:getPrice(uniqueID, isSellingToVendor)
     local price = lia.item.list[uniqueID] and self.items[uniqueID] and self.items[uniqueID][VENDOR_PRICE] or lia.item.list[uniqueID]:getPrice()
-    if isSellingToVendor then
-        price = math.floor(price * self:getSellScale())
-    end
-
+    if isSellingToVendor then price = math.floor(price * self:getSellScale()) end
     return price
 end
 
@@ -114,7 +108,6 @@ function ENT:isClassAllowed(classID)
     if not class then return false end
     local faction = lia.faction.indices[class.faction]
     if faction and self:isFactionAllowed(faction.index) then return true end
-
     return self.classes[classID] == true
 end
 

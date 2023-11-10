@@ -14,10 +14,7 @@ end
 
 --------------------------------------------------------------------------------------------------------------------------
 function PANEL:Init()
-    if IsValid(lia.gui.vendorFactionEditor) then
-        lia.gui.vendorFactionEditor:Remove()
-    end
-
+    if IsValid(lia.gui.vendorFactionEditor) then lia.gui.vendorFactionEditor:Remove() end
     lia.gui.vendorFactionEditor = self
     self:SetSize(256, 360)
     self:Center()

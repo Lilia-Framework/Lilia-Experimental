@@ -3,18 +3,13 @@ local PANEL = {}
 --------------------------------------------------------------------------------------------------------------------------
 function PANEL:isCursorWithinBounds()
     local x, y = self:LocalCursorPos()
-
     return x >= 0 and x <= self:GetWide() and y >= 0 and y < self:GetTall()
 end
 
 --------------------------------------------------------------------------------------------------------------------------
 function PANEL:confirmDelete()
     local id = self.character:getID()
-    vgui.Create("liaCharacterConfirm"):setMessage(L("Deleting a character cannot be undone.")):onConfirm(
-        function()
-            MainMenu:deleteCharacter(id)
-        end
-    )
+    vgui.Create("liaCharacterConfirm"):setMessage(L("Deleting a character cannot be undone.")):onConfirm(function() MainMenu:deleteCharacter(id) end)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
@@ -54,15 +49,10 @@ function PANEL:Init()
     self.button:SetSize(240, ScrH())
     self.button:SetPaintBackground(false)
     self.button:SetText("")
-    self.button.OnCursorEntered = function(button)
-        self:OnCursorEntered()
-    end
-
+    self.button.OnCursorEntered = function(button) self:OnCursorEntered() end
     self.button.DoClick = function(button)
         lia.gui.character:clickSound()
-        if not self.banned then
-            self:onSelected()
-        end
+        if not self.banned then self:onSelected() end
     end
 
     self.delete = self:Add("DButton")
@@ -136,9 +126,7 @@ function PANEL:Paint(w, h)
     lia.util.drawBlur(self)
     surface.SetDrawColor(0, 0, 0, 50)
     surface.DrawRect(0, 4, w, h)
-    if not self:isCursorWithinBounds() and self.isHovered then
-        self:onHoverChanged(false)
-    end
+    if not self:isCursorWithinBounds() and self.isHovered then self:onHoverChanged(false) end
 end
 
 --------------------------------------------------------------------------------------------------------------------------

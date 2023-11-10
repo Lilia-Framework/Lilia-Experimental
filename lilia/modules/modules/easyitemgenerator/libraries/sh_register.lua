@@ -112,9 +112,7 @@ function MODULE:InitializedModules()
                 end
             end
 
-            if lia.config.AutomaticWeaponRegister then
-                self:RegisterWeapons()
-            end
+            if lia.config.AutomaticWeaponRegister then self:RegisterWeapons() end
         end
     )
 end

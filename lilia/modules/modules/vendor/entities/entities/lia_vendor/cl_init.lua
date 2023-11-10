@@ -24,10 +24,7 @@ end
 
 --------------------------------------------------------------------------------------------------------------------------
 function ENT:Think()
-    if not self.hasSetupVars then
-        self:setupVars()
-    end
-
+    if not self.hasSetupVars then self:setupVars() end
     local noBubble = self:getNetVar("noBubble")
     if IsValid(self.bubble) and noBubble then
         self.bubble:Remove()
@@ -41,15 +38,12 @@ function ENT:Think()
     end
 
     self:SetNextClientThink(CurTime() + 1)
-
     return true
 end
 
 --------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRemove()
-    if IsValid(self.bubble) then
-        self.bubble:Remove()
-    end
+    if IsValid(self.bubble) then self.bubble:Remove() end
 end
 
 --------------------------------------------------------------------------------------------------------------------------
@@ -58,8 +52,6 @@ function ENT:onDrawEntityInfo(alpha)
     local x, y = position.x, position.y
     local desc = self.getNetVar(self, "desc")
     lia.util.drawText(self.getNetVar(self, "name", "John Doe"), x, y, ColorAlpha(lia.config.Color), 1, 1, nil, alpha * 0.65)
-    if desc then
-        lia.util.drawText(desc, x, y + 16, ColorAlpha(color_white, alpha), 1, 1, "liaSmallFont", alpha * 0.65)
-    end
+    if desc then lia.util.drawText(desc, x, y + 16, ColorAlpha(color_white, alpha), 1, 1, "liaSmallFont", alpha * 0.65) end
 end
 --------------------------------------------------------------------------------------------------------------------------

@@ -11,9 +11,7 @@ end
 
 --------------------------------------------------------------------------------------------------------------------------
 function GM:EntityNetworkedVarChanged(entity, varName, oldVal, newVal)
-    if varName == "Model" and entity.SetModel then
-        hook.Run("PlayerModelChanged", entity, newVal)
-    end
+    if varName == "Model" and entity.SetModel then hook.Run("PlayerModelChanged", entity, newVal) end
 end
 
 --------------------------------------------------------------------------------------------------------------------------
@@ -27,7 +25,6 @@ function GM:PlayerUse(client, entity)
             if result ~= nil then return result end
         end
     end
-
     return true
 end
 
@@ -35,24 +32,17 @@ end
 function GM:KeyRelease(client, key)
     if key == IN_ATTACK2 then
         local wep = client:GetActiveWeapon()
-        if IsValid(wep) and wep.IsHands and wep.ReadyToPickup then
-            wep:Grab()
-        end
+        if IsValid(wep) and wep.IsHands and wep.ReadyToPickup then wep:Grab() end
     end
 
-    if key == IN_RELOAD then
-        timer.Remove("liaToggleRaise" .. client:SteamID())
-    end
+    if key == IN_RELOAD then timer.Remove("liaToggleRaise" .. client:SteamID()) end
 end
 
 --------------------------------------------------------------------------------------------------------------------------
 function GM:PlayerLoadedChar(client, character, lastChar)
     local identifier = "RemoveMatSpecular" .. client:SteamID()
     client:Spawn()
-    if timer.Exists(identifier) then
-        timer.Remove(identifier)
-    end
-
+    if timer.Exists(identifier) then timer.Remove(identifier) end
     timer.Create(
         identifier,
         30,
@@ -68,15 +58,16 @@ function GM:PlayerLoadedChar(client, character, lastChar)
     lia.db.updateTable(
         {
             _lastJoinTime = timeStamp
-        }, nil, "characters", "_id = " .. character:getID()
+        },
+        nil,
+        "characters",
+        "_id = " .. character:getID()
     )
 
     if lastChar then
         local charEnts = lastChar:getVar("charEnts") or {}
         for _, v in ipairs(charEnts) do
-            if v and IsValid(v) then
-                v:Remove()
-            end
+            if v and IsValid(v) then v:Remove() end
         end
 
         lastChar:setVar("charEnts", nil)
@@ -126,7 +117,6 @@ function GM:PlayerSay(client, message)
     else
         client:notify("Your message is too long and has not been sent.")
     end
-
     return ""
 end
 
@@ -137,9 +127,7 @@ function GM:ShutDown()
     hook.Run("SaveData")
     for _, v in ipairs(player.GetAll()) do
         v:saveLiliaData()
-        if v:getChar() then
-            v:getChar():save()
-        end
+        if v:getChar() then v:getChar():save() end
     end
 end
 
@@ -163,9 +151,7 @@ function GM:CharacterPreSave(character)
     local client = character:getPlayer()
     if not character:getInv() then return end
     for _, v in pairs(character:getInv():getItems()) do
-        if v.onSave then
-            v:call("onSave", client)
-        end
+        if v.onSave then v:call("onSave", client) end
     end
 end
 
@@ -173,7 +159,7 @@ end
 function GM:CreateDefaultInventory(character)
     local charID = character:getID()
     if lia.inventory.types["grid"] then
-        return lia.inventory.instance(
+        return         lia.inventory.instance(
             "grid",
             {
                 char = charID
@@ -184,10 +170,7 @@ end
 
 --------------------------------------------------------------------------------------------------------------------------
 function GM:LiliaTablesLoaded()
-    local ignore = function()
-        print("")
-    end
-
+    local ignore = function() print("") end
     lia.db.query("ALTER TABLE lia_players ADD COLUMN _firstJoin DATETIME"):catch(ignore)
     lia.db.query("ALTER TABLE lia_players ADD COLUMN _lastJoin DATETIME"):catch(ignore)
     lia.db.query("ALTER TABLE lia_items ADD COLUMN _quantity INTEGER"):catch(ignore)
@@ -236,19 +219,11 @@ function GM:ServerPostInit()
     end
 
     for _, v in ipairs(ents.FindByClass("prop_door_rotating")) do
-        if IsValid(v) and v:isDoor() then
-            v:DrawShadow(false)
-        end
+        if IsValid(v) and v:isDoor() then v:DrawShadow(false) end
     end
 
     lia.faction.formatModelData()
-    timer.Simple(
-        2,
-        function()
-            lia.entityDataLoaded = true
-        end
-    )
-
+    timer.Simple(2, function() lia.entityDataLoaded = true end)
     lia.db.waitForTablesToLoad():next(
         function()
             hook.Run("LoadData")
@@ -266,9 +241,7 @@ function GM:KeyPress(client, key)
 
     local entity = client:GetEyeTrace().Entity
     if not IsValid(entity) then return end
-    if entity:isDoor() and entity:IsPlayer() and key == IN_USE then
-        hook.Run("PlayerUse", client, entity)
-    end
+    if entity:isDoor() and entity:IsPlayer() and key == IN_USE then hook.Run("PlayerUse", client, entity) end
 end
 
 --------------------------------------------------------------------------------------------------------------------------
@@ -288,7 +261,6 @@ end
 --------------------------------------------------------------------------------------------------------------------------
 function GM:GetGameDescription()
     if istable(SCHEMA) then return tostring(SCHEMA.name) end
-
     return lia.config.DefaultGamemodeName
 end
 

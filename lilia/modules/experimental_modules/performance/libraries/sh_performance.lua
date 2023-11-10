@@ -1,13 +1,5 @@
 ﻿--------------------------------------------------------------------------------------------------------------------------
-timer.Create(
-    "PlayerExpandedUpdate",
-    1,
-    0,
-    function()
-        MODULE:PlayerExpandedUpdate()
-    end
-)
-
+timer.Create("PlayerExpandedUpdate", 1, 0, function() MODULE:PlayerExpandedUpdate() end)
 --------------------------------------------------------------------------------------------------------------------------
 hook.Add("MouthMoveAnimation", "Optimization", function() return nil end)
 --------------------------------------------------------------------------------------------------------------------------
@@ -27,12 +19,7 @@ function MODULE:RegisterPlayer(pPlayer)
     }
 
     self:PlayerUpdateTransmitStates(pPlayer)
-    timer.Simple(
-        lia.config.intSpawnDelay,
-        function()
-            self:BeginExpand(pPlayer)
-        end
-    )
+    timer.Simple(lia.config.intSpawnDelay, function() self:BeginExpand(pPlayer) end)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
@@ -91,7 +78,6 @@ function MODULE:BeginExpand(pPlayer)
         function()
             if not IsValid(pPlayer) then
                 timer.Remove(timerID)
-
                 return
             end
 
