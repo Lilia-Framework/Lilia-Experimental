@@ -41,7 +41,6 @@ end
 --------------------------------------------------------------------------------------------------------------------------
 function GM:PlayerLoadedChar(client, character, lastChar)
     local identifier = "RemoveMatSpecular" .. client:SteamID()
-    client:Spawn()
     if timer.Exists(identifier) then timer.Remove(identifier) end
     timer.Create(
         identifier,
