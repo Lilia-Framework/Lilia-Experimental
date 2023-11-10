@@ -253,7 +253,7 @@ function PANEL:addPlayer(client, parent)
         name = name:gsub("#", "\226\128\139#")
         local model = client:GetModel()
         local skin = client:GetSkin()
-        local desc = hook.Run("ShouldAllowScoreboardOverride", client, "desc") and hook.Run("GetDisplayedDescription", client) or client:getChar():getDesc()
+        local desc = hook.Run("ShouldAllowScoreboardOverride", client, "desc") and hook.Run("GetDisplayedDescription", client, false) or client:getChar():getDesc()
         desc = desc:gsub("#", "\226\128\139#")
         self.model:setHidden(hook.Run("ShouldAllowScoreboardOverride", client, "model"))
         if self.lastName ~= name then
