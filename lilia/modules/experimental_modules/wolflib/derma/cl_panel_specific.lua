@@ -1,4 +1,6 @@
 ﻿--------------------------------------------------------------------------------------------------------------------------
+local MODULE = MODULE
+--------------------------------------------------------------------------------------------------------------------------
 local b = vgui.GetControlTable("DButton")
 --------------------------------------------------------------------------------------------------------------------------
 function b:SetColorAcc(col)
@@ -199,7 +201,7 @@ for k, v in pairs(mps) do
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function WB.GetWorkPanel(panel, paddingTop, paddingLeft, paddingRight, paddingBottom, center)
+function MODULE.GetWorkPanel(panel, paddingTop, paddingLeft, paddingRight, paddingBottom, center)
     center = center or false
     if paddingTop ~= nil and not paddingLeft and not paddingRight and not paddingBottom then
         paddingLeft = paddingTop

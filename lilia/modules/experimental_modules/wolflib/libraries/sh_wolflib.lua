@@ -1,4 +1,6 @@
 ﻿--------------------------------------------------------------------------------------------------------------------------
+local MODULE = MODULE
+--------------------------------------------------------------------------------------------------------------------------
 function group()
     local g = {}
     function g:FadeOutRem(callback, fullRem)
@@ -89,7 +91,7 @@ function strPosAngConv(str)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-WB.drawTextEntry = function(panel, w, h)
+MODULE.drawTextEntry = function(panel, w, h)
     local color = Color(235, 235, 235)
     if panel:IsEditing() then
         color = color_white
