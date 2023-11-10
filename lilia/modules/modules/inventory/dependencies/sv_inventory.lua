@@ -14,7 +14,6 @@ function lia.inventory.loadByID(id, noCache)
     if instance and not noCache then
         local d = deferred.new()
         d:resolve(instance)
-
         return d
     end
 
@@ -27,13 +26,12 @@ function lia.inventory.loadByID(id, noCache)
     end
 
     assert(isnumber(id) and id >= 0, "No inventories implement loadFromStorage for ID " .. tostring(id))
-
     return lia.inventory.loadFromDefaultStorage(id, noCache)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
 function lia.inventory.loadFromDefaultStorage(id, noCache)
-    return deferred.all({lia.db.select(INV_FIELDS, INV_TABLE, "_invID = " .. id, 1), lia.db.select(DATA_FIELDS, DATA_TABLE, "_invID = " .. id)}):next(
+    return     deferred.all({lia.db.select(INV_FIELDS, INV_TABLE, "_invID = " .. id, 1), lia.db.select(DATA_FIELDS, DATA_TABLE, "_invID = " .. id)}):next(
         function(res)
             if lia.inventory.instances[id] and not noCache then return lia.inventory.instances[id] end
             local results = res[1].results and res[1].results[1] or nil
@@ -42,7 +40,6 @@ function lia.inventory.loadFromDefaultStorage(id, noCache)
             local invType = lia.inventory.types[typeID]
             if not invType then
                 ErrorNoHalt("Inventory " .. id .. " has invalid type " .. typeID .. "\n")
-
                 return
             end
 
@@ -57,7 +54,6 @@ function lia.inventory.loadFromDefaultStorage(id, noCache)
             instance.data.char = tonumber(results._charID) or instance.data.char
             lia.inventory.instances[id] = instance
             instance:onLoaded()
-
             return instance:loadItems():next(function() return instance end)
         end,
         function(err)
@@ -73,15 +69,13 @@ function lia.inventory.instance(typeID, initialData)
     assert(istable(invType), "invalid inventory type " .. tostring(typeID))
     assert(initialData == nil or istable(initialData), "initialData must be a table for lia.inventory.instance")
     initialData = initialData or {}
-
-    return invType:initializeStorage(initialData):next(
+    return     invType:initializeStorage(initialData):next(
         function(id)
             local instance = invType:new()
             instance.id = id
             instance.data = initialData
             lia.inventory.instances[id] = instance
             instance:onInstanced()
-
             return instance
         end
     )
@@ -90,7 +84,6 @@ end
 --------------------------------------------------------------------------------------------------------------------------
 function lia.inventory.loadAllFromCharID(charID)
     assert(isnumber(charID), "charID must be a number")
-
     return lia.db.select({"_invID"}, INV_TABLE, "_charID = " .. charID):next(function(res) return deferred.map(res.results or {}, function(result) return lia.inventory.loadByID(tonumber(result._invID)) end) end)
 end
 
@@ -100,9 +93,7 @@ function lia.inventory.deleteByID(id)
     lia.db.delete(INV_TABLE, "_invID = " .. id)
     lia.db.delete(ITEMS_TABLE, "_invID = " .. id)
     local instance = lia.inventory.instances[id]
-    if instance then
-        instance:destroy()
-    end
+    if instance then instance:destroy() end
 end
 
 --------------------------------------------------------------------------------------------------------------------------

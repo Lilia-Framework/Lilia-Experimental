@@ -12,10 +12,7 @@ function ENT:Initialize()
     self:SetSolid(SOLID_VPHYSICS)
     self:SetUseType(SIMPLE_USE)
     self.receivers = {}
-    if isfunction(self.PostInitialize) then
-        self:PostInitialize()
-    end
-
+    if isfunction(self.PostInitialize) then self:PostInitialize() end
     self:PhysicsInit(SOLID_VPHYSICS)
     local physObj = self:GetPhysicsObject()
     if IsValid(physObj) then
@@ -36,10 +33,7 @@ function ENT:deleteInventory()
     local inventory = self:getInv()
     if inventory then
         inventory:delete()
-        if not self.liaForceDelete then
-            hook.Run("StorageEntityRemoved", self, inventory)
-        end
-
+        if not self.liaForceDelete then hook.Run("StorageEntityRemoved", self, inventory) end
         self:setNetVar("id", nil)
     end
 end
@@ -60,17 +54,13 @@ end
 function ENT:openInv(activator)
     local inventory = self:getInv()
     local storage = self:getStorageInfo()
-    if isfunction(storage.onOpen) then
-        storage.onOpen(self, activator)
-    end
-
+    if isfunction(storage.onOpen) then storage.onOpen(self, activator) end
     activator:setAction(
         L("Opening...", activator),
         lia.config.StorageOpenTime,
         function()
             if activator:GetPos():Distance(self:GetPos()) > 96 then
                 activator.liaStorageEntity = nil
-
                 return
             end
 
@@ -89,10 +79,7 @@ end
 function ENT:Use(activator)
     if not activator:getChar() then return end
     if (activator.liaNextOpen or 0) > CurTime() then return end
-    if IsValid(activator.liaStorageEntity) and (activator.liaNextOpen or 0) <= CurTime() then
-        activator.liaStorageEntity = nil
-    end
-
+    if IsValid(activator.liaStorageEntity) and (activator.liaNextOpen or 0) <= CurTime() then activator.liaStorageEntity = nil end
     local inventory = self:getInv()
     if not inventory then return end
     activator.liaStorageEntity = self

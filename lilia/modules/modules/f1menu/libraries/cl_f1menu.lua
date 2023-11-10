@@ -6,7 +6,6 @@ function MODULE:PlayerBindPress(client, bind, pressed)
         elseif LocalPlayer():getChar() then
             vgui.Create("liaMenu")
         end
-
         return true
     end
 end

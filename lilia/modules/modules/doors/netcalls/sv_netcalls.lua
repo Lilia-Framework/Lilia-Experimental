@@ -8,14 +8,10 @@ netstream.Hook(
             door.liaAccess[target] = access
             local recipient = {}
             for k, v in pairs(door.liaAccess) do
-                if v > DOOR_GUEST then
-                    recipient[#recipient + 1] = k
-                end
+                if v > DOOR_GUEST then recipient[#recipient + 1] = k end
             end
 
-            if #recipient > 0 then
-                netstream.Start(recipient, "doorPerm", door, target, access)
-            end
+            if #recipient > 0 then netstream.Start(recipient, "doorPerm", door, target, access) end
         end
     end
 )

@@ -5,9 +5,7 @@ function lia.flag.onSpawn(client)
         for i = 1, #flags do
             local flag = flags:sub(i, i)
             local info = lia.flag.list[flag]
-            if info and info.callback then
-                info.callback(client, true)
-            end
+            if info and info.callback then info.callback(client, true) end
         end
     end
 end

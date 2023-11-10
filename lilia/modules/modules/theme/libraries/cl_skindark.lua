@@ -122,15 +122,11 @@ function SKIN:PaintTextEntry(panel, w, h)
     if panel.GetPlaceholderText and panel.GetPlaceholderColor and panel:GetPlaceholderText() and panel:GetPlaceholderText():Trim() ~= "" and panel:GetPlaceholderColor() and (not panel:GetText() or panel:GetText() == "") then
         local oldText = panel:GetText()
         local str = panel:GetPlaceholderText()
-        if str:StartWith("#") then
-            str = str:sub(2)
-        end
-
+        if str:StartWith("#") then str = str:sub(2) end
         str = language.GetPhrase(str)
         panel:SetText(str)
         panel:DrawTextEntryText(panel:GetPlaceholderColor(), panel:GetHighlightColor(), panel:GetCursorColor())
         panel:SetText(oldText)
-
         return
     end
 
@@ -223,9 +219,7 @@ function SKIN:PaintMenuOption(panel, w, h)
 
     local skin = derma.GetDefaultSkin()
     skin.MenuOptionOdd = not skin.MenuOptionOdd
-    if panel:GetChecked() then
-        skin.tex.Menu_Check(5, h / 2 - 7, 15, 15)
-    end
+    if panel:GetChecked() then skin.tex.Menu_Check(5, h / 2 - 7, 15, 15) end
 end
 
 --------------------------------------------------------------------------------------------------------------------------

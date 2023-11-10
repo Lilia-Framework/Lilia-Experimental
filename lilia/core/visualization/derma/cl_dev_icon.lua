@@ -121,17 +121,10 @@ local function buildActionText(self, setModel)
     tab.cam_pos = iconModel:GetCamPos()
     tab.cam_ang = iconModel:GetLookAng()
     tab.cam_fov = iconModel:GetFOV()
-    if setModel and icon then
-        icon:SetModel(ent:GetModel())
-    end
-
+    if setModel and icon then icon:SetModel(ent:GetModel()) end
     local text = "ITEM.model = \"" .. ICON_INFO.modelName:gsub("\\", "/"):lower() .. "\"" .. "\n" .. "ITEM.width = " .. ICON_INFO.w .. "\n" .. "ITEM.height = " .. ICON_INFO.h .. "\n" .. "ITEM.iconCam = {" .. "\n" .. "\tpos = Vector(" .. tab.cam_pos.x .. ", " .. tab.cam_pos.y .. ", " .. tab.cam_pos.z .. "),\n" .. "\tang = Angle(" .. tab.cam_ang.p .. ", " .. tab.cam_ang.y .. ", " .. tab.cam_ang.r .. "),\n" .. "\tfov = " .. tab.cam_fov .. "," .. "\n"
-    if ICON_INFO.outline then
-        text = text .. "\toutline = true," .. "\n" .. "\toutlineColor = Color(" .. ICON_INFO.outlineColor.r .. ", " .. ICON_INFO.outlineColor.g .. ", " .. ICON_INFO.outlineColor.b .. ")," .. "\n"
-    end
-
+    if ICON_INFO.outline then text = text .. "\toutline = true," .. "\n" .. "\toutlineColor = Color(" .. ICON_INFO.outlineColor.r .. ", " .. ICON_INFO.outlineColor.g .. ", " .. ICON_INFO.outlineColor.b .. ")," .. "\n" end
     text = text .. "}"
-
     return text
 end
 
@@ -160,7 +153,8 @@ local function renderAction(self)
             drawHook = ICON_INFO.drawHook,
             entAng = ICON_INFO.entAng,
             drawPostHook = ICON_INFO.drawPostHook,
-        }, true
+        },
+        true
     )
 end
 
@@ -168,10 +162,7 @@ end
 PANEL = {}
 --------------------------------------------------------------------------------------------------------------------------
 function PANEL:Init()
-    if editorPanel and editorPanel:IsVisible() then
-        editorPanel:Close()
-    end
-
+    if editorPanel and editorPanel:IsVisible() then editorPanel:Close() end
     editorPanel = self
     self:SetTitle("MODEL ADJUST")
     self:MakePopup()
@@ -188,20 +179,14 @@ function PANEL:Init()
     self.render:SetText("RENDER")
     self.render:SetTall(30)
     self.render:DockMargin(5, 5, 5, 0)
-    self.render.DoClick = function()
-        renderAction(self)
-    end
-
+    self.render.DoClick = function() renderAction(self) end
     self.copy = self.list:Add("DButton")
     self.copy:Dock(TOP)
     self.copy:SetFont("ChatFont")
     self.copy:SetText("COPY")
     self.copy:SetTall(30)
     self.copy:DockMargin(5, 5, 5, 0)
-    self.copy.DoClick = function()
-        action(self)
-    end
-
+    self.copy.DoClick = function() action(self) end
     self:WriteText("Presets")
     for i = 1, 6 do
         local btn = self.list:Add("DButton")
@@ -271,9 +256,7 @@ function PANEL:Init()
         if not isIconUpdating then
             ICON_INFO.FOV = value
             local p = self.prev
-            if p and p:IsVisible() then
-                p.model:SetFOV(ICON_INFO.FOV)
-            end
+            if p and p:IsVisible() then p.model:SetFOV(ICON_INFO.FOV) end
         end
     end
 
@@ -288,11 +271,7 @@ function PANEL:Init()
         self.camPos[i]:SetDecimals(3)
         self.camPos[i]:SetValue(ICON_INFO.camPos[i])
         self.camPos[i]:DockMargin(10, 0, 0, 5)
-        self.camPos[i].OnValueChanged = function(_, value)
-            if not isIconUpdating then
-                ICON_INFO.camPos[i] = value
-            end
-        end
+        self.camPos[i].OnValueChanged = function(_, value) if not isIconUpdating then ICON_INFO.camPos[i] = value end end
     end
 
     self:WriteText("Camera Angle")
@@ -306,11 +285,7 @@ function PANEL:Init()
         self.camAng[i]:SetDecimals(3)
         self.camAng[i]:SetValue(ICON_INFO.camAng[i])
         self.camAng[i]:DockMargin(10, 0, 0, 5)
-        self.camAng[i].OnValueChanged = function(_, value)
-            if not isIconUpdating then
-                ICON_INFO.camAng[i] = value
-            end
-        end
+        self.camAng[i].OnValueChanged = function(_, value) if not isIconUpdating then ICON_INFO.camAng[i] = value end end
     end
 
     self:WriteText("Entity Angle")
@@ -380,14 +355,8 @@ function PANEL:SetupEditor(update, mode)
     if not (p and p:IsVisible() and p2 and p2:IsVisible()) then return end
     p.model:SetModel(ICON_INFO.modelName)
     p2.model:SetModel(ICON_INFO.modelName)
-    if not update then
-        self.mdl:SetText(ICON_INFO.modelName)
-    end
-
-    if not mode then
-        mode = 1
-    end
-
+    if not update then self.mdl:SetText(ICON_INFO.modelName) end
+    if not mode then mode = 1 end
     if mode == 1 then
         self:BestGuessLayout()
     elseif mode == 2 then
@@ -405,9 +374,7 @@ function PANEL:SetupEditor(update, mode)
     p.model:SetCamPos(ICON_INFO.camPos)
     p.model:SetFOV(ICON_INFO.FOV)
     p.model:SetLookAng(ICON_INFO.camAng)
-    if IsValid(p.model.Entity) then
-        p.model.Entity:SetAngles(ICON_INFO.entAng)
-    end
+    if IsValid(p.model.Entity) then p.model.Entity:SetAngles(ICON_INFO.entAng) end
 end
 
 --------------------------------------------------------------------------------------------------------------------------
@@ -480,24 +447,12 @@ end
 
 --------------------------------------------------------------------------------------------------------------------------
 function PANEL:OnRemove()
-    if self.prev and self.prev:IsVisible() then
-        self.prev:Close()
-    end
-
-    if self.prev2 and self.prev2:IsVisible() then
-        self.prev2:Close()
-    end
+    if self.prev and self.prev:IsVisible() then self.prev:Close() end
+    if self.prev2 and self.prev2:IsVisible() then self.prev2:Close() end
 end
 
 --------------------------------------------------------------------------------------------------------------------------
 vgui.Register("iconEditor", PANEL, "DFrame")
 --------------------------------------------------------------------------------------------------------------------------
-concommand.Add(
-    "lia_dev_icon",
-    function()
-        if LocalPlayer():IsAdmin() then
-            vgui.Create("iconEditor")
-        end
-    end
-)
+concommand.Add("lia_dev_icon", function() if LocalPlayer():IsAdmin() then vgui.Create("iconEditor") end end)
 --------------------------------------------------------------------------------------------------------------------------

@@ -26,7 +26,6 @@ end
 function ENT:getData(key, default)
     local data = self:getNetVar("data", {})
     if data[key] == nil then return default end
-
     return data[key]
 end
 --------------------------------------------------------------------------------------------------------------------------

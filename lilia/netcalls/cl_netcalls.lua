@@ -24,14 +24,8 @@ net.Receive(
         local title = net.ReadString()
         local subTitle = net.ReadString()
         local default = net.ReadString()
-        if title:sub(1, 1) == "@" then
-            title = L(title:sub(2))
-        end
-
-        if subTitle:sub(1, 1) == "@" then
-            subTitle = L(subTitle:sub(2))
-        end
-
+        if title:sub(1, 1) == "@" then title = L(title:sub(2)) end
+        if subTitle:sub(1, 1) == "@" then subTitle = L(subTitle:sub(2)) end
         Derma_StringRequest(
             title,
             subTitle,
@@ -65,7 +59,6 @@ net.Receive(
         local instance = lia.inventory.instances[id]
         if not instance then
             ErrorNoHalt("Got data " .. key .. " for non-existent instance " .. id)
-
             return
         end
 
@@ -93,7 +86,6 @@ net.Receive(
         local items = util.JSONToTable(uncompressed_data)
         local function readItem(I)
             local c = items[I]
-
             return c.i, c.u, c.d, c.q
         end
 
@@ -113,9 +105,7 @@ net.Receive(
         hook.Run("InventoryInitialized", instance)
         for _, character in pairs(lia.char.loaded) do
             for index, inventory in pairs(character.vars.inv) do
-                if inventory:getID() == id then
-                    character.vars.inv[index] = instance
-                end
+                if inventory:getID() == id then character.vars.inv[index] = instance end
             end
         end
     end
@@ -158,13 +148,8 @@ net.Receive(
     function()
         local invID = net.ReadType()
         local instance = lia.inventory.instances[invID]
-        if instance then
-            hook.Run("InventoryDeleted", instance)
-        end
-
-        if invID then
-            lia.inventory.instances[invID] = nil
-        end
+        if instance then hook.Run("InventoryDeleted", instance) end
+        if invID then lia.inventory.instances[invID] = nil end
     end
 )
 
@@ -187,45 +172,15 @@ net.Receive(
 )
 
 --------------------------------------------------------------------------------------------------------------------------
-net.Receive(
-    "cleanup_inbound",
-    function()
-        chat.AddText(Color(255, 0, 0), "[ WARNING ]  Map Cleanup Inbound! Brace for Impact!")
-    end
-)
-
+net.Receive("cleanup_inbound", function() chat.AddText(Color(255, 0, 0), "[ WARNING ]  Map Cleanup Inbound! Brace for Impact!") end)
 --------------------------------------------------------------------------------------------------------------------------
-net.Receive(
-    "worlditem_cleanup_inbound",
-    function()
-        chat.AddText(Color(255, 0, 0), "[ WARNING ]  World items will be cleared in 10 Minutes!")
-    end
-)
-
+net.Receive("worlditem_cleanup_inbound", function() chat.AddText(Color(255, 0, 0), "[ WARNING ]  World items will be cleared in 10 Minutes!") end)
 --------------------------------------------------------------------------------------------------------------------------
-net.Receive(
-    "worlditem_cleanup_inbound_final",
-    function()
-        chat.AddText(Color(255, 0, 0), "[ WARNING ]  World items will be cleared in 60 Seconds!")
-    end
-)
-
+net.Receive("worlditem_cleanup_inbound_final", function() chat.AddText(Color(255, 0, 0), "[ WARNING ]  World items will be cleared in 60 Seconds!") end)
 --------------------------------------------------------------------------------------------------------------------------
-net.Receive(
-    "map_cleanup_inbound",
-    function()
-        chat.AddText(Color(255, 0, 0), "[ WARNING ]  Automatic Map Cleanup in 10 Minutes!")
-    end
-)
-
+net.Receive("map_cleanup_inbound", function() chat.AddText(Color(255, 0, 0), "[ WARNING ]  Automatic Map Cleanup in 10 Minutes!") end)
 --------------------------------------------------------------------------------------------------------------------------
-net.Receive(
-    "map_cleanup_inbound_final",
-    function()
-        chat.AddText(Color(255, 0, 0), "[ WARNING ]  Automatic Map Cleanup in 60 Seconds!")
-    end
-)
-
+net.Receive("map_cleanup_inbound_final", function() chat.AddText(Color(255, 0, 0), "[ WARNING ]  Automatic Map Cleanup in 60 Seconds!") end)
 --------------------------------------------------------------------------------------------------------------------------
 net.Receive(
     "death_client",
@@ -249,9 +204,7 @@ net.Receive(
         end
 
         local character = lia.char.loaded[charID]
-        if character then
-            character.vars.inv = inventories
-        end
+        if character then character.vars.inv = inventories end
     end
 )
 
@@ -275,13 +228,7 @@ net.Receive(
 )
 
 --------------------------------------------------------------------------------------------------------------------------
-netstream.Hook(
-    "charInfo",
-    function(data, id, client)
-        lia.char.loaded[id] = lia.char.new(data, id, client == nil and LocalPlayer() or client)
-    end
-)
-
+netstream.Hook("charInfo", function(data, id, client) lia.char.loaded[id] = lia.char.new(data, id, client == nil and LocalPlayer() or client) end)
 --------------------------------------------------------------------------------------------------------------------------
 netstream.Hook(
     "charSet",
@@ -323,33 +270,16 @@ netstream.Hook(
 )
 
 --------------------------------------------------------------------------------------------------------------------------
-netstream.Hook(
-    "charKick",
-    function(id, isCurrentChar)
-        hook.Run("KickedFromCharacter", id, isCurrentChar)
-    end
-)
-
+netstream.Hook("charKick", function(id, isCurrentChar) hook.Run("KickedFromCharacter", id, isCurrentChar) end)
 --------------------------------------------------------------------------------------------------------------------------
-netstream.Hook(
-    "liaSyncGesture",
-    function(entity, a, b, c)
-        if IsValid(entity) then
-            entity:AnimRestartGesture(a, b, c)
-        end
-    end
-)
-
+netstream.Hook("liaSyncGesture", function(entity, a, b, c) if IsValid(entity) then entity:AnimRestartGesture(a, b, c) end end)
 --------------------------------------------------------------------------------------------------------------------------
 netstream.Hook(
     "item",
     function(uniqueID, id, data, invID)
         local item = lia.item.new(uniqueID, id)
         item.data = {}
-        if data then
-            item.data = data
-        end
-
+        if data then item.data = data end
         item.invID = invID or 0
         hook.Run("ItemInitialized", item)
     end
@@ -406,9 +336,7 @@ netstream.Hook(
     "attrib",
     function(id, key, value)
         local character = lia.char.loaded[id]
-        if character then
-            character:getAttribs()[key] = value
-        end
+        if character then character:getAttribs()[key] = value end
     end
 )
 
@@ -422,13 +350,7 @@ netstream.Hook(
 )
 
 --------------------------------------------------------------------------------------------------------------------------
-netstream.Hook(
-    "nDel",
-    function(index)
-        lia.net[index] = nil
-    end
-)
-
+netstream.Hook("nDel", function(index) lia.net[index] = nil end)
 --------------------------------------------------------------------------------------------------------------------------
 netstream.Hook(
     "nLcl",
@@ -439,13 +361,7 @@ netstream.Hook(
 )
 
 --------------------------------------------------------------------------------------------------------------------------
-netstream.Hook(
-    "gVar",
-    function(key, value)
-        lia.net.globals[key] = value
-    end
-)
-
+netstream.Hook("gVar", function(key, value) lia.net.globals[key] = value end)
 --------------------------------------------------------------------------------------------------------------------------
 netstream.Hook(
     "seqSet",
@@ -453,7 +369,6 @@ netstream.Hook(
         if IsValid(entity) then
             if not sequence then
                 entity.liaForceSeq = nil
-
                 return
             end
 
@@ -494,10 +409,7 @@ netstream.Hook(
             lia.bar.actionStart = 0
             lia.bar.actionEnd = 0
         else
-            if text:sub(1, 1) == "@" then
-                text = L(text:sub(2))
-            end
-
+            if text:sub(1, 1) == "@" then text = L(text:sub(2)) end
             lia.bar.actionStart = start
             lia.bar.actionEnd = finish
             lia.bar.actionText = text:upper()
@@ -523,15 +435,7 @@ netstream.Hook(
 )
 
 --------------------------------------------------------------------------------------------------------------------------
-netstream.Hook(
-    "removeF1",
-    function()
-        if IsValid(lia.gui.menu) then
-            lia.gui.menu:remove()
-        end
-    end
-)
-
+netstream.Hook("removeF1", function() if IsValid(lia.gui.menu) then lia.gui.menu:remove() end end)
 --------------------------------------------------------------------------------------------------------------------------
 netstream.Hook(
     "adminClearChat",
@@ -618,9 +522,7 @@ net.Receive(
         DButton:SetText("View Reference Picture")
         DButton:Dock(BOTTOM)
         DButton:DockMargin(0, 0, 0, 0)
-        DButton.DoClick = function()
-            gui.OpenURL(textEntryDataURL)
-        end
+        DButton.DoClick = function() gui.OpenURL(textEntryDataURL) end
     end
 )
 
@@ -644,10 +546,7 @@ net.Receive(
         textEntry:DockMargin(0, 0, 0, 0)
         textEntry:SetMultiline(true)
         textEntry:SetVerticalScrollbarEnabled(true)
-        if LocalPlayer():getChar():getData("textDetDescData") then
-            textEntry:SetText(LocalPlayer():getChar():getData("textDetDescData"))
-        end
-
+        if LocalPlayer():getChar():getData("textDetDescData") then textEntry:SetText(LocalPlayer():getChar():getData("textDetDescData")) end
         local DButton = vgui.Create("DButton", List)
         DButton:DockMargin(0, 0, 0, 0)
         DButton:Dock(BOTTOM)
@@ -674,29 +573,11 @@ net.Receive(
 )
 
 --------------------------------------------------------------------------------------------------------------------------
-net.Receive(
-    "SendMessage",
-    function()
-        chat.AddText(Color(255, 255, 255), unpack(net.ReadTable()))
-    end
-)
-
+net.Receive("SendMessage", function() chat.AddText(Color(255, 255, 255), unpack(net.ReadTable())) end)
 --------------------------------------------------------------------------------------------------------------------------
-net.Receive(
-    "SendPrint",
-    function()
-        print(unpack(net.ReadTable()))
-    end
-)
-
+net.Receive("SendPrint", function() print(unpack(net.ReadTable())) end)
 --------------------------------------------------------------------------------------------------------------------------
-net.Receive(
-    "SendPrintTable",
-    function()
-        PrintTable(net.ReadTable())
-    end
-)
-
+net.Receive("SendPrintTable", function() PrintTable(net.ReadTable()) end)
 --------------------------------------------------------------------------------------------------------------------------
 net.Receive(
     "StringRequest",
@@ -704,14 +585,8 @@ net.Receive(
         local time = net.ReadUInt(32)
         local title, subTitle = net.ReadString(), net.ReadString()
         local default = net.ReadString()
-        if title:sub(1, 1) == "@" then
-            title = L(title:sub(2))
-        end
-
-        if subTitle:sub(1, 1) == "@" then
-            subTitle = L(subTitle:sub(2))
-        end
-
+        if title:sub(1, 1) == "@" then title = L(title:sub(2)) end
+        if subTitle:sub(1, 1) == "@" then subTitle = L(subTitle:sub(2)) end
         Derma_StringRequest(
             title,
             subTitle,

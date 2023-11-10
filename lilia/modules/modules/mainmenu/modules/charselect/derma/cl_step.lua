@@ -28,7 +28,6 @@ function PANEL:validateCharVar(name)
     local charVar = lia.char.vars[name]
     assert(charVar, "invalid character variable " .. tostring(name))
     if isfunction(charVar.onValidate) then return charVar.onValidate(self:getContext(name), self:getContext(), LocalPlayer()) end
-
     return true
 end
 
@@ -52,7 +51,6 @@ function PANEL:getContext(key, default)
     if key == nil then return lia.gui.charCreate.context end
     local value = lia.gui.charCreate.context[key]
     if value == nil then return default end
-
     return value
 end
 
@@ -82,7 +80,6 @@ function PANEL:addLabel(text)
     label:SetText(L(text):upper())
     label:SizeToContents()
     label:Dock(TOP)
-
     return label
 end
 

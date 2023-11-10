@@ -12,7 +12,6 @@ local function CanAccessIfPlayerHasAccessToBag(inventory, action, context)
     end
 
     contextWithBagInv.bagInv = inventory
-
     return parentInv and parentInv:canAccess(action, contextWithBagInv) or false, "noAccess"
 end
 

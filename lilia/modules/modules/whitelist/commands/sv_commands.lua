@@ -12,7 +12,6 @@ lia.command.add(
                 return "This SteamID is already whitelisted"
             else
                 MODULE.allowed[steamID] = true
-
                 return "Added SteamID to the whitelist"
             end
         end
@@ -32,7 +31,6 @@ lia.command.add(
                 return "This SteamID is not whitelisted"
             else
                 MODULE.allowed[steamID] = nil
-
                 return "Removed SteamID from the whitelist"
             end
         end
@@ -47,7 +45,6 @@ lia.command.add(
         superAdminOnly = true,
         onRun = function()
             MODULE.allowed = {}
-
             return "Cleared the whitelist"
         end
     }
@@ -61,11 +58,8 @@ lia.command.add(
         superAdminOnly = true,
         onRun = function()
             for _, client in ipairs(player.GetHumans()) do
-                if IsValid(client) then
-                    MODULE.allowed[client:SteamID()] = true
-                end
+                if IsValid(client) then MODULE.allowed[client:SteamID()] = true end
             end
-
             return "Added all current players to the whitelist"
         end
     }

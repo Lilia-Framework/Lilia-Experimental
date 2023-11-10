@@ -28,7 +28,6 @@ function MODULE:ShouldDrawCrosshair()
         local className = wep:GetClass()
         if className == "gmod_tool" or string.find(className, "lia_") or string.find(className, "detector_") then return true end
         if lia.config.NoDrawCrosshairWeapon[wep:GetClass()] then return false end
-
         return true
     end
 end

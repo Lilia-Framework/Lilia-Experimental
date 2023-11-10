@@ -17,8 +17,7 @@ function lia.menu.add(options, position, onRemove)
         entity = position
         position = entity:WorldToLocal(LocalPlayer():GetEyeTrace().HitPos)
     end
-
-    return table.insert(
+    return     table.insert(
         lia.menu.list,
         {
             position = position or LocalPlayer():GetEyeTrace().HitPos,
@@ -46,10 +45,7 @@ function lia.menu.drawAll()
                 position = v.entPos:ToScreen()
             else
                 table.remove(lia.menu.list, k)
-                if v.onRemove then
-                    v:onRemove()
-                end
-
+                if v.onRemove then v:onRemove() end
                 continue
             end
         else
@@ -63,17 +59,12 @@ function lia.menu.drawAll()
         local inside = (mX >= startX and mX <= (startX + width) and mY >= startY and mY <= (startY + height)) and inRange
         if not v.displayed or inside then
             v.alpha = math.Approach(alpha or 0, 255, frameTime * 25)
-            if v.alpha == 255 then
-                v.displayed = true
-            end
+            if v.alpha == 255 then v.displayed = true end
         else
             v.alpha = math.Approach(alpha or 0, 0, inRange and frameTime or (frameTime * 45))
             if v.alpha == 0 then
                 table.remove(lia.menu.list, k)
-                if v.onRemove then
-                    v:onRemove()
-                end
-
+                if v.onRemove then v:onRemove() end
                 continue
             end
         end
@@ -135,7 +126,6 @@ function lia.menu.getActiveMenu()
 
                 i = i + 1
             end
-
             return k, choice
         end
     end
@@ -146,10 +136,8 @@ function lia.menu.onButtonPressed(menu, callback)
     table.remove(lia.menu.list, menu)
     if callback then
         callback()
-
         return true
     end
-
     return false
 end
 --------------------------------------------------------------------------------------------------------------------------

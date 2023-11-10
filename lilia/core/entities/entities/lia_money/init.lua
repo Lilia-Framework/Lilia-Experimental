@@ -20,18 +20,16 @@ function ENT:Initialize()
         self:SetCollisionBounds(min, max)
     end
 end
+
 --------------------------------------------------------------------------------------------------------------------------
 function ENT:Use(activator)
     local character = activator:getChar()
     if not character then return end
     if self.client == activator and character:getID() ~= self.charID then
         activator:notifyLocalized("logged")
-
         return
     end
 
-    if hook.Run("OnPickupMoney", activator, self) ~= false then
-        self:Remove()
-    end
+    if hook.Run("OnPickupMoney", activator, self) ~= false then self:Remove() end
 end
 --------------------------------------------------------------------------------------------------------------------------

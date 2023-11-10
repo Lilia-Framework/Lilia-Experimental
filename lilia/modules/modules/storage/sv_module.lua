@@ -24,16 +24,12 @@ function MODULE:PlayerSpawnedProp(client, model, entity)
                 inventory.isStorage = true
                 storage:setInventory(inventory)
                 self:saveStorage()
-                if isfunction(data.onSpawn) then
-                    data.onSpawn(storage)
-                end
+                if isfunction(data.onSpawn) then data.onSpawn(storage) end
             end
         end,
         function(err)
             ErrorNoHalt("Unable to create storage entity for " .. client:Name() .. "\n" .. err .. "\n")
-            if IsValid(storage) then
-                storage:Remove()
-            end
+            if IsValid(storage) then storage:Remove() end
         end
     )
 
@@ -60,9 +56,7 @@ function MODULE:saveStorage()
             continue
         end
 
-        if entity:getInv() then
-            data[#data + 1] = {entity:GetPos(), entity:GetAngles(), entity:getNetVar("id"), entity:GetModel():lower(), entity.password}
-        end
+        if entity:getInv() then data[#data + 1] = {entity:GetPos(), entity:GetAngles(), entity:getNetVar("id"), entity:GetModel():lower(), entity.password} end
     end
 
     self:setData(data)
@@ -100,22 +94,13 @@ function MODULE:LoadData()
                     storage:setInventory(inventory)
                     hook.Run("StorageRestored", storage, inventory)
                 elseif IsValid(storage) then
-                    timer.Simple(
-                        1,
-                        function()
-                            if IsValid(storage) then
-                                storage:Remove()
-                            end
-                        end
-                    )
+                    timer.Simple(1, function() if IsValid(storage) then storage:Remove() end end)
                 end
             end
         )
 
         local physObject = storage:GetPhysicsObject()
-        if physObject then
-            physObject:EnableMotion()
-        end
+        if physObject then physObject:EnableMotion() end
     end
 
     self.loadedData = true
@@ -130,9 +115,7 @@ local PROHIBITED_ACTIONS = {
 --------------------------------------------------------------------------------------------------------------------------
 function MODULE:CanPlayerInteractItem(client, action, itemObject, data)
     local inventory = lia.inventory.instances[itemObject.invID]
-    if inventory and inventory.isStorage == true then
-        if PROHIBITED_ACTIONS[action] then return false, "forbiddenActionStorage" end
-    end
+    if inventory and inventory.isStorage == true then if PROHIBITED_ACTIONS[action] then return false, "forbiddenActionStorage" end end
 end
 
 --------------------------------------------------------------------------------------------------------------------------
@@ -153,6 +136,5 @@ local RULES = {
 function MODULE:StorageInventorySet(storage, inventory)
     inventory:addAccessRule(RULES.AccessIfStorageReceiver)
 end
-
 return RULES
 --------------------------------------------------------------------------------------------------------------------------

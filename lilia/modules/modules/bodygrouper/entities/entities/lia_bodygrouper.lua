@@ -35,7 +35,6 @@ end
 --------------------------------------------------------------------------------------------------------------------------
 function ENT:HasUser(user)
     self.users = self.users or {}
-
     return self.users[user] == true
 end
 

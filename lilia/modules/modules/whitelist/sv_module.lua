@@ -17,8 +17,6 @@ end
 
 --------------------------------------------------------------------------------------------------------------------------
 function MODULE:PlayerAuthed(client, steamID, uniqueID)
-    if lia.config.WhitelistEnabled and not self.allowed[steamID] then
-        game.KickID(uniqueID, "Sorry, you are not whitelisted for " .. GetHostName())
-    end
+    if lia.config.WhitelistEnabled and not self.allowed[steamID] then game.KickID(uniqueID, "Sorry, you are not whitelisted for " .. GetHostName()) end
 end
 --------------------------------------------------------------------------------------------------------------------------

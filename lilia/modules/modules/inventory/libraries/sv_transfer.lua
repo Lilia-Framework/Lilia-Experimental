@@ -7,7 +7,6 @@
     local status, reason = hook.Run("CanItemBeTransfered", item, oldInventory, inventory, client)
     if status == false then
         client:notify(reason or "You can't do that right now.")
-
         return
     end
 
@@ -23,10 +22,7 @@
     if not inventory then return hook.Run("ItemDraggedOutOfInventory", client, item) end
     canTransfer, reason = inventory:canAccess("transfer", context)
     if not canTransfer then
-        if isstring(reason) then
-            client:notifyLocalized(reason)
-        end
-
+        if isstring(reason) then client:notifyLocalized(reason) end
         return
     end
 
@@ -42,34 +38,24 @@
             debug.Trace()
         end
 
-        if IsValid(client) then
-            client:notifyLocalized("itemOnGround")
-        end
-
+        if IsValid(client) then client:notifyLocalized("itemOnGround") end
         item:spawn(failItemDropPos)
     end
 
     local tryCombineWith
     local originalAddRes
-
-    return oldInventory:removeItem(itemID, true):next(function() return inventory:add(item, x, y) end):next(
+    return     oldInventory:removeItem(itemID, true):next(function() return inventory:add(item, x, y) end):next(
         function(res)
             if not res or not res.error then return end
             local conflictingItem = istable(res.error) and res.error.item
-            if conflictingItem then
-                tryCombineWith = conflictingItem
-            end
-
+            if conflictingItem then tryCombineWith = conflictingItem end
             originalAddRes = res
-
             return oldInventory:add(item, oldX, oldY)
         end
     ):next(
         function(res)
             if res and res.error then return res end
-            if tryCombineWith and IsValid(client) then
-                if hook.Run("ItemCombine", client, item, tryCombineWith) then return end
-            end
+            if tryCombineWith and IsValid(client) then if hook.Run("ItemCombine", client, item, tryCombineWith) then return end end
         end
     ):next(
         function(res)
@@ -79,7 +65,6 @@
             else
                 hook.Run("ItemTransfered", context)
             end
-
             return originalAddRes
         end
     ):catch(fail)

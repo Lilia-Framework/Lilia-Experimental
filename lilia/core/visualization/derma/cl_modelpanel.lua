@@ -14,14 +14,10 @@ function PANEL:Init()
         local entity = self.Entity
         if not IsValid(entity) then return end
         local sequence = entity:SelectWeightedSequence(ACT_IDLE)
-        if sequence <= 0 then
-            sequence = entity:LookupSequence("idle_unarmed")
-        end
-
+        if sequence <= 0 then sequence = entity:LookupSequence("idle_unarmed") end
         entity:SetIK(false)
         if sequence > 0 then
             entity:ResetSequence(sequence)
-
             return
         end
 
@@ -30,7 +26,6 @@ function PANEL:Init()
             if seqNameLower == "idlenoise" then continue end
             if not (seqNameLower:find("idle") or seqNameLower:find("fly")) then continue end
             entity:ResetSequence(seqName)
-
             return
         end
 
@@ -73,10 +68,7 @@ function PANEL:PreDrawModel(entity)
         render.SetModelLighting(5, fraction, fraction, fraction)
     end
 
-    if self.enableHook then
-        hook.Run("DrawLiliaModelView", self, entity)
-    end
-
+    if self.enableHook then hook.Run("DrawLiliaModelView", self, entity) end
     return true
 end
 

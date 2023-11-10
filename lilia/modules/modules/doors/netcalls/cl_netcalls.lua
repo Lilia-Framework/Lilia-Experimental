@@ -20,7 +20,6 @@ netstream.Hook(
             for k, v in ipairs(panel.access:GetLines()) do
                 if v.player == client then
                     v:SetColumnText(2, L(ACCESS_LABELS[access or 0]))
-
                     return
                 end
             end

@@ -15,10 +15,7 @@ addNetHandler(
     "Money",
     function(vendor)
         local money = net.ReadInt(32)
-        if money < 0 then
-            money = nil
-        end
-
+        if money < 0 then money = nil end
         vendor.money = money
         hook.Run("VendorMoneyUpdated", vendor, money, vendor.money)
     end
@@ -30,10 +27,7 @@ addNetHandler(
     function(vendor)
         local itemType = net.ReadString()
         local value = net.ReadInt(32)
-        if value < 0 then
-            value = nil
-        end
-
+        if value < 0 then value = nil end
         vendor.items[itemType] = vendor.items[itemType] or {}
         vendor.items[itemType][VENDOR_PRICE] = value
         hook.Run("VendorItemPriceUpdated", vendor, itemType, value)
@@ -46,10 +40,7 @@ addNetHandler(
     function(vendor)
         local itemType = net.ReadString()
         local value = net.ReadInt(8)
-        if value < 0 then
-            value = nil
-        end
-
+        if value < 0 then value = nil end
         vendor.items[itemType] = vendor.items[itemType] or {}
         vendor.items[itemType][VENDOR_MODE] = value
         hook.Run("VendorItemModeUpdated", vendor, itemType, value)
@@ -74,10 +65,7 @@ addNetHandler(
     function(vendor)
         local itemType = net.ReadString()
         local value = net.ReadUInt(32)
-        if value == 0 then
-            value = nil
-        end
-
+        if value == 0 then value = nil end
         vendor.items[itemType] = vendor.items[itemType] or {}
         vendor.items[itemType][VENDOR_MAXSTOCK] = value
         hook.Run("VendorItemMaxStockUpdated", vendor, itemType, value)

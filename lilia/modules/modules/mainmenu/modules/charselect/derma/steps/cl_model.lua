@@ -27,10 +27,7 @@ function PANEL:onDisplay()
         local icon = self.models:Add("SpawnIcon")
         icon:SetSize(64, 128)
         icon:InvalidateLayout(true)
-        icon.DoClick = function(icon)
-            self:onModelSelected(icon)
-        end
-
+        icon.DoClick = function(icon) self:onModelSelected(icon) end
         icon.PaintOver = paintIcon
         if isstring(v) then
             icon:SetModel(v)
@@ -58,9 +55,7 @@ function PANEL:onDisplay()
         end
 
         icon.index = k
-        if self:getContext("model") == k then
-            self:onModelSelected(icon, true)
-        end
+        if self:getContext("model") == k then self:onModelSelected(icon, true) end
     end
 
     self.models:Layout()
@@ -85,17 +80,13 @@ end
 --------------------------------------------------------------------------------------------------------------------------
 function PANEL:onModelSelected(icon, noSound)
     self:setContext("model", icon.index or 1)
-    if not noSound then
-        lia.gui.character:clickSound()
-    end
-
+    if not noSound then lia.gui.character:clickSound() end
     self:updateModelPanel()
 end
 
 --------------------------------------------------------------------------------------------------------------------------
 function PANEL:shouldSkip()
     local faction = lia.faction.indices[self:getContext("faction")]
-
     return faction and #faction.models == 1 or false
 end
 

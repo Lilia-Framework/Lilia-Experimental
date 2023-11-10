@@ -59,15 +59,12 @@ function PANEL:GetWorkPanel()
             surface.DrawRect(0, 0, w, h)
         end
     end
-
     return wp
 end
 
 --------------------------------------------------------------------------------------------------------------------------
 function PANEL:OnKeyCodePressed(key)
-    if key == KEY_F1 then
-        self:Remove()
-    end
+    if key == KEY_F1 then self:Remove() end
 end
 
 --------------------------------------------------------------------------------------------------------------------------

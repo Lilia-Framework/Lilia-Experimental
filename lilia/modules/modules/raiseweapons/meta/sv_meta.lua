@@ -12,13 +12,7 @@ end
 
 --------------------------------------------------------------------------------------------------------------------------
 function playerMeta:toggleWepRaised()
-    timer.Simple(
-        1,
-        function()
-            self:setWepRaised(not self:isWepRaised())
-        end
-    )
-
+    timer.Simple(1, function() self:setWepRaised(not self:isWepRaised()) end)
     local weapon = self:GetActiveWeapon()
     if IsValid(weapon) then
         if self:isWepRaised() and weapon.OnRaised then

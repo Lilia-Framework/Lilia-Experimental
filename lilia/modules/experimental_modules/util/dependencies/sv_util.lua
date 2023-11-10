@@ -58,7 +58,6 @@ function lia.util.findEmptySpace(entity, filter, spacing, size, height, toleranc
     end
 
     table.sort(output, function(a, b) return a:Distance(position) < b:Distance(position) end)
-
     return output
 end
 --------------------------------------------------------------------------------------------------------------------------

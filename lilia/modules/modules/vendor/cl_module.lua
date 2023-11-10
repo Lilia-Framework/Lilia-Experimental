@@ -6,8 +6,6 @@ end
 
 --------------------------------------------------------------------------------------------------------------------------
 function MODULE:VendorExited()
-    if IsValid(lia.gui.vendor) then
-        lia.gui.vendor:Remove()
-    end
+    if IsValid(lia.gui.vendor) then lia.gui.vendor:Remove() end
 end
 --------------------------------------------------------------------------------------------------------------------------

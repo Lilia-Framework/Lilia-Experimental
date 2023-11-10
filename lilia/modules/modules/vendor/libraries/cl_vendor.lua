@@ -5,46 +5,22 @@ local function addEditor(name, callback)
     EDITOR[name] = function(...)
         net.Start("liaVendorEdit")
         net.WriteString(name)
-        if isfunction(callback) then
-            callback(...)
-        end
-
+        if isfunction(callback) then callback(...) end
         net.SendToServer()
     end
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-addEditor(
-    "name",
-    function(name)
-        net.WriteString(name)
-    end
-)
-
+addEditor("name", function(name) net.WriteString(name) end)
 --------------------------------------------------------------------------------------------------------------------------
-addEditor(
-    "desc",
-    function(desc)
-        net.WriteString(desc)
-    end
-)
-
+addEditor("desc", function(desc) net.WriteString(desc) end)
 --------------------------------------------------------------------------------------------------------------------------
-addEditor(
-    "bubble",
-    function(show)
-        net.WriteBool(show)
-    end
-)
-
+addEditor("bubble", function(show) net.WriteBool(show) end)
 --------------------------------------------------------------------------------------------------------------------------
 addEditor(
     "mode",
     function(itemType, mode)
-        if not isnumber(mode) then
-            mode = nil
-        end
-
+        if not isnumber(mode) then mode = nil end
         net.WriteString(itemType)
         net.WriteInt(mode or -1, 8)
     end
@@ -106,21 +82,9 @@ addEditor(
 )
 
 --------------------------------------------------------------------------------------------------------------------------
-addEditor(
-    "model",
-    function(model)
-        net.WriteString(model)
-    end
-)
-
+addEditor("model", function(model) net.WriteString(model) end)
 --------------------------------------------------------------------------------------------------------------------------
-addEditor(
-    "useMoney",
-    function(useMoney)
-        net.WriteBool(useMoney)
-    end
-)
-
+addEditor("useMoney", function(useMoney) net.WriteBool(useMoney) end)
 --------------------------------------------------------------------------------------------------------------------------
 addEditor(
     "money",
@@ -136,12 +100,6 @@ addEditor(
 )
 
 --------------------------------------------------------------------------------------------------------------------------
-addEditor(
-    "scale",
-    function(scale)
-        net.WriteFloat(scale)
-    end
-)
-
+addEditor("scale", function(scale) net.WriteFloat(scale) end)
 return EDITOR
 --------------------------------------------------------------------------------------------------------------------------

@@ -17,10 +17,7 @@ end
 function PANEL:setText(text, noTranslation)
     surface.SetFont("liaMenuButtonFont")
     self:SetText(noTranslation and text:upper() or L(text):upper())
-    if not noTranslation then
-        self:SetTooltip(L(text .. "Tip"))
-    end
-
+    if not noTranslation then self:SetTooltip(L(text .. "Tip")) end
     local w, h = surface.GetTextSize(self:GetText())
     self:SetSize(w + 64, h + 32)
 end
@@ -50,9 +47,7 @@ function PANEL:OnMousePressed(code)
     end
 
     surface.PlaySound(lia.config.SoundMenuButtonPressed)
-    if code == MOUSE_LEFT and self.DoClick then
-        self:DoClick(self)
-    end
+    if code == MOUSE_LEFT and self.DoClick then self:DoClick(self) end
 end
 
 --------------------------------------------------------------------------------------------------------------------------

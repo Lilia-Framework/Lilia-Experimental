@@ -11,7 +11,6 @@ function MODULE:PlayerStartVoice(client)
         end
 
         VoicePanels[client]:SetAlpha(255)
-
         return
     end
 
@@ -32,10 +31,7 @@ end
 
 --------------------------------------------------------------------------------------------------------------------------
 function MODULE:InitPostEntity()
-    if IsValid(g_VoicePanelList) then
-        g_VoicePanelList:Remove()
-    end
-
+    if IsValid(g_VoicePanelList) then g_VoicePanelList:Remove() end
     g_VoicePanelList = vgui.Create("DPanel")
     g_VoicePanelList:ParentToHUD()
     g_VoicePanelList:SetSize(270, ScrH() - 200)
@@ -50,9 +46,7 @@ timer.Create(
     0,
     function()
         for k, v in pairs(VoicePanels) do
-            if not IsValid(k) then
-                hook.Run("PlayerEndVoice", k)
-            end
+            if not IsValid(k) then hook.Run("PlayerEndVoice", k) end
         end
     end
 )
