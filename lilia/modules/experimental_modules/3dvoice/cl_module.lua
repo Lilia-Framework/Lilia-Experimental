@@ -1,4 +1,5 @@
-﻿function GM:PlayerButtonDown(client, button)
+﻿--------------------------------------------------------------------------------------------------------------------------
+function GM:PlayerButtonDown(client, button)
     if button == KEY_F2 and IsFirstTimePredicted() then
         local menu = DermaMenu()
         menu:AddOption(
@@ -31,6 +32,7 @@
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function MODULE:PostDrawOpaqueRenderables()
     local VoiceType = LocalPlayer():getNetVar("VoiceType", "Talking")
     local rangeSquared = lia.config.TalkRanges[VoiceType] * lia.config.TalkRanges[VoiceType]
@@ -45,3 +47,4 @@ function MODULE:PostDrawOpaqueRenderables()
         end
     end
 end
+--------------------------------------------------------------------------------------------------------------------------

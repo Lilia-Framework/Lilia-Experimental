@@ -1,4 +1,10 @@
-﻿local PANEL = {}
+﻿--------------------------------------------------------------------------------------------------------------------------
+local PANEL = {}
+--------------------------------------------------------------------------------------------------------------------------
+local gui_MouseX = gui.MouseX
+--------------------------------------------------------------------------------------------------------------------------
+local gui_MouseY = gui.MouseY
+--------------------------------------------------------------------------------------------------------------------------
 function PANEL:Init()
     self.brightness = 1
     self:SetCursor("none")
@@ -8,10 +14,14 @@ function PANEL:Init()
         local entity = self.Entity
         if not IsValid(entity) then return end
         local sequence = entity:SelectWeightedSequence(ACT_IDLE)
-        if sequence <= 0 then sequence = entity:LookupSequence("idle_unarmed") end
+        if sequence <= 0 then
+            sequence = entity:LookupSequence("idle_unarmed")
+        end
+
         entity:SetIK(false)
         if sequence > 0 then
             entity:ResetSequence(sequence)
+
             return
         end
 
@@ -20,6 +30,7 @@ function PANEL:Init()
             if seqNameLower == "idlenoise" then continue end
             if not (seqNameLower:find("idle") or seqNameLower:find("fly")) then continue end
             entity:ResetSequence(seqName)
+
             return
         end
 
@@ -27,8 +38,7 @@ function PANEL:Init()
     end
 end
 
-local gui_MouseX = gui.MouseX
-local gui_MouseY = gui.MouseY
+--------------------------------------------------------------------------------------------------------------------------
 function PANEL:LayoutEntity()
     local scrW, scrH = ScrW(), ScrH()
     local xRatio = gui_MouseX() / scrW
@@ -49,6 +59,7 @@ function PANEL:LayoutEntity()
     self:RunAnimation()
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function PANEL:PreDrawModel(entity)
     if self.brightness then
         local brightness = self.brightness * 0.4
@@ -62,13 +73,18 @@ function PANEL:PreDrawModel(entity)
         render.SetModelLighting(5, fraction, fraction, fraction)
     end
 
-    if self.enableHook then hook.Run("DrawLiliaModelView", self, entity) end
+    if self.enableHook then
+        hook.Run("DrawLiliaModelView", self, entity)
+    end
+
     return true
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function PANEL:OnMousePressed()
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function PANEL:fitFOV()
     local entity = self:GetEntity()
     if not IsValid(entity) then return end
@@ -78,4 +94,6 @@ function PANEL:fitFOV()
     self:SetFOV(math.deg(2 * math.atan(height / (2 * distance))))
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 vgui.Register("liaModelPanel", PANEL, "DModelPanel")
+--------------------------------------------------------------------------------------------------------------------------

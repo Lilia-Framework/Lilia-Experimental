@@ -1,4 +1,6 @@
-﻿local MODULE = MODULE
+﻿--------------------------------------------------------------------------------------------------------------------------
+local MODULE = MODULE
+--------------------------------------------------------------------------------------------------------------------------
 local function getDarkPanel()
     local dark = vgui.Create("DPanel")
     dark:SetSize(ScrW(), ScrH())
@@ -8,11 +10,12 @@ local function getDarkPanel()
         surface.SetDrawColor(0, 0, 0)
         surface.DrawRect(0, 0, w, h)
     end
+
     return dark
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function QuickBackground(time, callback)
-    --Black panel
     local dark = getDarkPanel()
     dark:SetAlpha(0)
     dark:AlphaTo(
@@ -27,7 +30,9 @@ function QuickBackground(time, callback)
                 0,
                 function()
                     dark:Remove()
-                    if callback then callback() end
+                    if callback then
+                        callback()
+                    end
                 end
             )
         end
@@ -43,12 +48,15 @@ function QuickBackground(time, callback)
             view.angles = ang + Angle(0, 45, 0)
             view.fov = fov
             view.drawviewer = true
+
             return view
         end
     )
+
     return "CalcView", "Camerabackground"
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function RemoveBackground(time, callback)
     local dark = getDarkPanel()
     dark:SetAlpha(0)
@@ -65,9 +73,12 @@ function RemoveBackground(time, callback)
                 0,
                 function()
                     dark:Remove()
-                    if callback then callback() end
+                    if callback then
+                        callback()
+                    end
                 end
             )
         end
     )
 end
+--------------------------------------------------------------------------------------------------------------------------

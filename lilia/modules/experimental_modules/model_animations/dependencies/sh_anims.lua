@@ -1,7 +1,12 @@
-﻿local translations = {}
+﻿--------------------------------------------------------------------------------------------------------------------------
+local translations = {}
+--------------------------------------------------------------------------------------------------------------------------
 lia.anim = lia.anim or {}
+--------------------------------------------------------------------------------------------------------------------------
 player_manager.anim = player_manager.anim or {}
+--------------------------------------------------------------------------------------------------------------------------
 TranslateModel = TranslateModel or player_manager.TranslateToPlayerModelName
+--------------------------------------------------------------------------------------------------------------------------
 lia.anim.citizen_male = {
     normal = {
         [ACT_MP_STAND_IDLE] = {ACT_IDLE, ACT_IDLE},
@@ -68,6 +73,7 @@ lia.anim.citizen_male = {
     },
 }
 
+--------------------------------------------------------------------------------------------------------------------------
 lia.anim.citizen_female = {
     normal = {
         [ACT_MP_STAND_IDLE] = {ACT_IDLE, ACT_IDLE},
@@ -192,6 +198,7 @@ lia.anim.metrocop = {
     }
 }
 
+--------------------------------------------------------------------------------------------------------------------------
 lia.anim.overwatch = {
     normal = {
         [ACT_MP_STAND_IDLE] = {"idle_unarmed", "idle_unarmed"},
@@ -246,6 +253,7 @@ lia.anim.overwatch = {
     glide = ACT_GLIDE
 }
 
+--------------------------------------------------------------------------------------------------------------------------
 lia.anim.vort = {
     normal = {
         [ACT_MP_STAND_IDLE] = {ACT_IDLE, ACT_IDLE},
@@ -299,6 +307,7 @@ lia.anim.vort = {
     glide = ACT_GLIDE
 }
 
+--------------------------------------------------------------------------------------------------------------------------
 lia.anim.player = {
     normal = {
         [ACT_MP_STAND_IDLE] = ACT_HL2MP_IDLE,
@@ -314,6 +323,7 @@ lia.anim.player = {
     }
 }
 
+--------------------------------------------------------------------------------------------------------------------------
 lia.anim.zombie = {
     [ACT_MP_STAND_IDLE] = ACT_HL2MP_IDLE_ZOMBIE,
     [ACT_MP_CROUCH_IDLE] = ACT_HL2MP_IDLE_CROUCH_ZOMBIE,
@@ -322,6 +332,7 @@ lia.anim.zombie = {
     [ACT_MP_RUN] = ACT_HL2MP_RUN_ZOMBIE
 }
 
+--------------------------------------------------------------------------------------------------------------------------
 lia.anim.fastZombie = {
     [ACT_MP_STAND_IDLE] = ACT_HL2MP_WALK_ZOMBIE,
     [ACT_MP_CROUCH_IDLE] = ACT_HL2MP_IDLE_CROUCH_ZOMBIE,
@@ -330,11 +341,16 @@ lia.anim.fastZombie = {
     [ACT_MP_RUN] = ACT_HL2MP_RUN_ZOMBIE_FAST
 }
 
+--------------------------------------------------------------------------------------------------------------------------
 function lia.anim.setModelClass(model, class)
-    if not lia.anim[class] then error("'" .. tostring(class) .. "' is not a valid animation class!") end
+    if not lia.anim[class] then
+        error("'" .. tostring(class) .. "' is not a valid animation class!")
+    end
+
     translations[model:lower()] = class
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function lia.anim.getModelClass(model)
     model = string.lower(model)
     local class = translations[model]
@@ -346,9 +362,11 @@ function lia.anim.getModelClass(model)
     else
         class = "citizen_male"
     end
+
     return class
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function player_manager.TranslateToPlayerModelName(model)
     model = model:lower():gsub("\\", "/")
     local result = TranslateModel(model)
@@ -363,5 +381,7 @@ function player_manager.TranslateToPlayerModelName(model)
         result = TranslateModel(model2)
         if result ~= "kleiner" then return result end
     end
+
     return result
 end
+--------------------------------------------------------------------------------------------------------------------------

@@ -13,7 +13,9 @@ function MODULE:ServersideInitializedModules()
     end
 
     for k, v in pairs(ents.GetAll()) do
-        if lia.config.EntitiesToBeRemoved[v:GetClass()] then v:Remove() end
+        if lia.config.EntitiesToBeRemoved[v:GetClass()] then
+            v:Remove()
+        end
     end
 end
 
@@ -31,7 +33,9 @@ function MODULE:Think()
         loop = 1
         nicoSeats = {}
         for _, seat in ipairs(ents.FindByClass("prop_vehicle_prisoner_pod")) do
-            if seat.nicoSeat then table.insert(nicoSeats, seat) end
+            if seat.nicoSeat then
+                table.insert(nicoSeats, seat)
+            end
         end
     end
 
@@ -58,17 +62,23 @@ end
 
 --------------------------------------------------------------------------------------------------------------------------
 function MODULE:PlayerEnteredVehicle(client, vehicle)
-    if IsValid(vehicle) and vehicle.nicoSeat then table.insert(nicoSeats, loop, vehicle) end
+    if IsValid(vehicle) and vehicle.nicoSeat then
+        table.insert(nicoSeats, loop, vehicle)
+    end
 end
 
 --------------------------------------------------------------------------------------------------------------------------
 function MODULE:PlayerLeaveVehicle(client, vehicle)
-    if IsValid(vehicle) and vehicle.nicoSeat then table.insert(nicoSeats, loop, vehicle) end
+    if IsValid(vehicle) and vehicle.nicoSeat then
+        table.insert(nicoSeats, loop, vehicle)
+    end
 end
 
 --------------------------------------------------------------------------------------------------------------------------
 function MODULE:PropBreak(attacker, ent)
-    if IsValid(ent) and ent:GetPhysicsObject():IsValid() then constraint.RemoveAll(ent) end
+    if IsValid(ent) and ent:GetPhysicsObject():IsValid() then
+        constraint.RemoveAll(ent)
+    end
 end
 
 --------------------------------------------------------------------------------------------------------------------------

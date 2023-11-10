@@ -17,6 +17,7 @@ function MODULE:CreateSalaryTimer(client)
         function()
             if not IsValid(client) or client:getChar() ~= character then
                 timer.Remove(timerID)
+
                 return
             end
 

@@ -1,4 +1,5 @@
-﻿function GM:CanItemBeTransfered(item, curInv, inventory)
+﻿--------------------------------------------------------------------------------------------------------------------------
+function GM:CanItemBeTransfered(item, curInv, inventory)
     if item.isBag and curInv ~= inventory and item.getInv and item:getInv() and table.Count(item:getInv():getItems()) > 0 then
         local char = lia.char.loaded[curInv.owner]
         if SERVER and char and char:getPlayer() then
@@ -6,15 +7,18 @@
         elseif CLIENT then
             lia.util.notify("You can't transfer a backpack that has items inside of it.")
         end
+
         return false
     end
 
     if item.onCanBeTransfered then
         local itemHook = item:onCanBeTransfered(curInv, inventory)
+
         return itemHook ~= false
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function MODULE:CanPlayerInteractItem(client, action, item)
     if not client:Alive() or client:getLocalVar("ragdoll") then return false end
     if client:getNetVar("fallingover") then return false end
@@ -22,10 +26,21 @@ function MODULE:CanPlayerInteractItem(client, action, item)
         if hook.Run("CanPlayerDropItem", client, item) ~= false then
             if client.dropDelay == nil then
                 client.dropDelay = true
-                timer.Create("DropDelay." .. client:SteamID64(), lia.config.DropDelay, 1, function() if IsValid(client) then client.dropDelay = nil end end)
+                timer.Create(
+                    "DropDelay." .. client:SteamID64(),
+                    lia.config.DropDelay,
+                    1,
+                    function()
+                        if IsValid(client) then
+                            client.dropDelay = nil
+                        end
+                    end
+                )
+
                 return true
             else
                 client:notify("You need to wait before dropping something again!")
+
                 return false
             end
         else
@@ -37,10 +52,21 @@ function MODULE:CanPlayerInteractItem(client, action, item)
         if hook.Run("CanPlayerTakeItem", client, item) ~= false then
             if client.takeDelay == nil then
                 client.takeDelay = true
-                timer.Create("TakeDelay." .. client:SteamID64(), lia.config.TakeDelay, 1, function() if IsValid(client) then client.takeDelay = nil end end)
+                timer.Create(
+                    "TakeDelay." .. client:SteamID64(),
+                    lia.config.TakeDelay,
+                    1,
+                    function()
+                        if IsValid(client) then
+                            client.takeDelay = nil
+                        end
+                    end
+                )
+
                 return true
             else
                 client:notify("You need to wait before picking something up again!")
+
                 return false
             end
         else
@@ -52,10 +78,21 @@ function MODULE:CanPlayerInteractItem(client, action, item)
         if hook.Run("CanPlayerEquipItem", client, item) ~= false then
             if client.equipDelay == nil then
                 client.equipDelay = true
-                timer.Create("EquipDelay." .. client:SteamID64(), lia.config.EquipDelay, 1, function() if IsValid(client) then client.equipDelay = nil end end)
+                timer.Create(
+                    "EquipDelay." .. client:SteamID64(),
+                    lia.config.EquipDelay,
+                    1,
+                    function()
+                        if IsValid(client) then
+                            client.equipDelay = nil
+                        end
+                    end
+                )
+
                 return true
             else
                 client:notify("You need to wait before equipping something again!")
+
                 return false
             end
         else
@@ -64,49 +101,61 @@ function MODULE:CanPlayerInteractItem(client, action, item)
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function MODULE:CanPlayerEquipItem(client, item)
     local inventory = lia.inventory.instances[item.invID]
     if client.equipDelay ~= nil then
         client:notify("You need to wait before equipping something again!")
+
         return false
     elseif inventory and (inventory.isBag or inventory.isBank) then
         client:notifyLocalized("forbiddenActionStorage")
+
         return false
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function MODULE:CanPlayerTakeItem(client, item)
     local inventory = lia.inventory.instances[item.invID]
     if client.takeDelay ~= nil then
         client:notify("You need to wait before picking something up again!")
+
         return false
     elseif inventory and (inventory.isBag or inventory.isBank) then
         client:notifyLocalized("forbiddenActionStorage")
+
         return false
     elseif IsValid(item.entity) then
         local char = client:getChar()
         if item.entity.SteamID64 == client:SteamID() and item.entity.liaCharID ~= char:getID() then
             client:notifyLocalized("playerCharBelonging")
+
             return false
         end
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function MODULE:CanPlayerDropItem(client, item)
     local inventory = lia.inventory.instances[item.invID]
     if client.dropDelay ~= nil then
         client:notify("You need to wait before dropping something again!")
+
         return false
     elseif item.isBag and item:getInv() then
         local items = item:getInv():getItems()
         for _, otheritem in pairs(items) do
             if not otheritem.ignoreEquipCheck and otheritem:getData("equip") == true then
                 client:notifyLocalized("cantDropBagHasEquipped")
+
                 return false
             end
         end
     elseif inventory and (inventory.isBag or inventory.isBank) then
         client:notifyLocalized("forbiddenActionStorage")
+
         return false
     end
 end
+--------------------------------------------------------------------------------------------------------------------------

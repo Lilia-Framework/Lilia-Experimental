@@ -1,10 +1,14 @@
-﻿lia.command = lia.command or {}
+﻿--------------------------------------------------------------------------------------------------------------------------
+lia.command = lia.command or {}
+--------------------------------------------------------------------------------------------------------------------------
 lia.command.list = lia.command.list or {}
+--------------------------------------------------------------------------------------------------------------------------
 function lia.command.add(command, data)
     data.syntax = data.syntax or "[none]"
     if not data.onRun then return ErrorNoHalt("Command '" .. command .. "' does not have a callback, not adding!\n") end
     if data.group then
         ErrorNoHalt("Command '" .. data.name .. "' tried to use the deprecated field 'group'!\n")
+
         return
     end
 
@@ -48,15 +52,24 @@ function lia.command.add(command, data)
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function lia.command.hasAccess(client, command, data)
-    if data == nil then data = lia.command.list[command] end
+    if data == nil then
+        data = lia.command.list[command]
+    end
+
     local privilege = data.privilege
-    if not privilege then privilege = command end
+    if not privilege then
+        privilege = command
+    end
+
     local bHasAccess, _ = CAMI.PlayerHasAccess(client, "Lilia - Commands - " .. privilege, nil)
     if hook.GetTable()["CanPlayerUseCommand"] then return hook.Run("CanPlayerUseCommand") end
+
     return bHasAccess
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function lia.command.extractArgs(text)
     local skip = 0
     local arguments = {}
@@ -82,6 +95,10 @@ function lia.command.extractArgs(text)
         end
     end
 
-    if curString ~= "" then arguments[#arguments + 1] = curString end
+    if curString ~= "" then
+        arguments[#arguments + 1] = curString
+    end
+
     return arguments
 end
+--------------------------------------------------------------------------------------------------------------------------

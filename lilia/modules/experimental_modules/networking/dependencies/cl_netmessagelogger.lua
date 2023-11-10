@@ -1,5 +1,8 @@
-﻿local isOpen = false
+﻿--------------------------------------------------------------------------------------------------------------------------
+local isOpen = false
+--------------------------------------------------------------------------------------------------------------------------
 local logList
+--------------------------------------------------------------------------------------------------------------------------
 local function fillLogs(listview, logs)
     listview:Clear()
     for _, curLog in pairs(logs) do
@@ -7,12 +10,14 @@ local function fillLogs(listview, logs)
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 local function requestLogs(page)
     net.Start("net_RequestLogs")
     net.WriteInt(page, 32)
     net.SendToServer()
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 local function displayLogs(logs, amtOfPages)
     local results
     local frame = vgui.Create("DFrame")
@@ -39,11 +44,40 @@ local function displayLogs(logs, amtOfPages)
         local menu = DermaMenu(frame)
         menu:MakePopup()
         menu:SetPos(input.GetCursorPos())
-        menu:AddOption("Copy player name", function() SetClipboardText(line:GetColumnText(3)) end)
-        menu:AddOption("Copy player steamID", function() SetClipboardText(line:GetColumnText(4)) end)
-        menu:AddOption("Copy player IP address", function() SetClipboardText(line:GetColumnText(7)) end)
-        menu:AddOption("Copy source path", function() SetClipboardText(line:GetColumnText(6)) end)
-        menu:AddOption("Copy net message name", function() SetClipboardText(line:GetColumnText(2)) end)
+        menu:AddOption(
+            "Copy player name",
+            function()
+                SetClipboardText(line:GetColumnText(3))
+            end
+        )
+
+        menu:AddOption(
+            "Copy player steamID",
+            function()
+                SetClipboardText(line:GetColumnText(4))
+            end
+        )
+
+        menu:AddOption(
+            "Copy player IP address",
+            function()
+                SetClipboardText(line:GetColumnText(7))
+            end
+        )
+
+        menu:AddOption(
+            "Copy source path",
+            function()
+                SetClipboardText(line:GetColumnText(6))
+            end
+        )
+
+        menu:AddOption(
+            "Copy net message name",
+            function()
+                SetClipboardText(line:GetColumnText(2))
+            end
+        )
     end
 
     isOpen = true
@@ -87,6 +121,7 @@ local function displayLogs(logs, amtOfPages)
         results = nil
         if searchTerm == "" then
             fillLogs(logList, logs)
+
             return
         end
 
@@ -105,6 +140,7 @@ local function displayLogs(logs, amtOfPages)
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 net.Receive(
     "net_ReceiveLogs",
     function()
@@ -120,3 +156,4 @@ net.Receive(
         end
     end
 )
+--------------------------------------------------------------------------------------------------------------------------

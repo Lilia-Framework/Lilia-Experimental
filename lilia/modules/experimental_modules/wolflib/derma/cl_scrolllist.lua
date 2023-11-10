@@ -1,4 +1,6 @@
-﻿local PANEL = {}
+﻿--------------------------------------------------------------------------------------------------------------------------
+local PANEL = {}
+--------------------------------------------------------------------------------------------------------------------------
 function PANEL:GetList(sx, sy)
     sx = sx or 1
     sy = sy or 1
@@ -18,16 +20,21 @@ function PANEL:GetList(sx, sy)
         function title:Paint(w, h)
             draw.RoundedBox(0, 0, 0, w, h, Color(40, 40, 40))
         end
+
         return title
     end
 
     function self.list:RemoveChildren()
         for k, v in pairs(self:GetChildren()) do
-            if not v.noRemove then v:Remove() end
+            if not v.noRemove then
+                v:Remove()
+            end
         end
     end
+
     return self.list
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 vgui.Register("WScrollList", PANEL, "DScrollPanel")
---TODO: Add scrollbar styling
+--------------------------------------------------------------------------------------------------------------------------

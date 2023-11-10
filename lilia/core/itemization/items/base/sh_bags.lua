@@ -1,12 +1,22 @@
-﻿ITEM.name = "Bag"
+﻿--------------------------------------------------------------------------------------------------------------------------
+ITEM.name = "Bag"
+--------------------------------------------------------------------------------------------------------------------------
 ITEM.desc = "A bag to hold more items."
+--------------------------------------------------------------------------------------------------------------------------
 ITEM.model = "models/props_c17/suitcase001a.mdl"
+--------------------------------------------------------------------------------------------------------------------------
 ITEM.category = "Storage"
+--------------------------------------------------------------------------------------------------------------------------
 ITEM.isBag = true
+--------------------------------------------------------------------------------------------------------------------------
 ITEM.invWidth = 2
+--------------------------------------------------------------------------------------------------------------------------
 ITEM.invHeight = 2
+--------------------------------------------------------------------------------------------------------------------------
 ITEM.RequiredSkillLevels = nil
+--------------------------------------------------------------------------------------------------------------------------
 ITEM.BagSound = {"physics/cardboard/cardboard_box_impact_soft2.wav", 50}
+--------------------------------------------------------------------------------------------------------------------------
 ITEM.functions.View = {
     icon = "icon16/briefcase.png",
     onClick = function(item)
@@ -14,7 +24,10 @@ ITEM.functions.View = {
         if not inventory then return false end
         local panel = lia.gui["inv" .. inventory:getID()]
         local parent = item.invID and lia.gui["inv" .. item.invID] or nil
-        if IsValid(panel) then panel:Remove() end
+        if IsValid(panel) then
+            panel:Remove()
+        end
+
         if inventory then
             local panel = lia.inventory.show(inventory, parent)
             if IsValid(panel) then
@@ -26,11 +39,13 @@ ITEM.functions.View = {
             local index = item:getData("id", "nil")
             ErrorNoHalt("Invalid inventory " .. index .. " for bag item " .. itemID .. "\n")
         end
+
         return false
     end,
     onCanRun = function(item) return not IsValid(item.entity) and item:getInv() end
 }
 
+--------------------------------------------------------------------------------------------------------------------------
 function ITEM:onInstanced()
     local data = {
         item = self:getID(),
@@ -48,6 +63,7 @@ function ITEM:onInstanced()
     )
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function ITEM:onRestored()
     local invID = self:getData("id")
     if invID then
@@ -60,20 +76,28 @@ function ITEM:onRestored()
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function ITEM:onRemoved()
     local invID = self:getData("id")
-    if invID then lia.inventory.deleteByID(invID) end
+    if invID then
+        lia.inventory.deleteByID(invID)
+    end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function ITEM:getInv()
     return lia.inventory.instances[self:getData("id")]
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function ITEM:onSync(recipient)
     local inventory = self:getInv()
-    if inventory then inventory:sync(recipient) end
+    if inventory then
+        inventory:sync(recipient)
+    end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function ITEM.postHooks:drop()
     local invID = self:getData("id")
     if invID then
@@ -83,6 +107,7 @@ function ITEM.postHooks:drop()
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function ITEM:onCombine(other)
     local client = self.player
     local invID = self:getInv() and self:getInv():getID() or nil
@@ -98,10 +123,13 @@ function ITEM:onCombine(other)
     )
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 if SERVER then
     function ITEM:onDisposed()
         local inventory = self:getInv()
-        if inventory then inventory:destroy() end
+        if inventory then
+            inventory:destroy()
+        end
     end
 
     function ITEM:resolveInvAwaiters(inventory)
@@ -123,6 +151,8 @@ if SERVER then
             self.awaitingInv = self.awaitingInv or {}
             self.awaitingInv[#self.awaitingInv + 1] = d
         end
+
         return d
     end
 end
+--------------------------------------------------------------------------------------------------------------------------

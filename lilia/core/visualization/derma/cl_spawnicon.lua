@@ -1,10 +1,16 @@
-﻿local PANEL = {}
+﻿--------------------------------------------------------------------------------------------------------------------------
+local PANEL = {}
+--------------------------------------------------------------------------------------------------------------------------
 local setSequence = function(entity)
     local sequence = entity:SelectWeightedSequence(ACT_IDLE)
-    if sequence <= 0 then sequence = entity:LookupSequence("idle_unarmed") end
+    if sequence <= 0 then
+        sequence = entity:LookupSequence("idle_unarmed")
+    end
+
     entity:SetIK(false)
     if sequence > 0 then
         entity:ResetSequence(sequence)
+
         return
     end
 
@@ -13,12 +19,14 @@ local setSequence = function(entity)
         if seqNameLower == "idlenoise" then continue end
         if not (seqNameLower:find("idle") or seqNameLower:find("fly")) then continue end
         entity:ResetSequence(seqName)
+
         return
     end
 
     entity:ResetSequence(4)
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function PANEL:Init()
     self:setHidden(false)
     for i = 0, 5 do
@@ -33,7 +41,10 @@ function PANEL:Init()
     self.SetModel = function(self, model, skin, hidden)
         self:OldSetModel(model)
         local entity = self.Entity
-        if skin then entity:SetSkin(skin) end
+        if skin then
+            entity:SetSkin(skin)
+        end
+
         setSequence(entity)
         local data = PositionSpawnIcon(entity, entity:GetPos())
         if data then
@@ -46,6 +57,7 @@ function PANEL:Init()
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function PANEL:setHidden(hidden)
     if hidden then
         self:SetAmbientLight(color_black)
@@ -67,12 +79,18 @@ function PANEL:setHidden(hidden)
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function PANEL:LayoutEntity()
     self:RunAnimation()
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function PANEL:OnMousePressed()
-    if self.DoClick then self:DoClick() end
+    if self.DoClick then
+        self:DoClick()
+    end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 vgui.Register("liaSpawnIcon", PANEL, "DModelPanel")
+--------------------------------------------------------------------------------------------------------------------------

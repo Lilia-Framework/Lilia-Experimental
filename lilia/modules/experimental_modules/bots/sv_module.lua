@@ -1,4 +1,5 @@
-﻿function MODULE:PlayerInitialSpawn(client)
+﻿--------------------------------------------------------------------------------------------------------------------------
+function MODULE:PlayerInitialSpawn(client)
     if not client:IsBot() then return end
     local botID = os.time()
     local index = math.random(1, table.Count(lia.faction.indices))
@@ -10,10 +11,7 @@
             faction = faction and faction.uniqueID or "unknown",
             desc = "This is a bot. BotID is " .. botID .. ".",
             model = "models/gman.mdl",
-        },
-        botID,
-        client,
-        client:SteamID64()
+        }, botID, client, client:SteamID64()
     )
 
     character.isBot = true
@@ -25,3 +23,4 @@
     character:setup()
     client:Spawn()
 end
+--------------------------------------------------------------------------------------------------------------------------

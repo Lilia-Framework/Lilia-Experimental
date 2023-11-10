@@ -1,13 +1,14 @@
 ﻿--------------------------------------------------------------------------------------------------------------------------
-hook.Run("AddPIMOption", PIM.options)
+local MODULE = MODULE
 --------------------------------------------------------------------------------------------------------------------------
-function PIM:CheckDistance(client, ent)
+hook.Run("AddPIMOption", MODULE.options)
+--------------------------------------------------------------------------------------------------------------------------
+function MODULECheckDistance(client, ent)
     return ent:GetPos():DistToSqr(client:GetPos()) < lia.config.MaxInteractionDistance
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function PIM:AddOption(name, data)
-    print("Added PIM menu " .. name)
+function MODULE:AddPIMOption(name, data)
     self.options[name] = data
 end
 --------------------------------------------------------------------------------------------------------------------------

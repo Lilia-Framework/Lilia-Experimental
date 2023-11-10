@@ -1,6 +1,11 @@
-﻿local PANEL = {}
+﻿--------------------------------------------------------------------------------------------------------------------------
+local PANEL = {}
+--------------------------------------------------------------------------------------------------------------------------
 function PANEL:Init()
-    if IsValid(lia.gui.quick) then lia.gui.quick:Remove() end
+    if IsValid(lia.gui.quick) then
+        lia.gui.quick:Remove()
+    end
+
     lia.gui.quick = self
     self:SetSize(400, 36)
     self:SetPos(ScrW() - 36, -36)
@@ -32,7 +37,17 @@ function PANEL:Init()
     self.expand:SetSize(36, 36)
     self.expand.DoClick = function(this)
         if self.expanded then
-            self:SizeTo(self:GetWide(), 36, 0.15, nil, nil, function() self:MoveTo(ScrW() - 36, 30, 0.15) end)
+            self:SizeTo(
+                self:GetWide(),
+                36,
+                0.15,
+                nil,
+                nil,
+                function()
+                    self:MoveTo(ScrW() - 36, 30, 0.15)
+                end
+            )
+
             self.expanded = false
         else
             self:MoveTo(
@@ -44,7 +59,9 @@ function PANEL:Init()
                 function()
                     local height = 0
                     for k, v in pairs(self.items) do
-                        if IsValid(v) then height = height + v:GetTall() + 1 end
+                        if IsValid(v) then
+                            height = height + v:GetTall() + 1
+                        end
                     end
 
                     height = math.min(height, ScrH() * 0.5)
@@ -64,6 +81,7 @@ function PANEL:Init()
     hook.Run("SetupQuickMenu", self)
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 local function paintButton(button, w, h)
     local alpha = 0
     if button.Depressed or button.m_bSelected then
@@ -76,6 +94,7 @@ local function paintButton(button, w, h)
     surface.DrawRect(0, 0, w, h)
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function PANEL:addButton(text, callback)
     local button = self.scroll:Add("DButton")
     button:SetText(text)
@@ -88,11 +107,16 @@ function PANEL:addButton(text, callback)
     button:SetTextInset(8, 0)
     button:SetTextColor(color_white)
     button.Paint = paintButton
-    if callback then button.DoClick = callback end
+    if callback then
+        button.DoClick = callback
+    end
+
     self.items[#self.items + 1] = button
+
     return button
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function PANEL:addSpacer()
     local panel = self.scroll:Add("DPanel")
     panel:SetTall(1)
@@ -104,9 +128,11 @@ function PANEL:addSpacer()
     end
 
     self.items[#self.items + 1] = panel
+
     return panel
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function PANEL:addSlider(text, callback, value, min, max, decimal)
     local slider = self.scroll:Add("DNumSlider")
     slider:SetText(text)
@@ -131,9 +157,11 @@ function PANEL:addSlider(text, callback, value, min, max, decimal)
     end
 
     self.items[#self.items + 1] = slider
+
     return slider
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function PANEL:addCheck(text, callback, checked)
     local x, y
     local color
@@ -141,7 +169,9 @@ function PANEL:addCheck(text, callback, checked)
         text,
         function(panel)
             panel.checked = not panel.checked
-            if callback then callback(panel, panel.checked) end
+            if callback then
+                callback(panel, panel.checked)
+            end
         end
     )
 
@@ -157,13 +187,16 @@ function PANEL:addCheck(text, callback, checked)
     end
 
     button.checked = checked
+
     return button
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function PANEL:setIcon(char)
     self.icon = char
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function PANEL:Paint(w, h)
     lia.util.drawBlur(self)
     surface.SetDrawColor(lia.config.Color)
@@ -172,4 +205,6 @@ function PANEL:Paint(w, h)
     surface.DrawRect(0, 0, w, h)
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 vgui.Register("liaQuick", PANEL, "EditablePanel")
+--------------------------------------------------------------------------------------------------------------------------

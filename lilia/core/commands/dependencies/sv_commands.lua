@@ -1,4 +1,5 @@
-﻿function lia.command.findPlayer(client, name)
+﻿--------------------------------------------------------------------------------------------------------------------------
+function lia.command.findPlayer(client, name)
     if isstring(name) then
         if name == "^" then
             return client
@@ -8,6 +9,7 @@
                 return trace
             else
                 client:notifyLocalized("lookToUseAt")
+
                 return
             end
         end
@@ -23,6 +25,7 @@
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function lia.command.findFaction(client, name)
     if lia.faction.teams[name] then return lia.faction.teams[name] end
     for _, v in ipairs(lia.faction.indices) do
@@ -32,6 +35,7 @@ function lia.command.findFaction(client, name)
     client:notifyLocalized("invalidFaction")
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function lia.command.run(client, command, arguments)
     command = lia.command.list[command:lower()]
     if command then
@@ -51,6 +55,7 @@ function lia.command.run(client, command, arguments)
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function lia.command.parse(client, text, realCommand, arguments)
     if realCommand or text:utf8sub(1, 1) == "/" then
         local match = realCommand or text:lower():match("/" .. "([_%w]+)")
@@ -63,7 +68,10 @@ function lia.command.parse(client, text, realCommand, arguments)
         match = match:lower()
         local command = lia.command.list[match]
         if command then
-            if not arguments then arguments = lia.command.extractArgs(text:sub(#match + 3)) end
+            if not arguments then
+                arguments = lia.command.extractArgs(text:sub(#match + 3))
+            end
+
             lia.command.run(client, match, arguments)
         else
             if IsValid(client) then
@@ -72,11 +80,14 @@ function lia.command.parse(client, text, realCommand, arguments)
                 print("Sorry, that command does not exist.")
             end
         end
+
         return true
     end
+
     return false
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 concommand.Add(
     "lia",
     function(client, _, arguments)
@@ -85,3 +96,4 @@ concommand.Add(
         lia.command.parse(client, nil, command or "", arguments)
     end
 )
+--------------------------------------------------------------------------------------------------------------------------

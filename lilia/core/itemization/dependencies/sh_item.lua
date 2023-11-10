@@ -1,16 +1,28 @@
-﻿lia.item = lia.item or {}
+﻿--------------------------------------------------------------------------------------------------------------------------
+lia.item = lia.item or {}
+--------------------------------------------------------------------------------------------------------------------------
 lia.item.base = lia.item.base or {}
+--------------------------------------------------------------------------------------------------------------------------
 lia.item.list = lia.item.list or {}
+--------------------------------------------------------------------------------------------------------------------------
 lia.item.instances = lia.item.instances or {}
+--------------------------------------------------------------------------------------------------------------------------
 lia.item.inventoryTypes = lia.item.inventoryTypes or {}
+--------------------------------------------------------------------------------------------------------------------------
 lia.item.inventories = lia.inventory.instances or {}
+--------------------------------------------------------------------------------------------------------------------------
 lia.item.defaultfunctions = {
     drop = {
         tip = "dropTip",
         icon = "icon16/world.png",
         onRun = function(item)
             local client = item.player
-            item:removeFromInventory(true):next(function() item:spawn(client) end)
+            item:removeFromInventory(true):next(
+                function()
+                    item:spawn(client)
+                end
+            )
+
             return false
         end,
         onCanRun = function(item) return item.entity == nil and not IsValid(item.entity) and not item.noDrop end
@@ -45,16 +57,19 @@ lia.item.defaultfunctions = {
                     d:reject()
                 end
             )
+
             return d
         end,
         onCanRun = function(item) return IsValid(item.entity) end
     },
 }
 
+--------------------------------------------------------------------------------------------------------------------------
 function lia.item.get(identifier)
     return lia.item.base[identifier] or lia.item.list[identifier]
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function lia.item.load(path, baseID, isBaseItem)
     local uniqueID = path:match("sh_([_%w]+)%.lua")
     if uniqueID then
@@ -65,14 +80,19 @@ function lia.item.load(path, baseID, isBaseItem)
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function lia.item.isItem(object)
     return istable(object) and object.isItem == true
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function lia.item.register(uniqueID, baseID, isBaseItem, path, luaGenerated)
     assert(isstring(uniqueID), "uniqueID must be a string")
     local baseTable = lia.item.base[baseID] or lia.meta.item
-    if baseID then assert(baseTable, "Item " .. uniqueID .. " has a non-existent base " .. baseID) end
+    if baseID then
+        assert(baseTable, "Item " .. uniqueID .. " has a non-existent base " .. baseID)
+    end
+
     local targetTable = isBaseItem and lia.item.base or lia.item.list
     if luaGenerated then
         ITEM = setmetatable(
@@ -120,14 +140,19 @@ function lia.item.register(uniqueID, baseID, isBaseItem, path, luaGenerated)
         ITEM.functions = ITEM.functions or table.Copy(baseTable.functions or lia.item.defaultfunctions)
     end
 
-    if not luaGenerated and path then lia.util.include(path) end
+    if not luaGenerated and path then
+        lia.util.include(path)
+    end
+
     ITEM:onRegistered()
     local itemType = ITEM.uniqueID
     targetTable[itemType] = ITEM
     ITEM = nil
+
     return targetTable[itemType]
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function lia.item.loadFromDir(directory)
     local files, folders
     files = file.Find(directory .. "/base/*.lua", "LUA")
@@ -148,6 +173,7 @@ function lia.item.loadFromDir(directory)
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function lia.item.new(uniqueID, id)
     id = id and tonumber(id) or id
     assert(isnumber(id), "non-number ID given to lia.item.new")
@@ -167,12 +193,14 @@ function lia.item.new(uniqueID, id)
         )
 
         lia.item.instances[id] = item
+
         return item
     else
         error("[Lilia] Attempt to create an unknown item '" .. tostring(uniqueID) .. "'\n")
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 lia.char.registerVar(
     "inv",
     {
@@ -180,6 +208,7 @@ lia.char.registerVar(
         noDisplay = true,
         onGet = function(character, index)
             if index and type(index) ~= "number" then return character.vars.inv or {} end
+
             return character.vars.inv and character.vars.inv[index or 1]
         end,
         onSync = function(character, recipient)
@@ -198,3 +227,4 @@ lia.char.registerVar(
         end
     }
 )
+--------------------------------------------------------------------------------------------------------------------------

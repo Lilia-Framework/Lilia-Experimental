@@ -1,6 +1,13 @@
-﻿local c = {}
+﻿--------------------------------------------------------------------------------------------------------------------------
+local c = {}
+--------------------------------------------------------------------------------------------------------------------------
 c.__index = c
-if not file.IsDir("webimage", "DATA") then file.CreateDir("webimage") end
+--------------------------------------------------------------------------------------------------------------------------
+if not file.IsDir("webimage", "DATA") then
+    file.CreateDir("webimage")
+end
+
+--------------------------------------------------------------------------------------------------------------------------
 function c:Download()
     if self:IsDownloading() or self:IsReady() then return end
     local uid = util.CRC(self.Path)
@@ -12,34 +19,42 @@ function c:Download()
             self.Downloading = false
             self.Ready = true
         end,
-        function(err) ErrorNoHalt("Error fetching texture '" .. self.Path .. "': " .. err .. "\n") end
+        function(err)
+            ErrorNoHalt("Error fetching texture '" .. self.Path .. "': " .. err .. "\n")
+        end
     )
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function c:IsReady()
     return self.Ready
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function c:IsDownloading()
     return self.Downloading
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function c:GetMaterial()
     if self:IsDownloading() or not self:IsReady() then return end
+
     return Material("../data/webimage/" .. self.UID .. "." .. self.ext, self.Flags)
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function WebMaterial(path, flags)
     local ext = path:Split(".")
     ext = ext[#ext]
-    return     setmetatable(
+
+    return setmetatable(
         {
             Path = path,
             Flags = flags,
             Ready = false,
             ext = ext,
             Downloading = false
-        },
-        c
+        }, c
     )
 end
+--------------------------------------------------------------------------------------------------------------------------

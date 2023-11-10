@@ -71,7 +71,9 @@ function MODULE:InitializedModules()
             net.Start("cleanup_inbound")
             net.Broadcast()
             for i, v in pairs(ents.GetAll()) do
-                if v:IsNPC() then v:Remove() end
+                if v:IsNPC() then
+                    v:Remove()
+                end
             end
 
             for i, v in pairs(ents.FindByClass("lia_item")) do

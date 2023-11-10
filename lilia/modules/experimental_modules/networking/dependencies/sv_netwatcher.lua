@@ -1,21 +1,33 @@
 ﻿--------------------------------------------------------------------------------------------------------------------------
 local doLog = CreateConVar("net_logoutgoing", 0, FCVAR_NONE)
+--------------------------------------------------------------------------------------------------------------------------
 local maxLines = CreateConVar("net_maxlines", 30, FCVAR_ARCHIVE)
 --------------------------------------------------------------------------------------------------------------------------
 net.StartTime = net.StartTime or CurTime()
+--------------------------------------------------------------------------------------------------------------------------
 net.NetworkData = net.NetworkData or {}
+--------------------------------------------------------------------------------------------------------------------------
 net.NetworkFilter = net.NetworkFilter or {}
+--------------------------------------------------------------------------------------------------------------------------
 net.MessageCount = net.MessageCount or 0
+--------------------------------------------------------------------------------------------------------------------------
 net.BytesCount = net.BytesCount or 0
+--------------------------------------------------------------------------------------------------------------------------
 net.OldStart = net.OldStart or net.Start
+--------------------------------------------------------------------------------------------------------------------------
 net.OldSend = net.OldSend or net.Send
+--------------------------------------------------------------------------------------------------------------------------
 net.OldSendOmit = net.OldSendOmit or net.SendOmit
+--------------------------------------------------------------------------------------------------------------------------
 net.OldSendPAS = net.OldSendPAS or net.SendPAS
+--------------------------------------------------------------------------------------------------------------------------
 net.OldSendPVS = net.OldSendPVS or net.SendPVS
+--------------------------------------------------------------------------------------------------------------------------
 net.OldBroadcast = net.OldBroadcast or net.Broadcast
 --------------------------------------------------------------------------------------------------------------------------
 local function AccessCheck(ply)
     if game.SinglePlayer() or not IsValid(ply) then return true end
+
     return false
 end
 
@@ -64,8 +76,13 @@ function net.LogOutgoing(filter)
     net.NetworkData[name].Count = net.NetworkData[name].Count + 1
     net.NetworkData[name].Bytes = net.NetworkData[name].Bytes + bytes
     net.NetworkData[name].PlayerCount = net.NetworkData[name].PlayerCount + playerCount
-    if broadcast then net.NetworkData[name].Broadcast = net.NetworkData[name].Broadcast + 1 end
-    if doLog:GetBool() and not net.NetworkFilter[name] then printf("Outgoing %s message %s (%s) to %s", net.IsUnreliable and "unreliable" or "reliable", name, string.NiceSize(bytes), recipients) end
+    if broadcast then
+        net.NetworkData[name].Broadcast = net.NetworkData[name].Broadcast + 1
+    end
+
+    if doLog:GetBool() and not net.NetworkFilter[name] then
+        printf("Outgoing %s message %s (%s) to %s", net.IsUnreliable and "unreliable" or "reliable", name, string.NiceSize(bytes), recipients)
+    end
 end
 
 --------------------------------------------------------------------------------------------------------------------------
@@ -95,6 +112,7 @@ concommand.Add(
             print("-------")
             print("No network messages are being filtered")
             print("-------")
+
             return
         end
 
@@ -221,7 +239,9 @@ function net.SendOmit(ply)
     filter:AddAllPlayers()
     if istable(ply) then
         for _, v in pairs(ply) do
-            if v:IsPlayer() then filter:RemovePlayer(v) end
+            if v:IsPlayer() then
+                filter:RemovePlayer(v)
+            end
         end
     else
         filter:RemovePlayer(ply)

@@ -1,4 +1,5 @@
-﻿function lia.item.instance(index, uniqueID, itemData, x, y, callback)
+﻿--------------------------------------------------------------------------------------------------------------------------
+function lia.item.instance(index, uniqueID, itemData, x, y, callback)
     if isstring(index) and (istable(uniqueID) or (itemData == nil and x == nil)) then
         itemData = uniqueID
         uniqueID = index
@@ -8,10 +9,14 @@
     local itemTable = lia.item.list[uniqueID]
     if not itemTable then
         d:reject("Attempt to instantiate invalid item " .. tostring(uniqueID))
+
         return d
     end
 
-    if not istable(itemData) then itemData = {} end
+    if not istable(itemData) then
+        itemData = {}
+    end
+
     if isnumber(itemData.x) then
         x = itemData.x
         itemData.x = nil
@@ -30,13 +35,19 @@
             item.data.x = x
             item.data.y = y
             item.quantity = itemTable.maxQuantity
-            if callback then callback(item) end
+            if callback then
+                callback(item)
+            end
+
             d:resolve(item)
             item:onInstanced(index, x, y, item)
         end
     end
 
-    if not isnumber(index) then index = NULL end
+    if not isnumber(index) then
+        index = NULL
+    end
+
     if MYSQLOO_PREPARED and isnumber(index) then
         lia.db.preparedCall("itemInstance", onItemCreated, index, uniqueID, itemData, x, y, itemTable.maxQuantity or 1)
     else
@@ -48,14 +59,14 @@
                 _x = x,
                 _y = y,
                 _quantity = itemTable.maxQuantity or 1
-            },
-            onItemCreated,
-            "items"
+            }, onItemCreated, "items"
         )
     end
+
     return d
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function lia.item.deleteByID(id)
     if lia.item.instances[id] then
         lia.item.instances[id]:delete()
@@ -64,6 +75,7 @@ function lia.item.deleteByID(id)
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function lia.item.loadItemByID(itemIndex, recipientFilter)
     local range
     if istable(itemIndex) then
@@ -98,6 +110,7 @@ function lia.item.loadItemByID(itemIndex, recipientFilter)
     )
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function lia.item.spawn(uniqueID, position, callback, angles, data)
     local d
     if not isfunction(callback) then
@@ -107,7 +120,9 @@ function lia.item.spawn(uniqueID, position, callback, angles, data)
         end
 
         d = deferred.new()
-        callback = function(item) d:resolve(item) end
+        callback = function(item)
+            d:resolve(item)
+        end
     end
 
     lia.item.instance(
@@ -118,8 +133,12 @@ function lia.item.spawn(uniqueID, position, callback, angles, data)
         1,
         function(item)
             local entity = item:spawn(position, angles)
-            if callback then callback(item, entity) end
+            if callback then
+                callback(item, entity)
+            end
         end
     )
+
     return d
 end
+--------------------------------------------------------------------------------------------------------------------------

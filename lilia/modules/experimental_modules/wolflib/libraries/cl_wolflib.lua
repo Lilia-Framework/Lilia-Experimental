@@ -1,4 +1,5 @@
-﻿function MODULE:LoadFonts(font)
+﻿--------------------------------------------------------------------------------------------------------------------------
+function MODULE:LoadFonts(font)
     surface.CreateFont(
         "WB_Small",
         {
@@ -42,10 +43,12 @@
     )
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function WB:ColorBrighten(col)
     return Color(col.r + 10, col.g + 10, col.b + 10, col.a)
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function WB:StyleButton(pnl, hoverCol, idleCol, roundCorners, smoothHover)
     AccessorFunc(pnl, "color", "Color")
     pnl:SetColor(idleCol)
@@ -64,6 +67,7 @@ function WB:StyleButton(pnl, hoverCol, idleCol, roundCorners, smoothHover)
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function draw.Circle(x, y, radius, seg)
     local cir = {}
     table.insert(
@@ -103,13 +107,24 @@ function draw.Circle(x, y, radius, seg)
     surface.DrawPoly(cir)
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function CreateOverBlur(callback)
     local blur = vgui.Create("DPanel")
     blur:SetSize(ScrW(), ScrH())
     blur:Center()
     blur:MakePopup()
     blur:SetAlpha(0)
-    blur:AlphaTo(255, 0.15, 0, function() if callback then callback(blur) end end)
+    blur:AlphaTo(
+        255,
+        0.15,
+        0,
+        function()
+            if callback then
+                callback(blur)
+            end
+        end
+    )
+
     function blur:Paint(w, h)
         draw.RoundedBox(0, 0, 0, w, h, Color(30, 30, 30, 150))
         lia.util.drawBlur(self, 6)
@@ -118,20 +133,33 @@ function CreateOverBlur(callback)
     function blur:Think()
         if self:HasFocus() then
             local c = self:GetChildren()
-            if #c > 0 then c[1]:MakePopup() end
+            if #c > 0 then
+                c[1]:MakePopup()
+            end
         end
     end
 
     function blur:OnKeyCodePressed(key)
-        if key == KEY_F1 then self:Remove() end
+        if key == KEY_F1 then
+            self:Remove()
+        end
     end
 
     function blur:SmoothClose()
-        self:AlphaTo(0, 0.2, 0.15, function() self:Remove() end)
+        self:AlphaTo(
+            0,
+            0.2,
+            0.15,
+            function()
+                self:Remove()
+            end
+        )
     end
+
     return blur
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function follow(pnl1, pnl2, side)
     side = side or BOTTOM
     if side == BOTTOM then
@@ -143,3 +171,4 @@ function follow(pnl1, pnl2, side)
         pnl1:SetPos(pnl2:GetX() + pnl2:GetWide(), pnl2:GetY() - pnl1:GetTall() / 4)
     end
 end
+--------------------------------------------------------------------------------------------------------------------------

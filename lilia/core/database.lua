@@ -1,19 +1,25 @@
-﻿lia.db = lia.db or {}
+﻿--------------------------------------------------------------------------------------------------------------------------
+lia.db = lia.db or {}
+--------------------------------------------------------------------------------------------------------------------------
 lia.db.queryQueue = lia.db.queue or {}
+--------------------------------------------------------------------------------------------------------------------------
 local function ThrowQueryFault(query, fault)
     MsgC(Color(255, 0, 0), "* " .. query .. "\n")
     MsgC(Color(255, 0, 0), fault .. "\n")
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 local function ThrowConnectionFault(fault)
     MsgC(Color(255, 0, 0), "Lilia has failed to connect to the database.\n")
     MsgC(Color(255, 0, 0), fault .. "\n")
     setNetVar("dbError", fault)
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 local modules = {}
+--------------------------------------------------------------------------------------------------------------------------
 local function promisifyIfNoCallback(queryHandler)
-    return     function(query, callback)
+    return function(query, callback)
         local d
         local function throw(err)
             if d then
@@ -36,16 +42,21 @@ local function promisifyIfNoCallback(queryHandler)
         end
 
         queryHandler(query, callback, throw)
+
         return d
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 modules.sqlite = {
     query = promisifyIfNoCallback(
         function(query, callback, throw)
             local data = sql.Query(query)
             local err = sql.LastError()
-            if data == false then throw(err) end
+            if data == false then
+                throw(err)
+            end
+
             if callback then
                 local lastID = tonumber(sql.QueryValue("SELECT last_insert_rowid()"))
                 callback(data, lastID)
@@ -55,10 +66,13 @@ modules.sqlite = {
     escape = function(value) return sql.SQLStr(value, true) end,
     connect = function(callback)
         lia.db.query = modules.sqlite.query
-        if callback then callback() end
+        if callback then
+            callback()
+        end
     end
 }
 
+--------------------------------------------------------------------------------------------------------------------------
 modules.tmysql4 = {
     query = promisifyIfNoCallback(
         function(query, callback, throw)
@@ -69,13 +83,14 @@ modules.tmysql4 = {
                         if result then
                             result = result[1]
                             local queryStatus, queryError, affected, lastID, time, data = result.status, result.error, result.affected, result.lastid, result.time, result.data
-                            if queryStatus and queryStatus == true and callback then callback(data, lastID) end
+                            if queryStatus and queryStatus == true and callback then
+                                callback(data, lastID)
+                            end
                         else
                             file.Write("lia_queryerror.txt", query)
                             throw(queryError)
                         end
-                    end,
-                    3
+                    end, 3
                 )
             else
                 lia.db.queryQueue[#lia.db.queryQueue] = {query, callback}
@@ -84,6 +99,7 @@ modules.tmysql4 = {
     ),
     escape = function(value)
         if lia.db.object then return lia.db.object:Escape(value) end
+
         return tmysql and tmysql.escape and tmysql.escape(value) or sql.SQLStr(value, true)
     end,
     connect = function(callback)
@@ -99,16 +115,22 @@ modules.tmysql4 = {
             lia.db.object = object
             lia.db.escape = modules.tmysql4.escape
             lia.db.query = modules.tmysql4.query
-            if callback then callback() end
+            if callback then
+                callback()
+            end
         else
             ThrowConnectionFault(fault)
         end
     end
 }
 
+--------------------------------------------------------------------------------------------------------------------------
 MYSQLOO_QUEUE = MYSQLOO_QUEUE or {}
+--------------------------------------------------------------------------------------------------------------------------
 PREPARE_CACHE = {}
+--------------------------------------------------------------------------------------------------------------------------
 lia.db.prepared = lia.db.prepared or {}
+--------------------------------------------------------------------------------------------------------------------------
 modules.mysqloo = {
     query = promisifyIfNoCallback(
         function(query, callback, throw)
@@ -124,6 +146,7 @@ modules.mysqloo = {
                     if lia.db.getObject():status() == mysqloo.DATABASE_NOT_CONNECTED then
                         lia.db.queryQueue[#lia.db.queryQueue + 1] = {query, callback}
                         lia.db.connect(nil, true)
+
                         return
                     end
 
@@ -149,6 +172,7 @@ modules.mysqloo = {
         for k, v in pairs(lia.db.pool) do
             count = count + v:queueSize()
         end
+
         return count
     end,
     abort = function()
@@ -169,7 +193,10 @@ modules.mysqloo = {
             end
         end
 
-        if not lowest then error("failed to find database in the pool") end
+        if not lowest then
+            error("failed to find database in the pool")
+        end
+
         return lowest, lowestIndex
     end,
     connect = function(callback)
@@ -178,6 +205,7 @@ modules.mysqloo = {
             MsgC(Color(255, 0, 0), "You are using an outdated mysqloo version\n")
             MsgC(Color(255, 0, 0), "Download the latest mysqloo9 from here\n")
             MsgC(Color(86, 156, 214), "https://github.com/syl0r/MySQLOO/releases")
+
             return
         end
 
@@ -210,12 +238,22 @@ modules.mysqloo = {
                     lia.db.queue = modules.mysqloo.queue
                     lia.db.getObject = modules.mysqloo.getObject
                     lia.db.preparedCall = modules.mysqloo.preparedCall
-                    if callback then callback() end
+                    if callback then
+                        callback()
+                    end
+
                     hook.Run("OnMySQLOOConnected")
                 end
             end
 
-            timer.Create("liaMySQLWakeUp" .. i, 600 + i, 0, function() pool:query("SELECT 1 + 1") end)
+            timer.Create(
+                "liaMySQLWakeUp" .. i,
+                600 + i,
+                0,
+                function()
+                    pool:query("SELECT 1 + 1")
+                end
+            )
         end
 
         lia.db.object = lia.db.pool
@@ -234,7 +272,9 @@ modules.mysqloo = {
             PREPARE_CACHE[key][freeIndex] = PREPARE_CACHE[key][freeIndex] or lia.db.getObject():prepare(preparedStatement.query)
             local prepObj = PREPARE_CACHE[key][freeIndex]
             function prepObj:onSuccess(data)
-                if callback then callback(data, self:lastInsert()) end
+                if callback then
+                    callback(data, self:lastInsert())
+                end
             end
 
             function prepObj:onError(err)
@@ -264,8 +304,14 @@ modules.mysqloo = {
     end
 }
 
+--------------------------------------------------------------------------------------------------------------------------
 lia.db.escape = lia.db.escape or modules.sqlite.escape
-lia.db.query = lia.db.query or function(...) lia.db.queryQueue[#lia.db.queryQueue + 1] = {...} end
+--------------------------------------------------------------------------------------------------------------------------
+lia.db.query = lia.db.query or function(...)
+    lia.db.queryQueue[#lia.db.queryQueue + 1] = {...}
+end
+
+--------------------------------------------------------------------------------------------------------------------------
 function lia.db.connect(callback, reconnect)
     local dbModule = modules[lia.db.module]
     if dbModule then
@@ -273,7 +319,10 @@ function lia.db.connect(callback, reconnect)
             dbModule.connect(
                 function()
                     lia.db.connected = true
-                    if isfunction(callback) then callback() end
+                    if isfunction(callback) then
+                        callback()
+                    end
+
                     for i = 1, #lia.db.queryQueue do
                         lia.db.query(unpack(lia.db.queryQueue[i]))
                     end
@@ -290,6 +339,7 @@ function lia.db.connect(callback, reconnect)
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 local MYSQL_CREATE_TABLES = [[
 CREATE TABLE IF NOT EXISTS `lia_players` (
 	`_steamID` VARCHAR(20) NOT NULL COLLATE 'utf8mb4_general_ci',
@@ -300,6 +350,7 @@ CREATE TABLE IF NOT EXISTS `lia_players` (
 	`_intro` BINARY(1) NULL DEFAULT 0,
 	PRIMARY KEY (`_steamID`)
 );
+
 CREATE TABLE IF NOT EXISTS `lia_characters` (
     `_id` INT(12) NOT NULL AUTO_INCREMENT,
     `_steamID` VARCHAR(20) NOT NULL COLLATE 'utf8mb4_general_ci',
@@ -324,6 +375,7 @@ CREATE TABLE IF NOT EXISTS `lia_inventories` (
 	`_invType` VARCHAR(24) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
 	PRIMARY KEY (`_invID`)
 );
+
 CREATE TABLE IF NOT EXISTS `lia_items` (
 	`_itemID` INT(12) NOT NULL AUTO_INCREMENT,
 	`_invID` INT(12) NULL DEFAULT NULL,
@@ -334,6 +386,7 @@ CREATE TABLE IF NOT EXISTS `lia_items` (
 	`_y` INT(4),
 	PRIMARY KEY (`_itemID`)
 );
+
 CREATE TABLE IF NOT EXISTS `lia_invdata` (
 	`_invID` INT(12) NOT NULL,
 	`_key` VARCHAR(32) NOT NULL COLLATE 'utf8mb4_general_ci',
@@ -341,7 +394,9 @@ CREATE TABLE IF NOT EXISTS `lia_invdata` (
 	FOREIGN KEY (`_invID`) REFERENCES lia_inventories(_invID) ON DELETE CASCADE,
 	PRIMARY KEY (`_invID`, `_key`)
 );
+
 ]]
+--------------------------------------------------------------------------------------------------------------------------
 local SQLITE_CREATE_TABLES = [[
 CREATE TABLE IF NOT EXISTS lia_players (
 	_steamID varchar,
@@ -351,6 +406,7 @@ CREATE TABLE IF NOT EXISTS lia_players (
 	_data varchar,
 	_intro binary
 );
+
 CREATE TABLE IF NOT EXISTS lia_characters (
     _id INTEGER PRIMARY KEY AUTOINCREMENT,
     _steamID VARCHAR,
@@ -373,6 +429,7 @@ CREATE TABLE IF NOT EXISTS lia_inventories (
 	_charID integer,
 	_invType varchar
 );
+
 CREATE TABLE IF NOT EXISTS lia_items (
 	_itemID integer PRIMARY KEY AUTOINCREMENT,
 	_invID integer,
@@ -382,6 +439,7 @@ CREATE TABLE IF NOT EXISTS lia_items (
 	_x integer,
 	_y integer
 );
+
 CREATE TABLE IF NOT EXISTS lia_invdata (
 	_invID integer,
 	_key text,
@@ -390,6 +448,7 @@ CREATE TABLE IF NOT EXISTS lia_invdata (
 	PRIMARY KEY (_invID, _key)
 )
 ]]
+--------------------------------------------------------------------------------------------------------------------------
 local DROP_QUERY = [[
 DROP TABLE IF EXISTS `lia_players`;
 DROP TABLE IF EXISTS `lia_characters`;
@@ -398,6 +457,7 @@ DROP TABLE IF EXISTS `lia_items`;
 DROP TABLE IF EXISTS `lia_invdata`;
 DROP TABLE IF EXISTS `lia_inventories`;
 ]]
+--------------------------------------------------------------------------------------------------------------------------
 local DROP_QUERY_LITE = [[
 DROP TABLE IF EXISTS lia_players;
 DROP TABLE IF EXISTS lia_characters;
@@ -406,13 +466,16 @@ DROP TABLE IF EXISTS lia_items;
 DROP TABLE IF EXISTS lia_invdata;
 DROP TABLE IF EXISTS lia_inventories;
 ]]
+--------------------------------------------------------------------------------------------------------------------------
 function lia.db.wipeTables(callback)
     local function realCallback()
         lia.db.query(
             "SET FOREIGN_KEY_CHECKS = 1;",
             function()
                 MsgC(Color(255, 0, 0), "[Lilia] ALL LILIA DATA HAS BEEN WIPED\n")
-                if isfunction(callback) then callback() end
+                if isfunction(callback) then
+                    callback()
+                end
             end
         )
     end
@@ -432,7 +495,9 @@ function lia.db.wipeTables(callback)
                     queries[i],
                     function()
                         done = done + 1
-                        if done >= #queries then realCallback() end
+                        if done >= #queries then
+                            realCallback()
+                        end
                     end
                 )
             end
@@ -444,7 +509,9 @@ function lia.db.wipeTables(callback)
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 local resetCalled = 0
+--------------------------------------------------------------------------------------------------------------------------
 concommand.Add(
     "lia_recreatedb",
     function(client)
@@ -462,6 +529,7 @@ concommand.Add(
     end
 )
 
+--------------------------------------------------------------------------------------------------------------------------
 function lia.db.loadTables()
     local function done()
         lia.db.tablesLoaded = true
@@ -478,6 +546,7 @@ function lia.db.loadTables()
             local query = string.Trim(queries[i])
             if query == "" then
                 i = i + 1
+
                 return doNextQuery()
             end
 
@@ -496,19 +565,28 @@ function lia.db.loadTables()
     hook.Run("OnLoadTables")
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function lia.db.waitForTablesToLoad()
     TABLE_WAIT_ID = TABLE_WAIT_ID or 0
     local d = deferred.new()
     if lia.db.tablesLoaded then
         d:resolve()
     else
-        hook.Add("LiliaTablesLoaded", tostring(TABLE_WAIT_ID), function() d:resolve() end)
+        hook.Add(
+            "LiliaTablesLoaded",
+            tostring(TABLE_WAIT_ID),
+            function()
+                d:resolve()
+            end
+        )
     end
 
     TABLE_WAIT_ID = TABLE_WAIT_ID + 1
+
     return d
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function lia.db.convertDataType(value, noEscape)
     if isstring(value) then
         if noEscape then
@@ -525,9 +603,11 @@ function lia.db.convertDataType(value, noEscape)
     elseif value == NULL then
         return "NULL"
     end
+
     return value
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 local function genInsertValues(value, dbTable)
     local query = "lia_" .. (dbTable or "characters") .. " ("
     local keys = {}
@@ -536,34 +616,46 @@ local function genInsertValues(value, dbTable)
         keys[#keys + 1] = k
         values[#keys] = k:find("steamID") and v or lia.db.convertDataType(v)
     end
+
     return query .. table.concat(keys, ", ") .. ") VALUES (" .. table.concat(values, ", ") .. ")"
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 local function genUpdateList(value)
     local changes = {}
     for k, v in pairs(value) do
         changes[#changes + 1] = k .. " = " .. (k:find("steamID") and v or lia.db.convertDataType(v))
     end
+
     return table.concat(changes, ", ")
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function lia.db.insertTable(value, callback, dbTable)
     local query = "INSERT INTO " .. genInsertValues(value, dbTable)
     lia.db.query(query, callback)
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function lia.db.updateTable(value, callback, dbTable, condition)
     local query = "UPDATE " .. ("lia_" .. (dbTable or "characters")) .. " SET " .. genUpdateList(value) .. (condition and " WHERE " .. condition or "")
     lia.db.query(query, callback)
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function lia.db.select(fields, dbTable, condition, limit)
     local d = deferred.new()
     local from = istable(fields) and table.concat(fields, ", ") or tostring(fields)
     local tableName = "lia_" .. (dbTable or "characters")
     local query = "SELECT " .. from .. " FROM " .. tableName
-    if condition then query = query .. " WHERE " .. tostring(condition) end
-    if limit then query = query .. " LIMIT " .. tostring(limit) end
+    if condition then
+        query = query .. " WHERE " .. tostring(condition)
+    end
+
+    if limit then
+        query = query .. " LIMIT " .. tostring(limit)
+    end
+
     lia.db.query(
         query,
         function(results, lastID)
@@ -575,9 +667,11 @@ function lia.db.select(fields, dbTable, condition, limit)
             )
         end
     )
+
     return d
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function lia.db.upsert(value, dbTable)
     local query
     if lia.db.object then
@@ -598,9 +692,11 @@ function lia.db.upsert(value, dbTable)
             )
         end
     )
+
     return d
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function lia.db.delete(dbTable, condition)
     local query
     dbTable = "lia_" .. (dbTable or "character")
@@ -622,9 +718,11 @@ function lia.db.delete(dbTable, condition)
             )
         end
     )
+
     return d
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 local defaultConfig = {
     module = "sqlite",
     hostname = "127.0.0.1",
@@ -634,6 +732,7 @@ local defaultConfig = {
     port = 3306
 }
 
+--------------------------------------------------------------------------------------------------------------------------
 local validConfig = {engine.ActiveGamemode() .. "/database.json", engine.ActiveGamemode() .. "/lilia.json", "lilia/database.json", "lilia/lilia.json"}
 function GM:SetupDatabase()
     for _, configPath in ipairs(validConfig) do
@@ -656,14 +755,19 @@ function GM:SetupDatabase()
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function GM:OnMySQLOOConnected()
     hook.Run("RegisterPreparedStatements")
     MYSQLOO_PREPARED = true
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 MYSQLOO_INTEGER = 0
+--------------------------------------------------------------------------------------------------------------------------
 MYSQLOO_STRING = 1
+--------------------------------------------------------------------------------------------------------------------------
 MYSQLOO_BOOL = 2
+--------------------------------------------------------------------------------------------------------------------------
 function GM:RegisterPreparedStatements()
     MsgC(Color(0, 255, 0), "[Lilia] ADDED 5 PREPARED STATEMENTS\n")
     lia.db.prepare("itemData", "UPDATE lia_items SET _data = ? WHERE _itemID = ?", {MYSQLOO_STRING, MYSQLOO_INTEGER})
@@ -672,3 +776,4 @@ function GM:RegisterPreparedStatements()
     lia.db.prepare("itemq", "UPDATE lia_items SET _quantity = ? WHERE _itemID = ?", {MYSQLOO_INTEGER, MYSQLOO_INTEGER})
     lia.db.prepare("itemInstance", "INSERT INTO lia_items (_invID, _uniqueID, _data, _x, _y, _quantity) VALUES (?, ?, ?, ?, ?, ?)", {MYSQLOO_INTEGER, MYSQLOO_STRING, MYSQLOO_STRING, MYSQLOO_INTEGER, MYSQLOO_INTEGER, MYSQLOO_INTEGER,})
 end
+--------------------------------------------------------------------------------------------------------------------------

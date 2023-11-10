@@ -1,13 +1,24 @@
-﻿ITEM.name = "Outfit"
+﻿--------------------------------------------------------------------------------------------------------------------------
+ITEM.name = "Outfit"
+--------------------------------------------------------------------------------------------------------------------------
 ITEM.desc = "A Outfit Base."
+--------------------------------------------------------------------------------------------------------------------------
 ITEM.category = "Outfit"
+--------------------------------------------------------------------------------------------------------------------------
 ITEM.model = "models/props_c17/BriefCase001a.mdl"
+--------------------------------------------------------------------------------------------------------------------------
 ITEM.width = 1
+--------------------------------------------------------------------------------------------------------------------------
 ITEM.height = 1
+--------------------------------------------------------------------------------------------------------------------------
 ITEM.outfitCategory = "model"
+--------------------------------------------------------------------------------------------------------------------------
 ITEM.pacData = {}
+--------------------------------------------------------------------------------------------------------------------------
 ITEM.isOutfit = true
+--------------------------------------------------------------------------------------------------------------------------
 ITEM.RequiredSkillLevels = nil
+--------------------------------------------------------------------------------------------------------------------------
 --[[
 -- This will change a player's skin after changing the model.
 -- Keep in mind it starts at 0.
@@ -34,6 +45,7 @@ ITEM.pacData = {
 	-- PASTE CONTENT HERE>
 }
 ]]
+--------------------------------------------------------------------------------------------------------------------------
 if CLIENT then
     function ITEM:paintOver(item, w, h)
         if item:getData("equip") then
@@ -49,6 +61,7 @@ else
     }
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function ITEM:removeOutfit(client)
     local character = client:getChar()
     self:setData("equip", nil)
@@ -74,35 +87,60 @@ function ITEM:removeOutfit(client)
         character:setData("oldGroups", oldGroups)
     end
 
-    if self.pacData and client.removePart then client:removePart(self.uniqueID) end
+    if self.pacData and client.removePart then
+        client:removePart(self.uniqueID)
+    end
+
     if self.attribBoosts then
         for k, _ in pairs(self.attribBoosts) do
             character:removeBoost(self.uniqueID, k)
         end
     end
 
-    if isnumber(self.armor) then client:SetArmor(math.max(client:Armor() - self.armor, 0)) end
+    if isnumber(self.armor) then
+        client:SetArmor(math.max(client:Armor() - self.armor, 0))
+    end
+
     self:call("onTakeOff", client)
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function ITEM:wearOutfit(client, isForLoadout)
-    if isnumber(self.armor) then client:SetArmor(client:Armor() + self.armor) end
-    if self.pacData and client.addPart then client:addPart(self.uniqueID) end
+    if isnumber(self.armor) then
+        client:SetArmor(client:Armor() + self.armor)
+    end
+
+    if self.pacData and client.addPart then
+        client:addPart(self.uniqueID)
+    end
+
     self:call("onWear", client, nil, isForLoadout)
 end
 
-ITEM:hook("drop", function(item) if item:getData("equip") then item:removeOutfit(item.player) end end)
+--------------------------------------------------------------------------------------------------------------------------
+ITEM:hook(
+    "drop",
+    function(item)
+        if item:getData("equip") then
+            item:removeOutfit(item.player)
+        end
+    end
+)
+
+--------------------------------------------------------------------------------------------------------------------------
 ITEM.functions.EquipUn = {
     name = "Unequip",
     tip = "equipTip",
     icon = "icon16/cross.png",
     onRun = function(item)
         item:removeOutfit(item.player)
+
         return false
     end,
     onCanRun = function(item) return not IsValid(item.entity) and item:getData("equip") == true end
 }
 
+--------------------------------------------------------------------------------------------------------------------------
 ITEM.functions.Equip = {
     name = "Equip",
     tip = "equipTip",
@@ -113,6 +151,7 @@ ITEM.functions.Equip = {
         for _, other in pairs(items) do
             if item ~= other and item.outfitCategory == other.outfitCategory and other:getData("equip") then
                 item.player:notifyLocalized("sameOutfitCategory")
+
                 return false
             end
         end
@@ -164,7 +203,9 @@ ITEM.functions.Equip = {
                     item.player:SetBodygroup(index, value)
                 end
 
-                if table.Count(newGroups) > 0 then char:setData("groups", newGroups) end
+                if table.Count(newGroups) > 0 then
+                    char:setData("groups", newGroups)
+                end
             end
         end
 
@@ -175,26 +216,38 @@ ITEM.functions.Equip = {
         end
 
         item:wearOutfit(item.player, false)
+
         return false
     end,
     onCanRun = function(item) return not IsValid(item.entity) and item:getData("equip") ~= true end
 }
 
+--------------------------------------------------------------------------------------------------------------------------
 function ITEM:onCanBeTransfered(oldInventory, newInventory)
     if newInventory and self:getData("equip") then return false end
+
     return true
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function ITEM:onLoadout()
-    if self:getData("equip") then self:wearOutfit(self.player, true) end
+    if self:getData("equip") then
+        self:wearOutfit(self.player, true)
+    end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function ITEM:onRemoved()
-    if (IsValid(receiver) and receiver:IsPlayer()) and self:getData("equip") then self:removeOutfit(receiver) end
+    if (IsValid(receiver) and receiver:IsPlayer()) and self:getData("equip") then
+        self:removeOutfit(receiver)
+    end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function ITEM:onWear(isFirstTime)
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function ITEM:onTakeOff()
 end
+--------------------------------------------------------------------------------------------------------------------------

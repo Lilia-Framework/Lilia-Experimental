@@ -1,4 +1,6 @@
-﻿local PANEL = {}
+﻿--------------------------------------------------------------------------------------------------------------------------
+local PANEL = {}
+--------------------------------------------------------------------------------------------------------------------------
 function PANEL:Init()
     self.list = self:Add("DIconLayout")
     function self.list.Think(this)
@@ -30,6 +32,7 @@ function PANEL:Init()
         --nopaint
         function fep:Paint(w, h)
         end
+
         return fep
     end
 
@@ -54,6 +57,7 @@ function PANEL:Init()
         end
 
         self.list:ReArrange() --Arrange entries
+
         return fe
     end
 
@@ -65,8 +69,11 @@ function PANEL:Init()
         end
 
         defaultLayout(fe)
+
         return fe
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 vgui.Register("WolfForm", PANEL, "DScrollPanel")
+--------------------------------------------------------------------------------------------------------------------------
