@@ -30,7 +30,6 @@ end
 --------------------------------------------------------------------------------------------------------------------------
 function PANEL:setName(name, isID, color)
     if not IsValid(self.name) then return end
-
     if isID then
         steamworks.RequestPlayerInfo(name, function(steamName) self.name:SetText(steamName or "Loading...") end)
     else
@@ -134,6 +133,7 @@ function PANEL:Paint(w, h)
     surface.SetDrawColor(255, 255, 255, 255)
     surface.DrawTexturedRect((w / 2) - 128, (h / 2) - 128, 256, 256)
 end
+
 --------------------------------------------------------------------------------------------------------------------------
 vgui.Register("CreditsLogo", PANEL, "DPanel")
 --------------------------------------------------------------------------------------------------------------------------
