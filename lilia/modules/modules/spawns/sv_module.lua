@@ -5,7 +5,6 @@ function MODULE:PostPlayerLoadedChar(client, character, lastChar)
     local position = character:getData("pos")
     if IsValid(client) and position then
         client:ChatPrint("Loaded Character Position")
-
         PrintTable(character:getData("pos"), 1)
         if position[3] and position[3]:lower() == game.GetMap():lower() then
             client:ChatPrint("Set Character Position")
