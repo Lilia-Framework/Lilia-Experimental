@@ -50,7 +50,7 @@ function GM:LoadLiliaFonts(font, genericFont)
     surface.CreateFont(
         "liaCrossIcons",
         {
-            font = "nsicons",
+            font = "icons",
             size = ScreenScale(11),
             extended = true,
         }
@@ -364,7 +364,7 @@ function GM:LoadLiliaFonts(font, genericFont)
     surface.CreateFont(
         "liaIconsSmallNew",
         {
-            font = "nsicons",
+            font = "icons",
             size = 22,
             extended = true,
             weight = 500
@@ -374,7 +374,7 @@ function GM:LoadLiliaFonts(font, genericFont)
     surface.CreateFont(
         "liaIconsMediumNew",
         {
-            font = "nsicons",
+            font = "icons",
             extended = true,
             size = 28,
             weight = 500
@@ -384,7 +384,7 @@ function GM:LoadLiliaFonts(font, genericFont)
     surface.CreateFont(
         "liaIconsBigNew",
         {
-            font = "nsicons",
+            font = "icons",
             extended = true,
             size = 48,
             weight = 500
@@ -669,7 +669,7 @@ function GM:LoadLiliaFonts(font, genericFont)
     surface.CreateFont(
         "liaIconsSmallNew",
         {
-            font = "nsicons",
+            font = "icons",
             size = 22,
             extended = true,
             weight = 500
@@ -679,7 +679,7 @@ function GM:LoadLiliaFonts(font, genericFont)
     surface.CreateFont(
         "liaIconsMediumNew",
         {
-            font = "nsicons",
+            font = "icons",
             extended = true,
             size = 28,
             weight = 500
@@ -689,7 +689,7 @@ function GM:LoadLiliaFonts(font, genericFont)
     surface.CreateFont(
         "liaIconsBigNew",
         {
-            font = "nsicons",
+            font = "icons",
             extended = true,
             size = 48,
             weight = 500
@@ -1041,7 +1041,7 @@ function GM:LoadLiliaFonts(font, genericFont)
     surface.CreateFont(
         "liaIconsSmallNew",
         {
-            font = "nsicons",
+            font = "icons",
             size = 22,
             extended = true,
             weight = 500
@@ -1051,7 +1051,7 @@ function GM:LoadLiliaFonts(font, genericFont)
     surface.CreateFont(
         "liaIconsMediumNew",
         {
-            font = "nsicons",
+            font = "icons",
             extended = true,
             size = 28,
             weight = 500
@@ -1061,7 +1061,7 @@ function GM:LoadLiliaFonts(font, genericFont)
     surface.CreateFont(
         "liaIconsBigNew",
         {
-            font = "nsicons",
+            font = "icons",
             extended = true,
             size = 48,
             weight = 500
@@ -1346,7 +1346,7 @@ function GM:LoadLiliaFonts(font, genericFont)
     surface.CreateFont(
         "liaIconsSmallNew",
         {
-            font = "nsicons",
+            font = "icons",
             size = 22,
             extended = true,
             weight = 500
@@ -1356,7 +1356,7 @@ function GM:LoadLiliaFonts(font, genericFont)
     surface.CreateFont(
         "liaIconsMediumNew",
         {
-            font = "nsicons",
+            font = "icons",
             extended = true,
             size = 28,
             weight = 500
@@ -1366,7 +1366,7 @@ function GM:LoadLiliaFonts(font, genericFont)
     surface.CreateFont(
         "liaIconsBigNew",
         {
-            font = "nsicons",
+            font = "icons",
             extended = true,
             size = 48,
             weight = 500

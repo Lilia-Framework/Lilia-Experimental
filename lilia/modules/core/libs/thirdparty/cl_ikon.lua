@@ -66,8 +66,8 @@ function ikon:init()
         if ikon.rendering ~= true then OLD_HALORENDER(...) end
     end
 
-    file.CreateDir("nsIcon")
-    file.CreateDir("nsIcon/" .. schemaName)
+    file.CreateDir("Icon")
+    file.CreateDir("Icon/" .. schemaName)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
@@ -90,10 +90,10 @@ hook.Add(
 local TEXTURE_FLAGS_CLAMP_S = 0x0004
 local TEXTURE_FLAGS_CLAMP_T = 0x0008
 ikon.max = ikon.maxSize * 64
-ikon.RT = GetRenderTargetEx("nsIconRendered", ikon.max, ikon.max, RT_SIZE_NO_CHANGE, MATERIAL_RT_DEPTH_SHARED, bit.bor(TEXTURE_FLAGS_CLAMP_S, TEXTURE_FLAGS_CLAMP_T), CREATERENDERTARGETFLAGS_UNFILTERABLE_OK, IMAGE_FORMAT_RGBA8888)
-local tex_effect = GetRenderTarget("nsIconRenderedOutline", ikon.max, ikon.max)
+ikon.RT = GetRenderTargetEx("IconRendered", ikon.max, ikon.max, RT_SIZE_NO_CHANGE, MATERIAL_RT_DEPTH_SHARED, bit.bor(TEXTURE_FLAGS_CLAMP_S, TEXTURE_FLAGS_CLAMP_T), CREATERENDERTARGETFLAGS_UNFILTERABLE_OK, IMAGE_FORMAT_RGBA8888)
+local tex_effect = GetRenderTarget("IconRenderedOutline", ikon.max, ikon.max)
 local mat_outline = CreateMaterial(
-    "nsIconRenderedTemp",
+    "IconRenderedTemp",
     "UnlitGeneric",
     {
         ["$basetexture"] = tex_effect:GetName(),
@@ -283,7 +283,7 @@ function ikon:renderIcon(name, w, h, mdl, camInfo, updateCache)
         }
     )
 
-    file.Write("nsIcon/" .. schemaName .. "/" .. name .. ".png", capturedIcon)
+    file.Write("Icon/" .. schemaName .. "/" .. name .. ".png", capturedIcon)
     ikon.info = nil
     render.PopRenderTarget()
     if updateCache then
@@ -313,7 +313,7 @@ ikon.cache = ikon.cache or {}
 --------------------------------------------------------------------------------------------------------------------------
 function ikon:getIcon(name)
     if ikon.cache[name] then return ikon.cache[name] end -- yeah return cache
-    if file.Exists("nsIcon/" .. schemaName .. "/" .. name .. ".png", "DATA") then
+    if file.Exists("Icon/" .. schemaName .. "/" .. name .. ".png", "DATA") then
         ikon.cache[name] = Material("../data/nsIcon/" .. schemaName .. "/" .. name .. ".png")
         -- yeah return cache
         return ikon.cache[name]
@@ -328,9 +328,9 @@ concommand.Add(
     "lia_flushicon",
     function()
         ikon.cache = {}
-        local caf = "nsIcon/" .. schemaName .. "/*.png"
+        local caf = "Icon/" .. schemaName .. "/*.png"
         for k, v in ipairs(file.Find(caf, "DATA")) do
-            file.Delete("nsIcon/" .. schemaName .. "/" .. v)
+            file.Delete("Icon/" .. schemaName .. "/" .. v)
         end
     end
 )
