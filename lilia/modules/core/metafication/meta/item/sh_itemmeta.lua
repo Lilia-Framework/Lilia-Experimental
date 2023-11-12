@@ -67,7 +67,7 @@ function ITEM:call(method, client, entity, ...)
     local oldPlayer, oldEntity = self.player, self.entity
     self.player = client or self.player
     self.entity = entity or self.entity
-    if type(self[method]) == "function" then
+    if isfunction(self[method]) == "function" then
         local results = {self[method](self, ...)}
         self.player = oldPlayer
         self.entity = oldEntity

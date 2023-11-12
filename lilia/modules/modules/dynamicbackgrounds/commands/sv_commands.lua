@@ -36,7 +36,7 @@ lia.command.add(
             local i = 0
             for k, v in pairs(MODULE.scenes) do
                 local delete = false
-                if type(k) == "Vector" then
+                if isvector(k) then
                     if k:Distance(position) <= radius or v[1]:Distance(position) <= radius then delete = true end
                 elseif v[1]:Distance(position) <= radius then
                     delete = true

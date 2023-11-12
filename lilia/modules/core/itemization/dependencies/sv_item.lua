@@ -105,7 +105,7 @@ end
 function lia.item.spawn(uniqueID, position, callback, angles, data)
     local d
     if not isfunction(callback) then
-        if type(callback) == "Angle" or istable(angles) then
+        if isangle(callback) == "Angle" or istable(angles) then
             angles = callback
             data = angles
         end

@@ -193,7 +193,7 @@ lia.char.registerVar(
         noNetworking = true,
         noDisplay = true,
         onGet = function(character, index)
-            if index and type(index) ~= "number" then return character.vars.inv or {} end
+            if index and not isnumber(index) then return character.vars.inv or {} end
             return character.vars.inv and character.vars.inv[index or 1]
         end,
         onSync = function(character, recipient)

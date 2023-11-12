@@ -53,7 +53,7 @@ function lia.chat.register(chatType, data)
     end
 
     if CLIENT and data.prefix then
-        if type(data.prefix) == "table" then
+        if istable(data.prefix) then
             for _, v in ipairs(data.prefix) do
                 if v:sub(1, 1) == "/" then lia.command.add(v:sub(2), DUMMY_COMMAND) end
             end
@@ -74,7 +74,7 @@ function lia.chat.parse(client, message, noSend)
         local isChosen = false
         local chosenPrefix = ""
         local noSpaceAfter = v.noSpaceAfter
-        if type(v.prefix) == "table" then
+        if istable(v.prefix) then
             for _, prefix in ipairs(v.prefix) do
                 if message:sub(1, #prefix + (noSpaceAfter and 0 or 1)):lower() == prefix .. (noSpaceAfter and "" or " "):lower() then
                     isChosen = true
@@ -82,7 +82,7 @@ function lia.chat.parse(client, message, noSend)
                     break
                 end
             end
-        elseif type(v.prefix) == "string" then
+        elseif istring(v.prefix) then
             isChosen = message:sub(1, #v.prefix + (noSpaceAfter and 1 or 0)):lower() == v.prefix .. (noSpaceAfter and "" or " "):lower()
             chosenPrefix = v.prefix .. (v.noSpaceAfter and "" or " ")
         end

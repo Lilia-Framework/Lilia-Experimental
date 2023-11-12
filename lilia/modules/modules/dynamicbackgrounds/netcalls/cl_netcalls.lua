@@ -4,7 +4,7 @@ local MODULE = MODULE
 netstream.Hook(
     "mapScn",
     function(data, origin)
-        if type(origin) == "Vector" then
+        if isvector(origin) then
             MODULE.scenes[origin] = data
             table.insert(MODULE.ordered, {origin, data})
         else
@@ -33,7 +33,7 @@ netstream.Hook(
     function(scenes)
         MODULE.scenes = scenes
         for k, v in pairs(scenes) do
-            if type(k) == "Vector" then table.insert(MODULE.ordered, {k, v}) end
+            if isvector(k) then table.insert(MODULE.ordered, {k, v}) end
         end
     end
 )

@@ -20,7 +20,7 @@ function MODULE:CalcView(client, origin, angles, fov)
             self.index = key
         end
 
-        if self.orderedIndex or type(key) == "Vector" then
+        if self.orderedIndex or isvector(key) then
             local curTime = CurTime()
             self.orderedIndex = self.orderedIndex or 1
             local ordered = self.ordered[self.orderedIndex]
@@ -49,7 +49,7 @@ function MODULE:CalcView(client, origin, angles, fov)
                 else
                     local keys = {}
                     for k, v in pairs(scenes) do
-                        if type(k) == "Vector" then keys[#keys + 1] = k end
+                        if isvector(k) then keys[#keys + 1] = k end
                     end
 
                     self.index = table.Random(keys)

@@ -111,7 +111,7 @@ end
 --------------------------------------------------------------------------------------------------------------------------
 function playerMeta:requestString(title, subTitle, callback, default)
     local d
-    if type(callback) ~= "function" and default == nil then
+    if not isfunction(callback) and default == nil then
         default = callback
         d = deferred.new()
         callback = function(value) d:resolve(value) end

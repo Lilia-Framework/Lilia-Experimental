@@ -12,7 +12,7 @@ end
 --------------------------------------------------------------------------------------------------------------------------
 function lia.util.notifyLocalized(message, recipient, ...)
     local args = {...}
-    if recipient ~= nil and type(recipient) ~= "table" and type(recipient) ~= "Player" then
+    if recipient ~= nil and not istable(recipient) and type(recipient) ~= "Player" then
         table.insert(args, 1, recipient)
         recipient = nil
     end

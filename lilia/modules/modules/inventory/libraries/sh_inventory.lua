@@ -118,7 +118,7 @@ if SERVER then
     function GridInv:setOwner(owner, fullUpdate)
         if type(owner) == "Player" and owner:getChar() then
             owner = owner:getChar():getID()
-        elseif type(owner) ~= "number" then
+        elseif not isnumber(owner) then
             return
         end
 

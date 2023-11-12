@@ -46,7 +46,7 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
     end
 
     for k, v in pairs(MODULE) do
-        if type(v) == "function" then hook.Add(k, MODULE, v) end
+        if isfunction(v) then hook.Add(k, MODULE, v) end
     end
 
     if uniqueID == "schema" then

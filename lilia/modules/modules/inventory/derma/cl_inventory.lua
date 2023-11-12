@@ -43,7 +43,7 @@ function PANEL:setItemType(itemTypeOrID)
         self.Icon:SetVisible(false)
         self.ExtraPaint = function(self, x, y)
             local paintFunc = item.paintIcon
-            if paintFunc and type(paintFunc) == "function" then
+            if paintFunc and isfunction(paintFunc) then
                 paintFunc(item, self)
             else
                 local exIcon = ikon:getIcon(item.uniqueID)

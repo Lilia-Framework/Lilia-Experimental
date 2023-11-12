@@ -138,7 +138,7 @@ function charMeta:sync(receiver)
 
         netstream.Start(receiver, "charInfo", data, self:getID(), self.player)
         for k, v in pairs(lia.char.vars) do
-            if type(v.onSync) == "function" then v.onSync(self, receiver) end
+            if isfunction(v.onSync) then v.onSync(self, receiver) end
         end
     end
 end
