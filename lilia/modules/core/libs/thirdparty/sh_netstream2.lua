@@ -47,7 +47,7 @@ if SERVER then
         local recipients = {}
         local bShouldSend = false
         local bSendPVS = false
-        if zthen
+        if not istable(player) then
             if not player then
                 player = _player.GetAll()
             elseif type(player) == "Vector" then
