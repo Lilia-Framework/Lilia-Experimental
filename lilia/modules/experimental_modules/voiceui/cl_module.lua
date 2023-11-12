@@ -1,5 +1,5 @@
 ﻿--------------------------------------------------------------------------------------------------------------------------
-VoicePanels = {}
+VoicePanels = VoicePanels or {}
 --------------------------------------------------------------------------------------------------------------------------
 function MODULE:PlayerStartVoice(client)
     if not IsValid(g_VoicePanelList) or not lia.config.IsVoiceEnabled then return end

@@ -963,7 +963,7 @@ lia.command.add(
                 return false
             end
 
-            if IsValid(target) and target:getChar():GetData("VoiceBan", false) then target:getChar():SetData("VoiceBan", false) end
+            if IsValid(target) and target:getChar():getData("VoiceBan", false) then target:getChar():SetData("VoiceBan", false) end
             client:notify("You have unmuted a player.")
             target:notify("You've been unmuted by the admin.")
         end
@@ -984,7 +984,7 @@ lia.command.add(
                 return false
             end
 
-            if IsValid(target) and not target:GetData("VoiceBan", false) then target:SetData("VoiceBan", true) end
+            if IsValid(target) and not target:getData("VoiceBan", false) then target:SetData("VoiceBan", true) end
             client:notify("You have muted a player.")
             target:notify("You've been muted by the admin.")
         end
