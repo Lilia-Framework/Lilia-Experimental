@@ -2,7 +2,6 @@
 local ITEM = lia.meta.item or {}
 --------------------------------------------------------------------------------------------------------------------------
 debug.getregistry().Item = lia.meta.item
---------------------------------------------------------------------------------------------------------------------------
 ITEM.__index = ITEM
 --------------------------------------------------------------------------------------------------------------------------
 function ITEM:getName()
@@ -88,6 +87,7 @@ function ITEM:spawn(position, angles)
         if IsValid(client) then
             entity.SteamID64 = client:SteamID()
             entity.liaCharID = client:getChar():getID()
+            entity:SetCreator(client)
         end
         return entity
     end

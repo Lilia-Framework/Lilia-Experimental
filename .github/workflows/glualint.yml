@@ -83,7 +83,6 @@ jobs:
       - name: Run GLuaFixer on Lilia (Step 7)
         run: |
           echo "Step 7: Running glualint pretty-print on Lilia"
-          sudo ./glualint_executable pretty-print lilia/core/*
           sudo ./glualint_executable pretty-print lilia/gamemode/*
           sudo ./glualint_executable pretty-print lilia/modules/*
           sudo ./glualint_executable pretty-print lilia/netcalls/*
