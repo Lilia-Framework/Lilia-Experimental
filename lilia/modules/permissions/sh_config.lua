@@ -1,5 +1,5 @@
 ﻿--------------------------------------------------------------------------------------------------------------------------
-lia.config.PhysGunMoveRestrictedEntityList = {"prop_door_rotating", "lia_vendor"}
+lia.config.PhysGunMoveRestrictedEntityList = {"func_movelinear", "prop_door_rotating", "lia_vendor"}
 --------------------------------------------------------------------------------------------------------------------------
 lia.config.RemoverBlockedEntities = {"lia_bodygroupcloset", "lia_vendor",}
 --------------------------------------------------------------------------------------------------------------------------
@@ -119,6 +119,21 @@ lia.config.CAMIPrivileges = {
         Name = "Lilia - Staff Permissions - Can Grab World Props",
         MinAccess = "superadmin",
         Description = "Allows access to grabbing world props."
+    },
+    {
+        Name = "Lilia - Staff Permissions - Can Grab Players",
+        MinAccess = "superadmin",
+        Description = "Allows access to grabbing players props."
+    },
+    {
+        Name = "Lilia - Staff Permissions - Can Remove World Entities",
+        MinAccess = "superadmin",
+        Description = "Allows access to removing world props."
+    },
+    {
+        Name = "Lilia - Staff Permissions - Can Property World Entities",
+        MinAccess = "superadmin",
+        Description = "Allows access to propertying world props."
     },
 }
 --------------------------------------------------------------------------------------------------------------------------
