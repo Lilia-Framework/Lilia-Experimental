@@ -4,7 +4,7 @@ end
 function GM:OnContextMenuClose()
 end
 
-function GM:LoadNutFonts(font, genericFont)
+function GM:LoadLiliaFonts(font, genericFont)
 end
 
 function GM:CreateLoadingScreen()
@@ -40,13 +40,13 @@ end
 function GM:SetupQuickMenu(menu)
 end
 
-function GM:DrawNutModelView(panel, ent)
+function GM:DrawLiliaModelView(panel, ent)
 end
 
 function GM:ScreenResolutionChanged(oldW, oldH)
 end
 
-function GM:NutScriptLoaded()
+function GM:LiliaLoaded()
 end
 
 function GM:PlayerNoClip(client)
@@ -217,16 +217,16 @@ end
 function GM:GetPreferredCarryAngles(entity)
 end
 
-function GM:InitializedPlugins()
+function GM:InitializedModules()
 end
 
 function GM:CreateDefaultInventory(character)
 end
 
-function GM:NutScriptTablesLoaded()
+function GM:LiliaTablesLoaded()
 end
 
-function GM:PluginShouldLoad(plugin)
+function GM:ModuleShouldLoad(module)
 end
 
 function GM:GetSalaryInterval(client, faction)
