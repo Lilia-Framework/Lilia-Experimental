@@ -56,7 +56,6 @@ lia.config.EntitiesToBeRemoved = {
 
 --------------------------------------------------------------------------------------------------------------------------
 lia.config.ServerStartupConsoleCommand = {
-    ["sgm_ignore_warnings"] = "1",
     ["ai_serverragdolls"] = "1",
     ["mem_max_heapsize"] = "131072",
     ["mem_max_heapsize_dedicated"] = "131072",

@@ -110,6 +110,7 @@ function GM:PhysgunPickup(client, entity)
     return false
 end
 
+
 --------------------------------------------------------------------------------------------------------------------------
 function GM:CanProperty(client, property, entity)
     if CAMI.PlayerHasAccess(client, "Lilia - Staff Permissions - Access Tool " .. property:gsub("^%l", string.upper), nil) or client:Team() == FACTION_STAFF then
@@ -141,5 +142,4 @@ function GM:CheckSpawnPropBlackList(client, model)
     if table.HasValue(lia.config.BlackListedProps, model:lower()) then return false end
     return true
 end
-
 --------------------------------------------------------------------------------------------------------------------------

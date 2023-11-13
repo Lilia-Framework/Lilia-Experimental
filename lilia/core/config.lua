@@ -9,7 +9,7 @@ if not lia.config.WasInitialized then
         JumpCooldown = 0.8,
         MaxAttributes = 30,
         AllowExistNames = true,
-        DefaultGamemodeName = "Lilia - Skeleton",
+        GamemodeName = "A Lilia Gamemode",
         Color = Color(75, 119, 190),
         DarkTheme = true,
         Font = "Arial",
