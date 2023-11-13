@@ -1,13 +1,11 @@
 ﻿--------------------------------------------------------------------------------------------------------------------------
-lia.config.PhysGunMoveRestrictedEntityList = {"func_movelinear", "prop_door_rotating", "lia_vendor"}
+lia.config.PhysGunMoveRestrictedEntityList = {"prop_dynamic","func_movelinear", "prop_door_rotating", "lia_vendor"}
 --------------------------------------------------------------------------------------------------------------------------
 lia.config.RemoverBlockedEntities = {"lia_bodygroupcloset", "lia_vendor",}
 --------------------------------------------------------------------------------------------------------------------------
 lia.config.DuplicatorBlackList = {"lia_storage", "lia_money"}
 --------------------------------------------------------------------------------------------------------------------------
 lia.config.RestrictedVehicles = {}
---------------------------------------------------------------------------------------------------------------------------
-lia.config.ToolRequiresEntity = {"rb655_easy_bodygroup", "eyeposer", "remover", "thruster", "weld", "nocollide", "simfphyseditor", "simfphysduplicator", "colour", "precision", "stacker_improved", "advmat", "permaprops", "inflator", "physprop", "simfphyswheeleditor", "simfphysfueleditor", "paint", "simfphysgeareditor", "simfphyssuspensioneditor", "finger", "editentity", "material", "duplicator", "advdupe2", "simfphyssoundeditor", "faceposer", "simfphysmiscsoundeditor",}
 --------------------------------------------------------------------------------------------------------------------------
 lia.config.CAMIPrivileges = {
     {
