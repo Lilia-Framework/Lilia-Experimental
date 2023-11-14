@@ -1,5 +1,5 @@
 ﻿--[[
-	BLACK TEA ICON LIBRARY FOR Nuscript 1.1
+	BLACK TEA ICON LIBRARY FOR Nuscript 1.1 // Edits by Leonheart
 
 	The MIT License (MIT)
 
