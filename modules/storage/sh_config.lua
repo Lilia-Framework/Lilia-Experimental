@@ -94,7 +94,16 @@ lia.config.StorageDefinitions["models/items/ammocrate_smg1.mdl"] = {
     },
     onOpen = function(entity, activator)
         entity:ResetSequence("Close")
-        timer.Create("CloseLid" .. entity:EntIndex(), 2, 1, function() if IsValid(entity) then entity:ResetSequence("Open") end end)
+        timer.Create(
+            "CloseLid" .. entity:EntIndex(),
+            2,
+            1,
+            function()
+                if IsValid(entity) then
+                    entity:ResetSequence("Open")
+                end
+            end
+        )
     end
 }
 

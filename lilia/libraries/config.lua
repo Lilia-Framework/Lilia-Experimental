@@ -11,7 +11,6 @@ if not ConfigWasInitialized then
         AllowExistNames = true,
         GamemodeName = "A Lilia Gamemode",
         Color = Color(75, 119, 190),
-        DarkTheme = true,
         Font = "Arial",
         GenericFont = "Segoe UI",
         MoneyModel = "models/props_lab/box01a.mdl",

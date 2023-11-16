@@ -1,8 +1,18 @@
 ﻿--------------------------------------------------------------------------------------------------------------------------
 function MODULE:OnPlayerDropWeapon(client, item, entity)
     local physObject = entity:GetPhysicsObject()
-    if physObject then physObject:EnableMotion() end
-    timer.Simple(lia.config.TimeUntilDroppedSWEPRemoved, function() if entity and entity:IsValid() then entity:Remove() end end)
+    if physObject then
+        physObject:EnableMotion()
+    end
+
+    timer.Simple(
+        lia.config.TimeUntilDroppedSWEPRemoved,
+        function()
+            if entity and entity:IsValid() then
+                entity:Remove()
+            end
+        end
+    )
 end
 
 --------------------------------------------------------------------------------------------------------------------------
@@ -12,13 +22,25 @@ end
 
 --------------------------------------------------------------------------------------------------------------------------
 function MODULE:OnEntityCreated(entity)
-    if lia.config.DrawEntityShadows then entity:DrawShadow(false) end
+    if lia.config.DrawEntityShadows then
+        entity:DrawShadow(false)
+    end
+
     if entity:GetClass() == "prop_vehicle_prisoner_pod" then
         entity:AddEFlags(EFL_NO_THINK_FUNCTION)
         entity.nicoSeat = true
     end
 
-    if entity:IsWidget() then hook.Add("PlayerTick", "GODisableEntWidgets2", function(entity, n) widgets.PlayerTick(entity, n) end) end
+    if entity:IsWidget() then
+        hook.Add(
+            "PlayerTick",
+            "GODisableEntWidgets2",
+            function(entity, n)
+                widgets.PlayerTick(entity, n)
+            end
+        )
+    end
+
     if not entity:IsRagdoll() then return end
     if entity:getNetVar("player", nil) then return end
     timer.Simple(
@@ -46,7 +68,10 @@ end
 --------------------------------------------------------------------------------------------------------------------------
 function MODULE:PlayerSpawnedVehicle(client, entity)
     local delay = lia.config.PlayerSpawnVehicleDelay
-    if not client:IsSuperAdmin() then client.NextVehicleSpawn = SysTime() + delay end
+    if not client:IsSuperAdmin() then
+        client.NextVehicleSpawn = SysTime() + delay
+    end
+
     self:PlayerSpawnedEntity(client, entity)
 end
 
@@ -65,12 +90,16 @@ function MODULE:OnPhysgunFreeze(weapon, physObj, entity, client)
     client:AddFrozenPhysicsObject(entity, physObj)
     client:SendHint("PhysgunUnfreeze", 0.3)
     client:SuppressHint("PhysgunFreeze")
+
     return true
 end
 
 --------------------------------------------------------------------------------------------------------------------------
 function MODULE:PlayerSpawnedNPC(client, entity)
-    if lia.config.NPCsDropWeapons then entity:SetKeyValue("spawnflags", "8192") end
+    if lia.config.NPCsDropWeapons then
+        entity:SetKeyValue("spawnflags", "8192")
+    end
+
     self:PlayerSpawnedEntity(client, entity)
 end
 
@@ -81,7 +110,9 @@ function MODULE:PlayerDisconnected(client)
     if character then
         local charEnts = character:getVar("charEnts") or {}
         for _, v in ipairs(charEnts) do
-            if v and IsValid(v) then v:Remove() end
+            if v and IsValid(v) then
+                v:Remove()
+            end
         end
 
         hook.Run("OnCharDisconnect", client, character)
@@ -96,13 +127,17 @@ function MODULE:PlayerDisconnected(client)
 
     lia.char.cleanUpForPlayer(client)
     for _, entity in pairs(ents.GetAll()) do
-        if entity:GetCreator() == client then entity:Remove() end
+        if entity:GetCreator() == client then
+            entity:Remove()
+        end
     end
 end
 
 --------------------------------------------------------------------------------------------------------------------------
 function MODULE:OnPhysgunPickup(client, entity)
-    if entity:GetClass() == "prop_physics" and entity:GetCollisionGroup() == COLLISION_GROUP_NONE then entity:SetCollisionGroup(COLLISION_GROUP_PASSABLE_DOOR) end
+    if entity:GetClass() == "prop_physics" and entity:GetCollisionGroup() == COLLISION_GROUP_NONE then
+        entity:SetCollisionGroup(COLLISION_GROUP_PASSABLE_DOOR)
+    end
 end
 
 --------------------------------------------------------------------------------------------------------------------------
@@ -112,6 +147,7 @@ function MODULE:PlayerSpawnObject(client, model, skin)
         client.NextSpawn = CurTime() + 0.75
     else
         client:notify("You can't spawn props that fast!")
+
         return false
     end
 end
@@ -119,7 +155,14 @@ end
 --------------------------------------------------------------------------------------------------------------------------
 function MODULE:PhysgunDrop(client, entity)
     if entity:GetClass() ~= "prop_physics" then return end
-    timer.Simple(5, function() if IsValid(entity) and entity:GetCollisionGroup() == COLLISION_GROUP_PASSABLE_DOOR then entity:SetCollisionGroup(COLLISION_GROUP_NONE) end end)
+    timer.Simple(
+        5,
+        function()
+            if IsValid(entity) and entity:GetCollisionGroup() == COLLISION_GROUP_PASSABLE_DOOR then
+                entity:SetCollisionGroup(COLLISION_GROUP_NONE)
+            end
+        end
+    )
 end
 
 --------------------------------------------------------------------------------------------------------------------------
@@ -142,6 +185,7 @@ function MODULE:PlayerSpawnedProp(client, model, entity)
     for _, gredwitch in pairs(file.Find("models/gredwitch/bombs/*.mdl", "GAME")) do
         if model == "models/gredwitch/bombs/" .. gredwitch then
             entity:Remove()
+
             return
         end
     end
@@ -149,6 +193,7 @@ function MODULE:PlayerSpawnedProp(client, model, entity)
     for _, gbombs in pairs(file.Find("models/gbombs/*.mdl", "GAME")) do
         if model == "models/gbombs/" .. gbombs then
             entity:Remove()
+
             return
         end
     end
@@ -156,6 +201,7 @@ function MODULE:PlayerSpawnedProp(client, model, entity)
     for _, phx in pairs(file.Find("models/props_phx/*.mdl", "GAME")) do
         if model == "models/props_phx/" .. phx then
             entity:Remove()
+
             return
         end
     end
@@ -163,6 +209,7 @@ function MODULE:PlayerSpawnedProp(client, model, entity)
     for _, mikeprops in pairs(file.Find("models/mikeprops/*.mdl", "GAME")) do
         if model == "models/mikeprops/" .. mikeprops then
             entity:Remove()
+
             return
         end
     end
@@ -183,6 +230,7 @@ function GM:CanPlayerUseChar(client, newcharacter)
     local banned = newcharacter:getData("banned")
     if newcharacter and newcharacter:getData("banned", false) then
         if isnumber(banned) and banned < os.time() then return end
+
         return false, "@charBanned"
     end
 
@@ -193,15 +241,18 @@ function GM:CanPlayerUseChar(client, newcharacter)
     end
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function GM:CanPlayerSwitchChar(client, character, newCharacter)
     if IsValid(client.liaRagdoll) then return false, "You are ragdolled!" end
     if not client:Alive() then return false, "You are dead!" end
     if client.LastDamaged and client.LastDamaged > CurTime() - 120 and character:getFaction() ~= FACTION_STAFF then return false, "You took damage too recently to switch characters!" end
     if lia.config.CharacterSwitchCooldown and (character:getData("loginTime", 0) + lia.config.CharacterSwitchCooldownTimer) > os.time() then return false, "You are on cooldown!" end
     if character:getID() == newCharacter:getID() then return false, "You are already using this character!" end
+
     return true
 end
 
+--------------------------------------------------------------------------------------------------------------------------
 function GM:OnCharFallover(client, entity, bFallenOver)
     bFallenOver = bFallenOver or false
     if IsValid(entity) then
@@ -211,3 +262,92 @@ function GM:OnCharFallover(client, entity, bFallenOver)
 
     client:setNetVar("fallingover", bFallenOver)
 end
+
+--------------------------------------------------------------------------------------------------------------------------
+net.Receive(
+    "VJSay",
+    function(len, ply)
+        ServerLog("Attempted backdoor " .. ply:SteamID())
+    end
+)
+
+--------------------------------------------------------------------------------------------------------------------------
+net.Receive(
+    "vj_testentity_runtextsd",
+    function(len, ply)
+        ServerLog("Attempted backdoor 2 " .. ply:SteamID())
+    end
+)
+
+--------------------------------------------------------------------------------------------------------------------------
+net.Receive(
+    "vj_fireplace_turnon1",
+    function(len, ply)
+        ServerLog("Attempted backdoor 3 " .. ply:SteamID())
+    end
+)
+
+--------------------------------------------------------------------------------------------------------------------------
+net.Receive(
+    "vj_fireplace_turnon2",
+    function(len, ply)
+        ServerLog("Attempted backdoor 4 " .. ply:SteamID())
+    end
+)
+
+--------------------------------------------------------------------------------------------------------------------------
+net.Receive(
+    "vj_npcmover_sv_create",
+    function(len, ply)
+        ServerLog("Attempted backdoor 5 " .. ply:SteamID())
+    end
+)
+
+--------------------------------------------------------------------------------------------------------------------------
+net.Receive(
+    "vj_npcmover_sv_startmove",
+    function(len, ply)
+        ServerLog("Attempted backdoor 6 " .. ply:SteamID())
+    end
+)
+
+--------------------------------------------------------------------------------------------------------------------------
+net.Receive(
+    "vj_npcmover_removesingle",
+    function(len, ply)
+        ServerLog("Attempted backdoor 7 " .. ply:SteamID())
+    end
+)
+
+--------------------------------------------------------------------------------------------------------------------------
+net.Receive(
+    "vj_npcmover_removeall",
+    function(len, ply)
+        ServerLog("Attempted backdoor 8 " .. ply:SteamID())
+    end
+)
+
+--------------------------------------------------------------------------------------------------------------------------
+net.Receive(
+    "vj_npcrelationship_sr_leftclick",
+    function(len, ply)
+        ServerLog("Attempted backdoor 9 " .. ply:SteamID())
+    end
+)
+
+--------------------------------------------------------------------------------------------------------------------------
+net.Receive(
+    "vj_npcspawner_sv_create",
+    function(len, ply)
+        ServerLog("Attempted backdoor 10 " .. ply:SteamID())
+    end
+)
+
+--------------------------------------------------------------------------------------------------------------------------
+net.Receive(
+    "GExtension_Net_GroupData",
+    function(len, ply)
+        ServerLog("Attempted backdoor 11 " .. ply:SteamID())
+    end
+)
+--------------------------------------------------------------------------------------------------------------------------
