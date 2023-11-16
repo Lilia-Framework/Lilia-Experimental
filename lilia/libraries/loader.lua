@@ -41,9 +41,19 @@ local filesToInclude = {
     ["lilia/libraries/hooks/sv_hooks.lua"] = "server",
     ["lilia/libraries/hooks/cl_hooks.lua"] = "client",
     ["lilia/libraries/moduleloader.lua"] = "shared",
+    ["lilia/libraries/objects/cl_commands.lua"] = "client",
+    ["lilia/libraries/objects/sv_commands.lua"] = "server",
 }
+
 --------------------------------------------------------------------------------------------------------------------------
 for fileName, state in pairs(filesToInclude) do
     lia.util.include(fileName, state)
 end
+
+--------------------------------------------------------------------------------------------------------------------------
+lia.util.loadEntities("lilia/libraries/objects/entities")
+--------------------------------------------------------------------------------------------------------------------------
+lia.lang.loadFromDir("lilia/libraries/objects/languages")
+--------------------------------------------------------------------------------------------------------------------------
+lia.item.loadFromDir("lilia/libraries/objects/items")
 --------------------------------------------------------------------------------------------------------------------------

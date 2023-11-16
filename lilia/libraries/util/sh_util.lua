@@ -85,3 +85,75 @@ function lia.util.stringMatches(a, b)
     return false
 end
 --------------------------------------------------------------------------------------------------------------------------
+function lia.util.loadEntities(path)
+    local files, folders
+    local function IncludeFiles(path2, clientOnly)
+        if (SERVER and file.Exists(path2 .. "init.lua", "LUA")) or (CLIENT and file.Exists(path2 .. "cl_init.lua", "LUA")) then
+            lia.util.include(path2 .. "init.lua", clientOnly and "client" or "server")
+            if file.Exists(path2 .. "cl_init.lua", "LUA") then lia.util.include(path2 .. "cl_init.lua", "client") end
+            return true
+        elseif file.Exists(path2 .. "shared.lua", "LUA") then
+            lia.util.include(path2 .. "shared.lua", "shared")
+            return true
+        end
+        return false
+    end
+
+    local function HandleEntityInclusion(folder, variable, register, default, clientOnly)
+        files, folders = file.Find(path .. "/" .. folder .. "/*", "LUA")
+        default = default or {}
+        for k, v in ipairs(folders) do
+            local path2 = path .. "/" .. folder .. "/" .. v .. "/"
+            _G[variable] = table.Copy(default)
+            _G[variable].ClassName = v
+            if IncludeFiles(path2, clientOnly) and not client then
+                if clientOnly then
+                    if CLIENT then register(_G[variable], v) end
+                else
+                    register(_G[variable], v)
+                end
+            end
+
+            _G[variable] = nil
+        end
+
+        for k, v in ipairs(files) do
+            local niceName = string.StripExtension(v)
+            _G[variable] = table.Copy(default)
+            _G[variable].ClassName = niceName
+            lia.util.include(path .. "/" .. folder .. "/" .. v, clientOnly and "client" or "shared")
+            if clientOnly then
+                if CLIENT then register(_G[variable], niceName) end
+            else
+                register(_G[variable], niceName)
+            end
+
+            _G[variable] = nil
+        end
+    end
+
+    HandleEntityInclusion(
+        "entities",
+        "ENT",
+        scripted_ents.Register,
+        {
+            Type = "anim",
+            Base = "base_gmodentity",
+            Spawnable = true
+        }
+    )
+
+    HandleEntityInclusion(
+        "weapons",
+        "SWEP",
+        weapons.Register,
+        {
+            Primary = {},
+            Secondary = {},
+            Base = "weapon_base"
+        }
+    )
+
+    HandleEntityInclusion("effects", "EFFECT", effects and effects.Register, nil, true)
+end
+--------------------------------------------------------------------------------------------------------------------------
