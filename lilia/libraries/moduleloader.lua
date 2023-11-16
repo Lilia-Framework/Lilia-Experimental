@@ -9,6 +9,15 @@ lia.module.list = lia.module.list or {}
 --------------------------------------------------------------------------------------------------------------------------
 lia.module.unloaded = lia.module.unloaded or {}
 --------------------------------------------------------------------------------------------------------------------------
+lia.module.ModuleConditions = {
+    mlogs = mLogs,
+    sam = sam,
+    ulx = ulx or ULib,
+    serverguard = serverguard,
+    simfphys = simfphys,
+    pac = pac
+}
+--------------------------------------------------------------------------------------------------------------------------
 function lia.module.load(uniqueID, path, isSingleFile, variable)
     variable = uniqueID == "schema" and "SCHEMA" or (uniqueID == "core" and "CORE" or "MODULE")
     if uniqueID ~= "core" and hook.Run("ModuleShouldLoad", uniqueID) == false then return end
@@ -229,7 +238,7 @@ end
 
 --------------------------------------------------------------------------------------------------------------------------
 function lia.module.isDisabled(uniqueID)
-    if lia.config.ModuleConditions[uniqueID] ~= nil then return not modules[uniqueID] end
+    if lia.module.ModuleConditions[uniqueID] ~= nil then return not modules[uniqueID] end
     return lia.config.UnLoadedModules[uniqueID] == true or lia.data.get("unloaded", {}, false, true)[uniqueID] == true
 end
 
