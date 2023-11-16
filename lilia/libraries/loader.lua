@@ -34,6 +34,7 @@ local filesToInclude = {
     ["lilia/libraries/teams/cl_faction.lua"] = "client",
     ["lilia/libraries/teams/sh_class.lua"] = "shared",
     ["lilia/libraries/logger/sh_logger.lua"] = "shared",
+    ["lilia/libraries/logger/cl_logger.lua"] = "shared",
     ["lilia/libraries/logger/sv_logger.lua"] = "server",
     ["lilia/libraries/character/sh_character.lua"] = "shared",
     ["lilia/libraries/character/sv_character.lua"] = "server",
