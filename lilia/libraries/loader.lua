@@ -23,8 +23,24 @@ local filesToInclude = {
     ["lilia/libraries/languages/sh_language.lua"] = "shared",
     ["lilia/libraries/languages/cl_language.lua"] = "client",
     ["lilia/libraries/languages/sv_language.lua"] = "server",
+    ["lilia/libraries/animations/sh_animation.lua"] = "shared",
+    ["lilia/libraries/flags/sh_flag.lua"] = "shared",
+    ["lilia/libraries/flags/sv_flag.lua"] = "server",
+    ["lilia/libraries/date/sh_date.lua"] = "shared",
+    ["lilia/libraries/commands/sh_commands.lua"] = "shared",
+    ["lilia/libraries/commands/sv_commands.lua"] = "server",
+    ["lilia/libraries/commands/cl_commands.lua"] = "client",
+    ["lilia/libraries/teams/sh_faction.lua"] = "shared",
+    ["lilia/libraries/teams/cl_faction.lua"] = "client",
+    ["lilia/libraries/teams/sh_class.lua"] = "shared",
+    ["lilia/libraries/logger/sh_logger.lua"] = "shared",
+    ["lilia/libraries/logger/sv_logger.lua"] = "server",
+    ["lilia/libraries/character/sh_character.lua"] = "shared",
+    ["lilia/libraries/character/sv_character.lua"] = "server",
+    ["lilia/libraries/hooks/sh_hooks.lua"] = "shared",
+    ["lilia/libraries/hooks/sv_hooks.lua"] = "server",
+    ["lilia/libraries/hooks/cl_hooks.lua"] = "client",
     ["lilia/libraries/moduleloader.lua"] = "shared",
-
 }
 --------------------------------------------------------------------------------------------------------------------------
 for fileName, state in pairs(filesToInclude) do

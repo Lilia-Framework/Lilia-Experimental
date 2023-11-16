@@ -1,7 +1,7 @@
 ﻿--------------------------------------------------------------------------------------------------------------------------
 lia.config = lia.config or {}
 --------------------------------------------------------------------------------------------------------------------------
-if not lia.config.WasInitialized then
+if not ConfigWasInitialized then
     lia.config = {
         WalkSpeed = 130,
         RunSpeed = 235,
@@ -20,6 +20,12 @@ if not lia.config.WasInitialized then
         invW = 6,
         invH = 4,
         DefaultMoney = 0,
+        CurrencySymbol = "$",
+        CurrencySingularName = "Dollar",
+        CurrencyPluralName = "Dollars",
+        SchemaYear = 2023,
+        AmericanDates = true,
+        AmericanTimeStamp = true,
         DatabaseConfig = {
             module = "sqlite",
             hostname = "127.0.0.1",
@@ -63,5 +69,5 @@ if not lia.config.WasInitialized then
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-lia.config.WasInitialized = true
+ConfigWasInitialized = true
 --------------------------------------------------------------------------------------------------------------------------

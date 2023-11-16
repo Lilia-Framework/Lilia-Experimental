@@ -54,10 +54,26 @@ function playerMeta:TakeMoney(amt)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function playerMeta:addMoney(amt)
+function playerMeta:AddMoney(amount)
     local char = self:getChar()
-    if char then char:giveMoney(amt) end
+    if not char then return end
+    local currentMoney = char:getMoney()
+    if lia.config.MoneyLimit > 0 then
+        local totalMoney = currentMoney + amount
+        if totalMoney > lia.config.MoneyLimit then
+            local remainingMoney = totalMoney - lia.config.MoneyLimit
+            char:giveMoney(lia.config.MoneyLimit)
+            local money = lia.currency.spawn(self:getItemDropPos(), remainingMoney)
+            money.client = self
+            money.charID = char:getID()
+        else
+            char:giveMoney(amount)
+        end
+    else
+        char:giveMoney(amount)
+    end
 end
+
 
 --------------------------------------------------------------------------------------------------------------------------
 function playerMeta:takeMoney(amt)

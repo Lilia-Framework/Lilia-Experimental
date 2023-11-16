@@ -77,7 +77,21 @@ end
 
 --------------------------------------------------------------------------------------------------------------------------
 function charMeta:giveMoney(amount, takingMoney)
-    self:setMoney(self:getMoney() + amount)
+    local currentMoney = self:getMoney()
+    if lia.config.MoneyLimit > 0 then
+        local totalMoney = currentMoney + amount
+        if totalMoney > lia.config.MoneyLimit then
+            local remainingMoney = totalMoney - lia.config.MoneyLimit
+            self:setMoney(lia.config.MoneyLimit)
+            local money = lia.currency.spawn(self:getItemDropPos(), remainingMoney)
+            money.client = self
+            money.charID = self:getID()
+        else
+            self:setMoney(self:getMoney() + amount)
+        end
+    else
+        self:setMoney(self:getMoney() + amount)
+    end
     return true
 end
 
