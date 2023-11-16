@@ -84,6 +84,7 @@ function lia.util.stringMatches(a, b)
     end
     return false
 end
+
 --------------------------------------------------------------------------------------------------------------------------
 function lia.util.loadEntities(path)
     local files, folders

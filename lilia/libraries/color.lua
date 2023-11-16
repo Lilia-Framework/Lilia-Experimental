@@ -14,13 +14,14 @@ end
 
 --------------------------------------------------------------------------------------------------------------------------
 function Color(r, g, b, a)
-    return setmetatable(
+    return     setmetatable(
         {
             r = tonumber(r) or 255,
             g = tonumber(g) or 255,
             b = tonumber(b) or 255,
             a = tonumber(a) or 255
-        }, colorMeta
+        },
+        colorMeta
     )
 end
 
@@ -66,7 +67,6 @@ end
 do
     local function normalize(min, max, val)
         local delta = max - min
-
         return (val - min) / delta
     end
 
@@ -77,7 +77,6 @@ do
         local hsv_start = ColorToHSV(end_color)
         local hsv_end = ColorToHSV(start_color)
         local linear = Lerp(normalize(minValue, maxValue, currentValue), hsv_start, hsv_end)
-
         return HSVToColor(linear, 1, 1)
     end
 end

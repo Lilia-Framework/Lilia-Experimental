@@ -14,6 +14,7 @@ lia.version = "2.0"
 function GM:Initialize()
     lia.module.initialize()
 end
+
 --------------------------------------------------------------------------------------------------------------------------
 function GM:OnReloaded()
     if not ModulesLoaded then

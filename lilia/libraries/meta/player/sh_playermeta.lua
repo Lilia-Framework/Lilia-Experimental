@@ -74,7 +74,6 @@ function playerMeta:AddMoney(amount)
     end
 end
 
-
 --------------------------------------------------------------------------------------------------------------------------
 function playerMeta:takeMoney(amt)
     local char = self:getChar()
