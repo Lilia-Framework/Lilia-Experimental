@@ -36,7 +36,7 @@ end
 function MODULE:PostDrawOpaqueRenderables()
     local VoiceType = LocalPlayer():getNetVar("VoiceType", "Talking")
     local rangeSquared = lia.config.TalkRanges[VoiceType] * lia.config.TalkRanges[VoiceType]
-    if lia.config.VoiceEnabled then
+    if lia.config.VoiceDebugMode then
         for k, v in pairs(player.GetAll()) do
             if v == LocalPlayer() then continue end
             cam.Start3D2D(v:GetPos() + Vector(0, 0, 2), Angle(0, 0, 0), 1)
