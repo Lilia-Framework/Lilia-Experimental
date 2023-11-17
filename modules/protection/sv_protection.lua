@@ -177,6 +177,7 @@ end
 
 --------------------------------------------------------------------------------------------------------------------------
 function MODULE:PlayerSpawnedSENT(client, entity)
+    if not client then return true end
     self:PlayerSpawnedEntity(client, entity)
 end
 

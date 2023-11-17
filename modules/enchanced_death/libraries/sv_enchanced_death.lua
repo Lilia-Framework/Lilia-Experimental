@@ -2,7 +2,6 @@
 function GM:PlayerDeath(client, inflictor, attacker)
     local char = client:getChar()
     if not char then return end
-    netstream.Start(client, "removeF1")
     if IsValid(client.liaRagdoll) then
         client.liaRagdoll.liaIgnoreDelete = true
         client.liaRagdoll:Remove()
@@ -19,7 +18,9 @@ function GM:PlayerDeath(client, inflictor, attacker)
         net.Send(client)
     end
 
-    if (attacker:IsPlayer() and lia.config.LoseWeapononDeathHuman) or (not attacker:IsPlayer() and lia.config.LoseWeapononDeathNPC) or (lia.config.LoseWeapononDeathWorld and attacker:IsWorld()) then self:RemoveAllEquippedWeapons(client) end
+    if (attacker:IsPlayer() and lia.config.LoseWeapononDeathHuman) or (not attacker:IsPlayer() and lia.config.LoseWeapononDeathNPC) or (lia.config.LoseWeapononDeathWorld and attacker:IsWorld()) then
+        self:RemoveAllEquippedWeapons(client)
+    end
 end
 
 --------------------------------------------------------------------------------------------------------------------------
@@ -46,8 +47,11 @@ end
 function GM:PlayerDeathThink(client)
     if client:getChar() then
         local deathTime = client:getNetVar("deathTime")
-        if deathTime and deathTime <= CurTime() then client:Spawn() end
+        if deathTime and deathTime <= CurTime() then
+            client:Spawn()
+        end
     end
+
     return false
 end
 --------------------------------------------------------------------------------------------------------------------------

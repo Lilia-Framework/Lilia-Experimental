@@ -51,7 +51,7 @@ function MODULE:DrawPlayerRagdoll(entity)
             end
         end
 
-        ply.pac_playerspawn = pac.RealTime -- used for events
+        ply.pac_playerspawn = pac.RealTime
         entity.overridePAC3 = true
     end
 end

@@ -38,12 +38,21 @@ local filesToInclude = {
     ["lilia/libraries/logger/sv_logger.lua"] = "server",
     ["lilia/libraries/character/sh_character.lua"] = "shared",
     ["lilia/libraries/character/sv_character.lua"] = "server",
+    ["lilia/libraries/chatbox/sh_chatbox.lua"] = "shared",
+    ["lilia/libraries/chatbox/sv_chatbox.lua"] = "server",
+    ["lilia/libraries/scroll/sh_scroll.lua"] = "shared",
+    ["lilia/libraries/scroll/sv_scroll.lua"] = "server",
+    ["lilia/libraries/scroll/cl_scroll.lua"] = "client",
     ["lilia/libraries/hooks/sh_hooks.lua"] = "shared",
     ["lilia/libraries/hooks/sv_hooks.lua"] = "server",
     ["lilia/libraries/hooks/cl_hooks.lua"] = "client",
-    ["lilia/libraries/moduleloader.lua"] = "shared",
+    ["lilia/libraries/hooks/sv_hooks.lua"] = "server",
+    ["lilia/libraries/hooks/cl_hooks.lua"] = "client",
     ["lilia/libraries/objects/cl_commands.lua"] = "client",
     ["lilia/libraries/objects/sv_commands.lua"] = "server",
+    ["lilia/netcalls/cl_netcalls.lua"] = "client",
+    ["lilia/netcalls/sv_netcalls.lua"] = "server",
+    ["lilia/libraries/moduleloader.lua"] = "shared",
 }
 
 --------------------------------------------------------------------------------------------------------------------------

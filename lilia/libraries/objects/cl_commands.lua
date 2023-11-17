@@ -92,16 +92,6 @@ lia.command.add(
 
 --------------------------------------------------------------------------------------------------------------------------
 lia.command.add(
-    "clearchat",
-    {
-        superAdminOnly = true,
-        privilege = "Clear Chat",
-        onRun = function(client, arguments) end
-    }
-)
-
---------------------------------------------------------------------------------------------------------------------------
-lia.command.add(
     "checkallmoney",
     {
         superAdminOnly = true,
@@ -612,26 +602,6 @@ lia.command.add(
         syntax = "<string name>",
         superAdminOnly = true,
         privilege = "Un-Ban Characters",
-        onRun = function(client, arguments) end
-    }
-)
-
---------------------------------------------------------------------------------------------------------------------------
-lia.command.add(
-    "viewextdescription",
-    {
-        adminOnly = false,
-        privilege = "Default User Commands",
-        onRun = function(client, arguments) end
-    }
-)
-
---------------------------------------------------------------------------------------------------------------------------
-lia.command.add(
-    "charsetextdescription",
-    {
-        adminOnly = true,
-        privilege = "Change Description",
         onRun = function(client, arguments) end
     }
 )
