@@ -229,12 +229,6 @@ end
 function GM:ModuleShouldLoad(module)
 end
 
-function GM:GetSalaryInterval(client, faction)
-end
-
-function GM:CreateSalaryTimer(client)
-end
-
 function GM:GetGameDescription()
 end
 
