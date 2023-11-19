@@ -25,7 +25,7 @@ function MODULE:CalcView(client, origin, angles, fov)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:HUDPaint()
+function MODULE:HUDPaint()
     local owner = LocalPlayer()
     local ft = FrameTime()
     if owner:getChar() then

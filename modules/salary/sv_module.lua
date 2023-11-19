@@ -28,14 +28,14 @@ function MODULE:CreateSalaryTimer(client)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:PlayerLoadedChar(client, character, lastChar)
+function MODULE:PlayerLoadedChar(client, character, lastChar)
     for _, ply in ipairs(player.GetAll()) do
         hook.Run("CreateSalaryTimer", ply)
     end
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:OnReloaded()
+function MODULE:OnReloaded()
     for _, client in ipairs(player.GetAll()) do
         hook.Run("CreateSalaryTimer", client)
     end

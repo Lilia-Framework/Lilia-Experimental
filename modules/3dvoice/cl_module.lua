@@ -1,5 +1,5 @@
 ﻿--------------------------------------------------------------------------------------------------------------------------
-function GM:PlayerButtonDown(client, button)
+function MODULE:PlayerButtonDown(client, button)
     if button == KEY_F2 and IsFirstTimePredicted() then
         local menu = DermaMenu()
         menu:AddOption(

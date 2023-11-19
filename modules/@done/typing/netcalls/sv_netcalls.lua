@@ -1,12 +1,10 @@
 ﻿--------------------------------------------------------------------------------------------------------------------------
-function MODULE:InitializedModules()
-    for k, v in pairs(lia.config.SimfphysConsoleCommands) do
-        RunConsoleCommand(k, v)
-    end
-end
-
+util.AddNetworkString("liaTypeStatus")
 --------------------------------------------------------------------------------------------------------------------------
-function MODULE:simfphysPhysicsCollide()
-    return true
-end
+net.Receive(
+    "liaTypeStatus",
+    function(_, client)
+        client:setNetVar("typing", net.ReadBool())
+    end
+)
 --------------------------------------------------------------------------------------------------------------------------

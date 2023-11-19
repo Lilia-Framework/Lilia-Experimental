@@ -67,5 +67,5 @@ lia.lang.loadFromDir("lilia/libraries/objects/languages")
 --------------------------------------------------------------------------------------------------------------------------
 lia.item.loadFromDir("lilia/libraries/objects/items")
 --------------------------------------------------------------------------------------------------------------------------
-lia.util.includeDir("lilia/libraries/thirdparty", true, true)
+lia.util.includeDir("lilia/libraries/derma", true, true)
 --------------------------------------------------------------------------------------------------------------------------

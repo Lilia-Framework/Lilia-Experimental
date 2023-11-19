@@ -19,7 +19,7 @@ local blurGoal = 0
 --------------------------------------------------------------------------------------------------------------------------
 local blurValue = 0
 --------------------------------------------------------------------------------------------------------------------------
-function GM:HUDPaintBackground()
+function MODULE:HUDPaintBackground()
     local localPlayer = LocalPlayer()
     local frameTime = FrameTime()
     local scrW, scrH = ScrW(), ScrH()
@@ -130,7 +130,7 @@ function MODULE:HUDPaintBackground()
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:SetupQuickMenu(menu)
+function MODULE:SetupQuickMenu(menu)
     local current
     LIA_CVAR_LANG = CreateClientConVar("lia_language", "english", true, true)
     for k, v in SortedPairs(lia.lang.stored) do

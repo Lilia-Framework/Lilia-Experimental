@@ -1,5 +1,5 @@
 ﻿--------------------------------------------------------------------------------------------------------------------------
-function GM:PlayerDeath(client, inflictor, attacker)
+function MODULE:PlayerDeath(client, inflictor, attacker)
     local char = client:getChar()
     if not char then return end
     if IsValid(client.liaRagdoll) then
@@ -24,7 +24,7 @@ function GM:PlayerDeath(client, inflictor, attacker)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:RemoveAllEquippedWeapons(client)
+function MODULE:RemoveAllEquippedWeapons(client)
     local char = client:getChar()
     local inventory = char:getInv()
     local items = inventory:getItems()
@@ -44,7 +44,7 @@ function GM:RemoveAllEquippedWeapons(client)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:PlayerDeathThink(client)
+function MODULE:PlayerDeathThink(client)
     if client:getChar() then
         local deathTime = client:getNetVar("deathTime")
         if deathTime and deathTime <= CurTime() then

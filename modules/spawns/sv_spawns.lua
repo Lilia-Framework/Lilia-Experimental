@@ -1,5 +1,5 @@
 ﻿--------------------------------------------------------------------------------------------------------------------------
-function GM:PlayerLoadout(client)
+function MODULE:PlayerLoadout(client)
     local character = client:getChar()
     if client.liaSkipLoadout then
         client.liaSkipLoadout = nil
@@ -28,7 +28,7 @@ function GM:PlayerLoadout(client)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:PlayerSpawn(client)
+function MODULE:PlayerSpawn(client)
     client:SetNoDraw(false)
     client:UnLock()
     client:SetNotSolid(false)
@@ -37,13 +37,13 @@ function GM:PlayerSpawn(client)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:OnCharAttribBoosted(client, character, attribID)
+function MODULE:OnCharAttribBoosted(client, character, attribID)
     local attribute = lia.attribs.list[attribID]
     if attribute and isfunction(attribute.onSetup) then attribute:onSetup(client, character:getAttrib(attribID, 0)) end
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:PostPlayerLoadout(client)
+function MODULE:PostPlayerLoadout(client)
     local character = client:getChar()
     client:Give("lia_hands")
     client:SetupHands()
@@ -61,7 +61,7 @@ function GM:PostPlayerLoadout(client)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:PlayerInitialSpawn(client)
+function MODULE:PlayerInitialSpawn(client)
     client.liaJoinTime = RealTime()
     client:loadLiliaData(
         function(data)
@@ -81,7 +81,7 @@ function GM:PlayerInitialSpawn(client)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:PostPlayerInitialSpawn(client)
+function MODULE:PostPlayerInitialSpawn(client)
     client:SetNoDraw(true)
     client:SetNotSolid(true)
     client:Lock()

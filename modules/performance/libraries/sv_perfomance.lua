@@ -82,7 +82,7 @@ function MODULE:PropBreak(attacker, ent)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:PlayerInitialSpawn(client)
+function MODULE:PlayerInitialSpawn(client)
     local annoying = ents.FindByName("music")
     local val = ents.GetMapCreatedEntity(1733)
     if #annoying > 0 then

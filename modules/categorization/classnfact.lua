@@ -1,5 +1,5 @@
 ﻿--------------------------------------------------------------------------------------------------------------------------
-function GM:OnPlayerJoinClass(client, class, oldClass)
+function MODULE:OnPlayerJoinClass(client, class, oldClass)
     local char = client:getChar()
     if char and lia.config.PermaClass then char:setData("pclass", class) end
     local info = lia.class.list[class]
@@ -10,7 +10,7 @@ function GM:OnPlayerJoinClass(client, class, oldClass)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:PlayerLoadedChar(client, character, lastChar)
+function MODULE:PlayerLoadedChar(client, character, lastChar)
     local data = character:getData("pclass")
     local class = data and lia.class.list[data]
     if class and data then
@@ -37,7 +37,7 @@ function GM:PlayerLoadedChar(client, character, lastChar)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function GM:CheckFactionLimitReached(faction, character, client)
+function MODULE:CheckFactionLimitReached(faction, character, client)
     if isfunction(faction.onCheckLimitReached) then return faction:onCheckLimitReached(character, client) end
     if not isnumber(faction.limit) then return false end
     local maxPlayers = faction.limit
@@ -46,19 +46,19 @@ function GM:CheckFactionLimitReached(faction, character, client)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:GetDefaultCharName(client, faction)
+function MODULE:GetDefaultCharName(client, faction)
     local info = lia.faction.indices[faction]
     if info and info.onGetDefaultName then return info:onGetDefaultName(client) end
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:GetDefaultCharDesc(client, faction)
+function MODULE:GetDefaultCharDesc(client, faction)
     local info = lia.faction.indices[faction]
     if info and info.onGetDefaultDesc then return info:onGetDefaultDesc(client) end
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:FactionOnLoadout(client)
+function MODULE:FactionOnLoadout(client)
     local faction = lia.faction.indices[client:Team()]
     if not faction then return end
     if faction.scale then
@@ -120,7 +120,7 @@ function GM:FactionOnLoadout(client)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:ClassOnLoadout(client)
+function MODULE:ClassOnLoadout(client)
     local character = client:getChar()
     local class = lia.class.list[character:getClass()]
     if not class then return end

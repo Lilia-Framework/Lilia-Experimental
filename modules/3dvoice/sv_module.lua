@@ -7,7 +7,7 @@ VoiceData.cache = CurTime()
 --------------------------------------------------------------------------------------------------------------------------
 VoiceData.CanHearCache = false
 --------------------------------------------------------------------------------------------------------------------------
-function GM:PlayerCanHearPlayersVoice(listener, speaker)
+function MODULE:PlayerCanHearPlayersVoice(listener, speaker)
     local HasCharacter = speaker:getChar()
     local IsVoiceEnabled = lia.config.IsVoiceEnabled
     local IsVoiceBanned = speaker:getChar():getData("VoiceBan", false)
@@ -47,7 +47,7 @@ function GM:PlayerCanHearPlayersVoice(listener, speaker)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:PostPlayerLoadout(client)
+function MODULE:PostPlayerLoadout(client)
     client:setNetVar("VoiceType", "Talking")
 end
 --------------------------------------------------------------------------------------------------------------------------

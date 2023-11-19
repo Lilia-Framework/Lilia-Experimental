@@ -1,12 +1,8 @@
 ﻿--------------------------------------------------------------------------------------------------------------------------
-function MODULE:InitializedModules()
-    for k, v in pairs(lia.config.SimfphysConsoleCommands) do
-        RunConsoleCommand(k, v)
-    end
-end
-
+local playerMeta = FindMetaTable("Player")
 --------------------------------------------------------------------------------------------------------------------------
-function MODULE:simfphysPhysicsCollide()
-    return true
+function playerMeta:SelectWeapon(class)
+    if not self:HasWeapon(class) then return end
+    self.doWeaponSwitch = self:GetWeapon(class)
 end
 --------------------------------------------------------------------------------------------------------------------------

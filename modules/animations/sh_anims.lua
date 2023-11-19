@@ -3,7 +3,7 @@ local vectorAngle = FindMetaTable("Vector").Angle
 --------------------------------------------------------------------------------------------------------------------------
 local oldCalcSeqOverride
 --------------------------------------------------------------------------------------------------------------------------
-function GM:TranslateActivity(client, act)
+function MODULE:TranslateActivity(client, act)
     local model = string.lower(client.GetModel(client))
     local class = lia.anim.getModelClass(model) or "player"
     local weapon = client.GetActiveWeapon(client)
@@ -74,7 +74,7 @@ function GM:TranslateActivity(client, act)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:DoAnimationEvent(client, event, data)
+function MODULE:DoAnimationEvent(client, event, data)
     local class = lia.anim.getModelClass(client:GetModel())
     if class == "player" then
         return self.BaseClass:DoAnimationEvent(client, event, data)
@@ -109,7 +109,7 @@ function GM:DoAnimationEvent(client, event, data)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:HandlePlayerLanding(client, velocity, wasOnGround)
+function MODULE:HandlePlayerLanding(client, velocity, wasOnGround)
     if client:IsNoClipping() then return end
     if client:IsOnGround() and not wasOnGround then
         local length = (client.lastVelocity or velocity):LengthSqr()
@@ -121,7 +121,7 @@ function GM:HandlePlayerLanding(client, velocity, wasOnGround)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:CalcMainActivity(client, velocity)
+function MODULE:CalcMainActivity(client, velocity)
     client.CalcIdeal = ACT_MP_STAND_IDLE
     oldCalcSeqOverride = client.CalcSeqOverride
     client.CalcSeqOverride = -1

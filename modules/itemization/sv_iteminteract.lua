@@ -1,5 +1,5 @@
 ﻿--------------------------------------------------------------------------------------------------------------------------
-function GM:CanItemBeTransfered(item, curInv, inventory)
+function MODULE:CanItemBeTransfered(item, curInv, inventory)
     if item.isBag and curInv ~= inventory and item.getInv and item:getInv() and table.Count(item:getInv():getItems()) > 0 then
         local char = lia.char.loaded[curInv.owner]
         if SERVER and char and char:getPlayer() then

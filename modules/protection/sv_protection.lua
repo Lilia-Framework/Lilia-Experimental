@@ -220,12 +220,11 @@ end
 
 --------------------------------------------------------------------------------------------------------------------------
 function MODULE:PlayerSpawnedEntity(client, entity)
-    entity:SetNW2String("Creator_Nick", client:Nick())
     entity:SetCreator(client)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:CanPlayerUseChar(client, newcharacter)
+function MODULE:CanPlayerUseChar(client, newcharacter)
     local currentChar = client:getChar()
     local faction = lia.faction.indices[newcharacter:getFaction()]
     local banned = newcharacter:getData("banned")
@@ -243,7 +242,7 @@ function GM:CanPlayerUseChar(client, newcharacter)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:CanPlayerSwitchChar(client, character, newCharacter)
+function MODULE:CanPlayerSwitchChar(client, character, newCharacter)
     if IsValid(client.liaRagdoll) then return false, "You are ragdolled!" end
     if not client:Alive() then return false, "You are dead!" end
     if client.LastDamaged and client.LastDamaged > CurTime() - 120 and character:getFaction() ~= FACTION_STAFF then return false, "You took damage too recently to switch characters!" end
@@ -254,7 +253,7 @@ function GM:CanPlayerSwitchChar(client, character, newCharacter)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function GM:OnCharFallover(client, entity, bFallenOver)
+function MODULE:OnCharFallover(client, entity, bFallenOver)
     bFallenOver = bFallenOver or false
     if IsValid(entity) then
         entity:SetCollisionGroup(COLLISION_GROUP_NONE)
