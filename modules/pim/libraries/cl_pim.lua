@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------------------------------
-local PIM = PIM
+local MODULE = MODULE
 ----------------------------------------------------------------------------------------------
 PIM_Frame = nil
 ----------------------------------------------------------------------------------------------
@@ -39,14 +39,14 @@ function MODULE:OpenPIM()
     end
 
     frame.scroll = frame:Add("DScrollPanel")
-    frame.scroll:SetSize(frame:GetWide(), 25 * table.Count(PIM.options))
+    frame.scroll:SetSize(frame:GetWide(), 25 * table.Count(MODULE.options))
     frame.scroll:SetPos(0, 25)
     frame.list = frame.scroll:Add("DIconLayout")
     frame.list:SetSize(frame.scroll:GetSize())
     local visibleOptionsCount = 0
     local traceEnt = LocalPlayer():GetEyeTrace().Entity
-    for name, opt in pairs(PIM.options) do
-        if opt.shouldShow(LocalPlayer(), traceEnt) and traceEnt:IsPlayer() and PIM:CheckDistance(LocalPlayer(), traceEnt) then
+    for name, opt in pairs(MODULE.options) do
+        if opt.shouldShow(LocalPlayer(), traceEnt) and traceEnt:IsPlayer() and MODULE:CheckDistance(LocalPlayer(), traceEnt) then
             visibleOptionsCount = visibleOptionsCount + 1
             local p = frame.list:Add("DButton")
             p:SetText(name)

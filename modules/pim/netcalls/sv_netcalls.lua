@@ -1,4 +1,6 @@
 ﻿----------------------------------------------------------------------------------------------
+local MODULE = MODULE
+----------------------------------------------------------------------------------------------
 netstream.Hook(
     "transferMoneyFromP2P",
     function(ply, amount, target)
@@ -15,8 +17,10 @@ netstream.Hook(
 netstream.Hook(
     "PIMRunOption",
     function(ply, name)
-        local opt = PIM.options[name]
-        if opt.runServer then opt.onRun(ply, ply:GetEyeTrace().Entity) end
+        local opt = MODULE.options[name]
+        if opt.runServer then
+            opt.onRun(ply, ply:GetEyeTrace().Entity)
+        end
     end
 )
 ----------------------------------------------------------------------------------------------

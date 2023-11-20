@@ -1,6 +1,6 @@
 ﻿----------------------------------------------------------------------------------------------
 function MODULE:CheckPossibilities()
-    for k, v in pairs(PIM.options) do
+    for k, v in pairs(self.options) do
         if not LocalPlayer():GetEyeTrace().Entity:IsPlayer() then return end
         if v.shouldShow(LocalPlayer(), LocalPlayer():GetEyeTrace().Entity) then return true end
     end
