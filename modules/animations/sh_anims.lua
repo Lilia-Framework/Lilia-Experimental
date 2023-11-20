@@ -1,8 +1,8 @@
-﻿--------------------------------------------------------------------------------------------------------------------------
+﻿----------------------------------------------------------------------------------------------
 local vectorAngle = FindMetaTable("Vector").Angle
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 local oldCalcSeqOverride
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function MODULE:TranslateActivity(client, act)
     local model = string.lower(client.GetModel(client))
     local class = lia.anim.getModelClass(model) or "player"
@@ -73,7 +73,7 @@ function MODULE:TranslateActivity(client, act)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function MODULE:DoAnimationEvent(client, event, data)
     local class = lia.anim.getModelClass(client:GetModel())
     if class == "player" then
@@ -108,7 +108,7 @@ function MODULE:DoAnimationEvent(client, event, data)
     return ACT_INVALID
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function MODULE:HandlePlayerLanding(client, velocity, wasOnGround)
     if client:IsNoClipping() then return end
     if client:IsOnGround() and not wasOnGround then
@@ -120,7 +120,7 @@ function MODULE:HandlePlayerLanding(client, velocity, wasOnGround)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function MODULE:CalcMainActivity(client, velocity)
     client.CalcIdeal = ACT_MP_STAND_IDLE
     oldCalcSeqOverride = client.CalcSeqOverride
@@ -142,4 +142,4 @@ function MODULE:CalcMainActivity(client, velocity)
     if CLIENT then client:SetIK(false) end
     return client.CalcIdeal, client.liaForceSeq or oldCalcSeqOverride
 end
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------

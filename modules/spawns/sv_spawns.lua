@@ -1,4 +1,4 @@
-﻿--------------------------------------------------------------------------------------------------------------------------
+﻿----------------------------------------------------------------------------------------------
 function MODULE:PlayerLoadout(client)
     local character = client:getChar()
     if client.liaSkipLoadout then
@@ -27,7 +27,7 @@ function MODULE:PlayerLoadout(client)
     client:SelectWeapon("lia_hands")
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function MODULE:PlayerSpawn(client)
     client:SetNoDraw(false)
     client:UnLock()
@@ -36,13 +36,13 @@ function MODULE:PlayerSpawn(client)
     hook.Run("PlayerLoadout", client)
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function MODULE:OnCharAttribBoosted(client, character, attribID)
     local attribute = lia.attribs.list[attribID]
     if attribute and isfunction(attribute.onSetup) then attribute:onSetup(client, character:getAttrib(attribID, 0)) end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function MODULE:PostPlayerLoadout(client)
     local character = client:getChar()
     client:Give("lia_hands")
@@ -60,7 +60,7 @@ function MODULE:PostPlayerLoadout(client)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function MODULE:PlayerInitialSpawn(client)
     client.liaJoinTime = RealTime()
     client:loadLiliaData(
@@ -80,7 +80,7 @@ function MODULE:PlayerInitialSpawn(client)
     hook.Run("PostPlayerInitialSpawn", client)
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function MODULE:PostPlayerInitialSpawn(client)
     client:SetNoDraw(true)
     client:SetNotSolid(true)
@@ -94,4 +94,4 @@ function MODULE:PostPlayerInitialSpawn(client)
         end
     )
 end
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------

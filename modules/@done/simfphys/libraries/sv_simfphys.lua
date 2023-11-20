@@ -1,4 +1,4 @@
-﻿--------------------------------------------------------------------------------------------------------------------------
+﻿----------------------------------------------------------------------------------------------
 function MODULE:simfphysUse(entity, client)
     if ((lia.module.list["tying"] or Tying) and not IsHandcuffed(client)) and simfphys.IsCar(entity) and lia.config.TimeToEnterVehicle > 0 and not (entity.IsBeingEntered or entity.IsLocked) then
         entity.IsBeingEntered = true
@@ -25,4 +25,4 @@ function MODULE:simfphysUse(entity, client)
 
     return lia.config.CarEntryDelayEnabled
 end
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------

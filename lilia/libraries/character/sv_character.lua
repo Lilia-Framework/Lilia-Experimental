@@ -1,4 +1,4 @@
-﻿--------------------------------------------------------------------------------------------------------------------------
+﻿----------------------------------------------------------------------------------------------
 function lia.char.create(data, callback)
     local timeStamp = os.date("%Y-%m-%d %H:%M:%S", os.time())
     data.money = data.money or lia.config.DefaultMoney
@@ -39,7 +39,7 @@ function lia.char.create(data, callback)
     )
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function lia.char.restore(client, callback, noCache, id)
     local steamID64 = client:SteamID64()
     local fields = {"_id"}
@@ -121,7 +121,7 @@ function lia.char.restore(client, callback, noCache, id)
     )
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function lia.char.cleanUpForPlayer(client)
     for _, charID in pairs(client.liaCharList or {}) do
         local character = lia.char.loaded[charID]
@@ -133,7 +133,7 @@ function lia.char.cleanUpForPlayer(client)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 local function removePlayer(client)
     if client:getChar() then
         client:KillSilent()
@@ -143,7 +143,7 @@ local function removePlayer(client)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function lia.char.delete(id, client)
     assert(isnumber(id), "id must be a number")
     if IsValid(client) then
@@ -181,7 +181,7 @@ function lia.char.delete(id, client)
     hook.Run("OnCharacterDelete", client, id)
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function lia.util.spawnProp(model, position, force, lifetime, angles, collision)
     local entity = ents.Create("prop_physics")
     entity:SetModel(model)
@@ -199,8 +199,8 @@ function lia.util.spawnProp(model, position, force, lifetime, angles, collision)
     return entity
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function lia.util.DebugLog(str)
     MsgC(Color("sky_blue"), os.date("(%d/%m/%Y - %H:%M:%S)", os.time()), Color("yellow"), " [LOG] ", color_white, str, "\n")
 end
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------

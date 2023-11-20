@@ -1,6 +1,6 @@
-﻿--------------------------------------------------------------------------------------------------------------------------
+﻿----------------------------------------------------------------------------------------------
 local last_jump_time = 0
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:OnPickupMoney(client, moneyEntity)
     if moneyEntity and moneyEntity:IsValid() then
         local amount = moneyEntity:getAmount()
@@ -9,12 +9,12 @@ function GM:OnPickupMoney(client, moneyEntity)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:EntityNetworkedVarChanged(entity, varName, oldVal, newVal)
     if varName == "Model" and entity.SetModel then hook.Run("PlayerModelChanged", entity, newVal) end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:PlayerUse(client, entity)
     if entity:isDoor() then
         local result = hook.Run("CanPlayerUseDoor", client, entity)
@@ -28,7 +28,7 @@ function GM:PlayerUse(client, entity)
     return true
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:KeyRelease(client, key)
     if key == IN_ATTACK2 then
         local wep = client:GetActiveWeapon()
@@ -38,7 +38,7 @@ function GM:KeyRelease(client, key)
     if key == IN_RELOAD then timer.Remove("liaToggleRaise" .. client:SteamID()) end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:PlayerLoadedChar(client, character, lastChar)
     local identifier = "RemoveMatSpecular" .. client:SteamID()
     if timer.Exists(identifier) then timer.Remove(identifier) end
@@ -83,7 +83,7 @@ function GM:PlayerLoadedChar(client, character, lastChar)
     hook.Run("PlayerLoadout", client)
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:CharacterLoaded(id)
     local character = lia.char.loaded[id]
     if character then
@@ -106,7 +106,7 @@ function GM:CharacterLoaded(id)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:PlayerSay(client, message)
     if utf8.len(message) <= lia.config.MaxChatLength then
         local chatType, message, anonymous = lia.chat.parse(client, message, true)
@@ -119,7 +119,7 @@ function GM:PlayerSay(client, message)
     return ""
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:ShutDown()
     if hook.Run("ShouldDataBeSaved") == false then return end
     lia.shuttingDown = true
@@ -130,7 +130,7 @@ function GM:ShutDown()
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:InitializedSchema()
     local persistString = GetConVar("sbox_persist"):GetString()
     if persistString == "" or string.StartWith(persistString, "lia_") then
@@ -139,13 +139,13 @@ function GM:InitializedSchema()
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:PrePlayerLoadedChar(client, character, lastChar)
     client:SetBodyGroups("000000000")
     client:SetSkin(0)
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:CharacterPreSave(character)
     local client = character:getPlayer()
     if not character:getInv() then return end
@@ -154,7 +154,7 @@ function GM:CharacterPreSave(character)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:CreateDefaultInventory(character)
     local charID = character:getID()
     if lia.inventory.types["grid"] then
@@ -167,7 +167,7 @@ function GM:CreateDefaultInventory(character)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:LiliaTablesLoaded()
     local ignore = function() print("") end
     lia.db.query("ALTER TABLE lia_players ADD COLUMN _firstJoin DATETIME"):catch(ignore)
@@ -175,7 +175,7 @@ function GM:LiliaTablesLoaded()
     lia.db.query("ALTER TABLE lia_items ADD COLUMN _quantity INTEGER"):catch(ignore)
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:SetupMove(client, mv, cmd)
     if client:OnGround() and mv:KeyPressed(IN_JUMP) then
         local cur_time = CurTime()
@@ -187,7 +187,7 @@ function GM:SetupMove(client, mv, cmd)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:PlayerThrowPunch(client, trace)
     local ent = client:GetTracedEntity()
     if not ent:IsPlayer() then return end
@@ -198,7 +198,7 @@ function GM:PlayerThrowPunch(client, trace)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:ServerPostInit()
     local doors = ents.FindByClass("prop_door_rotating")
     for _, v in ipairs(doors) do
@@ -231,7 +231,7 @@ function GM:ServerPostInit()
     )
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:KeyPress(client, key)
     if key == IN_ATTACK2 and IsValid(client.Grabbed) then
         client:DropObject(client.Grabbed)
@@ -243,47 +243,47 @@ function GM:KeyPress(client, key)
     if entity:isDoor() and entity:IsPlayer() and key == IN_USE then hook.Run("PlayerUse", client, entity) end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:PreCleanupMap()
     lia.shuttingDown = true
     hook.Run("SaveData")
     hook.Run("PersistenceSave")
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:PostCleanupMap()
     lia.shuttingDown = false
     hook.Run("LoadData")
     hook.Run("PostLoadData")
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:GetGameDescription()
     return lia.config.GamemodeName
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:PlayerSpray(client)
     return true
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:PlayerDeathSound()
     return true
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:CanPlayerSuicide(client)
     return false
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:AllowPlayerPickup(client, entity)
     return false
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function GM:PlayerShouldTakeDamage(client, attacker)
     return client:getChar() ~= nil
 end
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------

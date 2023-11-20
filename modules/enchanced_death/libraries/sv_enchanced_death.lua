@@ -1,4 +1,4 @@
-﻿--------------------------------------------------------------------------------------------------------------------------
+﻿----------------------------------------------------------------------------------------------
 function MODULE:PlayerDeath(client, inflictor, attacker)
     local char = client:getChar()
     if not char then return end
@@ -23,7 +23,7 @@ function MODULE:PlayerDeath(client, inflictor, attacker)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function MODULE:RemoveAllEquippedWeapons(client)
     local char = client:getChar()
     local inventory = char:getInv()
@@ -43,7 +43,7 @@ function MODULE:RemoveAllEquippedWeapons(client)
     end
 end
 
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 function MODULE:PlayerDeathThink(client)
     if client:getChar() then
         local deathTime = client:getNetVar("deathTime")
@@ -54,4 +54,4 @@ function MODULE:PlayerDeathThink(client)
 
     return false
 end
---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
