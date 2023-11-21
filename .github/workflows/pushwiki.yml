@@ -1,13 +1,23 @@
-name: Publish wiki
+name: Lint and Indent Code
+
 on:
   push:
-    branches: [main]
-    paths: [wiki/**, .github/workflows/publish-wiki.yml]
-concurrency:
-  group: wiki
-  cancel-in-progress: true
+  pull_request:
+
 permissions:
+  actions: write
+  checks: write
   contents: write
+  deployments: write
+  id-token: write
+  issues: write
+  discussions: write
+  packages: write
+  pages: write
+  pull-requests: write
+  repository-projects: write
+  security-events: write
+  statuses: write
 jobs:
   wiki:
     runs-on: ubuntu-latest
