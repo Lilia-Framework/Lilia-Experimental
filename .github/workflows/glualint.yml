@@ -1,7 +1,9 @@
 name: Lint and Indent Code
+
 on:
   push:
   pull_request:
+
 permissions:
   actions: write
   checks: write
@@ -16,8 +18,9 @@ permissions:
   repository-projects: write
   security-events: write
   statuses: write
+
 jobs:
-  glualint:
+  CodeVerifierAndIndenter:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -116,3 +119,13 @@ jobs:
             echo "No changes to commit."
           fi
         working-directory: '${{ github.workspace }}'
+
+  CloneWiki:
+    runs-on: ubuntu-latest
+    needs: CodeVerifierAndIndenter
+    steps:
+      - name: Clone Wiki Repository
+        run: |
+          git clone git@github.com:Lilia-Framework/Lilia.wiki.git docs
+        working-directory: '${{ github.workspace }}'
+        shell: bash
