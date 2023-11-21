@@ -19,10 +19,10 @@ permissions:
   security-events: write
   statuses: write
 jobs:
-  wiki:
+  UpdateDocs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: spenserblack/actions-wiki@v0.3.0
         with:
-            path: wiki
+            path: docs
