@@ -1,28 +1,18 @@
-name: Lint and Indent Code
-
+name: Publish wiki
 on:
   push:
-  pull_request:
-
+    branches: [main]
+    paths: [wiki/**, .github/workflows/publish-wiki.yml]
+concurrency:
+  group: wiki
+  cancel-in-progress: true
 permissions:
-  actions: write
-  checks: write
   contents: write
-  deployments: write
-  id-token: write
-  issues: write
-  discussions: write
-  packages: write
-  pages: write
-  pull-requests: write
-  repository-projects: write
-  security-events: write
-  statuses: write
 jobs:
-  UpdateDocs:
+  wiki:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: spenserblack/actions-wiki@v0.3.0
         with:
-            path: docs
+          path: docs
