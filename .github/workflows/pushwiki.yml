@@ -3,11 +3,7 @@ name: Publish wiki
 on:
   push:
     branches:
-      - main  # Adjust the branch name if needed
-
-concurrency:
-  group: wiki
-  cancel-in-progress: true
+      - main
 
 permissions:
   contents: write
