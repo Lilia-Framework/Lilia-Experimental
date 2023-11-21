@@ -1,0 +1,50 @@
+name: Clone Wiki
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  actions: write
+  checks: write
+  contents: write
+  deployments: write
+  id-token: write
+  issues: write
+  discussions: write
+  packages: write
+  pages: write
+  pull-requests: write
+  repository-projects: write
+  security-events: write
+  statuses: write
+
+jobs:
+  CloneWiki:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up SSH
+        run: |
+          echo "$PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+      - name: Clone Wiki Repository
+        run: |
+          git clone git@github.com:Lilia-Framework/Lilia.wiki.git docs
+        env:
+          PRIVATE_KEY: ${{ secrets.YOUR_PRIVATE_KEY_SECRET_NAME }}
+        working-directory: '${{ github.workspace }}'
+        shell: bash
+
+      - name: Push Wiki Changes
+        run: |
+          cd docs
+          git config --local user.email "${GITHUB_EMAIL}"
+          git config --local user.name "${GITHUB_ACTOR}"
+          git push
+        env:
+          GITHUB_EMAIL: ${{ github.event.sender.email }}
+          GITHUB_ACTOR: ${{ github.actor }}
+        working-directory: '${{ github.workspace }}'
+        shell: bash
