@@ -50,8 +50,8 @@ local filesToInclude = {
     ["lilia/libraries/hooks/cl_hooks.lua"] = "client",
     ["lilia/libraries/objects/cl_commands.lua"] = "client",
     ["lilia/libraries/objects/sv_commands.lua"] = "server",
-    ["lilia/netcalls/cl_netcalls.lua"] = "client",
-    ["lilia/netcalls/sv_netcalls.lua"] = "server",
+    ["lilia/libraries/netcalls/cl_netcalls.lua"] = "client",
+    ["lilia/libraries/netcalls/sv_netcalls.lua"] = "server",
     ["lilia/libraries/moduleloader.lua"] = "shared",
 }
 
