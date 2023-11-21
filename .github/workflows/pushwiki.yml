@@ -1,16 +1,28 @@
 name: Publish wiki
+
 on:
   push:
+    branches:
+      - main  # Adjust the branch name if needed
+
 concurrency:
   group: wiki
   cancel-in-progress: true
+
 permissions:
   contents: write
+
 jobs:
   wiki:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: spenserblack/actions-wiki@v0.3.0
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Publish Wiki
+        uses: spenserblack/actions-wiki@v0.3.0
         with:
           path: docs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
