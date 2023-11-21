@@ -23,18 +23,15 @@ jobs:
   CloneWiki:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up SSH
-        run: |
-          echo "$PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       - name: Clone Wiki Repository
         run: |
           git clone git@github.com:Lilia-Framework/Lilia.wiki.git docs
-        env:
-          PRIVATE_KEY: ${{ secrets.YOUR_PRIVATE_KEY_SECRET_NAME }}
         working-directory: '${{ github.workspace }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
 
       - name: Push Wiki Changes
