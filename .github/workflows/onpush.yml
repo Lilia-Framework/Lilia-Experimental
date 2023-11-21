@@ -1,4 +1,4 @@
-name: Lint and Indent Code
+name: Commit Verification and Wiki Update
 
 on:
   push:
@@ -119,3 +119,16 @@ jobs:
             echo "No changes to commit."
           fi
         working-directory: '${{ github.workspace }}'
+
+  wiki:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Publish Wiki
+        uses: spenserblack/actions-wiki@v0.3.0
+        with:
+          path: documentation
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
