@@ -1,4 +1,4 @@
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 PIM:AddOption(
     "Allow This Player To Recognize You",
     {
@@ -17,7 +17,7 @@ PIM:AddOption(
     }
 )
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 if lia.config.FakeNamesEnabled then
     PIM:AddOption(
         "Allow This Player To Recognize You With A Fake Name",
@@ -32,8 +32,8 @@ if lia.config.FakeNamesEnabled then
             onRun = function(client, target)
                 if CLIENT then
                     Derma_StringRequest(
-                        "Allow those in whispering range to recognize you by a fake name.",
-                        "Enter a fake name to display to other players in range.",
+                        "Allow this person to recognize you by a fake name.",
+                        "Enter a fake name to display to this player.",
                         default or "",
                         function(text)
                             if text then
@@ -46,4 +46,4 @@ if lia.config.FakeNamesEnabled then
         }
     )
 end
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
