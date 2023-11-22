@@ -48,6 +48,7 @@ local filesToInclude = {
     ["lilia/libraries/hooks/cl_hooks.lua"] = "client",
     ["lilia/libraries/hooks/sv_hooks.lua"] = "server",
     ["lilia/libraries/hooks/cl_hooks.lua"] = "client",
+    ["lilia/libraries/blur3d2d/sh_blur3d2d.lua"] = "shared",
     ["lilia/libraries/objects/cl_commands.lua"] = "client",
     ["lilia/libraries/objects/sv_commands.lua"] = "server",
     ["lilia/libraries/netcalls/cl_netcalls.lua"] = "client",
