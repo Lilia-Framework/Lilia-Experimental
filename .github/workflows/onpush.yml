@@ -89,35 +89,32 @@ jobs:
             sudo ./glualint_executable pretty-print lilia/gamemode/*
           working-directory: ${{ github.workspace }}
           shell: bash
-  
-        - name: Run GLuaFixer on Lilia - Part 2
-          run: |
+      - name: Run GLuaFixer on Lilia - Part 2
+        run: |
             echo "Step 7: Running glualint pretty-print on Lilia (part 2)"
             sudo ./glualint_executable pretty-print lilia/libraries/*
-          working-directory: ${{ github.workspace }}
-          shell: bash
+        working-directory: ${{ github.workspace }}
+        shell: bash
   
-        - name: Run GLuaFixer on Lilia - Part 3
-          run: |
+      - name: Run GLuaFixer on Lilia - Part 3
+        run: |
             echo "Step 7: Running glualint pretty-print on Lilia (part 3)"
             sudo ./glualint_executable pretty-print lilia/preload/*
-          working-directory: ${{ github.workspace }}
-          shell: bash
+        working-directory: ${{ github.workspace }}
+        shell: bash
   
-        - name: Run GLuaFixer on Lilia - Part 4
-          run: |
+      - name: Run GLuaFixer on Lilia - Part 4
+        run: |
             echo "Step 7: Running glualint pretty-print on Lilia (part 4)"
             sudo ./glualint_executable pretty-print lilia/core/*
-          working-directory: ${{ github.workspace }}
-          shell: bash
+        working-directory: ${{ github.workspace }}
+        shell: bash
   
-        - name: Run GLuaFixer on Lilia - Part 5
-          run: |
+      - name: Run GLuaFixer on Lilia - Part 5
+        run: |
             echo "Step 7: Running glualint pretty-print on Lilia (part 5)"
             sudo ./glualint_executable pretty-print lilia/modules/*
-          working-directory: ${{ github.workspace }}
-          shell: bash
-        working-directory: '${{ github.workspace }}'
+        working-directory: ${{ github.workspace }}
         shell: bash
       - name: Remove the glualint folder (Step 8)
         run: |
