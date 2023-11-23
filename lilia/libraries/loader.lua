@@ -5,6 +5,7 @@ local filesToInclude = {
     ["lilia/libraries/color.lua"] = "shared",
     ["lilia/libraries/currency.lua"] = "shared",
     ["lilia/libraries/fonts.lua"] = "client",
+    ["lilia/libraries/bars.lua"] = "client",
     ["lilia/libraries/notice.lua"] = "client",
     ["lilia/libraries/menu.lua"] = "client",
     ["lilia/libraries/data/sh_data.lua"] = "shared",
