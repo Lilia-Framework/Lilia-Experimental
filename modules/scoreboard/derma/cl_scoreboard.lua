@@ -143,7 +143,9 @@ function PANEL:Think()
         for k, v in pairs(self.slots) do
             if IsValid(v) then v:update() end
         end
-
+        if input.IsKeyDown(KEY_Z) then
+			self:Init()
+		end
         self.nextUpdate = CurTime() + 0.1
     end
 end
