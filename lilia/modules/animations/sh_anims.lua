@@ -19,7 +19,7 @@ function MODULE:TranslateActivity(client, act)
             holdType = lia.config.Playerlia.config.HoldTypeTranslator[holdType] or "passive"
             local tree = lia.anim.player[holdType]
             if tree and tree[act] then
-                if isstring(tree[act])  then
+                if isstring(tree[act]) then
                     client.CalcSeqOverride = client.LookupSequence(tree[act])
                     return
                 else
@@ -40,7 +40,7 @@ function MODULE:TranslateActivity(client, act)
                 local act = tree.vehicle[class][1]
                 local fixvec = tree.vehicle[class][2]
                 if fixvec then client:SetLocalPos(Vector(16.5438, -0.1642, -20.5493)) end
-                if isstring(act)  then
+                if isstring(act) then
                     client.CalcSeqOverride = client.LookupSequence(client, act)
                     return
                 else
@@ -48,7 +48,7 @@ function MODULE:TranslateActivity(client, act)
                 end
             else
                 act = tree.normal[ACT_MP_CROUCH_IDLE][1]
-                if isstring(act)  then client.CalcSeqOverride = client:LookupSequence(act) end
+                if isstring(act) then client.CalcSeqOverride = client:LookupSequence(act) end
                 return
             end
         elseif client.OnGround(client) then
@@ -61,7 +61,7 @@ function MODULE:TranslateActivity(client, act)
             if tree[subClass] and tree[subClass][act] then
                 local index = (not client.isWepRaised or client:isWepRaised()) and 2 or 1
                 local act2 = tree[subClass][act][index]
-                if isstring(act2)  then
+                if isstring(act2) then
                     client.CalcSeqOverride = client.LookupSequence(client, act2)
                     return
                 end

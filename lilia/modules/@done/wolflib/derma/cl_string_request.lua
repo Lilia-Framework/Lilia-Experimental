@@ -1,25 +1,13 @@
 ﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function String_Request(name, onRun, onCancel, okBtnText)
-    if not okBtnText or okBtnText == "" or okBtnText == " " then
-        okBtnText = "Ok"
-    end
-
+    if not okBtnText or okBtnText == "" or okBtnText == " " then okBtnText = "Ok" end
     local bb = vgui.Create("DPanel")
     bb:SetSize(ScrW(), ScrH())
     bb:Center()
     bb:SetAlpha(0)
     bb:AlphaTo(255, 0.2)
     function bb:close()
-        bb:AlphaTo(
-            0,
-            0.2,
-            0,
-            function()
-                if bb and IsValid(bb) then
-                    bb:Remove()
-                end
-            end
-        )
+        bb:AlphaTo(0, 0.2, 0, function() if bb and IsValid(bb) then bb:Remove() end end)
     end
 
     bb.pop = bb:Add("DFrame")
@@ -40,21 +28,14 @@ function String_Request(name, onRun, onCancel, okBtnText)
 
         popout:Start(0.2, {self:GetSize()})
         function self:Think()
-            if popout:Active() then
-                popout:Run()
-            end
+            if popout:Active() then popout:Run() end
         end
 
         timer.Simple(
             0.2,
             function()
-                if bb and IsValid(bb) then
-                    bb:close()
-                end
-
-                if bb.pop and IsValid(bb.pop) then
-                    bb.pop:Remove()
-                end
+                if bb and IsValid(bb) then bb:close() end
+                if bb.pop and IsValid(bb.pop) then bb.pop:Remove() end
             end
         )
     end
@@ -64,9 +45,7 @@ function String_Request(name, onRun, onCancel, okBtnText)
     end
 
     function bb.pop.OnRemove()
-        if bb and IsValid(bb) then
-            bb.close()
-        end
+        if bb and IsValid(bb) then bb.close() end
     end
 
     function bb:Paint(w, h)
@@ -85,9 +64,7 @@ function String_Request(name, onRun, onCancel, okBtnText)
 
     pop:Start(0.2, {bb.pop:GetSize()})
     function bb:Think()
-        if pop:Active() then
-            pop:Run()
-        end
+        if pop:Active() then pop:Run() end
     end
 
     timer.Simple(
@@ -146,9 +123,7 @@ function String_Request(name, onRun, onCancel, okBtnText)
             function bb.pop.cancel.DoClick()
                 bb.pop:close()
                 bb:close()
-                if onCancel then
-                    onCancel()
-                end
+                if onCancel then onCancel() end
             end
 
             function bb.pop.cancel:Paint(w, h)
@@ -166,7 +141,6 @@ function String_Request(name, onRun, onCancel, okBtnText)
             end
         end
     )
-
     return bb.pop
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

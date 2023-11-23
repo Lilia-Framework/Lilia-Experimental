@@ -8,12 +8,12 @@ function MODULE:OnPlayerJoinClass(client, class, oldClass)
     if info2 and info2.onLeave then info2:onLeave(client) end
     netstream.Start(nil, "classUpdate", client)
 end
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:CanPlayerJoinClass(client, class, classTable)
     if classTable.isWhitelisted ~= true then return end
     local char = client:getChar()
     local wl = char:getData("whitelist", {})
-
     return wl[class] or false
 end
 
