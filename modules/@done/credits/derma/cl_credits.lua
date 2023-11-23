@@ -1,7 +1,11 @@
 ﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+local ScrW, ScrH = ScrW(), ScrH()
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 local logoMat = Material("lilia/logo.png")
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-local ScrW, ScrH = ScrW(), ScrH()
+local logoGlowMat = Material("lilia/logo_glow.png")
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+local textureID = surface.GetTextureID("models/effects/portalfunnel_sheet")
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 local PANEL = {}
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -10,15 +14,14 @@ do
         steamworks.RequestPlayerInfo(v.steamid, function(steamName) v.name = steamName or "Loading..." end)
     end
 end
-
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function PANEL:Init()
     self.avatarImage = self:Add("AvatarImage")
     self.avatarImage:Dock(LEFT)
     self.avatarImage:SetSize(64, 64)
     self.name = self:Add("DLabel")
-    self.name:SetText("Loading...")
     self.name:SetFont("liaBigCredits")
+    self.name:SetText("Loading...")
     self.desc = self:Add("DLabel")
     self.desc:SetFont("liaSmallCredits")
 end
@@ -35,14 +38,9 @@ function PANEL:setAvatarImage(id)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function PANEL:setName(name, isID, color)
+function PANEL:setName(name, color)
     if not IsValid(self.name) then return end
-    if isID then
-        steamworks.RequestPlayerInfo(name, function(steamName) self.name:SetText(steamName or "Loading...") end)
-    else
-        self.name:SetText(name)
-    end
-
+    self.name:SetText(name)
     if color then self.name:SetTextColor(color) end
     self.name:SizeToContents()
     self.name:Dock(TOP)
@@ -60,7 +58,7 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function PANEL:Paint(w, h)
-    surface.SetTexture(surface.GetTextureID("models/effects/portalfunnel_sheet"))
+    surface.SetTexture(textureID)
     surface.DrawTexturedRect(0, 0, w, h)
 end
 
@@ -72,20 +70,20 @@ PANEL = {}
 function PANEL:Init()
     self.contButton = self:Add("DButton")
     self.contButton:SetFont("liaBigCredits")
-    self.contButton:SetText(lia.config.contributors.desc)
+    self.contButton:SetText(contributors.desc)
     self.contButton.DoClick = function()
         surface.PlaySound("buttons/button14.wav")
-        gui.OpenURL(lia.config.contributors.url)
+        gui.OpenURL(contributors.url)
     end
 
     self.contButton.Paint = function() end
     self.contButton:Dock(TOP)
     self.discordButton = self:Add("DButton")
     self.discordButton:SetFont("liaBigCredits")
-    self.discordButton:SetText(lia.config.discord.desc)
+    self.discordButton:SetText(discord.desc)
     self.discordButton.DoClick = function()
         surface.PlaySound("buttons/button14.wav")
-        gui.OpenURL(lia.config.discord.url)
+        gui.OpenURL(discord.url)
     end
 
     self.discordButton.Paint = function() end
@@ -110,7 +108,7 @@ function PANEL:setPerson(data, left)
     local id = left and "creditleft" or "creditright"
     self[id] = self:Add("CreditsNamePanel")
     self[id]:setAvatarImage(data.steamid)
-    self[id]:setName(data.steamid, true, data.color)
+    self[id]:setName(data.name, data.color)
     self[id]:setDesc(data.desc)
     self[id]:Dock(left and LEFT or RIGHT)
     self[id]:InvalidateLayout(true)
@@ -133,7 +131,7 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function PANEL:Paint(w, h)
-    surface.SetMaterial(Material("lilia/logo_glow.png"))
+    surface.SetMaterial(logoGlowMat)
     surface.SetDrawColor(255, 255, 255, 64 * math.sin(CurTime()) + 191)
     surface.DrawTexturedRect((w / 2) - 128, (h / 2) - 128, 256, 256)
     surface.SetMaterial(logoMat)
@@ -154,17 +152,17 @@ function PANEL:Init()
     self.logo:SetSize(ScrW * 0.4, ScrW * 0.1)
     self.logo:Dock(TOP)
     self.logo:DockMargin(0, 0, 0, ScrH * 0.05)
-    self.team_members = self:Add("DLabel")
-    self.team_members:SetFont("liaBigCredits")
-    self.team_members:SetText("Lilia Development Team")
-    self.team_members:SizeToContents()
-    self.team_members:Dock(TOP)
-    local dockLeft = ScrW * 0.15 - self.team_members:GetContentSize() / 2
-    self.team_members:DockMargin(dockLeft, 0, 0, ScrH * 0.025)
+    self.contributors = self:Add("DLabel")
+    self.contributors:SetFont("liaBigCredits")
+    self.contributors:SetText("Lilia Development Team")
+    self.contributors:SizeToContents()
+    self.contributors:Dock(TOP)
+    local dockLeft = ScrW * 0.15 - self.contributors:GetContentSize() / 2
+    self.contributors:DockMargin(dockLeft, 0, 0, ScrH * 0.025)
     self.creditPanels = {}
     local curNum = 0
-    for k, v in ipairs(lia.config.GamemodeCreators) do
-        if k % 2 ~= 0 then
+    for k, v in ipairs(authorCredits) do
+        if k % 2 ~= 0 then -- if k is odd
             self.creditPanels[k] = self:Add("CreditsCreditsList")
             curNum = k
             self.creditPanels[curNum]:SetSize(self:GetWide(), ScrH * 0.05)
