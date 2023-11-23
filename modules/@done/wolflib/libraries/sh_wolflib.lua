@@ -12,16 +12,12 @@ function group()
                 0,
                 function()
                     v:Hide()
-                    if fullRem then
-                        v:Remove()
-                    end
+                    if fullRem then v:Remove() end
                 end
             )
         end
 
-        if callback then
-            timer.Simple(0.2, callback)
-        end
+        if callback then timer.Simple(0.2, callback) end
     end
 
     function g:FadeIn(delay)
@@ -41,9 +37,7 @@ function group()
             v:Hide()
         end
 
-        if callback then
-            timer.Simple(time, callback)
-        end
+        if callback then timer.Simple(time, callback) end
     end
 
     function g:GetChildren()
@@ -52,7 +46,6 @@ function group()
             if isfunction(v) then continue end
             c[#c + 1] = v
         end
-
         return c
     end
 
@@ -61,14 +54,12 @@ function group()
             table.insert(g, pnl)
         end
     end
-
     return g
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function getHovCol(col)
     if not col then return end
-
     return Color(col.r + 10, col.g + 10, col.b + 10, col.a)
 end
 
@@ -86,7 +77,6 @@ function strPosAngConv(str)
     pos = Vector(pos[2], pos[3], pos[4])
     local ang = str:Split(";")[2]:Split("setang")[2]:Split(" ")
     ang = Angle(ang[2], ang[3], ang[4])
-
     return pos, ang
 end
 

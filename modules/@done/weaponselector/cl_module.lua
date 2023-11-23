@@ -28,10 +28,7 @@ function MODULE:HUDPaint()
         math.Approach(self.deltaIndex, self.index, fTime() * 12)
         local index = self.deltaIndex
         for k, v in ipairs(weapons) do
-            if not weapons[self.index] then
-                self.index = total
-            end
-
+            if not weapons[self.index] then self.index = total end
             local theta = (k - index) * 0.1
             local color = ColorAlpha(k == self.index and lia.config.Color or color_white, (255 - math.abs(theta * 3) * 255) * fraction)
             local lastY = 0
@@ -57,9 +54,7 @@ function MODULE:HUDPaint()
             cam.PopModelMatrix()
         end
 
-        if self.fadeTime < CurTime() and self.alpha > 0 then
-            self.alpha = 0
-        end
+        if self.fadeTime < CurTime() and self.alpha > 0 then self.alpha = 0 end
     end
 end
 
@@ -98,33 +93,23 @@ function MODULE:PlayerBindPress(client, bind, pressed)
         bind = bind:lower()
         if bind:find("invprev") and pressed then
             self.index = self.index - 1
-            if self.index < 1 then
-                self.index = #client:GetWeapons()
-            end
-
+            if self.index < 1 then self.index = #client:GetWeapons() end
             self:onIndexChanged()
-
             return true
         elseif bind:find("invnext") and pressed then
             self.index = self.index + 1
-            if self.index > #client:GetWeapons() then
-                self.index = 1
-            end
-
+            if self.index > #client:GetWeapons() then self.index = 1 end
             self:onIndexChanged()
-
             return true
         elseif bind:find("slot") then
             self.index = math.Clamp(tonumber(bind:match("slot(%d)")) or 1, 1, #lPly:GetWeapons())
             self:onIndexChanged()
-
             return true
         elseif bind:find("attack") and pressed and self.alpha > 0 then
             if self ~= nil and lPly ~= nil and lPly:GetWeapons() ~= nil and lPly:GetWeapons()[self.index] ~= nil then
                 lPly:EmitSound(hook.Run("WeaponSelectSound", lPly:GetWeapons()[self.index]) or "buttons/button16.wav")
                 lPly:SelectWeapon(lPly:GetWeapons()[self.index]:GetClass())
                 self.alpha = 0
-
                 return true
             end
         end

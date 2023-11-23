@@ -10,7 +10,6 @@ local function getDarkPanel()
         surface.SetDrawColor(0, 0, 0)
         surface.DrawRect(0, 0, w, h)
     end
-
     return dark
 end
 
@@ -30,9 +29,7 @@ function QuickBackground(time, callback)
                 0,
                 function()
                     dark:Remove()
-                    if callback then
-                        callback()
-                    end
+                    if callback then callback() end
                 end
             )
         end
@@ -48,11 +45,9 @@ function QuickBackground(time, callback)
             view.angles = ang + Angle(0, 45, 0)
             view.fov = fov
             view.drawviewer = true
-
             return view
         end
     )
-
     return "CalcView", "Camerabackground"
 end
 
@@ -73,9 +68,7 @@ function RemoveBackground(time, callback)
                 0,
                 function()
                     dark:Remove()
-                    if callback then
-                        callback()
-                    end
+                    if callback then callback() end
                 end
             )
         end
