@@ -85,9 +85,9 @@ function GM:CanTool(client, trace, tool)
         if tool == "remover" then
             if table.HasValue(lia.config.RemoverBlockedEntities, entity:GetClass()) and IsValid(entity) then return CAMI.PlayerHasAccess(client, "Lilia - Staff Permissions - Can Remove Blocked Entities", nil) end
             if entity:IsWorld() and IsValid(entity) then return CAMI.PlayerHasAccess(client, "Lilia - Staff Permissions - Can Remove World Entities", nil) end
-
-            return true
         end
+
+        return true
     end
 
     return false
