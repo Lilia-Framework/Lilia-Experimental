@@ -245,7 +245,7 @@ end
 function MODULE:CanPlayerSwitchChar(client, character, newCharacter)
     if IsValid(client.liaRagdoll) then return false, "You are ragdolled!" end
     if not client:Alive() then return false, "You are dead!" end
-    if client.LastDamaged and client.LastDamaged > CurTime() - 120 and character:getFaction() ~= FACTION_STAFF then return false, "You took damage too recently to switch characters!" end
+    if client.LastDamaged and client.LastDamaged > CurTime() - 120 and client:isStaffOnDuty() then return false, "You took damage too recently to switch characters!" end
     if lia.config.CharacterSwitchCooldown and (character:getData("loginTime", 0) + lia.config.CharacterSwitchCooldownTimer) > os.time() then return false, "You are on cooldown!" end
     if character:getID() == newCharacter:getID() then return false, "You are already using this character!" end
 

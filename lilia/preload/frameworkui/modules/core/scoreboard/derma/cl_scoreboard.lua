@@ -124,7 +124,7 @@ function PANEL:Think()
         local visible, amount
         for k, v in ipairs(self.teams) do
             visible, amount = v:IsVisible(), teamNumPlayers(k)
-            if visible and k == FACTION_STAFF and LocalPlayer():Team() == FACTION_STAFF then
+            if visible and k == FACTION_STAFF and LocalPlayer():isStaffOnDuty()  then
                 v:SetVisible(true)
                 self.layout:InvalidateLayout()
             elseif visible and k == FACTION_STAFF then
@@ -255,7 +255,7 @@ function PANEL:addPlayer(client, parent)
 
         if self.lastModel ~= model or self.lastSkin ~= skin then
             self.model:SetModel(client:GetModel(), client:GetSkin())
-            if CAMI.PlayerHasAccess(client, "Lilia - Can Access Scoreboard Info Out Of Staff") or (LocalPlayer() == client) or LocalPlayer():Team() == FACTION_STAFF then
+            if CAMI.PlayerHasAccess(client, "Lilia - Can Access Scoreboard Info Out Of Staff") or (LocalPlayer() == client) or LocalPlayer():isStaffOnDuty() then
                 self.model:SetTooltip(L("sbOptions", client:Name()))
             else
                 self.model:SetTooltip("You do not have access to see this information")

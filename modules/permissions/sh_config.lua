@@ -14,6 +14,16 @@ lia.config.CAMIPrivileges = {
         Description = "Allows access to Admin Chat.",
     },
     {
+        Name = "Lilia - Staff Permissions - No Clip Outside Staff Character",
+        MinAccess = "superadmin",
+        Description = "Allows access to No Clip ESP Outside Staff Character.",
+    },
+    {
+        Name = "Lilia - Staff Permissions - No Clip ESP Outside Staff Character",
+        MinAccess = "superadmin",
+        Description = "Allows access to No Clip ESP Outside Staff Character.",
+    },
+    {
         Name = "Lilia - Staff Permissions - One Punch Man",
         MinAccess = "superadmin",
         Description = "Allows access to OPM to Ragdoll Minges.",
