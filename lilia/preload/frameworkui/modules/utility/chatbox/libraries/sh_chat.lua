@@ -6,36 +6,32 @@ function MODULE:InitializedConfig()
             onCanSay = function(speaker, text)
                 if GetGlobalBool("oocblocked", false) then
                     speaker:notify("The OOC is Globally Blocked!")
-
                     return false
                 end
 
                 if self.oocBans[speaker:SteamID()] then
                     speaker:notify("You have been banned from using OOC!")
-
                     return false
                 end
 
                 if string.len(text) > lia.config.OOCLimit then
                     speaker:notify("Text too big!")
-
                     return false
                 end
 
-                if not CAMI.PlayerHasAccess(speaker, "Lilia - Staff Permissions - No OOC Cooldown") and lia.config.OOCDelay > 0 and speaker.liaLastOOC then
+                local customDelay = hook.Run("getOOCDelay", speaker)
+                local oocDelay = customDelay or lia.config.OOCDelay
+                if not CAMI.PlayerHasAccess(speaker, "Lilia - Staff Permissions - No OOC Cooldown") and oocDelay > 0 and speaker.liaLastOOC then
                     local lastOOC = CurTime() - speaker.liaLastOOC
-                    if lastOOC <= lia.config.OOCDelay then
-                        speaker:notifyLocalized("oocDelay", lia.config.OOCDelay - math.ceil(lastOOC))
-
+                    if lastOOC <= oocDelay then
+                        speaker:notifyLocalized("oocDelay", oocDelay - math.ceil(lastOOC))
                         return false
                     end
                 end
 
                 speaker.liaLastOOC = CurTime()
             end,
-            onChatAdd = function(speaker, text)
-                chat.AddText(Color(255, 50, 50), " [OOC] ", speaker, color_white, ": " .. text)
-            end,
+            onChatAdd = function(speaker, text) chat.AddText(Color(255, 50, 50), " [OOC] ", speaker, color_white, ": " .. text) end,
             prefix = {"//", "/ooc"},
             noSpaceAfter = true,
             filter = "ooc"
@@ -48,7 +44,6 @@ function MODULE:InitializedConfig()
             format = "%s says \"%s\"",
             onGetColor = function(speaker, text)
                 if LocalPlayer():GetEyeTrace().Entity == speaker then return lia.config.ChatListenColor end
-
                 return lia.config.ChatColor
             end,
             radius = function(speaker, text) return lia.config.ChatRange end
@@ -69,7 +64,6 @@ function MODULE:InitializedConfig()
 
                 if speaker == listener then return true end
                 if not trace.Hit and speaker:EyePos():Distance(listener:EyePos()) <= lia.config.ChatRange then return true end
-
                 return false
             end,
             prefix = {"/me", "/action"},
@@ -82,9 +76,7 @@ function MODULE:InitializedConfig()
     lia.chat.register(
         "it",
         {
-            onChatAdd = function(speaker, text)
-                chat.AddText(lia.chat.timestamp(false), lia.config.ChatColor, "**" .. text)
-            end,
+            onChatAdd = function(speaker, text) chat.AddText(lia.chat.timestamp(false), lia.config.ChatColor, "**" .. text) end,
             radius = function(speaker, text) return lia.config.ChatRange end,
             prefix = {"/it"},
             font = "liaChatFontItalics",
@@ -99,7 +91,6 @@ function MODULE:InitializedConfig()
             format = "%s whispers \"%s\"",
             onGetColor = function(speaker, text)
                 local color = lia.chat.classes.ic.onGetColor(speaker, text)
-
                 return Color(color.r - 35, color.g - 35, color.b - 35)
             end,
             radius = function(speaker, text) return lia.config.ChatRange * 0.25 end,
@@ -113,7 +104,6 @@ function MODULE:InitializedConfig()
             format = "%s yells \"%s\"",
             onGetColor = function(speaker, text)
                 local color = lia.chat.classes.ic.onGetColor(speaker, text)
-
                 return Color(color.r + 35, color.g + 35, color.b + 35)
             end,
             radius = function(speaker, text) return lia.config.ChatRange * 2 end,
@@ -130,16 +120,13 @@ function MODULE:InitializedConfig()
                     local lastLOOC = CurTime() - speaker.liaLastLOOC
                     if lastLOOC <= delay and (not speaker:IsAdmin() or speaker:IsAdmin() and lia.config.LOOCDelayAdmin) then
                         speaker:notifyLocalized("loocDelay", delay - math.ceil(lastLOOC))
-
                         return false
                     end
                 end
 
                 speaker.liaLastLOOC = CurTime()
             end,
-            onChatAdd = function(speaker, text)
-                chat.AddText(Color(255, 50, 50), "[LOOC] ", lia.config.ChatColor, speaker:Name() .. ": " .. text)
-            end,
+            onChatAdd = function(speaker, text) chat.AddText(Color(255, 50, 50), "[LOOC] ", lia.config.ChatColor, speaker:Name() .. ": " .. text) end,
             radius = function(speaker, text) return lia.config.ChatRange end,
             prefix = {".//", "[[", "/looc"},
             noSpaceAfter = true,
@@ -153,23 +140,16 @@ function MODULE:InitializedConfig()
             onGetColor = function(speaker, text) return Color(0, 196, 255) end,
             onCanHear = function(speaker, listener)
                 if CAMI.PlayerHasAccess(listener, "Lilia - Staff Permissions - Admin Chat", nil) then return true end
-
                 return false
             end,
             onCanSay = function(speaker, text)
                 if CAMI.PlayerHasAccess(speaker, "Lilia - Staff Permissions - Admin Chat", nil) then
                     speaker:notify("You aren't an admin. Use '@messagehere' to create a ticket.")
-
                     return false
                 end
-
                 return true
             end,
-            onChatAdd = function(speaker, text)
-                if CAMI.PlayerHasAccess(LocalPlayer(), "Lilia - Staff Permissions - Admin Chat", nil) and CAMI.PlayerHasAccess(speaker, "Lilia - Staff Permissions - Admin Chat", nil) then
-                    chat.AddText(Color(255, 215, 0), "[А] ", Color(128, 0, 255, 255), speaker:getChar():getName(), ": ", Color(255, 255, 255), text)
-                end
-            end,
+            onChatAdd = function(speaker, text) if CAMI.PlayerHasAccess(LocalPlayer(), "Lilia - Staff Permissions - Admin Chat", nil) and CAMI.PlayerHasAccess(speaker, "Lilia - Staff Permissions - Admin Chat", nil) then chat.AddText(Color(255, 215, 0), "[А] ", Color(128, 0, 255, 255), speaker:getChar():getName(), ": ", Color(255, 255, 255), text) end end,
             prefix = "/adminchat"
         }
     )
@@ -201,9 +181,7 @@ function MODULE:InitializedConfig()
         {
             onCanSay = function(speaker, text) return CAMI.PlayerHasAccess(speaker, "Lilia - Staff Permissions - Local Event Chat", nil) end,
             onCanHear = lia.config.ChatRange * 6,
-            onChatAdd = function(speaker, text)
-                chat.AddText(Color(255, 150, 0), text)
-            end,
+            onChatAdd = function(speaker, text) chat.AddText(Color(255, 150, 0), text) end,
             prefix = {"/eventlocal"},
             font = "liaMediumFont"
         }
@@ -214,9 +192,7 @@ function MODULE:InitializedConfig()
         {
             onCanSay = function(speaker, text) return CAMI.PlayerHasAccess(speaker, "Lilia - Staff Permissions - Event Chat", nil) end,
             onCanHear = function(speaker, text) return true end,
-            onChatAdd = function(speaker, text)
-                chat.AddText(Color(255, 150, 0), text)
-            end,
+            onChatAdd = function(speaker, text) chat.AddText(Color(255, 150, 0), text) end,
             prefix = {"/event"},
             font = "liaMediumFont"
         }
