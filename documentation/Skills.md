@@ -68,7 +68,8 @@ Returns the overriden Max Stamina.
 ### EXAMPLE USAGE
 ```lua
 function MODULE:CharGetMaxStamina(character)
-    if character:getFaction() == FACTION_STAFF then
+    local client = character:getPlayer() 
+    if client:isStaffOnDuty() then
         return 100000 -- If you are staff, you get 100000 max stamina, compared to the remaining players getting lia.config.DefaultStamina
     end
 end
@@ -87,7 +88,8 @@ This hook is called when a player's stamina is gained. You can use it to perform
 ### EXAMPLE USAGE
 ```lua
 function MODULE:PlayerStaminaGained(character)
-    if character:getFaction() == FACTION_STAFF then
+    local client = character:getPlayer() 
+    if client:isStaffOnDuty() then
         character:getPlayer():ChatPrint("Just Gained Stamina!") -- Chat Prints That Stamina was Gained.
     end
 end
@@ -106,7 +108,8 @@ This hook is called when a player's stamina is lost. You can use it to perform a
 ### EXAMPLE USAGE
 ```lua
 function MODULE:PlayerStaminaLost(character)
-    if character:getFaction() == FACTION_STAFF then
+    local client = character:getPlayer() 
+    if client:isStaffOnDuty() then
         character:getPlayer():ChatPrint("Just Lost Stamina!") -- Chat Prints That Stamina was Lost.
     end
 end
