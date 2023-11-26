@@ -149,10 +149,10 @@ function lia.char.delete(id, client)
     if IsValid(client) then
         removePlayer(client)
     else
-        for _, ply in ipairs(player.GetAll()) do
-            if not table.HasValue(ply.liaCharList or {}, id) then continue end
-            table.RemoveByValue(ply.liaCharList, id)
-            removePlayer(ply)
+        for _, clients in ipairs(player.GetAll()) do
+            if not table.HasValue(clients.liaCharList or {}, id) then continue end
+            table.RemoveByValue(clients.liaCharList, id)
+            removePlayer(clients)
         end
     end
 

@@ -6,27 +6,27 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Grab()
-    local ply = self:GetOwner()
-    ply:LagCompensation(true)
-    local trace = ply:GetEyeTraceNoCursor()
+    local client = self:GetOwner()
+    client:LagCompensation(true)
+    local trace = client:GetEyeTraceNoCursor()
     local ent = trace.Entity
     local physObj = IsValid(ent) and ent:GetPhysicsObject() or NULL
     if self:CanPickup(ent, physObj) then
-        ply:PickupObject(ent)
-        ply.Grabbed = ent
+        client:PickupObject(ent)
+        client.Grabbed = ent
     end
 
-    ply:LagCompensation(false)
+    client:LagCompensation(false)
     self.ReadyToPickup = false
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:SecondaryAttack()
-    local ply = self:GetOwner()
-    if IsValid(ply:GetParent()) then return end
-    if IsValid(ply.Grabbed) then
-        ply:DropObject(ply.Grabbed)
-        ply.Grabbed = NULL
+    local client = self:GetOwner()
+    if IsValid(client:GetParent()) then return end
+    if IsValid(client.Grabbed) then
+        client:DropObject(client.Grabbed)
+        client.Grabbed = NULL
     else
         self.ReadyToPickup = true
     end

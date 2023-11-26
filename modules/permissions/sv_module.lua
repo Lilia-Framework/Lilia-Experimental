@@ -8,7 +8,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:PlayerSpawnProp(client, model)
     if not client then return true end
-    if IsValid(client) and CAMI.PlayerHasAccess(client, "Lilia - Spawn Permissions - Can Spawn Props", nil) or client:getChar():hasFlags("e") or client:Team() == FACTION_STAFF then
+    if IsValid(client) and CAMI.PlayerHasAccess(client, "Lilia - Spawn Permissions - Can Spawn Props", nil) or client:getChar():hasFlags("e") or client:isStaffOnDuty() then
         if CAMI.PlayerHasAccess(client, "Lilia - Spawn Permissions - No Spawn Delay") or (client.AdvDupe2 and client.AdvDupe2.Pasting) then return true end
 
         return self:CheckSpawnPropBlackList(client, model)
@@ -20,7 +20,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:PlayerSpawnRagdoll(client)
     if not client then return true end
-    if IsValid(client) and CAMI.PlayerHasAccess(client, "Lilia - Spawn Permissions - Can Spawn Ragdolls", nil) or client:getChar():hasFlags("r") or client:Team() == FACTION_STAFF then
+    if IsValid(client) and CAMI.PlayerHasAccess(client, "Lilia - Spawn Permissions - Can Spawn Ragdolls", nil) or client:getChar():hasFlags("r") or client:isStaffOnDuty() then
         if CAMI.PlayerHasAccess(client, "Lilia - Spawn Permissions - No Spawn Delay") or (client.AdvDupe2 and client.AdvDupe2.Pasting) then return true end
 
         return true
@@ -78,7 +78,7 @@ end
 function GM:CanTool(client, trace, tool)
     local privilege = "Lilia - Staff Permissions - Access Tool " .. tool:gsub("^%l", string.upper)
     local entity = client:GetTracedEntity()
-    if IsValid(client) and client:getChar():hasFlags("t") or CAMI.PlayerHasAccess(client, privilege, nil) or client:Team() == FACTION_STAFF then
+    if IsValid(client) and client:getChar():hasFlags("t") or CAMI.PlayerHasAccess(client, privilege, nil) or client:isStaffOnDuty() then
         if IsValid(entity) and entity:GetCreator() == client and entity:GetClass() == "prop_physics" then return true end
         if tool == "advdupe2" and (table.HasValue(lia.config.DuplicatorBlackList, entity) and IsValid(entity)) then return false end
         if tool == "permaprops" and string.StartWith(entity:GetClass(), "lia_") and IsValid(entity) then return false end
@@ -96,7 +96,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:PhysgunPickup(client, entity)
     if IsValid(client) and entity:GetCreator() == client and entity:GetClass() == "prop_physics" then return true end
-    if IsValid(client) and CAMI.PlayerHasAccess(client, "Lilia - Staff Permissions - Physgun Pickup", nil) or client:Team() == FACTION_STAFF then
+    if IsValid(client) and CAMI.PlayerHasAccess(client, "Lilia - Staff Permissions - Physgun Pickup", nil) or client:isStaffOnDuty() then
         if table.HasValue(lia.config.PhysGunMoveRestrictedEntityList, entity:GetClass()) then
             return CAMI.PlayerHasAccess(client, "Lilia - Staff Permissions - Physgun Pickup on Restricted Entities", nil)
         elseif entity:IsVehicle() then
@@ -116,7 +116,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:CanProperty(client, property, entity)
     if entity:GetCreator() == client and (property == "remover" or property == "collision") then return true end
-    if CAMI.PlayerHasAccess(client, "Lilia - Staff Permissions - Access Tool " .. property:gsub("^%l", string.upper), nil) or client:Team() == FACTION_STAFF then
+    if CAMI.PlayerHasAccess(client, "Lilia - Staff Permissions - Access Tool " .. property:gsub("^%l", string.upper), nil) or client:isStaffOnDuty() then
         if entity:IsWorld() and IsValid(entity) then return CAMI.PlayerHasAccess(client, "Lilia - Staff Permissions - Can Property World Entities", nil) end
         if table.HasValue(lia.config.RemoverBlockedEntities, entity:GetClass()) or table.HasValue(lia.config.PhysGunMoveRestrictedEntityList, entity:GetClass()) then return CAMI.PlayerHasAccess(client, "Lilia - Staff Permissions - Use Entity Properties on Blocked Entities", nil) end
 
