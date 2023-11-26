@@ -24,14 +24,21 @@ function MODULE:SetupQuickMenu(menu)
 
                 current = panel
                 RunConsoleCommand("lia_language", k)
-            end,
-            enabled
+            end, enabled
         )
 
-        if enabled and not IsValid(current) then current = button end
+        if enabled and not IsValid(current) then
+            current = button
+        end
     end
 
-    menu:addSlider("HUD Desc Width Modifier", function(panel, value) DescWidth:SetFloat(value) end, DescWidth:GetFloat(), 0.1, 1, 2)
+    menu:addSlider(
+        "HUD Desc Width Modifier",
+        function(panel, value)
+            DescWidth:SetFloat(value)
+        end, DescWidth:GetFloat(), 0.1, 1, 2
+    )
+
     menu:addSpacer()
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
