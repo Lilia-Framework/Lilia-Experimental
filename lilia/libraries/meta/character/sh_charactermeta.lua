@@ -26,6 +26,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function charMeta:getBoost(attribID)
     local boosts = self:getBoosts()
+
     return boosts[attribID]
 end
 
@@ -43,6 +44,7 @@ function charMeta:getAttrib(key, default)
             att = att + v
         end
     end
+
     return att
 end
 
@@ -55,6 +57,7 @@ function charMeta:getPlayer()
         for k, v in ipairs(player.GetAll()) do
             if v:SteamID64() == steamID then
                 self.player = v
+
                 return v
             end
         end
@@ -63,6 +66,7 @@ function charMeta:getPlayer()
             local char = v:getChar()
             if char and (char:getID() == self:getID()) then
                 self.player = v
+
                 return v
             end
         end
@@ -71,35 +75,11 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function charMeta:hasMoney(amount)
-    if amount < 0 then print("Negative Money Check Received.") end
-    return self:getMoney() >= amount
-end
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function charMeta:giveMoney(amount, takingMoney)
-    local currentMoney = self:getMoney()
-    if lia.config.MoneyLimit > 0 then
-        local totalMoney = currentMoney + amount
-        if totalMoney > lia.config.MoneyLimit then
-            local remainingMoney = totalMoney - lia.config.MoneyLimit
-            self:setMoney(lia.config.MoneyLimit)
-            local money = lia.currency.spawn(self:getItemDropPos(), remainingMoney)
-            money.client = self
-            money.charID = self:getID()
-        else
-            self:setMoney(self:getMoney() + amount)
-        end
-    else
-        self:setMoney(self:getMoney() + amount)
+    if amount < 0 then
+        print("Negative Money Check Received.")
     end
-    return true
-end
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function charMeta:takeMoney(amount)
-    amount = math.abs(amount)
-    self:giveMoney(-amount, true)
-    return true
+    return self:getMoney() >= amount
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -112,6 +92,7 @@ function charMeta:hasFlags(flags)
     for i = 1, #flags do
         if self:getFlags():find(flags:sub(i, i), 1, true) then return true end
     end
+
     return hook.Run("CharacterFlagCheck", self, flags) or false
 end
 
@@ -119,6 +100,7 @@ end
 function charMeta:joinClass(class, isForced)
     if not class then
         self:kickClass()
+
         return
     end
 
@@ -127,6 +109,7 @@ function charMeta:joinClass(class, isForced)
     if isForced or lia.class.canBe(client, class) then
         self:setClass(class)
         hook.Run("OnPlayerJoinClass", client, class, oldClass)
+
         return true
     else
         return false

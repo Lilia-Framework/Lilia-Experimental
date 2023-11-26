@@ -17,7 +17,9 @@ function charMeta:updateAttrib(key, value)
         attrib[key] = math.min((attrib[key] or 0) + value, attribute.maxValue or lia.config.MaxAttributes)
         if IsValid(client) then
             netstream.Start(client, "attrib", self:getID(), key, attrib[key])
-            if attribute.setup then attribute.setup(attrib[key]) end
+            if attribute.setup then
+                attribute.setup(attrib[key])
+            end
         end
     end
 
@@ -33,7 +35,9 @@ function charMeta:setAttrib(key, value)
         attrib[key] = value
         if IsValid(client) then
             netstream.Start(client, "attrib", self:getID(), key, attrib[key])
-            if attribute.setup then attribute.setup(attrib[key]) end
+            if attribute.setup then
+                attribute.setup(attrib[key])
+            end
         end
     end
 
@@ -46,6 +50,7 @@ function charMeta:addBoost(boostID, attribID, boostAmount)
     boosts[attribID] = boosts[attribID] or {}
     boosts[attribID][boostID] = boostAmount
     hook.Run("OnCharAttribBoosted", self:getPlayer(), self, attribID, boostID, boostAmount)
+
     return self:setVar("boosts", boosts, nil, self:getPlayer())
 end
 
@@ -55,6 +60,7 @@ function charMeta:removeBoost(boostID, attribID)
     boosts[attribID] = boosts[attribID] or {}
     boosts[attribID][boostID] = nil
     hook.Run("OnCharAttribBoosted", self:getPlayer(), self, attribID, boostID, true)
+
     return self:setVar("boosts", boosts, nil, self:getPlayer())
 end
 
@@ -70,12 +76,19 @@ function charMeta:giveFlags(flags)
         local flag = flags:sub(i, i)
         local info = lia.flag.list[flag]
         if info then
-            if not self:hasFlags(flag) then addedFlags = addedFlags .. flag end
-            if info.callback then info.callback(self:getPlayer(), true) end
+            if not self:hasFlags(flag) then
+                addedFlags = addedFlags .. flag
+            end
+
+            if info.callback then
+                info.callback(self:getPlayer(), true)
+            end
         end
     end
 
-    if addedFlags ~= "" then self:setFlags(self:getFlags() .. addedFlags) end
+    if addedFlags ~= "" then
+        self:setFlags(self:getFlags() .. addedFlags)
+    end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -85,11 +98,16 @@ function charMeta:takeFlags(flags)
     for i = 1, #flags do
         local flag = flags:sub(i, i)
         local info = lia.flag.list[flag]
-        if info and info.callback then info.callback(self:getPlayer(), false) end
+        if info and info.callback then
+            info.callback(self:getPlayer(), false)
+        end
+
         newFlags = newFlags:gsub(flag, "")
     end
 
-    if newFlags ~= oldFlags then self:setFlags(newFlags) end
+    if newFlags ~= oldFlags then
+        self:setFlags(newFlags)
+    end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -97,7 +115,9 @@ function charMeta:save(callback)
     if self.isBot then return end
     local data = {}
     for k, v in pairs(lia.char.vars) do
-        if v.field and self.vars[k] ~= nil then data[v.field] = self.vars[k] end
+        if v.field and self.vars[k] ~= nil then
+            data[v.field] = self.vars[k]
+        end
     end
 
     local shouldSave = hook.Run("CharacterPreSave", self)
@@ -105,11 +125,12 @@ function charMeta:save(callback)
         lia.db.updateTable(
             data,
             function()
-                if callback then callback() end
+                if callback then
+                    callback()
+                end
+
                 hook.Run("CharacterPostSave", self)
-            end,
-            nil,
-            "_id = " .. self:getID()
+            end, nil, "_id = " .. self:getID()
         )
     end
 end
@@ -123,22 +144,30 @@ function charMeta:sync(receiver)
     elseif receiver == self.player then
         local data = {}
         for k, v in pairs(self.vars) do
-            if lia.char.vars[k] ~= nil and not lia.char.vars[k].noNetworking then data[k] = v end
+            if lia.char.vars[k] ~= nil and not lia.char.vars[k].noNetworking then
+                data[k] = v
+            end
         end
 
         netstream.Start(self.player, "charInfo", data, self:getID())
         for k, v in pairs(lia.char.vars) do
-            if isfunction(v.onSync) then v.onSync(self, self.player) end
+            if isfunction(v.onSync) then
+                v.onSync(self, self.player)
+            end
         end
     else
         local data = {}
         for k, v in pairs(lia.char.vars) do
-            if not v.noNetworking and not v.isLocal then data[k] = self.vars[k] end
+            if not v.noNetworking and not v.isLocal then
+                data[k] = self.vars[k]
+            end
         end
 
         netstream.Start(receiver, "charInfo", data, self:getID(), self.player)
         for k, v in pairs(lia.char.vars) do
-            if isfunction(v.onSync) then v.onSync(self, receiver) end
+            if isfunction(v.onSync) then
+                v.onSync(self, receiver)
+            end
         end
     end
 end
@@ -157,7 +186,9 @@ function charMeta:setup(noNetworking)
         client:SetSkin(self:getData("skin", 0))
         if not noNetworking then
             for k, v in ipairs(self:getInv(true)) do
-                if istable(v) then v:sync(client) end
+                if istable(v) then
+                    v:sync(client)
+                end
             end
 
             self:sync()
@@ -187,7 +218,10 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function charMeta:ban(time)
     time = tonumber(time)
-    if time then time = os.time() + math.max(math.ceil(time), 60) end
+    if time then
+        time = os.time() + math.max(math.ceil(time), 60)
+    end
+
     self:setData("banned", time or true)
     self:save()
     self:kick()
@@ -204,6 +238,41 @@ function charMeta:destroy()
     local id = self:getID()
     lia.char.loaded[id] = nil
     netstream.Start(nil, "charDel", id)
+end
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function charMeta:giveMoney(amount, takingMoney)
+    local char = self
+    local currentMoney = char:getMoney()
+    local maxMoneyLimit = lia.config.MoneyLimit
+    if hook.Run("WalletLimit", self) ~= nil then
+        maxMoneyLimit = hook.Run("WalletLimit", self)
+    end
+
+    if maxMoneyLimit > 0 then
+        local totalMoney = currentMoney + amount
+        if totalMoney > maxMoneyLimit then
+            local remainingMoney = totalMoney - maxMoneyLimit
+            char:setMoney(maxMoneyLimit)
+            local money = lia.currency.spawn(self:getItemDropPos(), remainingMoney)
+            money.client = self
+            money.charID = char:getID()
+        else
+            char:setMoney(totalMoney)
+        end
+    else
+        char:setMoney(currentMoney + amount)
+    end
+
+    return true
+end
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function charMeta:takeMoney(amount)
+    amount = math.abs(amount)
+    self:giveMoney(-amount, true)
+
+    return true
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

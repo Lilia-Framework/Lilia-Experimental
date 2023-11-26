@@ -1046,4 +1046,39 @@ lia.command.add(
         end
     }
 )
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------
+lia.command.add(
+    "dropmoney",
+    {
+        privilege = "Default User Commands",
+        syntax = "<number amount>",
+        onRun = function(client, arguments)
+            if client:GetNWBool("DropMoneyCooldown", false) then
+                local remainingTime = math.ceil(client:GetNWFloat("DropMoneyCooldownEnd", 0) - CurTime())
+                client:notify("You can't use this command yet. Cooldown remaining: " .. remainingTime .. " seconds.")
+
+                return
+            end
+
+            local amount = tonumber(arguments[1])
+            if not amount or not isnumber(amount) or amount < 1 then return "@invalidArg", 1 end
+            amount = math.Round(amount)
+            if not client:getChar():hasMoney(amount) then return end
+            client:getChar():takeMoney(amount)
+            local money = lia.currency.spawn(client:getItemDropPos(), amount)
+            money.client = client
+            money.charID = client:getChar():getID()
+            client:SetNWBool("DropMoneyCooldown", true)
+            client:SetNWFloat("DropMoneyCooldownEnd", CurTime() + 5)
+            timer.Simple(
+                5,
+                function()
+                    if IsValid(client) then
+                        client:SetNWBool("DropMoneyCooldown", false)
+                    end
+                end
+            )
+        end
+    }
+)
+--------------------------------------------------------------------------------------------------------------------------
