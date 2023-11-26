@@ -3,12 +3,12 @@ local PANEL = {}
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 local function teamGetPlayers(teamID)
     local players = {}
-    for _, ply in next, player.GetAll() do
-        local isDisguised = hook.Run("GetDisguised", ply)
+    for _, client in next, player.GetAll() do
+        local isDisguised = hook.Run("GetDisguised", client)
         if isDisguised and isDisguised == teamID then
-            table.insert(players, ply)
-        elseif not isDisguised and ply:Team() == teamID then
-            table.insert(players, ply)
+            table.insert(players, client)
+        elseif not isDisguised and client:Team() == teamID then
+            table.insert(players, client)
         end
     end
     return players
@@ -59,8 +59,8 @@ function PANEL:Init()
     self.slots = {}
     self.i = {}
     local staffCount = 0
-    for _, ply in ipairs(player.GetAll()) do
-        if ply:IsAdmin() then staffCount = staffCount + 1 end
+    for _, client in ipairs(player.GetAll()) do
+        if client:IsAdmin() then staffCount = staffCount + 1 end
     end
 
     local staffList = self.layout:Add("DListLayout")

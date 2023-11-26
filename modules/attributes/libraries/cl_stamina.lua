@@ -12,11 +12,11 @@ MODULE.predictedStamina = 100
 MODULE.stmBlurAmount = 0
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:Think()
-    local ply = LocalPlayer()
-    if not ply:getChar() then return end
-    local char = ply:getChar()
+    local client = LocalPlayer()
+    if not client:getChar() then return end
+    local char = client:getChar()
     local maxStamina = char:getMaxStamina()
-    local offset = self:CalcStaminaChange(ply)
+    local offset = self:CalcStaminaChange(client)
     offset = math.Remap(FrameTime(), 0, 0.25, 0, offset)
     if offset ~= 0 then
         self.predictedStamina = math.Clamp(self.predictedStamina + offset, 0, maxStamina)
@@ -25,12 +25,12 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:HUDPaintBackground()
-    local ply = LocalPlayer()
-    if not ply:getChar() then return end
+    local client = LocalPlayer()
+    if not client:getChar() then return end
     if not lia.config.StaminaBlur then return end
-    local char = ply:getChar()
+    local char = client:getChar()
     local maxStamina = char:getMaxStamina()
-    local Stamina = ply:getLocalVar("stamina", maxStamina)
+    local Stamina = client:getLocalVar("stamina", maxStamina)
     if Stamina <= 5 then
         stmBlurAlpha = Lerp(RealFrameTime() / 2, stmBlurAlpha, 255)
         stmBlurAmount = Lerp(RealFrameTime() / 2, stmBlurAmount, 5)

@@ -15,8 +15,8 @@ Returns the player's name
 
 ### EXAMPLE USAGE
 ```lua
-function MODULE:PlayerSpawn(ply)
-    ply:Say("Hello, I am " .. ply:Name() .. "!")  -- Says Your Name On Spawn
+function MODULE:PlayerSpawn(client)
+    client:Say("Hello, I am " .. client:Name() .. "!")  -- Says Your Name On Spawn
 end
 ```
 [View source »](https://github.com/Lilia-Framework/Lilia/blob/2.0/lilia/gamemode/backend/libs/character/sh_character.lua#L457)
@@ -32,9 +32,9 @@ Returns the player's character
 
 ### EXAMPLE USAGE
 ```lua
-function MODULE:PlayerSpawn(ply)
-    if ply:getChar() then
-        ply:Say("I spawned with a character!") -- If you have a character, it announces you spawned with a character
+function MODULE:PlayerSpawn(client)
+    if client:getChar() then
+        client:Say("I spawned with a character!") -- If you have a character, it announces you spawned with a character
     end
 end
 ```

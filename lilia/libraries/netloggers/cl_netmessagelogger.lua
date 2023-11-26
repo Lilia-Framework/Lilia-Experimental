@@ -6,7 +6,7 @@ local logList
 local function fillLogs(listview, logs)
     listview:Clear()
     for _, curLog in pairs(logs) do
-        listview:AddLine(curLog.time, curLog.name, curLog.ply, curLog.steamID, curLog.len, curLog.source, curLog.ip)
+        listview:AddLine(curLog.time, curLog.name, curLog.client, curLog.steamID, curLog.len, curLog.source, curLog.ip)
     end
 end
 

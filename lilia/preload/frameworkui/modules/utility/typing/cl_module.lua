@@ -18,13 +18,13 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:HUDPaint()
-    local ply = LocalPlayer()
-    local ourPos = ply:GetPos()
+    local client = LocalPlayer()
+    local ourPos = client:GetPos()
     local time = RealTime() * 5
-    data.start = ply:EyePos()
-    data.filter = ply
+    data.start = client:EyePos()
+    data.filter = client
     for k, v in ipairs(player.GetAll()) do
-        if v ~= ply and v:getNetVar("typing") and v:GetMoveType() == MOVETYPE_WALK then
+        if v ~= client and v:getNetVar("typing") and v:GetMoveType() == MOVETYPE_WALK then
             data.endpos = v:EyePos()
             if util.TraceLine(data).Entity ~= v then continue end
             local position = v:GetPos()

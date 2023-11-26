@@ -15,14 +15,14 @@ end
 function MODULE:IsCharFakeRecognized(char, id)
     local other = lia.char.loaded[id]
     local CharNameList = char:getRecognizedAs()
-    local plyName = CharNameList[other:getID()]
-    return lia.config.FakeNamesEnabled and self:IsFakeNameExistant(plyName, CharNameList)
+    local clientName = CharNameList[other:getID()]
+    return lia.config.FakeNamesEnabled and self:IsFakeNameExistant(clientName, CharNameList)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function MODULE:IsFakeNameExistant(plyName, CharNameList)
+function MODULE:IsFakeNameExistant(clientName, CharNameList)
     for _, n in pairs(CharNameList) do
-        if n == plyName then return true end
+        if n == clientName then return true end
     end
     return false
 end

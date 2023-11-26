@@ -39,10 +39,10 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:DrawPlayerRagdoll(entity)
-    local ply = entity.objCache
-    if IsValid(ply) and not entity.overridePAC3 then
-        if ply.pac_outfits then
-            for _, part in pairs(ply.pac_outfits) do
+    local client = entity.objCache
+    if IsValid(client) and not entity.overridePAC3 then
+        if client.pac_outfits then
+            for _, part in pairs(client.pac_outfits) do
                 if IsValid(part.last_owner) then
                     hook.Run("OnPAC3PartTransfered", part)
                     part:SetOwner(entity)
@@ -51,7 +51,7 @@ function MODULE:DrawPlayerRagdoll(entity)
             end
         end
 
-        ply.pac_playerspawn = pac.RealTime
+        client.pac_playerspawn = pac.RealTime
         entity.overridePAC3 = true
     end
 end

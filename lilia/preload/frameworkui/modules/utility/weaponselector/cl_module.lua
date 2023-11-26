@@ -92,7 +92,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:PlayerBindPress(client, bind, pressed)
     local weapon = client:GetActiveWeapon()
-    local lPly = LocalPlayer()
+    local client = LocalPlayer()
     if not client:InVehicle() and (not IsValid(weapon) or weapon:GetClass() ~= "weapon_physgun" or not client:KeyDown(IN_ATTACK)) then
         if IsValid(weapon) and weapon.CW20Weapon and not bind:find("invprev") and not bind:find("invnext") and not (bind:find("attack") and self.alpha > 0) and not (bind:find("slot") and weapon.dt.State ~= CW_CUSTOMIZE) then return end
         bind = bind:lower()
@@ -115,14 +115,14 @@ function MODULE:PlayerBindPress(client, bind, pressed)
 
             return true
         elseif bind:find("slot") then
-            self.index = math.Clamp(tonumber(bind:match("slot(%d)")) or 1, 1, #lPly:GetWeapons())
+            self.index = math.Clamp(tonumber(bind:match("slot(%d)")) or 1, 1, #client:GetWeapons())
             self:onIndexChanged()
 
             return true
         elseif bind:find("attack") and pressed and self.alpha > 0 then
-            if self ~= nil and lPly ~= nil and lPly:GetWeapons() ~= nil and lPly:GetWeapons()[self.index] ~= nil then
-                lPly:EmitSound(hook.Run("WeaponSelectSound", lPly:GetWeapons()[self.index]) or "buttons/button16.wav")
-                lPly:SelectWeapon(lPly:GetWeapons()[self.index]:GetClass())
+            if self ~= nil and client ~= nil and client:GetWeapons() ~= nil and client:GetWeapons()[self.index] ~= nil then
+                client:EmitSound(hook.Run("WeaponSelectSound", client:GetWeapons()[self.index]) or "buttons/button16.wav")
+                client:SelectWeapon(client:GetWeapons()[self.index]:GetClass())
                 self.alpha = 0
 
                 return true
