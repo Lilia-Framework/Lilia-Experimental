@@ -254,7 +254,7 @@ function charMeta:giveMoney(amount, takingMoney)
             local totalMoney = currentMoney + amount
             if totalMoney > maxMoneyLimit then
                 local remainingMoney = totalMoney - maxMoneyLimit
-                client:notify("You can't carry more than " .. maxMoneyLimit .. " dropping remaining " .. remainingMoney .. " " .. lia.currency.plural .. " on the ground!")
+                client:notify("You can't carry more than " .. maxMoneyLimit .. " " .. lia.currency.plural .. " dropping remaining " .. remainingMoney .. " " .. lia.currency.plural .. " on the ground!")
                 self:setMoney(maxMoneyLimit)
                 local money = lia.currency.spawn(client:getItemDropPos(), remainingMoney)
                 money.client = client
