@@ -30,7 +30,7 @@ function playerMeta:AddMoney(amount)
     local char = self:getChar()
     if not char then return end
     local currentMoney = char:getMoney()
-    local maxMoneyLimit = lia.config.MoneyLimit
+    local maxMoneyLimit = lia.config.MoneyLimit or 0
     if hook.Run("WalletLimit", self) ~= nil then
         maxMoneyLimit = hook.Run("WalletLimit", self)
     end
@@ -83,7 +83,7 @@ function playerMeta:addMoney(amount)
     local char = self:getChar()
     if not char then return end
     local currentMoney = char:getMoney()
-    local maxMoneyLimit = lia.config.MoneyLimit
+    local maxMoneyLimit = lia.config.MoneyLimit or 0
     if hook.Run("WalletLimit", self) ~= nil then
         maxMoneyLimit = hook.Run("WalletLimit", self)
     end
