@@ -13,7 +13,7 @@
 - [Commands List](https://github.com/Lilia-Framework/Lilia/wiki/Commands)
 ## Community
 
-- [Community Discord](https://discord.gg/kuYsNZWkWj)
+- [Community Discord](https://discord.gg/jjrhyeuzYV)
 
 - [Curated Content Repositories](https://github.com/Lilia-Framework/Lilia/wiki/Curated-Content-Repositories)
 # Framework Methods
