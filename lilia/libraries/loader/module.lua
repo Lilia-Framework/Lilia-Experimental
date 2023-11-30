@@ -68,7 +68,7 @@ function lia.module.load(uniqueID, path, isSingleFile, variable, IsCore)
     for k, v in pairs(MODULE) do
         if isfunction(v) then hook.Add(k, IsCore and GM or MODULE, v) end
     end
-    
+
     if uniqueID == "schema" then
         function MODULE:IsValid()
             return true
