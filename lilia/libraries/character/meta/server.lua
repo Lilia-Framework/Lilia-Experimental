@@ -138,7 +138,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function charMeta:sync(receiver)
     if receiver == nil then
-        for k, v in ipairs(player.GetAll()) do
+        for _, v in ipairs(player.GetAll()) do
             self:sync(v)
         end
     elseif receiver == self.player then
@@ -150,7 +150,7 @@ function charMeta:sync(receiver)
         end
 
         netstream.Start(self.player, "charInfo", data, self:getID())
-        for k, v in pairs(lia.char.vars) do
+        for _, v in pairs(lia.char.vars) do
             if isfunction(v.onSync) then
                 v.onSync(self, self.player)
             end
@@ -164,7 +164,7 @@ function charMeta:sync(receiver)
         end
 
         netstream.Start(receiver, "charInfo", data, self:getID(), self.player)
-        for k, v in pairs(lia.char.vars) do
+        for _, v in pairs(lia.char.vars) do
             if isfunction(v.onSync) then
                 v.onSync(self, receiver)
             end
@@ -185,7 +185,7 @@ function charMeta:setup(noNetworking)
 
         client:SetSkin(self:getData("skin", 0))
         if not noNetworking then
-            for k, v in ipairs(self:getInv(true)) do
+            for _, v in ipairs(self:getInv(true)) do
                 if istable(v) then
                     v:sync(client)
                 end

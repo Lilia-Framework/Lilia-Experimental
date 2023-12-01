@@ -25,7 +25,7 @@ if SERVER then
             "SELECT _id, _name FROM lia_characters",
             function(data)
                 if data and #data > 0 then
-                    for k, v in pairs(data) do
+                    for _, v in pairs(data) do
                         lia.char.names[v._id] = v._name
                     end
                 end
@@ -149,7 +149,7 @@ lia.char.registerVar(
             end
 
             if not lia.config.AllowExistNames then
-                for k, v in pairs(lia.char.names) do
+                for _, v in pairs(lia.char.names) do
                     if v == value then return false, "A character with this name already exists." end
                 end
             end
@@ -185,7 +185,7 @@ lia.char.registerVar(
         field = "_desc",
         default = "",
         index = 2,
-        onValidate = function(value, data)
+        onValidate = function(value, _)
             if noDesc then return true end
             local minLength = lia.config.MinDescLen
             if not value or #value:gsub("%s", "") < minLength then return false, "descMinLen", minLength end
@@ -224,8 +224,8 @@ lia.char.registerVar(
                     local icon = layout:Add("SpawnIcon")
                     icon:SetSize(64, 128)
                     icon:InvalidateLayout(true)
-                    icon.DoClick = function(this) panel.payload.model = k end
-                    icon.PaintOver = function(this, w, h)
+                    icon.DoClick = function(_) panel.payload.model = k end
+                    icon.PaintOver = function(_, w, h)
                         if panel.payload.model == k then
                             local color = lia.config.Color
                             surface.SetDrawColor(color.r, color.g, color.b, 200)
@@ -249,7 +249,7 @@ lia.char.registerVar(
             end
             return scroll
         end,
-        onValidate = function(value, data)
+        onValidate = function(_, data)
             local faction = lia.faction.indices[data.faction]
             if faction then
                 if not data.model or not faction.models[data.model] then return false, "needModel" end
@@ -257,7 +257,7 @@ lia.char.registerVar(
                 return false, "needModel"
             end
         end,
-        onAdjust = function(client, data, value, newData)
+        onAdjust = function(_, data, value, newData)
             local faction = lia.faction.indices[data.faction]
             if faction then
                 local model = faction.models[value]
@@ -275,7 +275,7 @@ lia.char.registerVar(
                             i = i + 1
                         end
                     elseif istable(model[3]) then
-                        for k, v in pairs(model[3]) do
+                        for _, v in pairs(model[3]) do
                             groups[tonumber(k)] = tonumber(v)
                         end
                     end
@@ -316,12 +316,12 @@ lia.char.registerVar(
             local faction = lia.faction.teams[character.vars.faction]
             return faction and faction.index or default or 0
         end,
-        onValidate = function(value, data, client)
+        onValidate = function(value, _, client)
             if not lia.faction.indices[value] then return false, "invalid", "faction" end
             if not client:hasWhitelist(value) then return false, "illegalAccess" end
             return true
         end,
-        onAdjust = function(client, data, value, newData) newData.faction = lia.faction.indices[value].uniqueID end
+        onAdjust = function(_, _, value, newData) newData.faction = lia.faction.indices[value].uniqueID end
     }
 )
 

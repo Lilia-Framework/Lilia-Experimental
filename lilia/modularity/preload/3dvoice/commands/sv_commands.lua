@@ -47,7 +47,7 @@ lia.command.add(
         superAdminOnly = true,
         privilege = "Voice ban Character",
         syntax = "<string name>",
-        onRun = function(client, arguments)
+        onRun = function(client)
             local voiceEnabled = GetGlobalBool("EnabledVoice", true)
             if voiceEnabled then
                 client:notify("You have disabled voice!")

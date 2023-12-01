@@ -19,7 +19,7 @@ function lia.char.create(data, callback)
         },
         function(_, charID)
             local client
-            for k, v in ipairs(player.GetAll()) do
+            for _, v in ipairs(player.GetAll()) do
                 if v:SteamID64() == data.steamID then
                     client = v
                     break
@@ -40,7 +40,7 @@ function lia.char.create(data, callback)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function lia.char.restore(client, callback, noCache, id)
+function lia.char.restore(client, callback, _, id)
     local steamID64 = client:SteamID64()
     local fields = {"_id"}
     for _, var in pairs(lia.char.vars) do
@@ -62,7 +62,7 @@ function lia.char.restore(client, callback, noCache, id)
                 return
             end
 
-            for k, v in ipairs(results) do
+            for _, v in ipairs(results) do
                 local id = tonumber(v._id)
                 if not id then
                     ErrorNoHalt("[Lilia] Attempt to load character '" .. (data._name or "nil") .. "' with invalid ID!")

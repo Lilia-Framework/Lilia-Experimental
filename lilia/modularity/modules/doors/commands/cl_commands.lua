@@ -3,7 +3,7 @@ lia.command.add(
     "doorsell",
     {
         privilege = "Default User Commands",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -12,7 +12,7 @@ lia.command.add(
     "doorbuy",
     {
         privilege = "Default User Commands",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -23,7 +23,7 @@ lia.command.add(
         adminOnly = true,
         syntax = "[string name]",
         privilege = "Manage Doors",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -34,7 +34,7 @@ lia.command.add(
         adminOnly = true,
         syntax = "[string name]",
         privilege = "Manage Doors",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -45,7 +45,7 @@ lia.command.add(
         adminOnly = true,
         syntax = "[string faction]",
         privilege = "Manage Doors",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -56,7 +56,7 @@ lia.command.add(
         adminOnly = true,
         syntax = "[string faction]",
         privilege = "Manage Doors",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -67,7 +67,7 @@ lia.command.add(
         adminOnly = true,
         syntax = "<bool disabled>",
         privilege = "Manage Doors",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -77,7 +77,7 @@ lia.command.add(
     {
         syntax = "<string title>",
         privilege = "Manage Doors",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -87,7 +87,7 @@ lia.command.add(
     {
         adminOnly = true,
         privilege = "Manage Doors",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -97,7 +97,7 @@ lia.command.add(
     {
         adminOnly = true,
         privilege = "Manage Doors",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -107,7 +107,7 @@ lia.command.add(
     {
         adminOnly = true,
         privilege = "Manage Doors",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -118,7 +118,7 @@ lia.command.add(
         adminOnly = true,
         syntax = "<bool hidden>",
         privilege = "Manage Doors",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -129,7 +129,7 @@ lia.command.add(
         adminOnly = true,
         syntax = "[string faction]",
         privilege = "Manage Doors",
-        onRun = function(client, arguments) end,
+        onRun = function() end,
         alias = {"jobdoor"}
     }
 )

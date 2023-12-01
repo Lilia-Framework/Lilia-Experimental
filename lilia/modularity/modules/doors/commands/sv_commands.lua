@@ -4,7 +4,7 @@ lia.command.add(
     "doorsell",
     {
         privilege = "Default User Commands",
-        onRun = function(client, arguments)
+        onRun = function(client)
             local entity = client:GetTracedEntity()
             if IsValid(entity) and entity:isDoor() and not entity:getNetVar("disabled") then
                 if client == entity:GetDTEntity(0) then
@@ -29,7 +29,7 @@ lia.command.add(
     "doorbuy",
     {
         privilege = "Default User Commands",
-        onRun = function(client, arguments)
+        onRun = function(client)
             local entity = client:GetTracedEntity()
             if IsValid(entity) and entity:isDoor() and not entity:getNetVar("disabled") then
                 if entity:getNetVar("noSell") or entity:getNetVar("faction") or entity:getNetVar("class") then return client:notifyLocalized("dNotAllowedToOwn") end
@@ -299,7 +299,7 @@ lia.command.add(
     {
         adminOnly = true,
         privilege = "Manage Doors",
-        onRun = function(client, arguments)
+        onRun = function(client)
             local entity = client:GetEyeTrace().Entity
             if IsValid(entity) and entity:isDoor() and not entity:getNetVar("disabled") then
                 if client.liaDoorParent == entity then return client:notifyLocalized("dCanNotSetAsChild") end
@@ -326,7 +326,7 @@ lia.command.add(
     {
         adminOnly = true,
         privilege = "Manage Doors",
-        onRun = function(client, arguments)
+        onRun = function(client)
             local entity = client:GetEyeTrace().Entity
             if IsValid(entity) and entity:isDoor() and not entity:getNetVar("disabled") then
                 if client.liaDoorParent == entity then

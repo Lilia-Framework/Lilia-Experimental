@@ -40,7 +40,7 @@ lia.command.add(
     {
         privilege = "Block OOC",
         syntax = "<string target>",
-        onRun = function(client, arguments)
+        onRun = function(client)
             if GetGlobalBool("oocblocked", false) then
                 SetGlobalBool("oocblocked", false)
                 client:notify("Unlocked OOC!")
@@ -58,7 +58,7 @@ lia.command.add(
     {
         superAdminOnly = true,
         privilege = "Clear Chat",
-        onRun = function(client, arguments) netstream.Start(player.GetAll(), "adminClearChat") end
+        onRun = function() netstream.Start(player.GetAll(), "adminClearChat") end
     }
 )
 
@@ -68,7 +68,7 @@ lia.command.add(
     {
         privilege = "Refresh Fonts",
         syntax = "<No Input>",
-        onRun = function(client, arguments)
+        onRun = function(client)
             RunConsoleCommand("fixchatplz")
             hook.Run("LoadFonts", lia.config.get("font"))
             client:ChatPrint("Fonts have been refreshed!")

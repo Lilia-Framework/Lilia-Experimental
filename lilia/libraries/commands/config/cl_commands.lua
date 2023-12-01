@@ -5,7 +5,7 @@ lia.command.add(
         adminOnly = true,
         privilege = "Set Character Speed",
         syntax = "<string name> <number speed>",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -16,7 +16,7 @@ lia.command.add(
         adminOnly = true,
         privilege = "Set Character Jump",
         syntax = "<string name> <number power>",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -27,7 +27,7 @@ lia.command.add(
         privilege = "Add Money",
         superAdminOnly = true,
         syntax = "<string target> <number amount>",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -38,7 +38,7 @@ lia.command.add(
         superAdminOnly = true,
         syntax = "<string name>",
         privilege = "Ban Characters",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -49,7 +49,7 @@ lia.command.add(
         adminOnly = true,
         syntax = "<string name> <string desc>",
         privilege = "Change Description",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -60,7 +60,7 @@ lia.command.add(
         adminOnly = true,
         syntax = "<string name> [string newName]",
         privilege = "Change Name",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -71,7 +71,7 @@ lia.command.add(
         adminOnly = true,
         syntax = "<string name>",
         privilege = "Retrieve Model",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -82,7 +82,7 @@ lia.command.add(
         adminOnly = true,
         syntax = "<string name> <string model>",
         privilege = "Change Model",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -93,7 +93,7 @@ lia.command.add(
         adminOnly = true,
         privilege = "Change Bodygroups",
         syntax = "<string name> <string bodyGroup> [number value]",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -104,7 +104,7 @@ lia.command.add(
         adminOnly = true,
         syntax = "<string name> [number skin]",
         privilege = "Change Skin",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -115,7 +115,7 @@ lia.command.add(
         adminOnly = true,
         syntax = "<string name>",
         privilege = "Retrieve Money",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -126,7 +126,7 @@ lia.command.add(
         superAdminOnly = true,
         syntax = "<string target> <number amount>",
         privilege = "Change Money",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -137,7 +137,7 @@ lia.command.add(
         superAdminOnly = true,
         syntax = "<string name>",
         privilege = "Clear Inventory",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -148,7 +148,7 @@ lia.command.add(
         adminOnly = true,
         syntax = "<string name> [string flags]",
         privilege = "Toggle Flags",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -159,7 +159,7 @@ lia.command.add(
         adminOnly = true,
         syntax = "<string name> [string flags]",
         privilege = "Toggle Flags",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -170,7 +170,7 @@ lia.command.add(
         adminOnly = true,
         syntax = "<string name>",
         privilege = "Kick Characters",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -181,7 +181,7 @@ lia.command.add(
         syntax = "<string name>",
         superAdminOnly = true,
         privilege = "Un-Ban Characters",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -191,7 +191,7 @@ lia.command.add(
     {
         privilege = "Give pet Flags",
         syntax = "[character name]",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -202,7 +202,7 @@ lia.command.add(
         adminOnly = true,
         privilege = "Hand Ragdoll Medals",
         syntax = "<string name>",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -213,7 +213,7 @@ lia.command.add(
         privilege = "Check Flags",
         adminOnly = true,
         syntax = "<string name>",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -223,7 +223,7 @@ lia.command.add(
     {
         superAdminOnly = true,
         privilege = "Freeze All Props",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -234,7 +234,7 @@ lia.command.add(
         syntax = "<string target>",
         privilege = "Check Money",
         adminOnly = true,
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -243,7 +243,7 @@ lia.command.add(
     "status",
     {
         privilege = "Default User Commands",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -253,7 +253,7 @@ lia.command.add(
     {
         superAdminOnly = true,
         privilege = "Clean Items",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -263,7 +263,7 @@ lia.command.add(
     {
         superAdminOnly = true,
         privilege = "Clean Props",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -273,9 +273,7 @@ lia.command.add(
     {
         superAdminOnly = true,
         privilege = "Save Map Data",
-        onRun = function(client, arguments)
-            hook.Run("SaveData")
-        end
+        onRun = function() end
     }
 )
 
@@ -285,7 +283,7 @@ lia.command.add(
     {
         superAdminOnly = true,
         privilege = "Clean NPCs",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -296,7 +294,7 @@ lia.command.add(
         adminOnly = true,
         syntax = "<string name>",
         privilege = "Check Flags",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -307,7 +305,7 @@ lia.command.add(
         superAdminOnly = true,
         syntax = "<string charname>",
         privilege = "Check All Money",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -317,7 +315,7 @@ lia.command.add(
     {
         adminOnly = true,
         privilege = "Return",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -327,7 +325,7 @@ lia.command.add(
     {
         adminOnly = false,
         privilege = "Find All Flags",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -338,7 +336,7 @@ lia.command.add(
         superAdminOnly = true,
         syntax = "<string name> <string item>",
         privilege = "Give Item",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -348,7 +346,7 @@ lia.command.add(
     {
         superAdminOnly = true,
         privilege = "Check Net Message Log",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -359,7 +357,7 @@ lia.command.add(
         superAdminOnly = true,
         syntax = "<string name>",
         privilege = "Return Items",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -370,7 +368,7 @@ lia.command.add(
         superAdminOnly = true,
         syntax = "<string factions> <string text>",
         privilege = "Make Announcements",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -380,7 +378,7 @@ lia.command.add(
     {
         privilege = "Default User Commands",
         syntax = "<No Input>",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -390,7 +388,7 @@ lia.command.add(
     {
         adminOnly = false,
         privilege = "Default User Commands",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -400,7 +398,7 @@ lia.command.add(
     {
         adminOnly = false,
         privilege = "List Staff",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -410,7 +408,7 @@ lia.command.add(
     {
         adminOnly = false,
         privilege = "List VIPs",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -420,7 +418,7 @@ lia.command.add(
     {
         adminOnly = false,
         privilege = "List Users",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -431,7 +429,7 @@ lia.command.add(
         adminOnly = false,
         privilege = "Default User Commands",
         syntax = "<number dice> <number pips> <number bonus>",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -441,7 +439,7 @@ lia.command.add(
     {
         adminOnly = false,
         privilege = "Default User Commands",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -452,7 +450,7 @@ lia.command.add(
         adminOnly = false,
         privilege = "Default User Commands",
         syntax = "<string desc>",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -462,7 +460,7 @@ lia.command.add(
     {
         adminOnly = false,
         privilege = "Default User Commands",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -473,7 +471,7 @@ lia.command.add(
         adminOnly = false,
         privilege = "Default User Commands",
         syntax = "<number amount>",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -483,7 +481,7 @@ lia.command.add(
     {
         adminOnly = false,
         privilege = "Default User Commands",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -493,7 +491,7 @@ lia.command.add(
     {
         adminOnly = false,
         privilege = "Default User Commands",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -504,7 +502,7 @@ lia.command.add(
         adminOnly = false,
         privilege = "Default User Commands",
         syntax = "[number time]",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -514,17 +512,17 @@ lia.command.add(
     {
         adminOnly = false,
         privilege = "Default User Commands",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 lia.command.add(
-    "doorname",
+    "entname",
     {
         adminOnly = false,
         privilege = "Default User Commands",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -534,7 +532,7 @@ lia.command.add(
     {
         privilege = "Clear Decals",
         adminOnly = true,
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -544,7 +542,7 @@ lia.command.add(
     {
         privilege = "Default User Commands",
         syntax = "<number amount>",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 --------------------------------------------------------------------------------------------------------------------------

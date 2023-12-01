@@ -50,7 +50,7 @@ lia.command.add(
             if IsValid(target) and target:getChar() then
                 local faction = lia.faction.teams[name]
                 if not faction then
-                    for k, v in pairs(lia.faction.indices) do
+                    for _, v in pairs(lia.faction.indices) do
                         if lia.util.stringMatches(L(v.name, client), name) then
                             faction = v
                             break
@@ -85,7 +85,7 @@ lia.command.add(
             if IsValid(target) then
                 local faction = lia.command.findFaction(client, table.concat(arguments, " ", 2))
                 if faction and target:setWhitelisted(faction.index, true) then
-                    for k, v in ipairs(player.GetAll()) do
+                    for _, v in ipairs(player.GetAll()) do
                         v:notifyLocalized("whitelist", client:Name(), target:Name(), L(faction.name, v))
                     end
                 end
@@ -106,7 +106,7 @@ lia.command.add(
             if IsValid(target) then
                 local faction = lia.command.findFaction(client, table.concat(arguments, " ", 2))
                 if faction and target:setWhitelisted(faction.index, false) then
-                    for k, v in ipairs(player.GetAll()) do
+                    for _, v in ipairs(player.GetAll()) do
                         v:notifyLocalized("unwhitelist", client:Name(), target:Name(), L(faction.name, v))
                     end
                 end
@@ -165,8 +165,8 @@ lia.command.add(
         adminOnly = false,
         privilege = "Default User Commands",
         syntax = "<string text>",
-        onRun = function(client, arguments)
-            for k, v in ipairs(lia.faction.indices) do
+        onRun = function(client)
+            for _, v in ipairs(lia.faction.indices) do
                 client:ChatPrint("NAME: " .. v.name .. " ID: " .. v.uniqueID)
             end
         end
@@ -187,7 +187,7 @@ lia.command.add(
                 local classFound
                 if lia.class.list[name] then classFound = lia.class.list[name] end
                 if not classFound then
-                    for k, v in ipairs(lia.class.list) do
+                    for _, v in ipairs(lia.class.list) do
                         if lia.util.stringMatches(L(v.name, client), arguments[2]) then
                             classFound = v
                             break

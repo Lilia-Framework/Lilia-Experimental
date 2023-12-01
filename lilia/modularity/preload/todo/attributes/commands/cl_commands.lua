@@ -5,7 +5,7 @@ lia.command.add(
         adminOnly = false,
         privilege = "Default User Commands",
         syntax = "[number maximum]",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -16,7 +16,7 @@ lia.command.add(
         adminOnly = false,
         privilege = "Default User Commands",
         syntax = "[number maximum]",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -27,7 +27,7 @@ lia.command.add(
         adminOnly = false,
         privilege = "Default User Commands",
         syntax = "[number maximum]",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -38,7 +38,7 @@ lia.command.add(
         superAdminOnly = true,
         syntax = "<string charname> <string attribname> <number level>",
         privilege = "Change Attributes",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -49,7 +49,7 @@ lia.command.add(
         superAdminOnly = true,
         syntax = "<string charname> <string attribname> <number level>",
         privilege = "Change Attributes",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

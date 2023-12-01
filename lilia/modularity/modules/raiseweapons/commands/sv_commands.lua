@@ -4,7 +4,7 @@ lia.command.add(
     {
         adminOnly = false,
         privilege = "Default User Commands",
-        onRun = function(client, arguments)
+        onRun = function(client)
             if (client.liaNextToggle or 0) < CurTime() then
                 client:toggleWepRaised()
                 client.liaNextToggle = CurTime() + lia.config.WeaponToggleDelay

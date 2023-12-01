@@ -1,20 +1,10 @@
 ﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-local MODULE = MODULE
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 lia.command.add(
     "banooc",
     {
         privilege = "Ban OOC",
         syntax = "<string target>",
-        onRun = function(client, arguments)
-            local target = lia.command.findPlayer(client, arguments[1])
-            if target then
-                MODULE.oocBans[target:SteamID()] = true
-                client:notify(target:Name() .. " has been banned from OOC.")
-            else
-                client:notify("Invalid target.")
-            end
-        end
+        onRun = function() end
     }
 )
 
@@ -24,13 +14,7 @@ lia.command.add(
     {
         privilege = "Unban OOC",
         syntax = "<string target>",
-        onRun = function(client, arguments)
-            local target = lia.command.findPlayer(client, arguments[1])
-            if target then
-                MODULE.oocBans[target:SteamID()] = nil
-                client:notify(target:Name() .. " has been unbanned from OOC.")
-            end
-        end
+        onRun = function() end
     }
 )
 
@@ -40,15 +24,7 @@ lia.command.add(
     {
         privilege = "Block OOC",
         syntax = "<string target>",
-        onRun = function(client, arguments)
-            if GetGlobalBool("oocblocked", false) then
-                SetGlobalBool("oocblocked", false)
-                client:notify("Unlocked OOC!")
-            else
-                SetGlobalBool("oocblocked", true)
-                client:notify("Blocked OOC!")
-            end
-        end
+        onRun = function() end
     }
 )
 
@@ -58,7 +34,7 @@ lia.command.add(
     {
         superAdminOnly = true,
         privilege = "Clear Chat",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -68,7 +44,7 @@ lia.command.add(
     {
         privilege = "Refresh Fonts",
         syntax = "<No Input>",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -22,7 +22,7 @@ function lia.chat.register(chatType, data)
             local range = data.radius ^ 2
             data.onCanHear = function(speaker, listener) return (speaker:GetPos() - listener:GetPos()):LengthSqr() <= range end
         else
-            data.onCanHear = function(speaker, listener) return true end
+            data.onCanHear = function() return true end
         end
     elseif isnumber(data.onCanHear) then
         local range = data.onCanHear ^ 2
@@ -30,7 +30,7 @@ function lia.chat.register(chatType, data)
     end
 
     if not data.onCanSay then
-        data.onCanSay = function(speaker, text)
+        data.onCanSay = function(speaker)
             if not data.deadCanChat and not speaker:Alive() then
                 speaker:notifyLocalized("noPerm")
                 return false

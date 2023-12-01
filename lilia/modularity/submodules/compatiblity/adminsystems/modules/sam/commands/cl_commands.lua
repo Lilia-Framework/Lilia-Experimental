@@ -14,7 +14,7 @@ for _, commandInfo in ipairs(sam.command.get_commands()) do
             adminOnly = commandInfo.default_rank == "admin",
             superAdminOnly = commandInfo.default_rank == "superadmin",
             syntax = customSyntax,
-            onRun = function(client, arguments)
+            onRun = function()
             end
         }
     )

@@ -5,7 +5,7 @@ lia.command.add(
         adminOnly = true,
         privilege = "Voice Unban Character",
         syntax = "<string name>",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -16,7 +16,7 @@ lia.command.add(
         adminOnly = true,
         privilege = "Voice ban Character",
         syntax = "<string name>",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -27,7 +27,7 @@ lia.command.add(
         superAdminOnly = true,
         privilege = "Voice ban Character",
         syntax = "<string name>",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
