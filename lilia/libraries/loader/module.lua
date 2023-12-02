@@ -5,7 +5,7 @@ lia.module.list = lia.module.list or {}
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 lia.module.unloaded = lia.module.unloaded or {}
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-lia.config.ModuleFolders = {"dependencies", "/config", "/libs", "/hooks", "/libraries", "/commands", "/netcalls", "/meta", "/derma",}
+lia.config.ModuleFolders = {"dependencies", "config", "libs", "hooks", "libraries", "commands", "netcalls", "meta", "derma",}
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 lia.module.ModuleConditions = {
     mlogs = mLogs,
@@ -36,7 +36,10 @@ function lia.module.load(uniqueID, path, isSingleFile, variable, IsCore)
     }
 
     if uniqueID == "schema" then
-        if SCHEMA then MODULE = SCHEMA end
+        if SCHEMA then
+            MODULE = SCHEMA
+        end
+
         variable = "SCHEMA"
         MODULE.folder = schema
     elseif lia.module.list[uniqueID] then
@@ -53,10 +56,16 @@ function lia.module.load(uniqueID, path, isSingleFile, variable, IsCore)
         end
     end
 
-    if not isSingleFile then lia.module.loadExtras(path) end
+    if not isSingleFile then
+        lia.module.loadExtras(path)
+    end
+
     MODULE.loading = false
     local uniqueID2 = uniqueID
-    if uniqueID2 == "schema" then uniqueID2 = MODULE.name end
+    if uniqueID2 == "schema" then
+        uniqueID2 = MODULE.name
+    end
+
     function MODULE:setData(value, global, ignoreMap)
         lia.data.set(uniqueID2, value, global, ignoreMap)
     end
@@ -66,7 +75,9 @@ function lia.module.load(uniqueID, path, isSingleFile, variable, IsCore)
     end
 
     for k, v in pairs(MODULE) do
-        if isfunction(v) then hook.Add(k, IsCore and GM or MODULE, v) end
+        if isfunction(v) then
+            hook.Add(k, MODULE, v)
+        end
     end
 
     if uniqueID == "schema" then
@@ -74,14 +85,12 @@ function lia.module.load(uniqueID, path, isSingleFile, variable, IsCore)
             return true
         end
     else
-        if MODULE.identifier then
+        if MODULE.identifier and MODULE.identifier ~= "" then
             if _G[MODULE.identifier] then
                 print("The identifier '" .. MODULE.identifier .. "' already exists as a global variable.")
             else
-                if MODULE.identifier then
-                    _G[MODULE.identifier] = MODULE
-                    print("Registered" .. MODULE.identifier .. " as global variable pertaining to " .. MODULE.name .. "!")
-                end
+                _G[MODULE.identifier] = MODULE
+                print("Registered " .. MODULE.identifier .. " as a global variable pertaining to " .. MODULE.name .. "!")
             end
         end
 
@@ -90,7 +99,9 @@ function lia.module.load(uniqueID, path, isSingleFile, variable, IsCore)
     end
 
     hook.Run("ModuleLoaded", uniqueID, MODULE)
-    if MODULE.OnLoaded then MODULE:OnLoaded() end
+    if MODULE.OnLoaded then
+        MODULE:OnLoaded()
+    end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -153,6 +164,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function lia.module.isDisabled(uniqueID)
     if lia.module.ModuleConditions[uniqueID] ~= nil then return not modules[uniqueID] end
+
     return lia.config.UnLoadedModules[uniqueID] == true or lia.data.get("unloaded", {}, false, true)[uniqueID] == true
 end
 

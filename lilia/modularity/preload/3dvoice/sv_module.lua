@@ -9,6 +9,7 @@ VoiceData.CanHearCache = false
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:PlayerCanHearPlayersVoice(listener, speaker)
     local HasCharacter = speaker:getChar()
+    if not HasCharacter then return false end
     local IsVoiceEnabled = lia.config.IsVoiceEnabled and GetGlobalBool("EnabledVoice", true)
     local IsVoiceBanned = speaker:getChar():getData("VoiceBan", false)
     local VoiceRefreshRate = lia.config.VoiceRefreshRate
@@ -23,7 +24,7 @@ function MODULE:PlayerCanHearPlayersVoice(listener, speaker)
         }
     )
 
-    if not (HasCharacter or IsVoiceEnabled) or IsVoiceBanned then return false end
+    if not IsVoiceEnabled or IsVoiceBanned then return false end
     if (CurTime() - VoiceData.cache > VoiceRefreshRate) and (listener ~= speaker) then
         VoiceData.cache = CurTime()
         if speaker:GetPos():DistToSqr(listener:GetPos()) <= VoiceRadiusSquared then

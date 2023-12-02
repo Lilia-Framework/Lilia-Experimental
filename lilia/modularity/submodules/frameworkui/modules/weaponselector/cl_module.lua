@@ -25,7 +25,7 @@ function MODULE:HUDPaint()
         local spacing = math.pi * 0.85
         local radius = 240 * self.alphaDelta
         self.deltaIndex = Lerp(frameTime * 12, self.deltaIndex, self.index)
-        math.Approach(self.deltaIndex, self.index, fTime() * 12)
+        math.Approach(self.deltaIndex, self.index, frameTime * 12)
         local index = self.deltaIndex
         for k, v in ipairs(weapons) do
             if not weapons[self.index] then

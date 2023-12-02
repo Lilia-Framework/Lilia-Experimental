@@ -16,7 +16,7 @@ function GM:TranslateActivity(client, act)
             end
 
             local holdType = IsValid(weapon) and (weapon.HoldType or weapon.GetHoldType(weapon)) or "normal"
-            holdType = lia.config.Playerlia.config.HoldTypeTranslator[holdType] or "passive"
+            holdType = lia.config.PlayerHoldTypeTranslator[holdType] or "passive"
             local tree = lia.anim.player[holdType]
             if tree and tree[act] then
                 if isstring(tree[act])  then

@@ -18,9 +18,11 @@ function MODULE:CalcView(client, origin, angles, fov)
                 view.origin = data.Pos
                 view.angles = data.Ang
             end
+
             return view
         end
     end
+
     return view
 end
 
@@ -32,12 +34,16 @@ function MODULE:HUDPaint()
         if owner:Alive() then
             if aprg ~= 0 then
                 aprg2 = math.Clamp(aprg2 - ft * 1.3, 0, 1)
-                if aprg2 == 0 then aprg = math.Clamp(aprg - ft * .7, 0, 1) end
+                if aprg2 == 0 then
+                    aprg = math.Clamp(aprg - ft * .7, 0, 1)
+                end
             end
         else
             if aprg2 ~= 1 then
                 aprg = math.Clamp(aprg + ft * .5, 0, 1)
-                if aprg == 1 then aprg2 = math.Clamp(aprg2 + ft * .4, 0, 1) end
+                if aprg == 1 then
+                    aprg2 = math.Clamp(aprg2 + ft * .4, 0, 1)
+                end
             end
         end
     end
@@ -46,7 +52,6 @@ function MODULE:HUDPaint()
     if aprg > 0.01 then
         surface.SetDrawColor(0, 0, 0, math.ceil((aprg ^ .5) * 255))
         surface.DrawRect(-1, -1, w + 2, h + 2)
-        local tx, ty = lia.util.drawText(L"youreDead", w / 2, h / 2, ColorAlpha(color_white, aprg2 * 255), 1, 1, "liaDynFontMedium", aprg2 * 255)
     end
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
