@@ -1,4 +1,4 @@
-----------------------------------------------------------------------------------------------
+﻿----------------------------------------------------------------------------------------------
 local MODULE = MODULE
 ----------------------------------------------------------------------------------------------
 netstream.Hook(
@@ -18,9 +18,7 @@ netstream.Hook(
     "PIMRunOption",
     function(ply, name)
         local opt = MODULE.options[name]
-        if opt.runServer then
-            opt.onRun(ply, ply:GetEyeTrace().Entity)
-        end
+        if opt.runServer then opt.onRun(ply, ply:GetEyeTrace().Entity) end
     end
 )
 ----------------------------------------------------------------------------------------------

@@ -11,10 +11,7 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function b:SetupHover(hoverCol)
-    if not self.GetColor or not self.SetColor or not self.color then
-        self:SetColorAcc()
-    end
-
+    if not self.GetColor or not self.SetColor or not self.color then self:SetColorAcc() end
     self.hoverCol = hoverCol
     function self:OnCursorEntered()
         self:ColorTo(hoverCol, 0.15)
@@ -59,36 +56,21 @@ function b:Flash(text, color, time, noAdjust, callback)
             if not self or not IsValid(self) then return end
             self:SetText(ogText)
             self.Paint = ogPaint
-            self:SizeTo(
-                ogSizeW,
-                ogSizeH,
-                0.2,
-                0,
-                -1,
-                function()
-                    self.flashing = false
-                end
-            )
-
+            self:SizeTo(ogSizeW, ogSizeH, 0.2, 0, -1, function() self.flashing = false end)
             if self.ogOCEn and self.ogOCEx and self.ogCol then
                 self.OnCursorEntered = self.ogOCEn
                 self.OnCursorExited = self.ogOCEx
                 self:ColorTo(self.ogCol, 0.3, 0)
             end
 
-            if callback then
-                callback()
-            end
+            if callback then callback() end
         end
     )
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function b:GInflate(color, over)
-    if not self.GetColor then
-        Error("Panel deosn't have '.GetColor()'")
-    end
-
+    if not self.GetColor then Error("Panel deosn't have '.GetColor()'") end
     color = color or Color(250, 250, 250, 50)
     over = over or false
     self.animStart = CurTime()
@@ -102,15 +84,10 @@ function b:GInflate(color, over)
             local dtfo = math.TimeFraction(self.fadeoutStart, self.fadeoutStart + 0.8, CurTime())
             local curAlpha = Lerp(dtfo, color.a, 0)
             color.a = math.Round(curAlpha)
-            if CurTime() >= self.fadeoutStart + 3.8 then
-                self.Paint = ogPaint
-            end
+            if CurTime() >= self.fadeoutStart + 3.8 then self.Paint = ogPaint end
         end
 
-        if over then
-            ogPaint(self, self:GetSize())
-        end
-
+        if over then ogPaint(self, self:GetSize()) end
         draw.NoTexture()
         surface.SetDrawColor(color)
         draw.Circle(w / 2, h / 2, r, 360)
@@ -125,14 +102,8 @@ function te:SetPlaceholder(text)
     self.placeholder = text
     self:SetText(text)
     function self:Think()
-        if self:IsEditing() and self:GetText() == self.placeholder then
-            self:SetText("")
-        end
-
-        if not self:IsEditing() and self:GetText() == "" then
-            self:SetText(self.placeholder)
-        end
-
+        if self:IsEditing() and self:GetText() == self.placeholder then self:SetText("") end
+        if not self:IsEditing() and self:GetText() == "" then self:SetText(self.placeholder) end
         ogThink(self)
     end
 end
@@ -166,59 +137,54 @@ local mps = {"DPanel", "DButton", "DLabel", "DFrame", "DTextEntry", "WButton", "
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 for _, v in pairs(mps) do
     local m = vgui.GetControlTable(v)
-    if m then 
-    function m:GetX()
-        local x, y = self:GetPos()
+    if m then
+        function m:GetX()
+            local x, y = self:GetPos()
+            return x
+        end
 
-        return x
-    end
+        function m:GetY()
+            local x, y = self:GetPos()
+            return y
+        end
 
-    function m:GetY()
-        local x, y = self:GetPos()
+        function m:Debug()
+            function self:Paint(w, h)
+                draw.RoundedBox(0, 0, 0, w, h, Color(255, 0, 0))
+            end
+        end
 
-        return y
-    end
-
-    function m:Debug()
-        function self:Paint(w, h)
-            draw.RoundedBox(0, 0, 0, w, h, Color(255, 0, 0))
+        function m:FadeOutRem(time, callback)
+            time = time or 0.2
+            self:AlphaTo(
+                0,
+                time,
+                0,
+                function()
+                    self:Remove()
+                    if callback then callback() end
+                end
+            )
         end
     end
 
-    function m:FadeOutRem(time, callback)
-        time = time or 0.2
-        self:AlphaTo(
-            0,
-            time,
-            0,
-            function()
-                self:Remove()
-                if callback then
-                    callback()
-                end
-            end
-        )
-    end
-end
+    ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    function MODULE.GetWorkPanel(panel, paddingTop, paddingLeft, paddingRight, paddingBottom, center)
+        center = center or false
+        if paddingTop ~= nil and not paddingLeft and not paddingRight and not paddingBottom then
+            paddingLeft = paddingTop
+            paddingRight = paddingTop
+            paddingBottom = paddingTop
+        end
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function MODULE.GetWorkPanel(panel, paddingTop, paddingLeft, paddingRight, paddingBottom, center)
-    center = center or false
-    if paddingTop ~= nil and not paddingLeft and not paddingRight and not paddingBottom then
-        paddingLeft = paddingTop
-        paddingRight = paddingTop
-        paddingBottom = paddingTop
+        local wp = panel:Add("DPanel")
+        wp:SetSize(panel:GetWide() - (paddingLeft + paddingRight), panel:GetTall() - (paddingTop + paddingBottom))
+        if center then
+            wp:Center()
+        else
+            wp:SetPos(paddingLeft, paddingTop)
+        end
+        return wp
     end
-
-    local wp = panel:Add("DPanel")
-    wp:SetSize(panel:GetWide() - (paddingLeft + paddingRight), panel:GetTall() - (paddingTop + paddingBottom))
-    if center then
-        wp:Center()
-    else
-        wp:SetPos(paddingLeft, paddingTop)
-    end
-
-    return wp
-end
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

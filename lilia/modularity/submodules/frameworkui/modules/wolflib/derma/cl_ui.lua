@@ -12,9 +12,7 @@ function Empty_Popup(callback, sw, sh)
                 blur:SmoothClose()
             end
 
-            if callback then
-                callback(frame)
-            end
+            if callback then callback(frame) end
         end
     )
 end
@@ -58,9 +56,7 @@ function String_Request(question, ok, cancel, numeric)
 
             function wp.done:DoClick()
                 frame:Close()
-                if ok and isfunction(ok) then
-                    ok(wp.te:GetText())
-                end
+                if ok and isfunction(ok) then ok(wp.te:GetText()) end
             end
         end
     )
@@ -92,7 +88,6 @@ function Choice_Request(question, yes, no, modify)
                 function b:Paint(w, h)
                     draw.RoundedBox(4, 0, 0, w, h, self.color)
                 end
-
                 return b
             end
 
@@ -100,23 +95,17 @@ function Choice_Request(question, yes, no, modify)
             wp.yes:CenterHorizontal(0.30)
             function wp.yes:DoClick()
                 frame:Close()
-                if yes then
-                    yes()
-                end
+                if yes then yes() end
             end
 
             wp.no = addChoice("No")
             wp.no:CenterHorizontal(0.70)
             function wp.no:DoClick()
                 frame:Close()
-                if no then
-                    no()
-                end
+                if no then no() end
             end
 
-            if modify and isfunction(modify) then
-                modify(wp)
-            end
+            if modify and isfunction(modify) then modify(wp) end
         end
     )
 end
@@ -140,12 +129,7 @@ function Important_Notification(message)
             g.cont:SetSize(frame:GetWide(), 30)
             function g.cont:DoClick()
                 self:GInflate(nil, true)
-                timer.Simple(
-                    0.4,
-                    function()
-                        frame:Close()
-                    end
-                )
+                timer.Simple(0.4, function() frame:Close() end)
             end
 
             g:FadeIn()

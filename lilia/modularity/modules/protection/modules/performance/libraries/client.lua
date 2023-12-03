@@ -21,9 +21,7 @@ function MODULE:InitPostEntity()
             end
 
             for _, v in ipairs(ents.FindByClass("prop_door_rotating")) do
-                if IsValid(v) and v:isDoor() then
-                    v:DrawShadow(false)
-                end
+                if IsValid(v) and v:isDoor() then v:DrawShadow(false) end
             end
         end
     )

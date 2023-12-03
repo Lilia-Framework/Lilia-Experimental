@@ -28,10 +28,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function PANEL:SetAccentColor(col, hov, switchTextColor)
     if self.accentColor == col then return end
-    if hov then
-        self.custHovCol = hov
-    end
-
+    if hov then self.custHovCol = hov end
     self.accentColor = col
     self.switchTextColor = switchTextColor or false
     self:ReloadColors()
@@ -39,23 +36,14 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function PANEL:SetupHover(hoverCol)
-    if not self.GetColor or not self.SetColor or not self.color then
-        self:SetColorAcc()
-    end
-
+    if not self.GetColor or not self.SetColor or not self.color then self:SetColorAcc() end
     self.hoverCol = hoverCol
     local function tcolSwitch(this)
         if this.switchTextColor then
             local ncol = nil
             local tcol = this:GetTextColor()
-            if tcol == color_black then
-                ncol = color_white
-            end
-
-            if tcol == color_white then
-                ncol = color_black
-            end
-
+            if tcol == color_black then ncol = color_white end
+            if tcol == color_white then ncol = color_black end
             this:SetTextColor(ncol)
         end
     end

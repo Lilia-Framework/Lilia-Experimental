@@ -10,19 +10,9 @@ function MODULE:OnEntityCreated(entity)
             return true
         end
 
-        timer.Simple(
-            0,
-            function()
-                entity:Remove()
-            end
-        )
+        timer.Simple(0, function() entity:Remove() end)
     elseif sClass == "point_servercommand" then
-        timer.Simple(
-            0,
-            function()
-                entity:Remove()
-            end
-        )
+        timer.Simple(0, function() entity:Remove() end)
     end
 end
 

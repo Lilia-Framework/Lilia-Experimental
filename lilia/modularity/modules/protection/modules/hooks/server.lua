@@ -2,7 +2,7 @@
 function GM:CreateDefaultInventory(character)
     local charID = character:getID()
     if lia.inventory.types["grid"] then
-        return lia.inventory.instance(
+        return         lia.inventory.instance(
             "grid",
             {
                 char = charID
@@ -22,10 +22,7 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:LiliaTablesLoaded()
-    local ignore = function()
-        print("")
-    end
-
+    local ignore = function() print("") end
     lia.db.query("ALTER TABLE lia_players ADD COLUMN _firstJoin DATETIME"):catch(ignore)
     lia.db.query("ALTER TABLE lia_players ADD COLUMN _lastJoin DATETIME"):catch(ignore)
     lia.db.query("ALTER TABLE lia_items ADD COLUMN _quantity INTEGER"):catch(ignore)
@@ -51,19 +48,11 @@ function GM:ServerPostInit()
     end
 
     for _, v in ipairs(ents.FindByClass("prop_door_rotating")) do
-        if IsValid(v) and v:isDoor() then
-            v:DrawShadow(false)
-        end
+        if IsValid(v) and v:isDoor() then v:DrawShadow(false) end
     end
 
     lia.faction.formatModelData()
-    timer.Simple(
-        2,
-        function()
-            lia.entityDataLoaded = true
-        end
-    )
-
+    timer.Simple(2, function() lia.entityDataLoaded = true end)
     lia.db.waitForTablesToLoad():next(
         function()
             hook.Run("LoadData")
@@ -81,8 +70,6 @@ function GM:KeyPress(client, key)
 
     local entity = client:GetEyeTrace().Entity
     if not IsValid(entity) then return end
-    if entity:isDoor() and entity:IsPlayer() and key == IN_USE then
-        hook.Run("PlayerUse", client, entity)
-    end
+    if entity:isDoor() and entity:IsPlayer() and key == IN_USE then hook.Run("PlayerUse", client, entity) end
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

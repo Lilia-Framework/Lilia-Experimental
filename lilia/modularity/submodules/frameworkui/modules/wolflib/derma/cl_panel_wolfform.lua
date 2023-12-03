@@ -30,7 +30,6 @@ function PANEL:Init()
         fep:SetSize(self.list:GetWide() / 2, 35)
         function fep:Paint(w, h)
         end
-
         return fep
     end
 
@@ -55,7 +54,6 @@ function PANEL:Init()
         end
 
         self.list:ReArrange()
-
         return fe
     end
 
@@ -67,7 +65,6 @@ function PANEL:Init()
         end
 
         defaultLayout(fe)
-
         return fe
     end
 end

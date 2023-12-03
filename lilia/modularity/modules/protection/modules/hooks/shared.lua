@@ -3,7 +3,6 @@ function GM:EntityEmitSound(data)
     if data.Entity.liaIsMuted then return false end
 end
 
-
 function GM:ModuleShouldLoad(module)
     return not lia.module.isDisabled(module)
 end

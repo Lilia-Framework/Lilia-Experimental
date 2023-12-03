@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:CanDeleteChar(_, char)
     if char:getMoney() < lia.config.DefaultMoney then return true end
 end
@@ -10,7 +10,6 @@ function MODULE:CanPlayerUseChar(client, newcharacter)
     local banned = newcharacter:getData("banned")
     if newcharacter and newcharacter:getData("banned", false) then
         if isnumber(banned) and banned < os.time() then return end
-
         return false, "@charBanned"
     end
 
@@ -28,7 +27,6 @@ function MODULE:CanPlayerSwitchChar(client, character, newCharacter)
     if client.LastDamaged and client.LastDamaged > CurTime() - 120 and client:isStaffOnDuty() then return false, "You took damage too recently to switch characters!" end
     if lia.config.CharacterSwitchCooldown and (character:getData("loginTime", 0) + lia.config.CharacterSwitchCooldownTimer) > os.time() then return false, "You are on cooldown!" end
     if character:getID() == newCharacter:getID() then return false, "You are already using this character!" end
-
     return true
 end
 

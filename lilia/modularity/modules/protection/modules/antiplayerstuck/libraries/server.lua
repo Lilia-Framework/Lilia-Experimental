@@ -3,10 +3,7 @@ local MODULE = MODULE
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:CanCollide(ent1, ent2)
     local ShouldCollide = hook.Run("ShouldCollide", ent1, ent2)
-    if ShouldCollide == nil then
-        ShouldCollide = true
-    end
-
+    if ShouldCollide == nil then ShouldCollide = true end
     return ShouldCollide
 end
 
@@ -21,10 +18,7 @@ function MODULE:CheckIfPlayerStuck()
         if self:ShouldCheck(client) then
             local Offset = Vector(5, 5, 5)
             local Stuck = false
-            if client.Stuck then
-                Offset = Vector(2, 2, 2)
-            end
-
+            if client.Stuck then Offset = Vector(2, 2, 2) end
             for _, ent in pairs(ents.FindInBox(client:GetPos() + client:OBBMins() + Offset, client:GetPos() + client:OBBMaxs() - Offset)) do
                 if self:ShouldCheck(ent) and ent ~= client and self:CanCollide(client, ent) then
                     client:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
@@ -52,12 +46,5 @@ function MODULE:ShouldCollide(ent1, ent2)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-timer.Create(
-    "CheckIfPlayerStuck",
-    4,
-    0,
-    function()
-        MODULE:CheckIfPlayerStuck()
-    end
-)
+timer.Create("CheckIfPlayerStuck", 4, 0, function() MODULE:CheckIfPlayerStuck() end)
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -124,7 +124,7 @@ function PANEL:Think()
         local visible, amount
         for k, v in ipairs(self.teams) do
             visible, amount = v:IsVisible(), teamNumPlayers(k)
-            if visible and k == FACTION_STAFF and LocalPlayer():isStaffOnDuty()  then
+            if visible and k == FACTION_STAFF and LocalPlayer():isStaffOnDuty() then
                 v:SetVisible(true)
                 self.layout:InvalidateLayout()
             elseif visible and k == FACTION_STAFF then
@@ -143,9 +143,8 @@ function PANEL:Think()
         for k, v in pairs(self.slots) do
             if IsValid(v) then v:update() end
         end
-        if input.IsKeyDown(KEY_Z) then
-			self:Init()
-		end
+
+        if input.IsKeyDown(KEY_Z) then self:Init() end
         self.nextUpdate = CurTime() + 0.1
     end
 end

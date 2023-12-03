@@ -13,9 +13,7 @@ function MODULE:ServersideInitializedModules()
     end
 
     for _, v in pairs(ents.GetAll()) do
-        if lia.config.EntitiesToBeRemoved[v:GetClass()] then
-            v:Remove()
-        end
+        if lia.config.EntitiesToBeRemoved[v:GetClass()] then v:Remove() end
     end
 end
 
@@ -33,9 +31,7 @@ function MODULE:Think()
         loop = 1
         nicoSeats = {}
         for _, seat in ipairs(ents.FindByClass("prop_vehicle_prisoner_pod")) do
-            if seat.nicoSeat then
-                table.insert(nicoSeats, seat)
-            end
+            if seat.nicoSeat then table.insert(nicoSeats, seat) end
         end
     end
 
@@ -62,46 +58,28 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:PlayerEnteredVehicle(_, vehicle)
-    if IsValid(vehicle) and vehicle.nicoSeat then
-        table.insert(nicoSeats, loop, vehicle)
-    end
+    if IsValid(vehicle) and vehicle.nicoSeat then table.insert(nicoSeats, loop, vehicle) end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:PlayerLeaveVehicle(_, vehicle)
-    if IsValid(vehicle) and vehicle.nicoSeat then
-        table.insert(nicoSeats, loop, vehicle)
-    end
+    if IsValid(vehicle) and vehicle.nicoSeat then table.insert(nicoSeats, loop, vehicle) end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:PropBreak(_, ent)
-    if ent:IsValid() and ent:GetPhysicsObject():IsValid() then
-        constraint.RemoveAll(ent)
-    end
+    if ent:IsValid() and ent:GetPhysicsObject():IsValid() then constraint.RemoveAll(ent) end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:OnEntityCreated(entity)
-    if lia.config.DrawEntityShadows then
-        entity:DrawShadow(false)
-    end
-
+    if lia.config.DrawEntityShadows then entity:DrawShadow(false) end
     if entity:GetClass() == "prop_vehicle_prisoner_pod" then
         entity:AddEFlags(EFL_NO_THINK_FUNCTION)
         entity.nicoSeat = true
     end
 
-    if entity:IsWidget() then
-        hook.Add(
-            "PlayerTick",
-            "GODisableEntWidgets2",
-            function(_, n)
-                widgets.PlayerTick(entity, n)
-            end
-        )
-    end
-
+    if entity:IsWidget() then hook.Add("PlayerTick", "GODisableEntWidgets2", function(_, n) widgets.PlayerTick(entity, n) end) end
     if entity:IsRagdoll() and not entity:getNetVar("player", nil) then
         timer.Simple(
             300,

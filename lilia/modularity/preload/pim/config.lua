@@ -1,4 +1,4 @@
-----------------------------------------------------------------------------------------------
+﻿----------------------------------------------------------------------------------------------
 local PIM = PIM
 ----------------------------------------------------------------------------------------------
 lia.config.MaxInteractionDistance = 250 * 250
@@ -30,23 +30,17 @@ timer.Simple(
                         local val = tonumber(frame.te:GetText())
                         if val == 0 then
                             client:notify("You need to insert a value bigger than 0.", NOT_ERROR)
-
                             return
                         end
 
                         if val < 0 then
                             client:notify("What are you trying to do? >:|", NOT_ERROR)
-
                             return
                         end
 
-                        if math.modf(val) > 0 then
-                            val = math.ceil(val)
-                        end
-
+                        if math.modf(val) > 0 then val = math.ceil(val) end
                         if not client:getChar():hasMoney(val) then
                             client:notify("You don't have enough money", NOT_ERROR)
-
                             return
                         end
 

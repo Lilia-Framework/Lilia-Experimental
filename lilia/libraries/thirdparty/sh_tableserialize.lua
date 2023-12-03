@@ -1,4 +1,4 @@
--- https://github.com/Be1zebub/Small-GLua-Things/blob/master/sh_tableserialize.lua
+﻿-- https://github.com/Be1zebub/Small-GLua-Things/blob/master/sh_tableserialize.lua
 -- Example available on: https://glot.io/snippets/fqw1us9t1q
 -- Converts lua table to raw text.
 -- Made for printing tables to the console on other runtime environments than the glua.
@@ -20,10 +20,7 @@ function table.ToPlain(tbl, indent, out)
         end
     end
 
-    if isend then
-        out = out .. "}\n"
-    end
-
+    if isend then out = out .. "}\n" end
     return out
 end
 
