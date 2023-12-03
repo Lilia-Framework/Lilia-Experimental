@@ -49,7 +49,7 @@ jobs:
       - name: Lint with gluacheck
         working-directory: lilia
         run: |
-          ls && cd lilia && sudo luacheck . --no-redefined \
+          sudo luacheck lilia --no-redefined \
           --no-global --no-self -i 4.2/.*_ --formatter visual_studio \
           --no-max-line-length --no-max-code-line-length \
           --no-max-string-line-length --no-max-comment-line-length \
