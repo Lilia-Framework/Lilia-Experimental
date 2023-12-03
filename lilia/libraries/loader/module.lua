@@ -22,8 +22,7 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
     local schema = engine.ActiveGamemode()
     variable = uniqueID == "schema" and "SCHEMA" or "MODULE"
     if hook.Run("ModuleShouldLoad", uniqueID) == false then return end
-    if not isSingleFile and not file.Exists(path .. "/sh_" .. variable:lower() .. ".lua", "LUA") then return end
-    local oldModule = MODULE
+    if not isSingleFile and not (file.Exists(path .. "/sh_" .. variable:lower() .. ".lua", "LUA") or file.Exists(path .. "/" .. variable:lower() .. ".lua", "LUA")) then return end    local oldModule = MODULE
     local MODULE = {
         folder = path,
         module = oldModule,
@@ -46,7 +45,7 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
     _G[variable] = MODULE
     MODULE.loading = true
     MODULE.path = path
-    lia.util.include(isSingleFile and path or path .. "/sh_" .. variable:lower() .. ".lua", "shared")
+    lia.util.include(isSingleFile and path or (path .. "/sh_" .. variable:lower() .. ".lua" or path .. "/" .. variable:lower() .. ".lua", "shared"))
     if MODULE.Dependencies then
         for _, fileName in ipairs(MODULE.Dependencies) do
             lia.util.include(path .. "/" .. fileName)
