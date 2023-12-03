@@ -155,6 +155,6 @@ jobs:
       - name: Publish Wiki
         uses: spenserblack/actions-wiki@v0.3.0
         with:
-          path: documentation
+          path: development/documentation
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
