@@ -99,21 +99,21 @@ jobs:
       - name: Run GLuaFixer on Lilia - Part 3
         run: |
             echo "Step 7: Running glualint pretty-print on Lilia (part 3)"
-            sudo ./glualint_executable pretty-print lilia/preload/*
+            sudo ./glualint_executable pretty-print lilia/modularity/preload/*
         working-directory: ${{ github.workspace }}
         shell: bash
   
       - name: Run GLuaFixer on Lilia - Part 4
         run: |
             echo "Step 7: Running glualint pretty-print on Lilia (part 4)"
-            sudo ./glualint_executable pretty-print lilia/core/*
+            sudo ./glualint_executable pretty-print lilia/modularity/modules/*
         working-directory: ${{ github.workspace }}
         shell: bash
   
       - name: Run GLuaFixer on Lilia - Part 5
         run: |
             echo "Step 7: Running glualint pretty-print on Lilia (part 5)"
-            sudo ./glualint_executable pretty-print lilia/modules/*
+            sudo ./glualint_executable pretty-print lilia/modularity/submodules/*
         working-directory: ${{ github.workspace }}
         shell: bash
       - name: Remove the glualint folder (Step 8)
