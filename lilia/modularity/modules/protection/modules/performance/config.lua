@@ -82,7 +82,6 @@ lia.config.ClientStartupConsoleCommand = {
     ["net_maxfilesize"] = "16",
     ["net_maxcleartime"] = "4",
     ["cl_lagcompensation"] = "0",
-    ["cl_timeout"] = "30",
     ["cl_smoothtime"] = "0.1",
     ["cl_localnetworkbackdoor"] = "0",
     ["cl_cmdrate"] = "30",

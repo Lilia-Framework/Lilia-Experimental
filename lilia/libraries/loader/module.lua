@@ -18,7 +18,7 @@ lia.module.ModuleConditions = {
 }
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function lia.module.load(uniqueID, path, isSingleFile, variable, IsCore)
+function lia.module.load(uniqueID, path, isSingleFile, variable)
     local schema = engine.ActiveGamemode()
     variable = uniqueID == "schema" and "SCHEMA" or "MODULE"
     if hook.Run("ModuleShouldLoad", uniqueID) == false then return end
@@ -130,25 +130,25 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function lia.module.initialize()
     local schema = engine.ActiveGamemode()
-    lia.module.loadFromDir(schema .. "/preload", false)
-    lia.module.load("schema", schema .. "/schema", false)
+    lia.module.loadFromDir(schema .. "/preload")
+    lia.module.load("schema", schema .. "/schema")
     hook.Run("InitializedSchema")
-    lia.module.loadFromDir("lilia/modularity/preload", false)
-    lia.module.loadFromDir("lilia/modularity/modules", true)
-    lia.module.loadFromDir("lilia/modularity/submodules", false)
-    lia.module.loadFromDir(schema .. "/submodules", false)
-    lia.module.loadFromDir(schema .. "/modules", false)
+    lia.module.loadFromDir("lilia/modularity/preload")
+    lia.module.loadFromDir("lilia/modularity/modules")
+    lia.module.loadFromDir("lilia/modularity/submodules")
+    lia.module.loadFromDir(schema .. "/submodules")
+    lia.module.loadFromDir(schema .. "/modules")
     hook.Run("InitializedModules")
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function lia.module.loadFromDir(directory, IsCore)
+function lia.module.loadFromDir(directory)
     local files, folders = file.Find(directory .. "/*", "LUA")
-    for k, v in ipairs(folders) do
-        lia.module.load(v, directory .. "/" .. v, false, "MODULE", IsCore)
+    for _, v in ipairs(folders) do
+        lia.module.load(v, directory .. "/" .. v, false, "MODULE")
     end
 
-    for k, v in ipairs(files) do
+    for _, v in ipairs(files) do
         lia.module.load(string.StripExtension(v), directory .. "/" .. v, true, "MODULE", IsCore)
     end
 end

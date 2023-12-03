@@ -7,8 +7,8 @@ util.AddNetworkString("BodygrouperMenuClose")
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 net.Receive(
     "BodygrouperMenuClose",
-    function(l, client)
-        for k, v in pairs(ents.FindByClass("lia_bodygrouper")) do
+    function(_, client)
+        for _, v in pairs(ents.FindByClass("lia_bodygrouper")) do
             if v:HasUser(client) then v:RemoveUser(client) end
         end
     end
@@ -17,7 +17,7 @@ net.Receive(
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 net.Receive(
     "BodygrouperMenu",
-    function(l, client)
+    function(_, client)
         local target = net.ReadEntity()
         local skn = net.ReadUInt(10)
         local groups = net.ReadTable()
@@ -69,7 +69,7 @@ net.Receive(
 
         client:SendLua("lia.module.list.bodygrouper.Menu:Close()")
         if closetuser then
-            for k, v in pairs(ents.FindByClass("lia_bodygrouper")) do
+            for _, v in pairs(ents.FindByClass("lia_bodygrouper")) do
                 if v:HasUser(target) then v:RemoveUser(target) end
             end
         end

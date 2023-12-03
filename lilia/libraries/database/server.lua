@@ -164,13 +164,13 @@ modules.mysqloo = {
     end,
     queue = function()
         local count = 0
-        for k, v in pairs(lia.db.pool) do
+        for _, v in pairs(lia.db.pool) do
             count = count + v:queueSize()
         end
         return count
     end,
     abort = function()
-        for k, v in pairs(lia.db.pool) do
+        for _, v in pairs(lia.db.pool) do
             v:abortAllQueries()
         end
     end,

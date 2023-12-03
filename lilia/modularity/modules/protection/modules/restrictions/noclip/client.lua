@@ -10,7 +10,7 @@ local scrPos, x, y, teamColor, distance, factor, size, alpha
 function MODULE:HUDPaint()
     local client = LocalPlayer()
     if (CAMI.PlayerHasAccess(client, "Lilia - Staff Permissions - No Clip ESP Outside Staff Character", nil) or client:isStaffOnDuty()) and client:IsNoClipping() and not client:InVehicle() then
-        for k, v in ipairs(ents.GetAll()) do
+        for _, v in ipairs(ents.GetAll()) do
             if v == client then continue end
             scrPos = v:GetPos():ToScreen()
             x, y = math.Clamp(scrPos.x, marginx, sx - marginx), math.Clamp(scrPos.y, marginy, sy - marginy)

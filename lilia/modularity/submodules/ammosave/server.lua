@@ -3,7 +3,7 @@ function MODULE:CharacterPreSave(character)
     local client = character:getPlayer()
     if IsValid(client) then
         local ammoTable = {}
-        for k, v in ipairs(self.AmmoList) do
+        for _, v in ipairs(self.AmmoList) do
             local ammo = client:GetAmmoCount(v)
             if ammo > 0 then
                 ammoTable[v] = ammo
@@ -33,7 +33,7 @@ function MODULE:PlayerLoadedChar(client)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function MODULE:PlayerDeath(client, inflictor, attacker)
+function MODULE:PlayerDeath(client, _, _)
     if not client:getChar() then return end
     local char = client:getChar()
     local inventory = char:getInv()

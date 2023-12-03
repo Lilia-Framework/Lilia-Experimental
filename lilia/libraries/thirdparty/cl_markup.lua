@@ -234,7 +234,7 @@ local function ExtractParams(p1, p2, p3)
                 rgba = {}
                 local x = {"r", "g", "b", "a"}
                 n = 1
-                for k, v in string.gmatch(p2, "(%d+),?") do
+                for k, _ in string.gmatch(p2, "(%d+),?") do
                     rgba[x[n]] = k
                     n = n + 1
                 end

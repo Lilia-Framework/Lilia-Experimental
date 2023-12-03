@@ -56,7 +56,7 @@ function GM:PlayerSpawnSENT(client)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function GM:PlayerSpawnVehicle(client, model, name, data)
+function GM:PlayerSpawnVehicle(client, _, name, _)
     if IsValid(client) and client:getChar():hasFlags("C") or CAMI.PlayerHasAccess(client, "Lilia - Spawn Permissions - Can Spawn Cars", nil) then
         if table.HasValue(lia.config.RestrictedVehicles, name) then
             if CAMI.PlayerHasAccess(client, "Lilia - Spawn Permissions - Can Spawn Restricted Cars", nil) then
@@ -75,7 +75,7 @@ function GM:PlayerSpawnVehicle(client, model, name, data)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function GM:CanTool(client, trace, tool)
+function GM:CanTool(client, _, tool)
     local privilege = "Lilia - Staff Permissions - Access Tool " .. tool:gsub("^%l", string.upper)
     local entity = client:GetTracedEntity()
     if IsValid(client) and client:getChar():hasFlags("t") or CAMI.PlayerHasAccess(client, privilege, nil) or client:isStaffOnDuty() then
@@ -127,7 +127,7 @@ function GM:CanProperty(client, property, entity)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function GM:CheckSpawnPropBlackList(client, model)
+function GM:CheckSpawnPropBlackList(_, model)
     for _, gredwitch in pairs(file.Find("models/gredwitch/bombs/*.mdl", "GAME")) do
         if model == "models/gredwitch/bombs/" .. gredwitch then return false end
     end

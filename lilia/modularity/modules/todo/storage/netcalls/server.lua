@@ -85,7 +85,7 @@ net.Receive(
                 return fromInv:add(item)
             end
         ):catch(
-            function(err)
+            function(_)
                 client.storageTransaction = nil
                 item:spawn(failItemDropPos)
                 if IsValid(client) then client:notifyLocalized("itemOnGround") end

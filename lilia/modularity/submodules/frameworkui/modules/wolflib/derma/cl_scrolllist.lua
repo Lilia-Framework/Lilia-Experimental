@@ -24,7 +24,7 @@ function PANEL:GetList(sx, sy)
     end
 
     function self.list:RemoveChildren()
-        for k, v in pairs(self:GetChildren()) do
+        for _, v in pairs(self:GetChildren()) do
             if not v.noRemove then v:Remove() end
         end
     end

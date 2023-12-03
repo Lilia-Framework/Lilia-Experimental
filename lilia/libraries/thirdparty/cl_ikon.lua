@@ -329,7 +329,7 @@ concommand.Add(
     function()
         ikon.cache = {}
         local caf = "Icon/" .. schemaName .. "/*.png"
-        for k, v in ipairs(file.Find(caf, "DATA")) do
+        for _, v in ipairs(file.Find(caf, "DATA")) do
             file.Delete("Icon/" .. schemaName .. "/" .. v)
         end
     end

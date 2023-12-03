@@ -5,7 +5,7 @@ function group()
     local g = {}
     function g:FadeOutRem(callback, fullRem)
         fullRem = fullRem or false
-        for k, v in pairs(self:GetChildren()) do
+        for _, v in pairs(self:GetChildren()) do
             v:AlphaTo(
                 0,
                 0.2,
@@ -26,7 +26,7 @@ function group()
 
     function g:FadeIn(delay)
         delay = delay or 0
-        for k, v in pairs(self:GetChildren()) do
+        for _, v in pairs(self:GetChildren()) do
             if not v.Show then continue end
             v:Show()
             v:SetAlpha(0)
@@ -36,7 +36,7 @@ function group()
 
     function g:FadeOut(callback, time)
         time = time or 0.2
-        for k, v in pairs(self:GetChildren()) do
+        for _, v in pairs(self:GetChildren()) do
             v:AlphaTo(0, time)
             v:Hide()
         end
@@ -48,7 +48,7 @@ function group()
 
     function g:GetChildren()
         local c = {}
-        for k, v in pairs(self) do
+        for _, v in pairs(self) do
             if isfunction(v) then continue end
             c[#c + 1] = v
         end

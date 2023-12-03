@@ -4,7 +4,7 @@ function MODULE:LoadData()
     if items then
         local idRange = {}
         local positions = {}
-        for k, v in ipairs(items) do
+        for _, v in ipairs(items) do
             idRange[#idRange + 1] = v[1]
             positions[v[1]] = v[2]
         end
@@ -21,14 +21,13 @@ function MODULE:LoadData()
                     function(data)
                         if data then
                             local loadedItems = {}
-                            for k, v in ipairs(data) do
+                            for _, v in ipairs(data) do
                                 local itemID = tonumber(v._itemID)
                                 local data = util.JSONToTable(v._data or "[]")
                                 local uniqueID = v._uniqueID
                                 local itemTable = lia.item.list[uniqueID]
                                 local position = positions[itemID]
                                 if itemTable and itemID then
-                                    local position = positions[itemID]
                                     local item = lia.item.new(uniqueID, itemID)
                                     item.data = data or {}
                                     item:spawn(position).liaItemID = itemID
@@ -50,7 +49,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:SaveData()
     local items = {}
-    for k, v in ipairs(ents.FindByClass("lia_item")) do
+    for _, v in ipairs(ents.FindByClass("lia_item")) do
         if v.liaItemID and not v.temp then
             items[#items + 1] = {v.liaItemID, v:GetPos()}
         end

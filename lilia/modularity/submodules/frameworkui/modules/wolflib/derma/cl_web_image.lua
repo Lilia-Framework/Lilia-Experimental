@@ -14,7 +14,7 @@ function c:Download()
     self.UID = uid
     http.Fetch(
         self.Path,
-        function(body, len, headers, code)
+        function(body, _, headers, code)
             file.Write("webimage/" .. self.UID .. "." .. self.ext, body)
             self.Downloading = false
             self.Ready = true

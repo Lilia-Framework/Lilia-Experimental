@@ -96,7 +96,7 @@ local function displayLogs(logs, amtOfPages)
         end
 
         results = {}
-        for k, v in pairs(logs) do
+        for _, v in pairs(logs) do
             for _, j in pairs(v) do
                 if string.match(string.lower(j), searchTerm) then
                     table.insert(results, v)

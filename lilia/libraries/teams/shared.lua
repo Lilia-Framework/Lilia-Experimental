@@ -4,11 +4,11 @@ lia.class = lia.class or {}
 lia.class.list = lia.class.list or {}
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function lia.class.loadFromDir(directory)
-    for k, v in ipairs(file.Find(directory .. "/*.lua", "LUA")) do
+    for _, v in ipairs(file.Find(directory .. "/*.lua", "LUA")) do
         local niceName = v:sub(4, -5)
         local index = #lia.class.list + 1
         local halt
-        for k, v in ipairs(lia.class.list) do
+        for _, v in ipairs(lia.class.list) do
             if v.uniqueID == niceName then halt = true end
         end
 
@@ -29,7 +29,7 @@ function lia.class.loadFromDir(directory)
             continue
         end
 
-        if not CLASS.onCanBe then CLASS.onCanBe = function(client) return true end end
+        if not CLASS.onCanBe then CLASS.onCanBe = function(_) return true end end
         lia.class.list[index] = CLASS
         CLASS = nil
     end
@@ -54,7 +54,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function lia.class.getPlayers(class)
     local players = {}
-    for k, v in ipairs(player.GetAll()) do
+    for _, v in ipairs(player.GetAll()) do
         local char = v:getChar()
         if char and char:getClass() == class then table.insert(players, v) end
     end

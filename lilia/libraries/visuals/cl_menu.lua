@@ -9,7 +9,7 @@ function lia.menu.add(options, position, onRemove)
     local width = 0
     local entity
     surface.SetFont("liaMediumFont")
-    for k, v in pairs(options) do
+    for k, _ in pairs(options) do
         width = math.max(width, surface.GetTextSize(tostring(k)))
     end
 

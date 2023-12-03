@@ -3,7 +3,7 @@ local MODULE = MODULE
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:saveVendors()
     local data = {}
-    for k, v in ipairs(ents.FindByClass("lia_vendor")) do
+    for _, v in ipairs(ents.FindByClass("lia_vendor")) do
         data[#data + 1] = {
             name = v:getNetVar("name"),
             desc = v:getNetVar("desc"),
@@ -24,12 +24,12 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:LoadData()
-    for k, v in ipairs(ents.FindByClass("lia_vendor")) do
+    for _, v in ipairs(ents.FindByClass("lia_vendor")) do
         v.liaIsSafe = true
         v:Remove()
     end
 
-    for k, v in ipairs(self:getData() or {}) do
+    for _, v in ipairs(self:getData() or {}) do
         local entity = ents.Create("lia_vendor")
         entity:SetPos(v.pos)
         entity:SetAngles(v.angles)
@@ -119,7 +119,7 @@ function MODULE:PlayerAccessVendor(client, vendor)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function MODULE:VendorSellEvent(client, vendor, itemType, isSellingToVendor, character, price)
+function MODULE:VendorSellEvent(client, vendor, itemType, _, character, price)
     local inventory = character:getInv()
     local item = inventory:getFirstItemOfType(itemType)
     if item then
@@ -154,13 +154,13 @@ function MODULE:VendorBuyEvent(client, vendor, itemType, isSellingToVendor, char
     vendor:giveMoney(price)
     character:takeMoney(price)
     vendor:takeStock(itemType)
-    local result = character:getInv():add(itemType):next(
+    character:getInv():add(itemType):next(
         function(item)
             hook.Run("OnCharTradeVendor", client, vendor, item, isSellingToVendor, character)
             client.vendorTransaction = nil
         end
     ):catch(
-        function(err)
+        function(_)
             if IsValid(client) then client:notifyLocalized("Cannot add to inventory! Giving money back!") end
             client.vendorTransaction = nil
             return character:giveMoney(price)

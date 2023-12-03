@@ -1,26 +1,26 @@
 ﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:OnEntityCreated(entity)
-    local sClass = eTarget:GetClass():lower():Trim()
+    local sClass = entity:GetClass():lower():Trim()
     if sClass == "lua_run" then
-        function eTarget:AcceptInput()
+        function entity:AcceptInput()
             return true
         end
 
-        function eTarget:RunCode()
+        function entity:RunCode()
             return true
         end
 
         timer.Simple(
             0,
             function()
-                eTarget:Remove()
+                entity:Remove()
             end
         )
     elseif sClass == "point_servercommand" then
         timer.Simple(
             0,
             function()
-                eTarget:Remove()
+                entity:Remove()
             end
         )
     end

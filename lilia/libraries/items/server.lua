@@ -81,7 +81,7 @@ function lia.item.loadItemByID(itemIndex, recipientFilter)
         "SELECT _itemID, _uniqueID, _data, _x, _y, _quantity FROM lia_items WHERE _itemID IN " .. range,
         function(data)
             if data then
-                for k, v in ipairs(data) do
+                for _, v in ipairs(data) do
                     local itemID = tonumber(v._itemID)
                     local data = util.JSONToTable(v._data or "[]")
                     local uniqueID = v._uniqueID

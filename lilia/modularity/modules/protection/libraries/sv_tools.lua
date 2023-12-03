@@ -1,12 +1,12 @@
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function MODULE:OnPhysgunPickup(client, entity)
+function MODULE:OnPhysgunPickup(_, entity)
     if entity:GetClass() == "prop_physics" and entity:GetCollisionGroup() == COLLISION_GROUP_NONE then
         entity:SetCollisionGroup(COLLISION_GROUP_PASSABLE_DOOR)
     end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function MODULE:PhysgunDrop(client, entity)
+function MODULE:PhysgunDrop(_, entity)
     if entity:GetClass() ~= "prop_physics" then return end
     timer.Simple(
         5,
@@ -19,7 +19,7 @@ function MODULE:PhysgunDrop(client, entity)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function MODULE:OnPhysgunFreeze(weapon, physObj, entity, client)
+function MODULE:OnPhysgunFreeze(_, physObj, entity, client)
     if not physObj:IsMoveable() then return false end
     if entity:GetUnFreezable() then return false end
     physObj:EnableMotion(false)

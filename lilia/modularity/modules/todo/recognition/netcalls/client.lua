@@ -12,7 +12,6 @@ netstream.Hook(
     "rgnMenu",
     function()
         local menu = DermaMenu()
-        local character = LocalPlayer():getChar()
         menu:AddOption("Allow those in a whispering range to recognize you.", function() CharRecognize(2) end)
         menu:AddOption("Allow those in a talking range to recognize you.", function() CharRecognize(3) end)
         menu:AddOption("Allow those in a yelling range to recognize you.", function() CharRecognize(4) end)

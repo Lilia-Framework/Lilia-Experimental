@@ -3,7 +3,7 @@ util.AddNetworkString("BanMeAmHack")
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 net.Receive(
     "BanMeAmHack",
-    function(len, client)
+    function(_, client)
         local kickReason = "Kicked for cheating."
         client:Kick(kickReason)
         local banDuration = 0
@@ -16,7 +16,7 @@ net.Receive(
 for k, v in pairs(lia.config.KnownExploits) do
     net.Receive(
         k,
-        function(len, client)
+        function(_, client)
             client.nextExploitNotify = client.nextExploitNotify or 0
             if client.nextExploitNotify > CurTime() then return end
             client.nextExploitNotify = CurTime() + 2

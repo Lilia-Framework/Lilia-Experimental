@@ -113,7 +113,7 @@ function lia.faction.jobGenerate(index, name, color, default, models)
     FACTION.color = color
     FACTION.models = models or lia.faction.DefaultModels
     FACTION.uniqueID = name
-    for k, v in pairs(FACTION.models) do
+    for _, v in pairs(FACTION.models) do
         if isstring(v) then
             util.PrecacheModel(v)
         elseif istable(v) then

@@ -72,7 +72,7 @@ function MODULE:onIndexChanged()
     self.markup = nil
     if IsValid(weapon) then
         local text = ""
-        for k, v in ipairs(weaponInfo) do
+        for _, v in ipairs(weaponInfo) do
             if weapon[v] and weapon[v]:find("%S") then
                 local color = lia.config.Color
                 text = text .. "<font=liaItemBoldFont><color=" .. color.r .. "," .. color.g .. "," .. color.b .. ">" .. L(v) .. "</font></color>\n" .. weapon[v] .. "\n"

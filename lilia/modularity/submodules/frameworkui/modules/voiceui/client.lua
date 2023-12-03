@@ -49,7 +49,7 @@ timer.Create(
     10,
     0,
     function()
-        for k, v in pairs(VoicePanels) do
+        for k, _ in pairs(VoicePanels) do
             if not IsValid(k) then
                 hook.Run("PlayerEndVoice", k)
             end

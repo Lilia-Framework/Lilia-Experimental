@@ -69,7 +69,7 @@ lia.command.add(
             local position = client:GetPos()
             local radius = tonumber(arguments[1]) or 120
             local i = 0
-            for k, v in pairs(MODULE.spawns) do
+            for _, v in pairs(MODULE.spawns) do
                 for _, v2 in pairs(v) do
                     for _, v3 in pairs(v2) do
                         if v3:Distance(position) <= radius then

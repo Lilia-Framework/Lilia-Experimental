@@ -12,7 +12,7 @@ function MODULE:InitializedModules()
 
     for _, wep in pairs(weapons.GetList()) do
         if wep.ClassName == "gmod_tool" then
-            for ToolName, TOOL in pairs(wep.Tool) do
+            for ToolName, _ in pairs(wep.Tool) do
                 if not ToolName then continue end
                 local privilege = "Lilia - Staff Permissions - Access Tool " .. ToolName:gsub("^%l", string.upper)
                 if not CAMI.GetPrivilege(privilege) then

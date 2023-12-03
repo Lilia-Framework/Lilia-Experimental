@@ -9,7 +9,7 @@ PIM:AddOption(
 
             return not hook.Run("IsCharRecognized", ourChar, tarCharID)
         end,
-        onRun = function(client, target)
+        onRun = function(_, target)
             if CLIENT then
                 netstream.Start("rgnDirect", target)
             end
@@ -29,7 +29,7 @@ if lia.config.FakeNamesEnabled then
 
                 return not hook.Run("IsCharRecognized", ourChar, tarCharID) and lia.config.FakeNamesEnabled
             end,
-            onRun = function(client, target)
+            onRun = function(_, target)
                 if CLIENT then
                     Derma_StringRequest(
                         "Allow this person to recognize you by a fake name.",

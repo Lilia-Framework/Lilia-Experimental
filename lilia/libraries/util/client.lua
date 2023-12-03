@@ -109,11 +109,11 @@ function lia.util.notifQuery(question, option1, option2, manualDismiss, notifTyp
             function notice:Think()
                 if not self.respondToKeys then return end
                 local queries = {}
-                for k, v in pairs(lia.noticess) do
+                for _, v in pairs(lia.noticess) do
                     if v.isQuery then queries[#queries + 1] = v end
                 end
 
-                for k, v in pairs(queries) do
+                for _, v in pairs(queries) do
                     if v == self and k > 1 then return end
                 end
 
@@ -277,6 +277,7 @@ lia.util.LoadedImages = lia.util.LoadedImages or {
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function lia.util.FetchImage(id, callback, failImg, pngParameters, imageProvider)
+    failImg = failImg 
     local loadedImage = lia.util.LoadedImages[id]
     if loadedImage then
         if callback then callback(loadedImage) end

@@ -64,7 +64,7 @@ function PANEL:Init()
     chat.GetChatBoxPos = function() return self:LocalToScreen(0, 0) end
     chat.GetChatBoxSize = function() return self:GetSize() end
     local buttons = {}
-    for k, v in SortedPairsByMemberValue(lia.chat.classes, "filter") do
+    for _, v in SortedPairsByMemberValue(lia.chat.classes, "filter") do
         if not buttons[v.filter] then
             self:addFilterButton(v.filter)
             buttons[v.filter] = true
@@ -253,14 +253,14 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function PANEL:setFilter(filter, state)
     if state then
-        for k, v in ipairs(self.list) do
+        for _, v in ipairs(self.list) do
             if v.filter == filter then
                 v:SetVisible(false)
                 self.filtered[v] = filter
             end
         end
     else
-        for k, v in pairs(self.filtered) do
+        for _, v in pairs(self.filtered) do
             if v == filter then
                 k:SetVisible(true)
                 self.filtered[k] = nil
@@ -270,7 +270,7 @@ function PANEL:setFilter(filter, state)
 
     self.lastY = 0
     local lastChild
-    for k, v in ipairs(self.list) do
+    for _, v in ipairs(self.list) do
         if v:IsVisible() then
             v:SetPos(0, self.lastY)
             self.lastY = self.lastY + v:GetTall() + 2

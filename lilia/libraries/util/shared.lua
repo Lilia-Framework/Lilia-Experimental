@@ -28,7 +28,7 @@ function lia.util.findPlayer(identifier, allowPatterns)
         identifier = string.PatternSafe(identifier)
     end
 
-    for k, v in ipairs(player.GetAll()) do
+    for _, v in ipairs(player.GetAll()) do
         if lia.util.stringMatches(v:Name(), identifier) then return v end
     end
 end
@@ -51,7 +51,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function lia.util.getAllChar()
     local charTable = {}
-    for k, v in ipairs(player.GetAll()) do
+    for _, v in ipairs(player.GetAll()) do
         if v:getChar() then
             table.insert(charTable, v:getChar():getID())
         end
@@ -71,7 +71,7 @@ end
 function lia.util.emitQueuedSounds(entity, sounds, delay, spacing, volume, pitch)
     delay = delay or 0
     spacing = spacing or 0.1
-    for k, v in ipairs(sounds) do
+    for for _, v in ipairs(sounds) do
         local postSet, preSet = 0, 0
         if istable(v) then
             postSet, preSet = v[2] or 0, v[3] or 0
@@ -131,7 +131,7 @@ function lia.util.loadEntities(path)
     local function HandleEntityInclusion(folder, variable, register, default, clientOnly)
         files, folders = file.Find(path .. "/" .. folder .. "/*", "LUA")
         default = default or {}
-        for k, v in ipairs(folders) do
+        for for _, v in ipairs(folders) do
             local path2 = path .. "/" .. folder .. "/" .. v .. "/"
             _G[variable] = table.Copy(default)
             _G[variable].ClassName = v
@@ -148,7 +148,7 @@ function lia.util.loadEntities(path)
             _G[variable] = nil
         end
 
-        for k, v in ipairs(files) do
+        for for _, v in ipairs(files) do
             local niceName = string.StripExtension(v)
             _G[variable] = table.Copy(default)
             _G[variable].ClassName = niceName
