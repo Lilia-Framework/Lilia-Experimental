@@ -1,8 +1,7 @@
 ﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:CharacterPreSave(character)
     local client = character:getPlayer()
-    local SavingEnabled = lia.config.SaveCharacterAmmo
-    if IsValid(client) and SavingEnabled then
+    if IsValid(client) and lia.config.SaveCharacterAmmo then
         local ammoTable = {}
         for _, ammoType in pairs(game.GetAmmoTypes()) do
             local ammoCount = client:GetAmmoCount(ammoType.name)
@@ -17,11 +16,10 @@ end
 function MODULE:PlayerLoadedChar(client)
     local character = client:getChar()
     local ammoTable = character:getData("ammo", {})
-    local SavingEnabled = lia.config.SaveCharacterAmmo
     timer.Simple(
         0.25,
         function()
-            if SavingEnabled and IsValid(client) and character then
+            if lia.config.SaveCharacterAmmo and IsValid(client) and character then
                 for ammoType, ammoCount in pairs(ammoTable) do
                     client:GiveAmmo(ammoCount, ammoType, true)
                 end
