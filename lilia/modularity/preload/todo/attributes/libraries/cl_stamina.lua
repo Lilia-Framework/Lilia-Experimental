@@ -18,18 +18,19 @@ function MODULE:Think()
     local maxStamina = char:getMaxStamina()
     local offset = self:CalcStaminaChange(client)
     offset = math.Remap(FrameTime(), 0, 0.25, 0, offset)
-    if offset ~= 0 then self.predictedStamina = math.Clamp(self.predictedStamina + offset, 0, maxStamina) end
+    if offset ~= 0 then
+        self.predictedStamina = math.Clamp(self.predictedStamina + offset, 0, maxStamina)
+    end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:HUDPaintBackground()
     local client = LocalPlayer()
-    if not client:getChar() then return end
-    if not lia.config.StaminaBlur then return end
+    if not (lia.config.StaminaBlur or client:getChar()) then return end
     local char = client:getChar()
     local maxStamina = char:getMaxStamina()
     local Stamina = client:getLocalVar("stamina", maxStamina)
-    if Stamina <= 5 then
+    if Stamina <= lia.config.StaminaBlurThreshold then
         stmBlurAlpha = Lerp(RealFrameTime() / 2, stmBlurAlpha, 255)
         stmBlurAmount = Lerp(RealFrameTime() / 2, stmBlurAmount, 5)
         lia.util.drawBlurAt(0, 0, ScrW(), ScrH(), stmBlurAmount, 0.2, stmBlurAlpha)
