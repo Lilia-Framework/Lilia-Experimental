@@ -1,11 +1,12 @@
 ﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:CharacterPreSave(character)
     local client = character:getPlayer()
-    if IsValid(client) then
+    local SavingEnabled = lia.config.SaveCharacterAmmo
+    if IsValid(client) and SavingEnabled then
         local ammoTable = {}
-        for _, v in ipairs(self.AmmoList) do
-            local ammo = client:GetAmmoCount(v)
-            if ammo > 0 then ammoTable[v] = ammo end
+        for _, ammoType in pairs(game.GetAmmoTypes()) do
+            local ammoCount = client:GetAmmoCount(ammoType.name)
+            if ammoCount > 0 then ammoTable[ammoType.name] = ammoCount end
         end
 
         character:setData("ammo", ammoTable)
@@ -14,17 +15,18 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:PlayerLoadedChar(client)
+    local character = client:getChar()
+    local ammoTable = character:getData("ammo", {})
+    local SavingEnabled = lia.config.SaveCharacterAmmo
     timer.Simple(
         0.25,
         function()
-            if not IsValid(client) then return end
-            local character = client:getChar()
-            if not character then return end
-            local ammoTable = character:getData("ammo")
-            if ammoTable then
-                for k, v in pairs(ammoTable) do
-                    client:SetAmmo(v, tostring(k))
+            if SavingEnabled and IsValid(client) and character then
+                for ammoType, ammoCount in pairs(ammoTable) do
+                    client:GiveAmmo(ammoCount, ammoType, true)
                 end
+
+                character:setData("ammo", nil)
             end
         end
     )

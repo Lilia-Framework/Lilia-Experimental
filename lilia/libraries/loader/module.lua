@@ -7,6 +7,16 @@ lia.module.unloaded = lia.module.unloaded or {}
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 lia.config.ModuleFolders = {"dependencies", "config", "permissions", "libs", "hooks", "libraries", "commands", "netcalls", "meta", "derma", "pim"}
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+lia.config.ModuleFiles = {
+    ["client"] = "client",
+    ["cl_module.lua"] = "client",
+    ["sv_module.lua"] = "server",
+    ["server"] = "server",
+    ["sconfig"] = "server",
+    ["config"] = "shared",
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 lia.module.ModuleConditions = {
     mlogs = mLogs,
     sam = sam,
@@ -20,11 +30,13 @@ lia.module.ModuleConditions = {
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function lia.module.load(uniqueID, path, isSingleFile, variable)
     local schema = engine.ActiveGamemode()
+    local lowerVariable = variable:lower()
+    local moduleCore = (path .. "/sh_" .. lowerVariable .. ".lua") or (path .. "/shared.lua")
     variable = uniqueID == "schema" and "SCHEMA" or "MODULE"
     if hook.Run("ModuleShouldLoad", uniqueID) == false then return end
-    if not isSingleFile and not (file.Exists(path .. "/sh_" .. variable:lower() .. ".lua", "LUA") or file.Exists(path .. "/" .. variable:lower() .. ".lua", "LUA")) then return end
+    if not isSingleFile and not file.Exists(moduleCore, "LUA") then return end
     local oldModule = MODULE
-    local MODULE = {
+    MODULE = {
         folder = path,
         module = oldModule,
         uniqueID = uniqueID,
@@ -46,7 +58,12 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
     _G[variable] = MODULE
     MODULE.loading = true
     MODULE.path = path
-    lia.util.include(isSingleFile and path or (path .. "/sh_" .. variable:lower() .. ".lua" or path .. "/" .. variable:lower() .. ".lua" or "shared"))
+    lia.util.include(isSingleFile and path or ModuleCore)
+    for fileName, state in pairs(lia.config.ModuleFiles) do
+        local filePath = path .. "/" .. fileName
+        if file.Exists(filePath, "LUA") then lia.util.include(filePath, state) end
+    end
+
     if MODULE.Dependencies then
         for _, fileName in ipairs(MODULE.Dependencies) do
             lia.util.include(path .. "/" .. fileName)
