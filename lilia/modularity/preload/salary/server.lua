@@ -1,30 +1,31 @@
 ﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:CreateSalaryTimer(client)
+    if not client:getChar() then return end
     local character = client:getChar()
-    if not character then return end
+    local timerID = "liaSalary" .. client:SteamID()
     local faction = lia.faction.indices[character:getFaction()]
     local class = lia.class.list[character:getClass()]
-    local pay = hook.Run("GetSalaryAmount", client, faction, class) or (class and class.pay) or (faction and faction.pay) or nil
-    local limit = hook.Run("GetSalaryLimit", client, faction, class) or (class and class.payLimit) or (faction and faction.playLimit) or nil
-    if not pay then return end
-    local timerID = "liaSalary" .. client:SteamID()
+    local PayAmount = hook.Run("GetSalaryAmount", client, faction, class) or (class and class.pay) or (faction and faction.pay) or 0
+    local SalaryLimit = hook.Run("VerifySalaryLimit", client, faction, class) or (class and class.payLimit) or (faction and faction.playLimit)
     local timerFunc = timer.Exists(timerID) and timer.Adjust or timer.Create
     local delay = (class and class.payTimer) or (faction and faction.payTimer) or lia.config.SalaryInterval
-    timerFunc(
-        timerID,
-        delay,
-        0,
-        function()
-            if not IsValid(client) or client:getChar() ~= character then
-                timer.Remove(timerID)
-                return
-            end
+    if PayAmount > 0 then
+        timerFunc(
+            timerID,
+            delay,
+            0,
+            function()
+                if not IsValid(client) or client:getChar() ~= character then
+                    timer.Remove(timerID)
+                    return
+                end
 
-            if limit and character:getMoney() >= limit then return end
-            character:giveMoney(pay)
-            client:notifyLocalized("salary", lia.currency.get(pay))
-        end
-    )
+                if SalaryLimit then return end
+                character:giveMoney(PayAmount)
+                client:notifyLocalized("salary", lia.currency.get(pay))
+            end
+        )
+    end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -39,5 +40,11 @@ function MODULE:OnReloaded()
     for _, client in ipairs(player.GetAll()) do
         hook.Run("CreateSalaryTimer", client)
     end
+end
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function MODULE:VerifySalaryLimit(client, _, _)
+    if lia.config.SalaryThreshold > 0 and client:getChar():getMoney() >= lia.config.SalaryThreshold then return true end
+    return false
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
