@@ -4,7 +4,7 @@ lia.config.WhitelistEnabled = false
 lia.config.BlacklistedEnabled = true
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 lia.config.BlacklistedSteamID64 = {
-    -- We recommend keeping most of these, as they were reported as being minges and exploiters, although, that's something up to the server owner.
+    -- We recommend keeping most of these, as they were reported as code stealers and exploiters, although, that's something up to the server owner.
     "76561198211231421",
     "76561198164669408",
     "76561199132186869",
