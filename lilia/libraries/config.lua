@@ -6,8 +6,6 @@ if not ConfigWasInitialized then
         WalkSpeed = 130,
         RunSpeed = 235,
         WalkRatio = 0.5,
-        JumpCooldown = 0.8,
-        MaxAttributes = 30,
         AllowExistNames = true,
         GamemodeName = "A Lilia Gamemode",
         Color = Color(75, 119, 190),
