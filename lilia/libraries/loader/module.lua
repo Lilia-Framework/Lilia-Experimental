@@ -8,12 +8,12 @@ lia.module.unloaded = lia.module.unloaded or {}
 lia.config.ModuleFolders = {"dependencies", "config", "permissions", "libs", "hooks", "libraries", "commands", "netcalls", "meta", "derma", "pim"}
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 lia.config.ModuleFiles = {
-    ["client"] = "client",
+    ["client.lua"] = "client",
     ["cl_module.lua"] = "client",
     ["sv_module.lua"] = "server",
-    ["server"] = "server",
-    ["config"] = "shared",
-    ["sconfig"] = "server",
+    ["server.lua"] = "server",
+    ["config.lua"] = "shared",
+    ["sconfig.lua"] = "server",
 }
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -30,11 +30,11 @@ lia.module.ModuleConditions = {
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function lia.module.load(uniqueID, path, isSingleFile, variable)
     local schema = engine.ActiveGamemode()
-    local lowerVariable = variable:lower()
-    local moduleCore = (path .. "/sh_" .. lowerVariable .. ".lua") or (path .. "/shared.lua")
     variable = uniqueID == "schema" and "SCHEMA" or "MODULE"
+    local lowerVariable = variable:lower()
+    local ModuleCore = (path .. "/sh_" .. lowerVariable .. ".lua") or (path .. "/shared.lua")
     if hook.Run("ModuleShouldLoad", uniqueID) == false then return end
-    if not isSingleFile and not file.Exists(moduleCore, "LUA") then return end
+    if not isSingleFile and not file.Exists(ModuleCore, "LUA") then return end
     local oldModule = MODULE
     MODULE = {
         folder = path,
@@ -48,7 +48,10 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
     }
 
     if uniqueID == "schema" then
-        if SCHEMA then MODULE = SCHEMA end
+        if SCHEMA then
+            MODULE = SCHEMA
+        end
+
         variable = "SCHEMA"
         MODULE.folder = schema
     elseif lia.module.list[uniqueID] then
@@ -61,7 +64,9 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
     lia.util.include(isSingleFile and path or ModuleCore)
     for fileName, state in pairs(lia.config.ModuleFiles) do
         local filePath = path .. "/" .. fileName
-        if file.Exists(filePath, "LUA") then lia.util.include(filePath, state) end
+        if file.Exists(filePath, "LUA") then
+            lia.util.include(filePath, state)
+        end
     end
 
     if MODULE.Dependencies then
@@ -70,10 +75,16 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
         end
     end
 
-    if not isSingleFile then lia.module.loadExtras(path) end
+    if not isSingleFile then
+        lia.module.loadExtras(path)
+    end
+
     MODULE.loading = false
     local uniqueID2 = uniqueID
-    if uniqueID2 == "schema" then uniqueID2 = MODULE.name end
+    if uniqueID2 == "schema" then
+        uniqueID2 = MODULE.name
+    end
+
     function MODULE:setData(value, global, ignoreMap)
         lia.data.set(uniqueID2, value, global, ignoreMap)
     end
@@ -83,7 +94,9 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
     end
 
     for k, v in pairs(MODULE) do
-        if isfunction(v) then hook.Add(k, MODULE, v) end
+        if isfunction(v) then
+            hook.Add(k, MODULE, v)
+        end
     end
 
     if uniqueID == "schema" then
@@ -105,7 +118,9 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
     end
 
     hook.Run("ModuleLoaded", uniqueID, MODULE)
-    if MODULE.OnLoaded then MODULE:OnLoaded() end
+    if MODULE.OnLoaded then
+        MODULE:OnLoaded()
+    end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -168,6 +183,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function lia.module.isDisabled(uniqueID)
     if lia.module.ModuleConditions[uniqueID] ~= nil then return not modules[uniqueID] end
+
     return lia.config.UnLoadedModules[uniqueID] == true or lia.data.get("unloaded", {}, false, true)[uniqueID] == true
 end
 
