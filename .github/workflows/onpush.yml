@@ -99,7 +99,7 @@ jobs:
       - name: Run GLuaFixer on Lilia - Part 3
         run: |
             echo "Step 7: Running glualint pretty-print on Lilia (part 3)"
-            sudo ./glualint_executable pretty-print lilia/modularity/preload/*
+            sudo ./glualint_executable pretty-print lilia/modularity/core/*
         working-directory: ${{ github.workspace }}
         shell: bash
   
