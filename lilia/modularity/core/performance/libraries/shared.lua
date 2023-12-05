@@ -6,12 +6,12 @@ hook.Add("MouthMoveAnimation", "Optimization", function() return nil end)
 hook.Add("GrabEarAnimation", "Optimization", function() return nil end)
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:GetPlayerData(pPlayer)
-    return lia.config.tblPlayers[pPlayer:EntIndex()]
+    return self.tblPlayers[pPlayer:EntIndex()]
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:RegisterPlayer(pPlayer)
-    lia.config.tblPlayers[pPlayer:EntIndex()] = {
+    self.tblPlayers[pPlayer:EntIndex()] = {
         Player = pPlayer,
         Expanding = false,
         Expanded = false,
@@ -19,12 +19,12 @@ function MODULE:RegisterPlayer(pPlayer)
     }
 
     self:PlayerUpdateTransmitStates(pPlayer)
-    timer.Simple(lia.config.intSpawnDelay, function() self:BeginExpand(pPlayer) end)
+    timer.Simple(8, function() self:BeginExpand(pPlayer) end)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:RemovePlayer(pPlayer)
-    lia.config.tblPlayers[pPlayer:EntIndex()] = nil
+    self.tblPlayers[pPlayer:EntIndex()] = nil
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -41,7 +41,7 @@ function MODULE:PlayerUpdateTransmitStates(pPlayer, intRange)
                 continue
             end
 
-            if v:GetPos():Distance(pPlayer:GetPos()) > lia.config.intUpdateDistance then
+            if v:GetPos():Distance(pPlayer:GetPos()) > 5500 then
                 v:SetPreventTransmit(pPlayer, true)
             else
                 v:SetPreventTransmit(pPlayer, false)
@@ -73,7 +73,7 @@ function MODULE:BeginExpand(pPlayer)
     local currentRange = 0
     timer.Create(
         timerID,
-        lia.config.intUpdateRate,
+        1,
         0,
         function()
             if not IsValid(pPlayer) then
@@ -81,9 +81,9 @@ function MODULE:BeginExpand(pPlayer)
                 return
             end
 
-            currentRange = math.min(lia.config.intUpdateDistance, currentRange + lia.config.intUpdateAmount)
+            currentRange = math.min(5500, currentRange + 512)
             self:PlayerUpdateTransmitStates(pPlayer, currentRange)
-            if currentRange == lia.config.intUpdateDistance then
+            if currentRange == 5500 then
                 timer.Remove(timerID)
                 data.Expanded = true
                 data.Expanding = false
@@ -94,14 +94,14 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:PlayerExpandedUpdate()
-    for k, data in pairs(lia.config.tblPlayers) do
+    for k, data in pairs(self.tblPlayers) do
         if not data or not data.Expanded then continue end
         if not IsValid(data.Player) then
-            lia.config.tblPlayers[k] = nil
+            self.tblPlayers[k] = nil
             continue
         end
 
-        self:PlayerUpdateTransmitStates(data.Player, lia.config.intUpdateDistance)
+        self:PlayerUpdateTransmitStates(data.Player, 5500)
     end
 end
 

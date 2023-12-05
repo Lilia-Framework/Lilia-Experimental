@@ -14,14 +14,19 @@ end
 function MODULE:PlayerDeath(client)
     if not lia.config.DeathSoundEnabled then return end
     local deathSound = hook.Run("GetPlayerDeathSound", client, client:isFemale())
-    if deathSound then client:EmitSound(deathSound) end
+    if deathSound then
+        client:EmitSound(deathSound)
+    end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:EntityTakeDamage(client, _)
     if not lia.config.PainSoundEnabled or not client:IsPlayer() or client:Health() <= 0 then return end
     local painSound = self:GetPlayerPainSound(client, "hurt", client:isFemale())
-    if client:WaterLevel() >= 3 then painSound = self:GetPlayerPainSound(client, "drown", client:isFemale()) end
+    if client:WaterLevel() >= 3 then
+        painSound = self:GetPlayerPainSound(client, "drown", client:isFemale())
+    end
+
     if painSound then
         client:EmitSound(painSound)
         client.NextPain = CurTime() + 0.33
