@@ -23,7 +23,7 @@ function MODULE:StorageOpen(storage)
     if not IsValid(storage) or storage:getStorageInfo().invType ~= "grid" then return end
     local localInv = LocalPlayer():getChar() and LocalPlayer():getChar():getInv()
     local storageInv = storage:getInv()
-    if not localInv or not storageInv then return LiliaStorage:exitStorage() end
+    if not localInv or not storageInv then return self:exitStorage() end
     local localInvPanel = localInv:show()
     local storageInvPanel = storageInv:show()
     storageInvPanel:SetTitle(L(storage:getStorageInfo().name))
@@ -40,7 +40,7 @@ function MODULE:StorageOpen(storage)
     local function exitStorageOnRemove(panel)
         if firstToRemove then
             firstToRemove = false
-            LiliaStorage:exitStorage()
+            self:exitStorage()
             local otherPanel = panel == localInvPanel and storageInvPanel or localInvPanel
             if IsValid(otherPanel) then otherPanel:Remove() end
         end

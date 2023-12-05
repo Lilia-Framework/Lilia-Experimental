@@ -8,7 +8,7 @@ util.AddNetworkString("liaStorageUnlock")
 util.AddNetworkString("liaStorageTransfer")
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:PlayerSpawnedProp(client, model, entity)
-    local data = lia.config.StorageDefinitions[model:lower()]
+    local data = self.StorageDefinitions[model:lower()]
     if not data then return end
     if hook.Run("CanPlayerSpawnStorage", client, entity, data) == false then return end
     local storage = ents.Create("lia_storage")
@@ -73,7 +73,7 @@ function MODULE:LoadData()
     if not data then return end
     for _, info in ipairs(data) do
         local position, angles, invID, model, password = unpack(info)
-        local storage = lia.config.StorageDefinitions[model]
+        local storage = self.StorageDefinitions[model]
         if not storage then continue end
         local storage = ents.Create("lia_storage")
         storage:SetPos(position)
