@@ -1,4 +1,4 @@
-name: Code Verification
+name: Code Verification & Indenter
 
 on:
   push:
@@ -56,3 +56,92 @@ jobs:
           sudo apt update
           sudo apt install -y unzip
         shell: bash
+      - name: List files in the working directory (Before running GLuaFixer)
+        run: |
+          ls
+      - name: Set location of Lilia
+        run: |
+          cd lilia
+      - name: List files in lilia
+        run: |
+          ls
+        working-directory: '${{ github.workspace }}/lilia'
+      - name: Download GLuaFixer (Step 1)
+        run: |
+          echo "Step 1: Downloading glualint..."
+          curl -L -o glualint.zip https://github.com/FPtje/GLuaFixer/releases/download/1.26.0/glualint-1.26.0-x86_64-linux.zip
+          unzip glualint.zip -d glualint
+          mv glualint/glualint glualint_executable
+        working-directory: '${{ github.workspace }}'
+        shell: bash
+      - name: Set execution permissions (Step 2)
+        run: |
+          echo "Step 2: Setting execution permissions..."
+          sudo chmod +x glualint_executable
+        working-directory: '${{ github.workspace }}'
+        shell: bash
+      - name: List files in the working directory (After downloading GLuaFixer)
+        run: |
+          ls
+      - name: Run GLuaFixer on Lilia - Part 1
+        run: |
+            echo "Step 7: Running glualint pretty-print on Lilia (part 1)"
+            sudo ./glualint_executable pretty-print lilia/gamemode/*
+        working-directory: ${{ github.workspace }}
+        shell: bash
+      - name: Run GLuaFixer on Lilia - Part 2
+        run: |
+            echo "Step 7: Running glualint pretty-print on Lilia (part 2)"
+            sudo ./glualint_executable pretty-print lilia/libraries/*
+        working-directory: ${{ github.workspace }}
+        shell: bash
+  
+      - name: Run GLuaFixer on Lilia - Part 3
+        run: |
+            echo "Step 7: Running glualint pretty-print on Lilia (part 3)"
+            sudo ./glualint_executable pretty-print lilia/modularity/core/*
+        working-directory: ${{ github.workspace }}
+        shell: bash
+  
+      - name: Run GLuaFixer on Lilia - Part 4
+        run: |
+            echo "Step 7: Running glualint pretty-print on Lilia (part 4)"
+            sudo ./glualint_executable pretty-print lilia/modularity/modules/*
+        working-directory: ${{ github.workspace }}
+        shell: bash
+  
+      - name: Run GLuaFixer on Lilia - Part 5
+        run: |
+            echo "Step 7: Running glualint pretty-print on Lilia (part 5)"
+            sudo ./glualint_executable pretty-print lilia/modularity/submodules/*
+        working-directory: ${{ github.workspace }}
+        shell: bash
+      - name: Remove the glualint folder (Step 8)
+        run: |
+          echo "Step 8: Removing the glualint folder..."
+          rm -r glualint
+        working-directory: '${{ github.workspace }}'
+        shell: bash
+      - name: Delete the zip file (Step 9)
+        run: |
+          echo "Step 9: Deleting glualint.zip..."
+          rm glualint.zip
+        working-directory: '${{ github.workspace }}'
+      - name: Delete the glualint_executable (Step 10)
+        run: |
+          echo "Step 10: Deleting glualint_executable..."
+          rm glualint_executable
+        working-directory: '${{ github.workspace }}'
+        shell: bash
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git add -A
+            git commit -m "Auto-commit after running GLuaFixer"
+            git push
+          else
+            echo "No changes to commit."
+          fi
+        working-directory: '${{ github.workspace }}'
