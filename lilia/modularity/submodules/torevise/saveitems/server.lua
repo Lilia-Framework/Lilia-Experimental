@@ -50,9 +50,7 @@ end
 function MODULE:SaveData()
     local items = {}
     for _, v in ipairs(ents.FindByClass("lia_item")) do
-        if v.liaItemID and not v.temp then
-            items[#items + 1] = {v.liaItemID, v:GetPos()}
-        end
+        if v.liaItemID and not v.temp then items[#items + 1] = {v.liaItemID, v:GetPos()} end
     end
 
     self:setData(items)

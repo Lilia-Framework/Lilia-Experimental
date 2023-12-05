@@ -1,4 +1,4 @@
-function GM:OnContextMenuOpen()
+﻿function GM:OnContextMenuOpen()
 end
 
 function GM:OnContextMenuClose()
