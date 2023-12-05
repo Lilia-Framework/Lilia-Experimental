@@ -6,7 +6,7 @@ function MODULE:LoadData()
         local positions = {}
         for _, v in ipairs(items) do
             idRange[#idRange + 1] = v[1]
-            positions[v[1                  ]] = v[2]
+            positions[v[1]] = v[2]
         end
 
         if #idRange > 0 then
