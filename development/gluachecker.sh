@@ -9,7 +9,7 @@ cd gluacheck &&
 sudo luarocks make &&
 echo "Running gluacheck..."
 cd "/workspaces/Lilia-Experimental/lilia" && sudo luacheck . --no-redefined \
-   --no-global --no-self -i 4.2/.*_ --formatter visual_studio \
+  --no-global --no-self -i 4.2/.*_ --formatter visual_studio \
   --no-max-line-length --no-max-code-line-length \
   --no-max-string-line-length --no-max-comment-line-length \
   --no-max-cyclomatic-complexity && cd ..

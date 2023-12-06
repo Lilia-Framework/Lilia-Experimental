@@ -48,7 +48,6 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
     }
 
     if hook.Run("ModuleShouldLoad", MODULE) == false then return end
-
     if uniqueID == "schema" then
         if SCHEMA then MODULE = SCHEMA end
         variable = "SCHEMA"
@@ -139,9 +138,9 @@ function lia.module.initialize()
     lia.module.loadFromDir(schema .. "/preload")
     lia.module.load("schema", schema .. "/schema")
     hook.Run("InitializedSchema")
-    lia.module.loadFromDir("lilia/modularity/core")
-    lia.module.loadFromDir("lilia/modularity/modules")
-    lia.module.loadFromDir("lilia/modularity/submodules")
+    lia.module.loadFromDir("lilia/modularity/preloaded")
+    lia.module.loadFromDir("lilia/modularity/essentials")
+    lia.module.loadFromDir("lilia/modularity/utilities")
     lia.module.loadFromDir(schema .. "/submodules")
     lia.module.loadFromDir(schema .. "/modules")
     hook.Run("InitializedModules")
@@ -158,6 +157,7 @@ function lia.module.loadFromDir(directory)
         lia.module.load(string.StripExtension(v), directory .. "/" .. v, true, "MODULE", IsCore)
     end
 end
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function lia.module.isDisabled(module)
     local uniqueID = module.uniqueID

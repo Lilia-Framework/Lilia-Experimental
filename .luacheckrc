@@ -12,17 +12,5 @@ exclude_files = {
     "lilia/libraries/netloggers/**/*.lua",
     "lilia/libraries/util/**/*.lua",
     "lilia/libraries/thirdparty/**/*.lua",
-
-
-    "lilia/modularity/modules/inventory/**/*.lua",
-    "lilia/modularity/submodules/frameworkui/libraries/*.lua",
-    "lilia/modularity/submodules/frameworkui/modules/**/*.lua",
-    "lilia/modularity/modules/protection/modules/logger/**/*.lua",
-    "lilia/modularity/submodules/thirdperson/client.lua",
-    "lilia/modularity/submodules/vendor/derma/*.lua",
-    "lilia/modularity/submodules/bodygrouper/derma/*.lua",
-    "lilia/modularity/preload/attributes/derma/client.lua",
-    "lilia/modularity/modules/doors/**/*.lua",
-    "lilia/modularity/submodules/frameworkui/*.lua",
-
+    "lilia/modularity/**/*.lua",
 }
