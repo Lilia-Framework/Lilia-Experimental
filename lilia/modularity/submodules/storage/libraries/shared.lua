@@ -8,11 +8,11 @@ end
 function MODULE:InitializeStorage(ent)
     if LiliaStorage.Vehicles[ent] then return end
     LiliaStorage.Vehicles[ent] = true
-    ent.getInv = function(self) return nut.inventory.instances[self:getNetVar("inv")] end
+    ent.getInv = function(self) return lia.inventory.instances[self:getNetVar("inv")] end
     ent.getStorageInfo = function(self) return LiliaStorage.VehicleTrunk end
     if SERVER then
         ent.receivers = {}
-        nut.inventory.instance(LiliaStorage.VehicleTrunk.invType, LiliaStorage.VehicleTrunk.invData):next(
+        lia.inventory.instance(LiliaStorage.VehicleTrunk.invType, LiliaStorage.VehicleTrunk.invData):next(
             function(inv)
                 inv.isStorage = true
                 ent:setNetVar("inv", inv:getID())
