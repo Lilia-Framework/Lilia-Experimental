@@ -20,7 +20,7 @@ permissions:
   statuses: write
 
 jobs:
-  CodeVerifierAndIndenter:
+  GLuaLinter_&_GLuaChecker:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

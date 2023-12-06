@@ -1,6 +1,6 @@
 exclude_files = {
     "lilia/*.png",
-    "lilia/*.txt"
+    "lilia/*.txt",
 
     "lilia/libraries/loader/module.lua",
     "lilia/libraries/attributes/shared.lua",
