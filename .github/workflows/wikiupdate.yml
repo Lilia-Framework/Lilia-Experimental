@@ -2,7 +2,11 @@ name: Wiki Update
 
 on:
   push:
+    paths:
+      - 'development/documentation/**'
   pull_request:
+    paths:
+      - 'development/documentation/**'
 
 permissions:
   actions: write
