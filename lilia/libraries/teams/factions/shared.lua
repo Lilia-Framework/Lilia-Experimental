@@ -121,8 +121,8 @@ function lia.faction.jobGenerate(index, name, color, default, models)
         end
     end
 
-    nut.faction.indices[FACTION.index] = FACTION
-    nut.faction.teams[name] = FACTION
+    lia.faction.indices[FACTION.index] = FACTION
+    lia.faction.teams[name] = FACTION
     team.SetUp(FACTION.index, FACTION.name, FACTION.color)
     return FACTION
 end
