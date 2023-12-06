@@ -20,7 +20,7 @@ permissions:
   statuses: write
 
 jobs:
-  GLuaLinter_&_GLuaChecker:
+  GLuaLinter_GLuaChecker:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
