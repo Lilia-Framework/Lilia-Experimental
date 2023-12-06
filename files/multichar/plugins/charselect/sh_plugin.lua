@@ -4,39 +4,6 @@ MODULE.desc = "The NutScript character selection screen."
 
 lia.util.includeDir(MODULE.path.."/derma/steps", true)
 
-lia.config.add(
-	"music",
-	"music/hl2_song2.mp3",
-	"The default music played in the character menu.",
-	nil,
-	{category = MODULE.name}
-)
-lia.config.add(
-	"musicvolume",
-	"0.25",
-	"The Volume for the music played in the character menu.",
-	nil,
-	{
-		form = "Float",
-		data = {min = 0, max = 1},
-		category = MODULE.name
-	}
-)
-lia.config.add(
-	"backgroundURL",
-	"",
-	"The URL or HTML for the background of the character menu.",
-	nil,
-	{category = MODULE.name}
-)
-
-lia.config.add(
-	"charMenuBGInputDisabled",
-	true,
-	"Whether or not KB/mouse input is disabled in the character background.",
-	nil,
-	{category = MODULE.name}
-)
 
 if (SERVER) then return end
 

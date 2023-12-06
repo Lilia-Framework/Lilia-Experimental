@@ -34,7 +34,6 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
     variable = uniqueID == "schema" and "SCHEMA" or "MODULE"
     local lowerVariable = variable:lower()
     local ModuleCore = (path .. "/sh_" .. lowerVariable .. ".lua") or (path .. "/shared.lua")
-    if hook.Run("ModuleShouldLoad", uniqueID) == false then return end
     if not isSingleFile and not file.Exists(ModuleCore, "LUA") then return end
     local oldModule = MODULE
     MODULE = {
@@ -47,6 +46,8 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
         identifier = nil,
         IsValid = function(module) return true end
     }
+
+    if hook.Run("ModuleShouldLoad", MODULE) == false then return end
 
     if uniqueID == "schema" then
         if SCHEMA then MODULE = SCHEMA end
@@ -157,19 +158,13 @@ function lia.module.loadFromDir(directory)
         lia.module.load(string.StripExtension(v), directory .. "/" .. v, true, "MODULE", IsCore)
     end
 end
-
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function lia.module.setDisabled(uniqueID, disabled)
-    disabled = tobool(disabled)
-    local oldData = table.Copy(lia.data.get("unloaded", {}, false, true))
-    oldData[uniqueID] = disabled
-    lia.data.set("unloaded", oldData, false, true, true)
-end
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function lia.module.isDisabled(uniqueID)
-    if lia.module.ModuleConditions[uniqueID] ~= nil then return not modules[uniqueID] end
-    return lia.config.UnLoadedModules[uniqueID] == true or lia.data.get("unloaded", {}, false, true)[uniqueID] == true
+function lia.module.isDisabled(module)
+    local uniqueID = module.uniqueID
+    local moduleConditions = lia.module.ModuleConditions[uniqueID]
+    local isEnabled = module.enabled
+    if moduleConditions ~= nil then return not moduleConditions end
+    if isEnabled then return not isEnabled end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

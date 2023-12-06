@@ -31,7 +31,6 @@ if not ConfigWasInitialized then
             database = "", -- Database name
             port = 3306 -- Database port
         },
-        UnLoadedModules = {}, -- List of unloaded modules
         PlayerModelTposingFixer = {} -- Models to fix T-pose issues
     }
 
