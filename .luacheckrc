@@ -12,5 +12,5 @@ exclude_files = {
     "lilia/libraries/netloggers/**/*.lua",
     "lilia/libraries/util/**/*.lua",
     "lilia/libraries/thirdparty/**/*.lua",
-    "lilia/modularity/**/*.lua",
+    "lilia/modularity/essentials/revise/**/*.lua",
 }
