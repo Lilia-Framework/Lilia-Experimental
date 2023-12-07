@@ -14,9 +14,12 @@ if not ConfigWasInitialized then
         MoneyModel = "models/props_lab/box01a.mdl", -- Money model
         MaxCharacters = 5, -- Maximum number of characters per player
         DataSaveInterval = 600, -- Time between data saves
+        CharacterDataSaveInterval = 300, -- Time between character data saves
+
         invW = 6, -- Inventory width
         invH = 4, -- Inventory height
         DefaultMoney = 0, -- Default money amount
+        MaxChatLength = 256, -- Max Chat Length
         CurrencySymbol = "$", -- Currency symbol
         CurrencySingularName = "Dollar", -- Singular currency name
         CurrencyPluralName = "Dollars", -- Plural currency name

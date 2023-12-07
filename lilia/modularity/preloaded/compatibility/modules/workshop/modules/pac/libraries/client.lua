@@ -13,6 +13,7 @@ end
 function MODULE:getAdjustedPartData(wearer, id)
     if not MODULE.partData[id] then return end
     local data = table.Copy(MODULE.partData[id])
+
     return hook.Run("AdjustPACPartData", wearer, id, data) or data
 end
 
@@ -21,7 +22,10 @@ function MODULE:attachPart(client, id)
     if not pac then return end
     local part = self:getAdjustedPartData(client, id)
     if not part then return end
-    if not client.AttachPACPart then pac.SetupENT(client) end
+    if not client.AttachPACPart then
+        pac.SetupENT(client)
+    end
+
     client:AttachPACPart(part, client)
     client.liaPACParts = client.liaPACParts or {}
     client.liaPACParts[id] = part
@@ -74,7 +78,9 @@ function MODULE:OnEntityCreated(entity)
 
             if class:find("HL2MPRagdoll") then
                 for _, v in ipairs(player.GetAll()) do
-                    if v:GetRagdollEntity() == entity then entity.objCache = v end
+                    if v:GetRagdollEntity() == entity then
+                        entity.objCache = v
+                    end
                 end
 
                 entity.RenderOverride = function()
@@ -85,4 +91,7 @@ function MODULE:OnEntityCreated(entity)
         end
     )
 end
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+RunConsoleCommand("pac_debug_clmdl", "1")
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
