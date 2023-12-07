@@ -9,7 +9,7 @@ function MODULE:InitializedConfig()
                     return false
                 end
 
-                if self.oocBans[speaker:SteamID()] then
+                if self.OOCBans[speaker:SteamID()] then
                     speaker:notify("You have been banned from using OOC!")
                     return false
                 end
