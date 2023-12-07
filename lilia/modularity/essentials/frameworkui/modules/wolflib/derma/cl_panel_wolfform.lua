@@ -28,7 +28,7 @@ function PANEL:Init()
     local function getEntryPanel()
         local fep = self.list:Add("DPanel")
         fep:SetSize(self.list:GetWide() / 2, 35)
-        function fep:Paint(w, h)
+        function fep:Paint(_, _)
         end
         return fep
     end

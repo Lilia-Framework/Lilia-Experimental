@@ -19,9 +19,7 @@ function MODULE:HandleItemTransferRequest(client, itemID, x, y, invID)
     }
 
     local canTransfer, reason = oldInventory:canAccess("transfer", context)
-    if not canTransfer then return end
     if not inventory then return hook.Run("ItemDraggedOutOfInventory", client, item) end
-    canTransfer, reason = inventory:canAccess("transfer", context)
     if not canTransfer then
         if isstring(reason) then client:notifyLocalized(reason) end
         return

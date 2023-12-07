@@ -20,7 +20,7 @@ function String_Request(name, onRun, onCancel, okBtnText)
         local popout = Derma_Anim(
             "popout",
             self,
-            function(pnl, anim, dt, data)
+            function(pnl, _, dt, data)
                 pnl:SetSize(pnl:GetWide() - data[1] * dt ^ 2, pnl:GetTall() - data[2] * dt ^ 2)
                 pnl:Center()
             end
@@ -56,7 +56,7 @@ function String_Request(name, onRun, onCancel, okBtnText)
     local pop = Derma_Anim(
         "pop",
         bb.pop,
-        function(pnl, anim, dt, data)
+        function(pnl, _, dt, data)
             pnl:SetSize(0 + data[1] * dt ^ 2, 0 + data[2] * dt ^ 2)
             pnl:Center()
         end

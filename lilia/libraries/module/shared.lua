@@ -31,7 +31,6 @@ lia.module.ModuleConditions = {
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function lia.module.load(uniqueID, path, isSingleFile, variable)
     local schema = engine.ActiveGamemode()
-    variable = uniqueID == "schema" and "SCHEMA" or "MODULE"
     local lowerVariable = variable:lower()
     local ModuleCore = (path .. "/sh_" .. lowerVariable .. ".lua") or (path .. "/shared.lua")
     if not isSingleFile and not file.Exists(ModuleCore, "LUA") then return end
@@ -44,15 +43,12 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
         desc = "Description not available",
         author = "Anonymous",
         identifier = nil,
-        IsValid = function(module) return true end
+        IsValid = function(_) return true end
     }
 
     if hook.Run("ModuleShouldLoad", MODULE) == false then return end
     if uniqueID == "schema" then
-        if SCHEMA then
-            MODULE = SCHEMA
-        end
-
+        if SCHEMA then MODULE = SCHEMA end
         variable = "SCHEMA"
         MODULE.folder = schema
     elseif lia.module.list[uniqueID] then
@@ -65,9 +61,7 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
     lia.util.include(isSingleFile and path or ModuleCore)
     for fileName, state in pairs(lia.module.ModuleFiles) do
         local filePath = path .. "/" .. fileName
-        if file.Exists(filePath, "LUA") then
-            lia.util.include(filePath, state)
-        end
+        if file.Exists(filePath, "LUA") then lia.util.include(filePath, state) end
     end
 
     if MODULE.Dependencies then
@@ -76,16 +70,10 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
         end
     end
 
-    if not isSingleFile then
-        lia.module.loadExtras(path)
-    end
-
+    if not isSingleFile then lia.module.loadExtras(path) end
     MODULE.loading = false
     local uniqueID2 = uniqueID
-    if uniqueID2 == "schema" then
-        uniqueID2 = MODULE.name
-    end
-
+    if uniqueID2 == "schema" then uniqueID2 = MODULE.name end
     function MODULE:setData(value, global, ignoreMap)
         lia.data.set(uniqueID2, value, global, ignoreMap)
     end
@@ -95,9 +83,7 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
     end
 
     for k, v in pairs(MODULE) do
-        if isfunction(v) then
-            hook.Add(k, MODULE, v)
-        end
+        if isfunction(v) then hook.Add(k, MODULE, v) end
     end
 
     if uniqueID == "schema" then
@@ -119,9 +105,7 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
     end
 
     hook.Run("ModuleLoaded", uniqueID, MODULE)
-    if MODULE.OnLoaded then
-        MODULE:OnLoaded()
-    end
+    if MODULE.OnLoaded then MODULE:OnLoaded() end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -151,8 +135,8 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function lia.module.initialize()
     local schema = engine.ActiveGamemode()
-    lia.module.loadFromDir(schema .. "/preload")
-    lia.module.load("schema", schema .. "/schema")
+    lia.module.loadFromDir(schema .. "/preload", "schema")
+    lia.module.load("schema", schema .. "/schema", false, "schema")
     hook.Run("InitializedSchema")
     lia.module.loadFromDir("lilia/modularity/preloaded")
     lia.module.loadFromDir("lilia/modularity/essentials")
@@ -163,14 +147,15 @@ function lia.module.initialize()
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function lia.module.loadFromDir(directory)
+function lia.module.loadFromDir(directory, group)
+    local location = group == "schema" and "SCHEMA" or "MODULE"
     local files, folders = file.Find(directory .. "/*", "LUA")
     for _, v in ipairs(folders) do
-        lia.module.load(v, directory .. "/" .. v, false, "MODULE")
+        lia.module.load(v, directory .. "/" .. v, false, location)
     end
 
     for _, v in ipairs(files) do
-        lia.module.load(string.StripExtension(v), directory .. "/" .. v, true, "MODULE", IsCore)
+        lia.module.load(string.StripExtension(v), directory .. "/" .. v, true, location)
     end
 end
 

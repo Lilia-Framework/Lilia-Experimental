@@ -7,7 +7,7 @@ function PANEL:Init()
     self.close:SetSize(50, 25)
     self.close:SetText("x")
     self.close:SetColor(color_white)
-    function self.close.PerformLayout(this, w, h)
+    function self.close.PerformLayout(this, w, _)
         this:SetPos(self:GetWide() - w)
     end
 
@@ -19,7 +19,7 @@ function PANEL:Init()
         end
     end
 
-    function self.close.DoClick(this)
+    function self.close.DoClick(_)
         self:Remove()
     end
 
@@ -27,7 +27,7 @@ function PANEL:Init()
     self.title = self:Add("DLabel")
     self.title:SetFont("WB_Small")
     self.title:SetColor(color_white)
-    function self.title.PerformLayout(this, w, h)
+    function self.title.PerformLayout(this, _, h)
         this:SetText(self.lblTitle:GetText())
         this:SizeToContents()
         this:SetPos(0, 25 / 2 - h / 2)

@@ -10,7 +10,7 @@ function PANEL:Init()
     self.access:Dock(FILL)
     self.access:AddColumn(L"name").Header:SetTextColor(Color(25, 25, 25))
     self.access:AddColumn(L"access").Header:SetTextColor(Color(25, 25, 25))
-    self.access.OnClickLine = function(this, line, selected)
+    self.access.OnClickLine = function(_, line, _)
         if IsValid(line.player) then
             local menu = DermaMenu()
             menu:AddOption(L"tenant", function() if self.accessData and self.accessData[line.player] ~= DOOR_TENANT then netstream.Start("doorPerm", self.door, line.player, DOOR_TENANT) end end):SetImage("icon16/user_add.png")
@@ -26,7 +26,7 @@ function PANEL:setDoor(door, access, door2)
     door.liaPanel = self
     self.accessData = access
     self.door = door
-    for k, v in ipairs(player.GetAll()) do
+    for _, v in ipairs(player.GetAll()) do
         if v ~= LocalPlayer() and v:getChar() then self.access:AddLine(v:Name():gsub("#", "\226\128\139#"), L(ACCESS_LABELS[access[v] or 0])).player = v end
     end
 
@@ -36,7 +36,7 @@ function PANEL:setDoor(door, access, door2)
         self.sell:SetText(L"sell")
         self.sell:SetTextColor(color_white)
         self.sell:DockMargin(0, 5, 0, 0)
-        self.sell.DoClick = function(this)
+        self.sell.DoClick = function(_)
             self:Remove()
             lia.command.send("doorsell")
         end

@@ -34,7 +34,7 @@ function GM:SetupQuickMenu(menu)
 
     menu:addSlider(
         "HUD Desc Width Modifier",
-        function(panel, value)
+        function(_, value)
             DescWidth:SetFloat(value)
         end, DescWidth:GetFloat(), 0.1, 1, 2
     )

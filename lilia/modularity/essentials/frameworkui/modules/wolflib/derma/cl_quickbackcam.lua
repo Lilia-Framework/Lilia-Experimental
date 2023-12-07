@@ -38,7 +38,7 @@ function QuickBackground(time, callback)
     hook.Add(
         "CalcView",
         "Camerabackground",
-        function(client, pos, ang, fov)
+        function(client, _, ang, fov)
             if not MODULE.backCam then return end
             local view = {}
             view.origin = client:GetPos() + Vector(0, 0, 300)

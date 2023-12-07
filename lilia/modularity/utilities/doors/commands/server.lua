@@ -281,7 +281,7 @@ lia.command.add(
     {
         adminOnly = true,
         privilege = "Manage Doors",
-        onRun = function(client, arguments)
+        onRun = function(client)
             local entity = client:GetEyeTrace().Entity
             if IsValid(entity) and entity:isDoor() and not entity:getNetVar("disabled") then
                 client.liaDoorParent = entity

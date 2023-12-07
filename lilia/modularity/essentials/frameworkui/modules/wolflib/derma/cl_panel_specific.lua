@@ -33,7 +33,7 @@ function b:Flash(text, color, time, noAdjust, callback)
     self:SetText(text)
     self.flashing = true
     if not noAdjust then
-        local cw, ch = self:GetContentSize()
+        local cw, _ = self:GetContentSize()
         self:SizeTo(cw + 15, self:GetTall(), 0.2, 0, -1)
     end
 
@@ -139,12 +139,12 @@ for _, v in pairs(mps) do
     local m = vgui.GetControlTable(v)
     if m then
         function m:GetX()
-            local x, y = self:GetPos()
+            local x, _ = self:GetPos()
             return x
         end
 
         function m:GetY()
-            local x, y = self:GetPos()
+            local _, y = self:GetPos()
             return y
         end
 

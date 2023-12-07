@@ -2,7 +2,7 @@
 local Variables = {"disabled", "name", "price", "noSell", "faction", "factions", "class", "hidden"}
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 local DarkRPVariables = {
-    ["DarkRPNonOwnable"] = function(ent, val)
+    ["DarkRPNonOwnable"] = function(ent, _)
         ent:setNetVar("noSell", true)
     end,
     ["DarkRPTitle"] = function(ent, val)
@@ -15,8 +15,7 @@ local DarkRPVariables = {
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:EntityKeyValue(ent, key, value)
-    if not ent:isDoor() then return end
-    if DarkRPVariables[key] then
+    if ent:isDoor() and DarkRPVariables[key] then
         DarkRPVariables[key](ent, value)
     end
 end
@@ -25,7 +24,7 @@ end
 function MODULE:copyParentDoor(child)
     local parent = child.liaParent
     if IsValid(parent) then
-        for k, v in ipairs(Variables) do
+        for _, v in ipairs(Variables) do
             local value = parent:getNetVar(v)
             if child:getNetVar(v) ~= value then
                 child:setNetVar(v, value)
@@ -62,7 +61,7 @@ end
 function MODULE:SaveDoorData()
     local data = {}
     local doors = {}
-    for k, v in ipairs(ents.GetAll()) do
+    for _, v in ipairs(ents.GetAll()) do
         if v:isDoor() then
             doors[v:MapCreationID()] = v
         end
@@ -71,7 +70,7 @@ function MODULE:SaveDoorData()
     local doorData
     for k, v in pairs(doors) do
         doorData = {}
-        for k2, v2 in ipairs(Variables) do
+        for _, v2 in ipairs(Variables) do
             local value = v:getNetVar(v2)
             if value then
                 doorData[v2] = v:getNetVar(v2)
@@ -109,7 +108,7 @@ function MODULE:callOnDoorChildren(entity, callback)
 
     if IsValid(parent) then
         callback(parent)
-        for k, v in pairs(parent.liaChildren) do
+        for k, _ in pairs(parent.liaChildren) do
             local child = ents.GetMapCreatedEntity(k)
             if IsValid(child) then
                 callback(child)
@@ -154,12 +153,12 @@ function MODULE:PlayerUse(client, entity)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function MODULE:CanPlayerUseDoor(client, entity)
+function MODULE:CanPlayerUseDoor(_, _)
     if entity:getNetVar("disabled") then return false end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function MODULE:CanPlayerAccessDoor(client, door, access)
+function MODULE:CanPlayerAccessDoor(client, door, _)
     local factions = door:getNetVar("factions")
     if factions ~= nil then
         local facs = util.JSONToTable(factions)
@@ -211,7 +210,7 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:PlayerDisconnected(client)
-    for k, v in ipairs(ents.GetAll()) do
+    for _, v in ipairs(ents.GetAll()) do
         if v == client then return end
         if v.isDoor and v:isDoor() and v:GetDTEntity(0) == client then
             v:removeDoorAccessData()

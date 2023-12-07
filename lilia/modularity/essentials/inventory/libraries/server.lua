@@ -16,14 +16,14 @@ local function CanAccessIfPlayerHasAccessToBag(inventory, action, context)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-local function CanNotTransferBagIntoBag(inventory, action, context)
+local function CanNotTransferBagIntoBag(_, action, context)
     if action ~= "transfer" then return end
     local item, toInventory = context.item, context.to
     if toInventory and toInventory:getData("item") and item.isBag then return false, "A bag cannot be placed into another bag" end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-local function CanNotTransferBagIfNestedItemCanNotBe(inventory, action, context)
+local function CanNotTransferBagIfNestedItemCanNotBe(_, action, context)
     if action ~= "transfer" then return end
     local item = context.item
     if not item.isBag then return end

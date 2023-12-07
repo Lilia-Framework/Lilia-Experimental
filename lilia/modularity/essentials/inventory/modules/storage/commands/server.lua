@@ -35,7 +35,7 @@ lia.command.add(
     {
         privilege = "Default User Commands",
         adminOnly = false,
-        onRun = function(client, arguments)
+        onRun = function(client)
             local ent = client:GetEyeTrace().Entity
             local maxDistance = lia.config.TrunkOpenDistance
             local openTime = lia.config.TrunkOpenTime

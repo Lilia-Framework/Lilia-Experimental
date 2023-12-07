@@ -34,7 +34,7 @@ function MODULE:HUDPaint()
             local lastY = 0
             local shiftX = ScrW() * .02
             if self.markup and k < self.index then
-                local w, h = self.markup:Size()
+                local _, h = self.markup:Size()
                 lastY = h * fraction
                 if k == self.index - 1 then
                     self.infoAlpha = Lerp(frameTime * 3, self.infoAlpha, 255)
@@ -43,7 +43,7 @@ function MODULE:HUDPaint()
             end
 
             surface.SetFont("liaSubTitleFont")
-            local tx, ty = surface.GetTextSize(v:GetPrintName():upper())
+            local _, ty = surface.GetTextSize(v:GetPrintName():upper())
             local scale = 1 - math.abs(theta * 2)
             local matrix = Matrix()
             matrix:Translate(Vector(shiftX + x + math.cos(theta * spacing + math.pi) * radius + radius, y + lastY + math.sin(theta * spacing + math.pi) * radius - ty / 2, 1))
@@ -79,8 +79,8 @@ function MODULE:onIndexChanged()
             self.infoAlpha = 0
         end
 
-        local source, pitch = hook.Run("WeaponCycleSound") or "common/talk.wav"
-        client:EmitSound(source or "common/talk.wav", 50, pitch or 180)
+        local source = hook.Run("WeaponCycleSound") or "common/talk.wav"
+        client:EmitSound(source or "common/talk.wav", 50, 180)
     end
 end
 

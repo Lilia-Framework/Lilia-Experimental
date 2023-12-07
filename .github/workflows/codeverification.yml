@@ -44,11 +44,10 @@ jobs:
       - name: Lint with gluacheck
         working-directory: lilia
         run: >-
-          luacheck . --no-unused-secondaries --no-unused-args --no-redefined
-          --no-unused --no-global --no-self -i 4.2/.*_ --formatter visual_studio
-          --no-unused --no-max-line-length --no-max-code-line-length
-          --no-max-string-line-length --no-max-comment-line-length
-          --no-max-cyclomatic-complexity 
+          luacheck . --no-redefined \
+            --no-global --no-self \
+            --no-max-line-length --no-max-code-line-length \
+            --no-max-string-line-length --no-max-comment-line-length \ && cd ..
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Set up Bash
@@ -85,35 +84,32 @@ jobs:
           ls
       - name: Run GLuaFixer on Lilia - Part 1
         run: |
-            echo "Step 7: Running glualint pretty-print on Lilia (part 1)"
-            sudo ./glualint_executable pretty-print lilia/gamemode/*
+          echo "Step 7: Running glualint pretty-print on Lilia (part 1)"
+          sudo ./glualint_executable pretty-print lilia/gamemode/*
         working-directory: ${{ github.workspace }}
         shell: bash
       - name: Run GLuaFixer on Lilia - Part 2
         run: |
-            echo "Step 7: Running glualint pretty-print on Lilia (part 2)"
-            sudo ./glualint_executable pretty-print lilia/libraries/*
+          echo "Step 7: Running glualint pretty-print on Lilia (part 2)"
+          sudo ./glualint_executable pretty-print lilia/libraries/*
         working-directory: ${{ github.workspace }}
         shell: bash
-  
       - name: Run GLuaFixer on Lilia - Part 3
         run: |
-            echo "Step 7: Running glualint pretty-print on Lilia (part 3)"
-            sudo ./glualint_executable pretty-print lilia/modularity/core/*
+          echo "Step 7: Running glualint pretty-print on Lilia (part 3)"
+          sudo ./glualint_executable pretty-print lilia/modularity/core/*
         working-directory: ${{ github.workspace }}
         shell: bash
-  
       - name: Run GLuaFixer on Lilia - Part 4
         run: |
-            echo "Step 7: Running glualint pretty-print on Lilia (part 4)"
-            sudo ./glualint_executable pretty-print lilia/modularity/modules/*
+          echo "Step 7: Running glualint pretty-print on Lilia (part 4)"
+          sudo ./glualint_executable pretty-print lilia/modularity/modules/*
         working-directory: ${{ github.workspace }}
         shell: bash
-  
       - name: Run GLuaFixer on Lilia - Part 5
         run: |
-            echo "Step 7: Running glualint pretty-print on Lilia (part 5)"
-            sudo ./glualint_executable pretty-print lilia/modularity/submodules/*
+          echo "Step 7: Running glualint pretty-print on Lilia (part 5)"
+          sudo ./glualint_executable pretty-print lilia/modularity/submodules/*
         working-directory: ${{ github.workspace }}
         shell: bash
       - name: Remove the glualint folder (Step 8)

@@ -11,7 +11,7 @@ function MODULE:SetupQuickMenu(menu)
     if lia.config.ThirdPersonEnabled then
         menu:addCheck(
             L"thirdpersonToggle",
-            function(panel, state)
+            function(_, state)
                 if state then
                     RunConsoleCommand("lia_tp_enabled", "1")
                 else
@@ -23,7 +23,7 @@ function MODULE:SetupQuickMenu(menu)
 
         menu:addCheck(
             L"thirdpersonClassic",
-            function(panel, state)
+            function(_, state)
                 if state then
                     RunConsoleCommand("lia_tp_classic", "1")
                 else
@@ -50,7 +50,7 @@ function MODULE:SetupQuickMenu(menu)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function MODULE:CalcView(client, origin, angles, fov)
+function MODULE:CalcView(client, _, _, _)
     ft = FrameTime()
     if client:CanOverrideView() and LocalPlayer():GetViewEntity() == LocalPlayer() then
         if (client:OnGround() and client:KeyDown(IN_DUCK)) or client:Crouching() then
@@ -92,7 +92,7 @@ function MODULE:CreateMove(cmd)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function MODULE:InputMouseApply(cmd, x, y, ang)
+function MODULE:InputMouseApply(_, x, y, _)
     owner = LocalPlayer()
     if not owner.camAng then owner.camAng = Angle(0, 0, 0) end
     if owner:CanOverrideView() and LocalPlayer():GetViewEntity() == LocalPlayer() then
@@ -108,7 +108,7 @@ function MODULE:ShouldDrawLocalPlayer()
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function MODULE:PlayerButtonDown(client, button)
+function MODULE:PlayerButtonDown(_, button)
     if button == KEY_F4 and IsFirstTimePredicted() then
         local toggle = GetConVar("lia_tp_enabled")
         if toggle:GetInt() == 1 then

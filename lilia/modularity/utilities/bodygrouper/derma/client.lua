@@ -17,7 +17,7 @@ function PANEL:Init()
     self.model = self:Add("liaModelPanel")
     self.model:Dock(LEFT)
     self.model:SetWide(w / 2)
-    self.model.PaintOver = function(this, w, h)
+    self.model.PaintOver = function(_, _, _)
         local str = "[%s] Rotate Left | [%s] Rotate Right"
         str = str:format(leftrotate:upper(), rightrotate:upper())
         lia.util.drawText(str, w / 2, h - 16, color_white, 1, 1)
@@ -34,7 +34,7 @@ function PANEL:Init()
     self.skinSelector:SetMin(0)
     self.skinSelector:SetDecimals(0)
     self.skinSelector:SetVisible(false)
-    self.skinSelector.OnValueChanged = function(this, value)
+    self.skinSelector.OnValueChanged = function(_, value)
         local model = self.model.Entity
         if IsValid(model) then model:SetSkin(math.Round(value)) end
     end
@@ -49,14 +49,14 @@ function PANEL:Init()
     self.finish:SetTall(24)
     self.finish:SetText("Finish")
     self.finish:SetFont("liaMediumFont")
-    self.finish.Paint = function(panel, w, h)
+    self.finish.Paint = function(_, w, h)
         surface.SetDrawColor(color)
         surface.DrawRect(0, 0, w, h)
         surface.SetDrawColor(finaloutlinecolor)
         surface.DrawOutlinedRect(0, 0, w, h, 1)
     end
 
-    self.finish.DoClick = function(this)
+    self.finish.DoClick = function(_)
         local model = self.model.Entity
         if IsValid(model) then
             local skn = model:GetSkin()
@@ -123,7 +123,7 @@ function PANEL:PopulateOptions()
             panel:SetMax(target:GetBodygroupCount(i) - 1)
             panel:SetDecimals(0)
             panel:SetValue(group)
-            panel.OnValueChanged = function(this, value) model:SetBodygroup(i, math.Round(value)) end
+            panel.OnValueChanged = function(_, value) model:SetBodygroup(i, math.Round(value)) end
         end
     else
         if not self.skinSelector:IsVisible() then

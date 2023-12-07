@@ -22,13 +22,13 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 local paintFunctions = {}
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-paintFunctions[0] = function(this, w, h)
+paintFunctions[0] = function(_, w, h)
     surface.SetDrawColor(0, 0, 0, 50)
     surface.DrawRect(0, 0, w, h)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-paintFunctions[1] = function(this, w, h) print("") end
+paintFunctions[1] = function(_, _, _) print("") end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function PANEL:Init()
     if IsValid(lia.gui.score) then lia.gui.score:Remove() end
@@ -44,7 +44,7 @@ function PANEL:Init()
     self.title:Dock(TOP)
     self.title:SizeToContentsY()
     self.title:SetTall(self.title:GetTall() + 16)
-    self.title.Paint = function(this, w, h)
+    self.title.Paint = function(_, w, h)
         surface.SetDrawColor(0, 0, 0, 150)
         surface.DrawRect(0, 0, w, h)
     end
@@ -75,7 +75,7 @@ function PANEL:Init()
     self.staffListHeader:SetExpensiveShadow(1, color_black)
     self.staffListHeader:SetTall(28)
     self.staffListHeader:SizeToContents()
-    self.staffListHeader.Paint = function(this, w, h)
+    self.staffListHeader.Paint = function(_, w, h)
         surface.SetDrawColor(50, 50, 50, 20)
         surface.DrawRect(0, 0, w, h)
     end
@@ -88,7 +88,7 @@ function PANEL:Init()
         list:Dock(TOP)
         list:SetTall(28)
         list.Think = function(this)
-            for k2, v2 in ipairs(teamGetPlayers(k)) do
+            for _, v2 in ipairs(teamGetPlayers(k)) do
                 if not IsValid(v2.liaScoreSlot) or v2.liaScoreSlot:GetParent() ~= this then
                     if IsValid(v2.liaScoreSlot) then
                         v2.liaScoreSlot:SetParent(this)
@@ -107,7 +107,7 @@ function PANEL:Init()
         header:SetTextColor(color_white)
         header:SetExpensiveShadow(1, color_black)
         header:SetTall(28)
-        header.Paint = function(this, w, h)
+        header.Paint = function(_, w, h)
             surface.SetDrawColor(r, g, b, 20)
             surface.DrawRect(0, 0, w, h)
         end
@@ -139,7 +139,7 @@ function PANEL:Think()
             end
         end
 
-        for k, v in pairs(self.slots) do
+        for _, v in pairs(self.slots) do
             if IsValid(v) then v:update() end
         end
 
@@ -181,11 +181,11 @@ function PANEL:addPlayer(client, parent)
             if not IsValid(slot) then return end
             local entity = slot.model.Entity
             if IsValid(entity) then
-                for k, v in ipairs(client:GetBodyGroups()) do
+                for _, v in ipairs(client:GetBodyGroups()) do
                     entity:SetBodygroup(v.id, client:GetBodygroup(v.id))
                 end
 
-                for k, v in ipairs(client:GetMaterials()) do
+                for k, _ in ipairs(client:GetMaterials()) do
                     entity:SetSubMaterial(k - 1, client:GetSubMaterial(k - 1))
                 end
             end
@@ -222,7 +222,7 @@ function PANEL:addPlayer(client, parent)
         if not IsValid(client) or not client:getChar() or not self.character or self.character ~= client:getChar() or oldTeam ~= client:Team() then
             self:Remove()
             local i = 0
-            for k, v in ipairs(parent:GetChildren()) do
+            for _, v in ipairs(parent:GetChildren()) do
                 if IsValid(v.model) and v ~= self then
                     i = i + 1
                     v.Paint = paintFunctions[i % 2]
@@ -267,7 +267,7 @@ function PANEL:addPlayer(client, parent)
             0,
             function()
                 if not IsValid(entity) or not IsValid(client) then return end
-                for k, v in ipairs(client:GetBodyGroups()) do
+                for _, v in ipairs(client:GetBodyGroups()) do
                     entity:SetBodygroup(v.id, client:GetBodygroup(v.id))
                 end
             end
@@ -279,7 +279,7 @@ function PANEL:addPlayer(client, parent)
     parent:SizeToChildren(false, true)
     parent:InvalidateLayout(true)
     local i = 0
-    for k, v in ipairs(parent:GetChildren()) do
+    for _, v in ipairs(parent:GetChildren()) do
         if IsValid(v.model) then
             i = i + 1
             v.Paint = paintFunctions[i % 2]
