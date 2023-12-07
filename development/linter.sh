@@ -15,7 +15,6 @@ mv glualint/glualint glualint_executable
 # Step 4: Run glualint pretty-print
 echo "Step 4: Running glualint pretty-print..."
 chmod +x glualint_executable
-./glualint_executable pretty-print /workspaces/Lilia-Experimental/lilia/entities/*
 ./glualint_executable pretty-print /workspaces/Lilia-Experimental/lilia/modularity/*
 ./glualint_executable pretty-print /workspaces/Lilia-Experimental/lilia/libraries/*
 ./glualint_executable pretty-print /workspaces/Lilia-Experimental/lilia/gamemode/*
