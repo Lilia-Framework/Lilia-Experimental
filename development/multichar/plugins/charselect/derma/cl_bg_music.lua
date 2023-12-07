@@ -1,10 +1,6 @@
--- "gamemodes\\nutscript\\plugins\\multichar\\plugins\\charselect\\derma\\cl_bg_music.lua"
--- Retrieved by https://github.com/lewisclark/glua-steal
 local PANEL = {}
-
 local FADE_TIME = 5
-local VOLUME = lia.config.get("musicvolume", 0.25)
-
+local VOLUME = lia.config.MusicVolume
 function PANEL:Init()
 	if (lia.menuMusic) then
 		lia.menuMusic:Stop()
@@ -17,7 +13,7 @@ function PANEL:Init()
 	lia.menuMusicIsLocal = false
 	timer.Remove("liaMusicFader")
 
-	local source = lia.config.get("music", "")
+	local source = lia.config.Music
 	if (not source:find("%S")) then return end
 
 	if (source:find("http")) then

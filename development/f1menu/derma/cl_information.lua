@@ -171,7 +171,7 @@ local PANEL = {}
 		end
 
 		if (self.time) then
-			local format = "%A, %d %B "..lia.config.get("year") .. lia.config.get("yearAppendix", "").." %T"
+			local format = "%A, %d %B "..lia.config.SchemaYear.." %T"
 
 			self.time:SetText(L("curTime", lia.date.getFormatted(format)))
 			self.time.Think = function(this)

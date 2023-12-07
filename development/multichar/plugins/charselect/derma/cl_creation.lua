@@ -67,7 +67,7 @@ function PANEL:canCreateCharacter()
 	self.validFactions = validFactions
 
 	local maxChars = hook.Run("GetMaxPlayerCharacter", LocalPlayer())
-		or lia.config.get("maxChars", 5)
+		or lia.config.MaxCharacters
 	if (lia.characters and #lia.characters >= maxChars) then
 		return false, "You have reached the maximum number of characters"
 	end

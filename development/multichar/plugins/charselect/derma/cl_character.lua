@@ -1,5 +1,3 @@
--- "gamemodes\\nutscript\\plugins\\multichar\\plugins\\charselect\\derma\\cl_character.lua"
--- Retrieved by https://github.com/lewisclark/glua-steal
 local PANEL = {}
 
 local WHITE = Color(255, 255, 255, 150)
@@ -11,21 +9,17 @@ PANEL.HOVERED = Color(255, 255, 255, 50)
 PANEL.ANIM_SPEED = 0.1
 PANEL.FADE_SPEED = 0.5
 
--- Called when the tabs for the character menu should be created.
 function PANEL:createTabs()
 	local load, create
 
-	-- Only show the load tab if playable characters exist.
 	if (lia.characters and #lia.characters > 0) then
 		load = self:addTab("continue", self.createCharacterSelection)
 	end
 
-	-- Only show the create tab if the local player can create characters.
 	if (hook.Run("CanPlayerCreateCharacter", LocalPlayer()) ~= false) then
 		create = self:addTab("create", self.createCharacterCreation)
 	end
 
-	-- By default, select the continue tab, or the create tab.
 	if (IsValid(load)) then
 		load:setSelected()
 	elseif (IsValid(create)) then
@@ -79,7 +73,7 @@ function PANEL:loadBackground()
 		self.blank = true
 	end
 
-	local url = lia.config.get("backgroundURL")
+	local url = lia.config.BackgroundURL
 	if (url and url:find("%S")) then
 		self.background = self:Add("DHTML")
 		self.background:SetSize(ScrW(), ScrH())
@@ -96,7 +90,7 @@ function PANEL:loadBackground()
 		self.background:MoveToBack()
 		self.background:SetZPos(-999)
 
-		if (lia.config.get("charMenuBGInputDisabled")) then
+		if (lia.config.CharMenuBGInputDisabled) then
 			self.background:SetMouseInputEnabled(false)
 			self.background:SetKeyboardInputEnabled(false)
 		end

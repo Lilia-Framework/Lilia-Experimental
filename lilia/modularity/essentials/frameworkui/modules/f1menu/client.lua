@@ -2,12 +2,6 @@
 local HELP_DEFAULT
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:CreateMenuButtons(tabs)
-    tabs["characters"] = function(panel)
-        if IsValid(lia.gui.menu) then lia.gui.menu:Remove() end
-        if lia.config.KickOnEnteringMainMenu then netstream.Start("liaCharKickSelf") end
-        vgui.Create("liaCharacter")
-    end
-
     if (hook.GetTable()["CanPlayerViewInventory"] and hook.Run("CanPlayerViewInventory") ~= false) or (not hook.GetTable()["CanPlayerViewInventory"] and LocalPlayer():Alive()) then
         tabs["inv"] = function(panel)
             local inventory = LocalPlayer():getChar():getInv()
