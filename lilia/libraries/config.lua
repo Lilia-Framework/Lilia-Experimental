@@ -15,7 +15,7 @@ if not ConfigWasInitialized then
         MaxCharacters = 5, -- Maximum number of characters per player
         DataSaveInterval = 600, -- Time between data saves
         CharacterDataSaveInterval = 300, -- Time between character data saves
-
+        MoneyLimit = 0, -- How much money you can have on yourself | 0 = infinite
         invW = 6, -- Inventory width
         invH = 4, -- Inventory height
         DefaultMoney = 0, -- Default money amount

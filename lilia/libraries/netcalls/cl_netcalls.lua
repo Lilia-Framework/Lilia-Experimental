@@ -349,8 +349,8 @@ netstream.Hook(
             if class then
                 CHAT_CLASS = class
                 class.onChatAdd(client, text, anonymous)
-                if lia.config.CustomChatSound and lia.config.CustomChatSound ~= "" then
-                    surface.PlaySound(lia.config.CustomChatSound)
+                if ChatboxCore.CustomChatSound and ChatboxCore.CustomChatSound ~= "" then
+                    surface.PlaySound(ChatboxCore.CustomChatSound)
                 else
                     chat.PlaySound()
                 end

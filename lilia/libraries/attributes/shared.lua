@@ -34,7 +34,7 @@ lia.char.registerVar(
                         count = count + v
                     end
 
-                    local points = hook.Run("GetStartAttribPoints", client, count) or lia.config.MaxAttributes
+                    local points = hook.Run("GetStartAttribPoints", client, count) or AttributesCore.MaxAttributes
                     if count > points then return false, "unknownError" end
                 else
                     return false, "unknownError"
