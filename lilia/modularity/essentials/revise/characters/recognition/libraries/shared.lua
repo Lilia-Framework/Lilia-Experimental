@@ -7,7 +7,7 @@ function MODULE:IsCharRecognized(char, id)
     if char.id == id then return true end
     local faction = lia.faction.indices[other:getFaction()]
     if faction and faction.isGloballyRecognized then return true end
-    if lia.config.FactionAutoRecognize and (char:getFaction() == other:getFaction() and (lia.config.MemberToMemberAutoRecognition[char:getFaction()] and lia.config.MemberToMemberAutoRecognition[other:getFaction()])) then return true end
+    if MODULE.FactionAutoRecognize and (char:getFaction() == other:getFaction() and (MODULE.MemberToMemberAutoRecognition[char:getFaction()] and MODULE.MemberToMemberAutoRecognition[other:getFaction()])) then return true end
     if client:isStaffOnDuty() or otherclient:isStaffOnDuty() then return true end
     if recognized ~= "" and recognized:find("," .. id .. ",") then return true end
     return false
@@ -18,7 +18,7 @@ function MODULE:IsCharFakeRecognized(char, id)
     local other = lia.char.loaded[id]
     local CharNameList = char:getRecognizedAs()
     local clientName = CharNameList[other:getID()]
-    return lia.config.FakeNamesEnabled and self:IsFakeNameExistant(clientName, CharNameList)
+    return MODULE.FakeNamesEnabled and self:IsFakeNameExistant(clientName, CharNameList)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

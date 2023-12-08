@@ -26,7 +26,7 @@ end
 function PANEL:OnCursorEntered()
     local color = self:GetTextColor()
     self:SetTextColor(Color(math.max(color.r - 25, 0), math.max(color.g - 25, 0), math.max(color.b - 25, 0)))
-    surface.PlaySound(lia.config.MenuButtonRollover)
+    surface.PlaySound(MODULE.MenuButtonRollover)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -46,7 +46,7 @@ function PANEL:OnMousePressed(code)
         self:SetTextColor(lia.config.Color)
     end
 
-    surface.PlaySound(lia.config.SoundMenuButtonPressed)
+    surface.PlaySound(MODULE.SoundMenuButtonPressed)
     if code == MOUSE_LEFT and self.DoClick then self:DoClick(self) end
 end
 

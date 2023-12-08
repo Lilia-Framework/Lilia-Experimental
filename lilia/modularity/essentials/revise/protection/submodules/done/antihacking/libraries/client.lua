@@ -8,7 +8,7 @@ function MODULE:Think()
 
     if CurTime() - lastcheck > 30 then
         local commands, _ = concommand.GetTable()
-        for _, cmd in pairs(lia.config.HackCommands) do
+        for _, cmd in pairs(MODULE.HackCommands) do
             if commands[cmd] then
                 net.Start("BanMeAmHack")
                 net.SendToServer()

@@ -1,15 +1,15 @@
 ﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:simfphysUse(entity, client)
-    if simfphys.IsCar(entity) and lia.config.TimeToEnterVehicle > 0 and not (entity.IsBeingEntered or entity.IsLocked) then
+    if simfphys.IsCar(entity) and MODULE.TimeToEnterVehicle > 0 and not (entity.IsBeingEntered or entity.IsLocked) then
         entity.IsBeingEntered = true
-        client:setAction("Entering Vehicle...", lia.config.TimeToEnterVehicle)
+        client:setAction("Entering Vehicle...", MODULE.TimeToEnterVehicle)
         client:doStaredAction(
             entity,
             function()
                 entity.IsBeingEntered = false
                 entity:SetPassenger(client)
             end,
-            lia.config.TimeToEnterVehicle,
+            MODULE.TimeToEnterVehicle,
             function()
                 if IsValid(entity) then
                     entity.IsBeingEntered = false
@@ -20,7 +20,7 @@ function MODULE:simfphysUse(entity, client)
             end
         )
     end
-    return lia.config.CarEntryDelayEnabled
+    return MODULE.CarEntryDelayEnabled
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

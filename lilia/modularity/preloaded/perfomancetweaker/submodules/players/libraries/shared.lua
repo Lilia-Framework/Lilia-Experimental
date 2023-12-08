@@ -44,7 +44,7 @@ end
 function MODULE:PlayerUpdateTransmitStates(client, intRange)
     if intRange then
         for _, v in pairs(ents.GetAll()) do
-            if table.HasValue(lia.config.tblAlwaysSend, v:GetClass()) then
+            if table.HasValue(MODULE.tblAlwaysSend, v:GetClass()) then
                 v:SetPreventTransmit(client, false)
                 continue
             end
@@ -62,7 +62,7 @@ function MODULE:PlayerUpdateTransmitStates(client, intRange)
         end
     else
         for _, v in pairs(ents.GetAll()) do
-            if table.HasValue(lia.config.tblAlwaysSend, v:GetClass()) then
+            if table.HasValue(MODULE.tblAlwaysSend, v:GetClass()) then
                 v:SetPreventTransmit(client, false)
                 continue
             end

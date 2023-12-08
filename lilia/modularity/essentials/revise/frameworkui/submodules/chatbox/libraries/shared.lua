@@ -14,14 +14,14 @@ function MODULE:InitializedConfig()
                     return false
                 end
 
-                if string.len(text) > lia.config.OOCLimit then
+                if string.len(text) > MODULE.OOCLimit then
                     speaker:notify("Text too big!")
                     return false
                 end
 
                 local customDelay = hook.Run("getOOCDelay", speaker)
-                local oocDelay = customDelay or lia.config.OOCDelay
-                if not CAMI.PlayerHasAccess(speaker, "Lilia - Staff Permissions - No OOC Cooldown") and oocDelay > 0 and speaker.liaLastOOC then
+                local oocDelay = customDelay or MODULE.OOCDelay
+                if not CAMI.PlayerHasAccess(speaker, "Staff Permissions - No OOC Cooldown") and oocDelay > 0 and speaker.liaLastOOC then
                     local lastOOC = CurTime() - speaker.liaLastOOC
                     if lastOOC <= oocDelay then
                         speaker:notifyLocalized("oocDelay", oocDelay - math.ceil(lastOOC))
@@ -43,10 +43,10 @@ function MODULE:InitializedConfig()
         {
             format = "%s says \"%s\"",
             onGetColor = function(speaker, _)
-                if LocalPlayer():GetEyeTrace().Entity == speaker then return lia.config.ChatListenColor end
-                return lia.config.ChatColor
+                if LocalPlayer():GetEyeTrace().Entity == speaker then return MODULE.ChatListenColor end
+                return MODULE.ChatColor
             end,
-            radius = function(_, _) return lia.config.ChatRange end
+            radius = function(_, _) return MODULE.ChatRange end
         }
     )
 
@@ -63,7 +63,7 @@ function MODULE:InitializedConfig()
                 }
 
                 if speaker == listener then return true end
-                if not trace.Hit and speaker:EyePos():Distance(listener:EyePos()) <= lia.config.ChatRange then return true end
+                if not trace.Hit and speaker:EyePos():Distance(listener:EyePos()) <= MODULE.ChatRange then return true end
                 return false
             end,
             prefix = {"/me", "/action"},
@@ -76,8 +76,8 @@ function MODULE:InitializedConfig()
     lia.chat.register(
         "it",
         {
-            onChatAdd = function(_, text) chat.AddText(lia.chat.timestamp(false), lia.config.ChatColor, "**" .. text) end,
-            radius = function(_, _) return lia.config.ChatRange end,
+            onChatAdd = function(_, text) chat.AddText(lia.chat.timestamp(false), MODULE.ChatColor, "**" .. text) end,
+            radius = function(_, _) return MODULE.ChatRange end,
             prefix = {"/it"},
             font = "liaChatFontItalics",
             filter = "actions",
@@ -93,7 +93,7 @@ function MODULE:InitializedConfig()
                 local color = lia.chat.classes.ic.onGetColor(speaker, text)
                 return Color(color.r - 35, color.g - 35, color.b - 35)
             end,
-            radius = function(_, _) return lia.config.ChatRange * 0.25 end,
+            radius = function(_, _) return MODULE.ChatRange * 0.25 end,
             prefix = {"/w", "/whisper"}
         }
     )
@@ -106,7 +106,7 @@ function MODULE:InitializedConfig()
                 local color = lia.chat.classes.ic.onGetColor(speaker, text)
                 return Color(color.r + 35, color.g + 35, color.b + 35)
             end,
-            radius = function(_, _) return lia.config.ChatRange * 2 end,
+            radius = function(_, _) return MODULE.ChatRange * 2 end,
             prefix = {"/y", "/yell"}
         }
     )
@@ -115,10 +115,10 @@ function MODULE:InitializedConfig()
         "looc",
         {
             onCanSay = function(speaker, _)
-                local delay = lia.config.LOOCDelay
-                if speaker:IsAdmin() and lia.config.LOOCDelayAdmin and delay > 0 and speaker.liaLastLOOC then
+                local delay = MODULE.LOOCDelay
+                if speaker:IsAdmin() and MODULE.LOOCDelayAdmin and delay > 0 and speaker.liaLastLOOC then
                     local lastLOOC = CurTime() - speaker.liaLastLOOC
-                    if lastLOOC <= delay and (not speaker:IsAdmin() or speaker:IsAdmin() and lia.config.LOOCDelayAdmin) then
+                    if lastLOOC <= delay and (not speaker:IsAdmin() or speaker:IsAdmin() and MODULE.LOOCDelayAdmin) then
                         speaker:notifyLocalized("loocDelay", delay - math.ceil(lastLOOC))
                         return false
                     end
@@ -126,8 +126,8 @@ function MODULE:InitializedConfig()
 
                 speaker.liaLastLOOC = CurTime()
             end,
-            onChatAdd = function(speaker, text) chat.AddText(Color(255, 50, 50), "[LOOC] ", lia.config.ChatColor, speaker:Name() .. ": " .. text) end,
-            radius = function(_, _) return lia.config.ChatRange end,
+            onChatAdd = function(speaker, text) chat.AddText(Color(255, 50, 50), "[LOOC] ", MODULE.ChatColor, speaker:Name() .. ": " .. text) end,
+            radius = function(_, _) return MODULE.ChatRange end,
             prefix = {".//", "[[", "/looc"},
             noSpaceAfter = true,
             filter = "ooc"
@@ -139,11 +139,11 @@ function MODULE:InitializedConfig()
         {
             onGetColor = function(_, _) return Color(0, 196, 255) end,
             onCanHear = function(_, listener)
-                if CAMI.PlayerHasAccess(listener, "Lilia - Staff Permissions - Admin Chat", nil) then return true end
+                if CAMI.PlayerHasAccess(listener, "Staff Permissions - Admin Chat", nil) then return true end
                 return false
             end,
             onCanSay = function(speaker, _)
-                if CAMI.PlayerHasAccess(speaker, "Lilia - Staff Permissions - Admin Chat", nil) then
+                if CAMI.PlayerHasAccess(speaker, "Staff Permissions - Admin Chat", nil) then
                     speaker:notify("You aren't an admin. Use '@messagehere' to create a ticket.")
                     return false
                 end
@@ -161,7 +161,7 @@ function MODULE:InitializedConfig()
             color = Color(155, 111, 176),
             filter = "actions",
             font = "liaChatFontItalics",
-            radius = function(_, _) return lia.config.ChatRange end,
+            radius = function(_, _) return MODULE.ChatRange end,
             deadCanChat = true
         }
     )
@@ -179,8 +179,8 @@ function MODULE:InitializedConfig()
     lia.chat.register(
         "eventlocal",
         {
-            onCanSay = function(speaker, _) return CAMI.PlayerHasAccess(speaker, "Lilia - Staff Permissions - Local Event Chat", nil) end,
-            onCanHear = lia.config.ChatRange * 6,
+            onCanSay = function(speaker, _) return CAMI.PlayerHasAccess(speaker, "Staff Permissions - Local Event Chat", nil) end,
+            onCanHear = MODULE.ChatRange * 6,
             onChatAdd = function(_, text) chat.AddText(Color(255, 150, 0), text) end,
             prefix = {"/eventlocal"},
             font = "liaMediumFont"
@@ -190,7 +190,7 @@ function MODULE:InitializedConfig()
     lia.chat.register(
         "event",
         {
-            onCanSay = function(speaker, _) return CAMI.PlayerHasAccess(speaker, "Lilia - Staff Permissions - Event Chat", nil) end,
+            onCanSay = function(speaker, _) return CAMI.PlayerHasAccess(speaker, "Staff Permissions - Event Chat", nil) end,
             onCanHear = function(_, _) return true end,
             onChatAdd = function(_, text) chat.AddText(Color(255, 150, 0), text) end,
             prefix = {"/event"},
@@ -205,7 +205,7 @@ function MODULE:InitializedConfig()
             color = Color(155, 111, 176),
             filter = "actions",
             font = "liaChatFontItalics",
-            onCanHear = lia.config.ChatRange,
+            onCanHear = MODULE.ChatRange,
             deadCanChat = true
         }
     )
@@ -217,7 +217,7 @@ function MODULE:InitializedConfig()
             color = Color(155, 111, 176),
             filter = "actions",
             font = "liaChatFontItalics",
-            onCanHear = lia.config.ChatRange,
+            onCanHear = MODULE.ChatRange,
             deadCanChat = true
         }
     )

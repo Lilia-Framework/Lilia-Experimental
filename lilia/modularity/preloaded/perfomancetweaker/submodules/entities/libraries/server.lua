@@ -18,7 +18,7 @@ function MODULE:OnEntityCreated(entity)
         entity:AddEFlags(EFL_NO_THINK_FUNCTION)
     end
 
-    if CLIENT and lia.config.DrawEntityShadows then
+    if CLIENT and MODULE.DrawEntityShadows then
         entity:DrawShadow(false)
     end
 
@@ -50,19 +50,19 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:InitializedModules()
     for _, v in pairs(ents.GetAll()) do
-        if lia.config.EntitiesToBeRemoved[v:GetClass()] then
+        if MODULE.EntitiesToBeRemoved[v:GetClass()] then
             v:Remove()
         end
     end
 
-    if lia.config.GarbageCleaningTimer > 0 then
+    if MODULE.GarbageCleaningTimer > 0 then
         timer.Create(
             "CleanupGarbage",
-            lia.config.GarbageCleaningTimer,
+            MODULE.GarbageCleaningTimer,
             0,
             function()
                 for _, v in ipairs(ents.GetAll()) do
-                    if table.HasValue(lia.config.Perfomancekillers, v:GetClass()) then
+                    if table.HasValue(MODULE.Perfomancekillers, v:GetClass()) then
                         SafeRemoveEntity(v)
                     end
                 end
@@ -72,7 +72,7 @@ function MODULE:InitializedModules()
         )
     end
 
-    if CLIENT and lia.config.DrawEntityShadows then
+    if CLIENT and MODULE.DrawEntityShadows then
         for _, v in ipairs(ents.FindByClass("prop_door_rotating")) do
             if IsValid(v) and v:isDoor() then
                 v:DrawShadow(false)
@@ -83,9 +83,9 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:EntityRemoved(entity)
-    if entity:IsRagdoll() and not entity:getNetVar("player", nil) and lia.config.RagdollCleaningTimer > 0 then
+    if entity:IsRagdoll() and not entity:getNetVar("player", nil) and MODULE.RagdollCleaningTimer > 0 then
         timer.Simple(
-            lia.config.RagdollCleaningTimer,
+            MODULE.RagdollCleaningTimer,
             function()
                 if not IsValid(entity) then return end
                 entity:SetSaveValue("m_bFadingOut", true)

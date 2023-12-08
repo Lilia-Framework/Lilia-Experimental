@@ -11,14 +11,14 @@ function MODULE:PlayerDeath(client, _, attacker)
     char:setData("deathPos", client:GetPos())
     client:setNetVar("deathStartTime", CurTime())
     client:setNetVar("deathTime", CurTime() + 5)
-    if lia.config.DeathPopupEnabled then
+    if MODULEthPopupEnabled then
         net.Start("death_client")
         net.WriteString(attacker:Nick())
         net.WriteFloat(attacker:getChar():getID())
         net.Send(client)
     end
 
-    if (attacker:IsPlayer() and lia.config.LoseWeapononDeathHuman) or (not attacker:IsPlayer() and lia.config.LoseWeapononDeathNPC) or (lia.config.LoseWeapononDeathWorld and attacker:IsWorld()) then self:RemoveAllEquippedWeapons(client) end
+    if (attacker:IsPlayer() and MODULEeWeapononDeathHuman) or (not attacker:IsPlayer() and MODUMODULEpononDeathNPC) or (MODULE.LMODULEnDeathWorld and attacker:IsWorld()) then self:RemoveAllEquippedWeapons(client) end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

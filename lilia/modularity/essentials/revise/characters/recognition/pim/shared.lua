@@ -20,7 +20,7 @@ PIM:AddOption(
         shouldShow = function(client, target)
             local ourChar = client:getChar()
             local tarCharID = target:getChar():getID()
-            return not hook.Run("IsCharRecognized", ourChar, tarCharID) and lia.config.FakeNamesEnabled
+            return not hook.Run("IsCharRecognized", ourChar, tarCharID) and MODULE.FakeNamesEnabled
         end,
         onRun = function(_, target) if CLIENT then Derma_StringRequest("Allow this person to recognize you by a fake name.", "Enter a fake name to display to this player.", default or "", function(text) if text then netstream.Start("rgnDirect", target, text) end end) end end
     }

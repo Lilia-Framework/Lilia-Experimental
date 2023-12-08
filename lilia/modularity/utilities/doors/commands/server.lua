@@ -8,7 +8,7 @@ lia.command.add(
             local entity = client:GetTracedEntity()
             if IsValid(entity) and entity:isDoor() and not entity:getNetVar("disabled") then
                 if client == entity:GetDTEntity(0) then
-                    local price = math.Round(entity:getNetVar("price", lia.config.DoorCost) * lia.config.DoorSellRatio)
+                    local price = math.Round(entity:getNetVar("price", MODULE.DoorCost) * MODULE.DoorSellRatio)
                     entity:removeDoorAccessData()
                     MODULE:callOnDoorChildren(entity, function(child) child:removeDoorAccessData() end)
                     client:getChar():giveMoney(price)
@@ -38,7 +38,7 @@ lia.command.add(
                     return false
                 end
 
-                local price = entity:getNetVar("price", lia.config.DoorCost)
+                local price = entity:getNetVar("price", MODULE.DoorCost)
                 if client:getChar():hasMoney(price) then
                     entity:SetDTEntity(0, client)
                     entity.liaAccess = {

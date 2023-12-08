@@ -69,7 +69,7 @@ function PANEL:Think()
     local key = input.IsKeyDown(KEY_F1)
     if key and (self.noAnchor or CurTime() + .4) < CurTime() and self.anchorMode == true then
         self.anchorMode = false
-        surface.PlaySound(lia.config.F1MenuLaunchUnanchor)
+        surface.PlaySound(MODULE.F1MenuLaunchUnanchor)
     end
 
     if not self.anchorMode then

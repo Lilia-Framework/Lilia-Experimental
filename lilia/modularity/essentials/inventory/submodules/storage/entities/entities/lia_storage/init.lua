@@ -57,7 +57,7 @@ function ENT:openInv(activator)
     if isfunction(storage.onOpen) then storage.onOpen(self, activator) end
     activator:setAction(
         L("Opening...", activator),
-        lia.config.StorageOpenTime,
+        MODULE.StorageOpenTime,
         function()
             if activator:GetPos():Distance(self:GetPos()) > 96 then
                 activator.liaStorageEntity = nil
@@ -97,6 +97,6 @@ function ENT:Use(activator)
         self:openInv(activator)
     end
 
-    activator.liaNextOpen = CurTime() + lia.config.StorageOpenTime * 1.5
+    activator.liaNextOpen = CurTime() + MODULE.StorageOpenTime * 1.5
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

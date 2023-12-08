@@ -19,7 +19,10 @@ end
 function MODULE:PlayerBindPress(_, bind, pressed)
     bind = bind:lower()
     if bind:find("messagemode") and pressed then
-        if not self.panel.active then self.panel:setActive(true) end
+        if not self.panel.active then
+            self.panel:setActive(true)
+        end
+
         return true
     end
 end
@@ -32,19 +35,50 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function chat.AddText(...)
     local show = true
-    if IsValid(MODULE.panel) then show = MODULE.panel:addText(...) end
-    if show then chat.liaAddText(...) end
+    if IsValid(MODULE.panel) then
+        show = MODULE.panel:addText(...)
+    end
+
+    if show then
+        chat.liaAddText(...)
+    end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:ChatText(_, _, text, messageType)
     if messageType == "none" and IsValid(self.panel) then
         self.panel:addText(text)
-        if lia.config.CustomChatSound and lia.config.CustomChatSound ~= "" then
-            surface.PlaySound(lia.config.CustomChatSound)
+        if MODULE.CustomChatSound and MODULE.CustomChatSound ~= "" then
+            surface.PlaySound(MODULE.CustomChatSound)
         else
             chat.PlaySound()
         end
+    end
+end
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function MODULE:ChatAddText(text, ...)
+    if MODULE.ChatSizeDiff then
+        local chatText = {...}
+        local chatMode = #chatText <= 4 and chatText[2] or chatText[3]
+        if not chatMode or istable(chatMode) then
+            return "<font=liaChatFont>"
+        else
+            local chatMode = string.lower(chatMode)
+            if string.match(chatMode, "yell") then
+                return "<font=liaBigChatFont>"
+            elseif string.sub(chatMode, 1, 2) == "**" then
+                return "<font=liaItalicsChatFont>"
+            elseif string.match(chatMode, "whisper") then
+                return "<font=liaSmallChatFont>"
+            elseif string.match(chatMode, "ooc") or string.match(chatMode, "looc") then
+                return "<font=liaChatFont>"
+            else
+                return "<font=liaMediumChatFont>"
+            end
+        end
+    else
+        return text
     end
 end
 

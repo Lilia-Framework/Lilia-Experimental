@@ -1,7 +1,7 @@
 ﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:GetPlayerDeathSound(_, isFemale)
     local soundTable
-    soundTable = isFemale and lia.config.FemaleDeathSounds or lia.config.MaleDeathSounds
+    soundTable = isFemale and self.FemaleDeathSounds or self.MaleDeathSounds
     return soundTable and soundTable[math.random(#soundTable)]
 end
 
@@ -9,9 +9,9 @@ end
 function MODULE:GetPlayerPainSound(_, paintype, isFemale)
     local soundTable
     if paintype == "drown" then
-        soundTable = isFemale and lia.config.FemaleDrownSounds or lia.config.MaleDrownSounds
+        soundTable = isFemale and self.FemaleDrownSounds or self.MaleDrownSounds
     elseif paintype == "hurt" then
-        soundTable = isFemale and lia.config.FemaleHurtSounds or lia.config.MaleHurtSounds
+        soundTable = isFemale and self.FemaleHurtSounds or self.MaleHurtSounds
     end
     return soundTable and soundTable[math.random(#soundTable)]
 end

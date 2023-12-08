@@ -37,8 +37,8 @@ lia.command.add(
         adminOnly = false,
         onRun = function(client)
             local ent = client:GetEyeTrace().Entity
-            local maxDistance = lia.config.TrunkOpenDistance
-            local openTime = lia.config.TrunkOpenTime
+            local maxDistance = MODULE.TrunkOpenDistance
+            local openTime = MODULE.TrunkOpenTime
             local clientPos = client:GetPos():Distance(ent:GetPos())
             if not hook.Run("isSuitableForTrunk", ent) then
                 lia.util.notify("You're not looking at any vehicle!", client)

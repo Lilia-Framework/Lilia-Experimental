@@ -11,7 +11,7 @@ function lia.command.add(command, data)
         return
     end
 
-    local privilege = "Lilia - Commands - " .. (isstring(data.privilege) and data.privilege or command)
+    local privilege = "Commands - " .. (isstring(data.privilege) and data.privilege or command)
     if not CAMI.GetPrivilege(privilege) then
         CAMI.RegisterPrivilege(
             {
@@ -56,7 +56,7 @@ function lia.command.hasAccess(client, command, data)
     if data == nil then data = lia.command.list[command] end
     local privilege = data.privilege
     if not privilege then privilege = command end
-    local bHasAccess, _ = CAMI.PlayerHasAccess(client, "Lilia - Commands - " .. privilege, nil)
+    local bHasAccess, _ = CAMI.PlayerHasAccess(client, "Commands - " .. privilege, nil)
     if hook.GetTable()["CanPlayerUseCommand"] then return hook.Run("CanPlayerUseCommand") end
     return bHasAccess
 end

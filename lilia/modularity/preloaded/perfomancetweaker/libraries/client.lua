@@ -1,12 +1,12 @@
 ﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:ClientInitializedModules()
-    for _, timerName in pairs(lia.config.ClientTimersToRemove) do
+    for _, timerName in pairs(MODULE.ClientTimersToRemove) do
         if timer.Exists(timerName) then
             timer.Remove(timerName)
         end
     end
 
-    for k, v in pairs(lia.config.ClientStartupConsoleCommand) do
+    for k, v in pairs(MODULE.ClientStartupConsoleCommand) do
         if concommand.GetTable()[k] then
             RunConsoleCommand(k, v)
         end

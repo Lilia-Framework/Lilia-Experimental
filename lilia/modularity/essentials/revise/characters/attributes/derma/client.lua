@@ -54,7 +54,7 @@ function PANEL:Init()
         local boostedValue = self.boostValue or 0
         local barWidth = w * value
         if value > 0 then
-            local color = lia.config.Color
+            local color = MODULEor
             surface.SetDrawColor(color)
             surface.DrawRect(0, 0, barWidth, h)
         end
@@ -79,7 +79,10 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function PANEL:Think()
-    if self.pressing and ((self.nextPress or 0) < CurTime()) then self:doChange() end
+    if self.pressing and ((self.nextPress or 0) < CurTime()) then
+        self:doChange()
+    end
+
     self.deltaValue = math.Approach(self.deltaValue, self.value, FrameTime() * 15)
 end
 
@@ -87,7 +90,9 @@ end
 function PANEL:doChange()
     if (self.value == 0 and self.pressing == -1) or (self.value == self.max and self.pressing == 1) then return end
     self.nextPress = CurTime() + 0.2
-    if self:onChanged(self.pressing) ~= false then self.value = math.Clamp(self.value + self.pressing, 0, self.max) end
+    if self:onChanged(self.pressing) ~= false then
+        self.value = math.Clamp(self.value + self.pressing, 0, self.max)
+    end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -140,7 +145,7 @@ function PANEL:Init()
     self.title = self:addLabel("attributes")
     self.leftLabel = self:addLabel("points left")
     self.leftLabel:SetFont("liaCharSubTitleFont")
-    self.total = hook.Run("GetStartAttribPoints", LocalPlayer(), self:getContext()) or lia.config.MaxAttributes
+    self.total = hook.Run("GetStartAttribPoints", LocalPlayer(), self:getContext()) or MODULEAttributes
     self.attribs = {}
     for k, v in SortedPairsByMemberValue(lia.attribs.list, "name") do
         if v.noStartBonus then continue end
@@ -174,6 +179,7 @@ function PANEL:addAttribute(key, attribute)
     local row = self:Add("liaCharacterAttribsRow")
     row:setAttribute(key, attribute)
     row.parent = self
+
     return row
 end
 
@@ -190,6 +196,7 @@ function PANEL:onPointChange(key, delta)
     self:updatePointsLeft()
     attribs[key] = newQuantity
     self:setContext("attribs", attribs)
+
     return newQuantity
 end
 
@@ -239,7 +246,9 @@ function PANEL:delta(delta)
         local oldPoints = self.points
         self.points = self.parent:onPointChange(self.key, delta)
         self:updateQuantity()
-        if oldPoints ~= self.points then LocalPlayer():EmitSound(unpack(lia.config.CharAttrib)) end
+        if oldPoints ~= self.points then
+            LocalPlayer():EmitSound(unpack(MODULErAttrib))
+        end
     end
 end
 
@@ -250,14 +259,18 @@ function PANEL:addButton(symbol, delta)
     button:SetWide(32)
     button:SetText(symbol)
     button:SetContentAlignment(5)
-    button.OnMousePressed = function(button)
+    button.OnMousePressed = function(_)
         self.autoDelta = delta
         self.nextAuto = CurTime() + 0.4
         self:delta(delta)
     end
 
-    button.OnMouseReleased = function(button) self.autoDelta = nil end
+    button.OnMouseReleased = function(_)
+        self.autoDelta = nil
+    end
+
     button:SetPaintBackground(false)
+
     return button
 end
 

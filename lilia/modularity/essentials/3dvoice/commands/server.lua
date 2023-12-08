@@ -52,7 +52,7 @@ lia.command.add(
             if voiceEnabled then
                 client:notify("You have disabled voice!")
             else
-                if lia.config.IsVoiceEnabled then
+                if MODULE.IsVoiceEnabled then
                     client:notify("You have re-enabled voice!")
                 else
                     client:notify("Voice isn't activated in config!!")

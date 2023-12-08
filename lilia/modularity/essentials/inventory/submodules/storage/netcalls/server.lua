@@ -27,7 +27,7 @@ net.Receive(
             return client.liaStorageEntity
         end
 
-        local passwordDelay = lia.config.PasswordDelay
+        local passwordDelay = MODULE.PasswordDelay
         local storage = storageFunc()
         if not storage then return end
         if client.lastPasswordAttempt and CurTime() < client.lastPasswordAttempt + passwordDelay then

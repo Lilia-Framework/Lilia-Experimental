@@ -11,6 +11,7 @@ local function teamGetPlayers(teamID)
             table.insert(players, client)
         end
     end
+
     return players
 end
 
@@ -28,12 +29,18 @@ paintFunctions[0] = function(_, w, h)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-paintFunctions[1] = function(_, _, _) print("") end
+paintFunctions[1] = function(_, _, _)
+    print("")
+end
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function PANEL:Init()
-    if IsValid(lia.gui.score) then lia.gui.score:Remove() end
+    if IsValid(lia.gui.score) then
+        lia.gui.score:Remove()
+    end
+
     lia.gui.score = self
-    self:SetSize(ScrW() * lia.config.sbWidth, ScrH() * lia.config.sbHeight)
+    self:SetSize(ScrW() * MODULE.sbWidth, ScrH() * MODULE.sbHeight)
     self:Center()
     self.title = self:Add("DLabel")
     self.title:SetText(GetHostName())
@@ -60,7 +67,9 @@ function PANEL:Init()
     self.i = {}
     local staffCount = 0
     for _, client in ipairs(player.GetAll()) do
-        if client:IsAdmin() then staffCount = staffCount + 1 end
+        if client:IsAdmin() then
+            staffCount = staffCount + 1
+        end
     end
 
     local staffList = self.layout:Add("DListLayout")
@@ -81,7 +90,7 @@ function PANEL:Init()
     end
 
     for k, v in ipairs(lia.faction.indices) do
-        if table.HasValue(lia.config.HiddenFactions, k) then continue end
+        if table.HasValue(MODULE.HiddenFactions, k) then continue end
         local color = team.GetColor(k)
         local r, g, b = color.r, color.g, color.b
         local list = self.layout:Add("DListLayout")
@@ -119,7 +128,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function PANEL:Think()
     if (self.nextUpdate or 0) < CurTime() then
-        self.title:SetText(lia.config.sbTitle)
+        self.title:SetText(MODULE.sbTitle)
         local visible, amount
         for k, v in ipairs(self.teams) do
             visible, amount = v:IsVisible(), teamNumPlayers(k)
@@ -140,10 +149,15 @@ function PANEL:Think()
         end
 
         for _, v in pairs(self.slots) do
-            if IsValid(v) then v:update() end
+            if IsValid(v) then
+                v:update()
+            end
         end
 
-        if input.IsKeyDown(KEY_Z) then self:Init() end
+        if input.IsKeyDown(KEY_Z) then
+            self:Init()
+        end
+
         self.nextUpdate = CurTime() + 0.1
     end
 end
@@ -203,7 +217,12 @@ function PANEL:addPlayer(client, parent)
     slot.ping:SetPos(self:GetWide() - 48, 0)
     slot.ping:SetSize(48, 64)
     slot.ping:SetText("0")
-    slot.ping.Think = function(this) if IsValid(client) then this:SetText(client:Ping()) end end
+    slot.ping.Think = function(this)
+        if IsValid(client) then
+            this:SetText(client:Ping())
+        end
+    end
+
     slot.ping:SetFont("liaGenericFont")
     slot.ping:SetContentAlignment(6)
     slot.ping:SetTextColor(color_white)
@@ -228,6 +247,7 @@ function PANEL:addPlayer(client, parent)
                     v.Paint = paintFunctions[i % 2]
                 end
             end
+
             return
         end
 
@@ -253,7 +273,7 @@ function PANEL:addPlayer(client, parent)
 
         if self.lastModel ~= model or self.lastSkin ~= skin then
             self.model:SetModel(client:GetModel(), client:GetSkin())
-            if CAMI.PlayerHasAccess(client, "Lilia - Can Access Scoreboard Info Out Of Staff") or (LocalPlayer() == client) or LocalPlayer():isStaffOnDuty() then
+            if (CAMI.PlayerHasAccess(client, "Staff Permissions - Can Access Scoreboard Info Out Of Staff") and CAMI.PlayerHasAccess(client, "Staff Permissions - Can Access Scoreboard Admin Options")) or (LocalPlayer() == client) or (CAMI.PlayerHasAccess(client, "Staff Permissions - Can Access Scoreboard Admin Options") and LocalPlayer():isStaffOnDuty()) then
                 self.model:SetTooltip(L("sbOptions", client:Name()))
             else
                 self.model:SetTooltip("You do not have access to see this information")
@@ -287,6 +307,7 @@ function PANEL:addPlayer(client, parent)
     end
 
     slot:update()
+
     return slot
 end
 
