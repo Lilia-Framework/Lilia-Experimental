@@ -17,7 +17,6 @@ function MODULE:CheckIfPlayerStuck()
     local function handleStuckPlayer(client)
         local offset = client.Stuck and Vector(2, 2, 2) or Vector(5, 5, 5)
         local stuck = false
-
         for _, ent in pairs(ents.FindInBox(client:GetPos() + client:OBBMins() + offset, client:GetPos() + client:OBBMaxs() - offset)) do
             if self:ShouldCheck(ent) and ent ~= client and self:CanCollide(client, ent) then
                 client:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
@@ -37,15 +36,17 @@ function MODULE:CheckIfPlayerStuck()
         end
     end
 
-    timer.Create("CheckIfPlayerStuck", 5, 0, function()
-        for _, client in ipairs(player.GetAll()) do
-            if self:ShouldCheck(client) then
-                handleStuckPlayer(client)
+    timer.Create(
+        "CheckIfPlayerStuck",
+        5,
+        0,
+        function()
+            for _, client in ipairs(player.GetAll()) do
+                if self:ShouldCheck(client) then handleStuckPlayer(client) end
             end
         end
-    end)
+    )
 end
-
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:ShouldCollide(ent1, ent2)
