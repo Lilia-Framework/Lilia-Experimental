@@ -36,39 +36,33 @@ function MODULE:EntityTakeDamage(client, _)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-local function HandleDrowning(client)
-    if not client:getChar() or not client:Alive() or hook.Run("ShouldclientDrown", client) == false then return end
-    if client:WaterLevel() >= 3 then
-        client.drowningTime = client.drowningTime or (CurTime() + MODULE.DrownTime)
-        client.nextDrowning = client.nextDrowning or CurTime()
-        client.drownDamage = client.drownDamage or 0
-        if client.drowningTime < CurTime() and client.nextDrowning < CurTime() then
-            client:ScreenFade(1, Color(0, 0, 255, 100), 1, 0)
-            client:TakeDamage(MODULE.DrownDamage)
-            client.drownDamage = client.drownDamage + MODULE.DrownDamage
-            client.nextDrowning = CurTime() + 1
+function MODULE:PlayerLoadedCharacter(client)
+    if not (client:getChar() or client:Alive() or self.DrowningEnabled) or hook.Run("ShouldclientDrown", client) == false then return end
+    timer.Create(
+        "LifeGuard",
+        1,
+        0,
+        function()
+            if client:WaterLevel() >= 3 then
+                client.drowningTime = client.drowningTime or (CurTime() + self.DrownTime)
+                client.nextDrowning = client.nextDrowning or CurTime()
+                client.drownDamage = client.drownDamage or 0
+                if client.drowningTime < CurTime() and client.nextDrowning < CurTime() then
+                    client:ScreenFade(1, Color(0, 0, 255, 100), 1, 0)
+                    client:TakeDamage(self.DrownDamage)
+                    client.drownDamage = client.drownDamage + self.DrownDamage
+                    client.nextDrowning = CurTime() + 1
+                end
+            else
+                client.drowningTime = nil
+                client.nextDrowning = nil
+                if client.nextRecover and client.nextRecover < CurTime() and client.drownDamage > 0 then
+                    client.drownDamage = client.drownDamage - self.DrownDamage
+                    client:SetHealth(math.Clamp(client:Health() + self.DrownDamage, 0, client:GetMaxHealth()))
+                    client.nextRecover = CurTime() + 1
+                end
+            end
         end
-    else
-        client.drowningTime = nil
-        client.nextDrowning = nil
-        if client.nextRecover and client.nextRecover < CurTime() and client.drownDamage > 0 then
-            client.drownDamage = client.drownDamage - MODULE.DrownDamage
-            client:SetHealth(math.Clamp(client:Health() + MODULE.DrownDamage, 0, client:GetMaxHealth()))
-            client.nextRecover = CurTime() + 1
-        end
-    end
+    )
 end
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-timer.Create(
-    "LifeGuard",
-    1,
-    0,
-    function()
-        if not MODULE.DrowningEnabled then return end
-        for _, client in ipairs(player.GetAll()) do
-            HandleDrowning(client)
-        end
-    end
-)
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

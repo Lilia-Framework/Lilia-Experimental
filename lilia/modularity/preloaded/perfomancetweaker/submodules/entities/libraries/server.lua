@@ -20,7 +20,7 @@ function MODULE:OnEntityCreated(entity)
         entity:AddEFlags(EFL_NO_THINK_FUNCTION)
     end
 
-    if CLIENT and MODULE.DrawEntityShadows then
+    if CLIENT and self.DrawEntityShadows then
         entity:DrawShadow(false)
     end
 
@@ -52,19 +52,19 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:InitializedModules()
     for _, v in pairs(ents.GetAll()) do
-        if MODULE.EntitiesToBeRemoved[v:GetClass()] then
+        if self.EntitiesToBeRemoved[v:GetClass()] then
             v:Remove()
         end
     end
 
-    if MODULE.GarbageCleaningTimer > 0 then
+    if self.GarbageCleaningTimer > 0 then
         timer.Create(
             "CleanupGarbage",
-            MODULE.GarbageCleaningTimer,
+            self.GarbageCleaningTimer,
             0,
             function()
                 for _, v in ipairs(ents.GetAll()) do
-                    if table.HasValue(MODULE.Perfomancekillers, v:GetClass()) then
+                    if table.HasValue(self.Perfomancekillers, v:GetClass()) then
                         SafeRemoveEntity(v)
                     end
                 end
@@ -74,7 +74,7 @@ function MODULE:InitializedModules()
         )
     end
 
-    if CLIENT and MODULE.DrawEntityShadows then
+    if CLIENT and self.DrawEntityShadows then
         for _, v in ipairs(ents.FindByClass("prop_door_rotating")) do
             if IsValid(v) and v:isDoor() then
                 v:DrawShadow(false)
@@ -85,9 +85,9 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:EntityRemoved(entity)
-    if entity:IsRagdoll() and not entity:getNetVar("player", nil) and MODULE.RagdollCleaningTimer > 0 then
+    if entity:IsRagdoll() and not entity:getNetVar("player", nil) and self.RagdollCleaningTimer > 0 then
         timer.Simple(
-            MODULE.RagdollCleaningTimer,
+            self.RagdollCleaningTimer,
             function()
                 if not IsValid(entity) then return end
                 entity:SetSaveValue("m_bFadingOut", true)

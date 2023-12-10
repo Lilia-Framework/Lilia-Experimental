@@ -15,7 +15,10 @@ function lia.faction.loadFromDir(directory)
             isDefault = true
         }
 
-        if MODULE then FACTION.module = MODULE.uniqueID end
+        if MODULE then
+            FACTION.module = MODULE.uniqueID
+        end
+
         lia.util.include(directory .. "/" .. v, "shared")
         if not FACTION.name then
             FACTION.name = "Unknown"
@@ -124,6 +127,7 @@ function lia.faction.jobGenerate(index, name, color, default, models)
     lia.faction.indices[FACTION.index] = FACTION
     lia.faction.teams[name] = FACTION
     team.SetUp(FACTION.index, FACTION.name, FACTION.color)
+
     return FACTION
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

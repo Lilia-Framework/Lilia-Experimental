@@ -10,7 +10,7 @@ end
 function MODULE:InitializeStorage(ent)
     if LiliaStorage.Vehicles[ent] then return end
     LiliaStorage.Vehicles[ent] = true
-    ent.getInv = function(self) return lia.inventory.instances[self:getNetVar("inv")] end
+    ent.getInv = function(selfent) return lia.inventory.instances[selfent:getNetVar("inv")] end
     ent.getStorageInfo = function(_) return LiliaStorage.VehicleTrunk end
     if SERVER then
         ent.receivers = {}

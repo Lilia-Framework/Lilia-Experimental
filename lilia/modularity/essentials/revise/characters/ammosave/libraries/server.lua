@@ -1,9 +1,8 @@
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-local MODULE = MODULE
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:CharacterPreSave(character)
     local client = character:getPlayer()
-    if MODULE.SaveCharacterAmmo then
+    if self.SaveCharacterAmmo then
         local ammoTable = {}
         for _, ammoType in pairs(game.GetAmmoTypes()) do
             local ammoCount = client:GetAmmoCount(ammoType.name)
@@ -20,7 +19,7 @@ end
 function MODULE:PlayerLoadedChar(client)
     local character = client:getChar()
     local ammoTable = character:getData("ammo", {})
-    if not MODULE.SaveCharacterAmmo or table.IsEmpty(ammoTable) then return end
+    if not self.SaveCharacterAmmo or table.IsEmpty(ammoTable) then return end
     timer.Simple(
         0.25,
         function()
@@ -39,7 +38,7 @@ function MODULE:PlayerDeath(client, _, _)
     local char = client:getChar()
     local inventory = char:getInv()
     local items = inventory:getItems()
-    if inventory and not MODULE.KeepAmmoOnDeath then
+    if inventory and not self.KeepAmmoOnDeath then
         for _, v in pairs(items) do
             if (v.isWeapon or v.isCW) and v:getData("equip") then
                 v:setData("ammo", nil)
