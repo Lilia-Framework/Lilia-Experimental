@@ -32,9 +32,7 @@ function lia.char.create(data, callback)
                 function(inventory)
                     character.vars.inv[1] = inventory
                     lia.char.loaded[charID] = character
-                    if callback then
-                        callback(charID)
-                    end
+                    if callback then callback(charID) end
                 end
             )
         end
@@ -46,17 +44,12 @@ function lia.char.restore(client, callback, _, id)
     local steamID64 = client:SteamID64()
     local fields = {"_id"}
     for _, var in pairs(lia.char.vars) do
-        if var.field then
-            fields[#fields + 1] = var.field
-        end
+        if var.field then fields[#fields + 1] = var.field end
     end
 
     fields = table.concat(fields, ", ")
     local condition = "_schema = '" .. lia.db.escape(SCHEMA.folder) .. "' AND _steamID = " .. steamID64
-    if id then
-        condition = condition .. " AND _id = " .. id
-    end
-
+    if id then condition = condition .. " AND _id = " .. id end
     local query = "SELECT " .. fields .. " FROM lia_characters WHERE " .. condition
     lia.db.query(
         query,
@@ -65,10 +58,7 @@ function lia.char.restore(client, callback, _, id)
             local results = data or {}
             local done = 0
             if #results == 0 then
-                if callback then
-                    callback(characters)
-                end
-
+                if callback then callback(characters) end
                 return
             end
 
@@ -104,33 +94,26 @@ function lia.char.restore(client, callback, _, id)
                         if #inventories == 0 then
                             local promise = hook.Run("CreateDefaultInventory", character)
                             assert(promise ~= nil, "No default inventory available")
-
-                            return promise:next(
+                            return                             promise:next(
                                 function(inventory)
                                     assert(inventory ~= nil, "No default inventory available")
-
                                     return {inventory}
                                 end
                             )
                         end
-
                         return inventories
                     end,
                     function(err)
                         print("Failed to load inventories for " .. tostring(id))
                         print(err)
-                        if IsValid(client) then
-                            client:ChatPrint("A server error occured while loading your" .. " inventories. Check server log for details.")
-                        end
+                        if IsValid(client) then client:ChatPrint("A server error occured while loading your" .. " inventories. Check server log for details.") end
                     end
                 ):next(
                     function(inventories)
                         character.vars.inv = inventories
                         lia.char.loaded[id] = character
                         done = done + 1
-                        if done == #results and callback then
-                            callback(characters)
-                        end
+                        if done == #results and callback then callback(characters) end
                     end
                 )
             end

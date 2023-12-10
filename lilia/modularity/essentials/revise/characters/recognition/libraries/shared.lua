@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:IsCharRecognized(char, id)
     local client = char:getPlayer()
     local recognized = char:getData("rgn", "")
@@ -10,7 +10,6 @@ function MODULE:IsCharRecognized(char, id)
     if self.FactionAutoRecognize and (char:getFaction() == other:getFaction() and (self.MemberToMemberAutoRecognition[char:getFaction()] and self.MemberToMemberAutoRecognition[other:getFaction()])) then return true end
     if client:isStaffOnDuty() or otherclient:isStaffOnDuty() then return true end
     if recognized ~= "" and recognized:find("," .. id .. ",") then return true end
-
     return false
 end
 
@@ -19,7 +18,6 @@ function MODULE:IsCharFakeRecognized(char, id)
     local other = lia.char.loaded[id]
     local CharNameList = char:getRecognizedAs()
     local clientName = CharNameList[other:getID()]
-
     return self.FakeNamesEnabled and self:IsFakeNameExistant(clientName, CharNameList)
 end
 
@@ -28,7 +26,6 @@ function MODULE:IsFakeNameExistant(clientName, CharNameList)
     for _, n in pairs(CharNameList) do
         if n == clientName then return true end
     end
-
     return false
 end
 
