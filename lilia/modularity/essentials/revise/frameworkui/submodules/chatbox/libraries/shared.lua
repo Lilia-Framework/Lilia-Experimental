@@ -1,7 +1,6 @@
-﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-local MODULE = MODULE
+﻿
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function MODULE:InitializedConfig()
+function ChatboxCore:InitializedConfig()
     lia.chat.register(
         "ooc",
         {
@@ -16,13 +15,13 @@ function MODULE:InitializedConfig()
                     return false
                 end
 
-                if string.len(text) > MODULE.OOCLimit then
+                if string.len(text) > ChatboxCore.OOCLimit then
                     speaker:notify("Text too big!")
                     return false
                 end
 
                 local customDelay = hook.Run("getOOCDelay", speaker)
-                local oocDelay = customDelay or MODULE.OOCDelay
+                local oocDelay = customDelay or ChatboxCore.OOCDelay
                 if not CAMI.PlayerHasAccess(speaker, "Staff Permissions - No OOC Cooldown") and oocDelay > 0 and speaker.liaLastOOC then
                     local lastOOC = CurTime() - speaker.liaLastOOC
                     if lastOOC <= oocDelay then
@@ -45,10 +44,10 @@ function MODULE:InitializedConfig()
         {
             format = "%s says \"%s\"",
             onGetColor = function(speaker, _)
-                if LocalPlayer():GetEyeTrace().Entity == speaker then return MODULE.ChatListenColor end
-                return MODULE.ChatColor
+                if LocalPlayer():GetEyeTrace().Entity == speaker then return ChatboxCore.ChatListenColor end
+                return ChatboxCore.ChatColor
             end,
-            radius = function(_, _) return MODULE.ChatRange end
+            radius = function(_, _) return ChatboxCore.ChatRange end
         }
     )
 
@@ -65,7 +64,7 @@ function MODULE:InitializedConfig()
                 }
 
                 if speaker == listener then return true end
-                if not trace.Hit and speaker:EyePos():Distance(listener:EyePos()) <= MODULE.ChatRange then return true end
+                if not trace.Hit and speaker:EyePos():Distance(listener:EyePos()) <= ChatboxCore.ChatRange then return true end
                 return false
             end,
             prefix = {"/me", "/action"},
@@ -78,8 +77,8 @@ function MODULE:InitializedConfig()
     lia.chat.register(
         "it",
         {
-            onChatAdd = function(_, text) chat.AddText(lia.chat.timestamp(false), MODULE.ChatColor, "**" .. text) end,
-            radius = function(_, _) return MODULE.ChatRange end,
+            onChatAdd = function(_, text) chat.AddText(lia.chat.timestamp(false), ChatboxCore.ChatColor, "**" .. text) end,
+            radius = function(_, _) return ChatboxCore.ChatRange end,
             prefix = {"/it"},
             font = "liaChatFontItalics",
             filter = "actions",
@@ -95,7 +94,7 @@ function MODULE:InitializedConfig()
                 local color = lia.chat.classes.ic.onGetColor(speaker, text)
                 return Color(color.r - 35, color.g - 35, color.b - 35)
             end,
-            radius = function(_, _) return MODULE.ChatRange * 0.25 end,
+            radius = function(_, _) return ChatboxCore.ChatRange * 0.25 end,
             prefix = {"/w", "/whisper"}
         }
     )
@@ -108,7 +107,7 @@ function MODULE:InitializedConfig()
                 local color = lia.chat.classes.ic.onGetColor(speaker, text)
                 return Color(color.r + 35, color.g + 35, color.b + 35)
             end,
-            radius = function(_, _) return MODULE.ChatRange * 2 end,
+            radius = function(_, _) return ChatboxCore.ChatRange * 2 end,
             prefix = {"/y", "/yell"}
         }
     )
@@ -117,10 +116,10 @@ function MODULE:InitializedConfig()
         "looc",
         {
             onCanSay = function(speaker, _)
-                local delay = MODULE.LOOCDelay
-                if speaker:IsAdmin() and MODULE.LOOCDelayAdmin and delay > 0 and speaker.liaLastLOOC then
+                local delay = ChatboxCore.LOOCDelay
+                if speaker:IsAdmin() and ChatboxCore.LOOCDelayAdmin and delay > 0 and speaker.liaLastLOOC then
                     local lastLOOC = CurTime() - speaker.liaLastLOOC
-                    if lastLOOC <= delay and (not speaker:IsAdmin() or speaker:IsAdmin() and MODULE.LOOCDelayAdmin) then
+                    if lastLOOC <= delay and (not speaker:IsAdmin() or speaker:IsAdmin() and ChatboxCore.LOOCDelayAdmin) then
                         speaker:notifyLocalized("loocDelay", delay - math.ceil(lastLOOC))
                         return false
                     end
@@ -128,8 +127,8 @@ function MODULE:InitializedConfig()
 
                 speaker.liaLastLOOC = CurTime()
             end,
-            onChatAdd = function(speaker, text) chat.AddText(Color(255, 50, 50), "[LOOC] ", MODULE.ChatColor, speaker:Name() .. ": " .. text) end,
-            radius = function(_, _) return MODULE.ChatRange end,
+            onChatAdd = function(speaker, text) chat.AddText(Color(255, 50, 50), "[LOOC] ", ChatboxCore.ChatColor, speaker:Name() .. ": " .. text) end,
+            radius = function(_, _) return ChatboxCore.ChatRange end,
             prefix = {".//", "[[", "/looc"},
             noSpaceAfter = true,
             filter = "ooc"
@@ -163,7 +162,7 @@ function MODULE:InitializedConfig()
             color = Color(155, 111, 176),
             filter = "actions",
             font = "liaChatFontItalics",
-            radius = function(_, _) return MODULE.ChatRange end,
+            radius = function(_, _) return ChatboxCore.ChatRange end,
             deadCanChat = true
         }
     )
@@ -182,7 +181,7 @@ function MODULE:InitializedConfig()
         "eventlocal",
         {
             onCanSay = function(speaker, _) return CAMI.PlayerHasAccess(speaker, "Staff Permissions - Local Event Chat", nil) end,
-            onCanHear = MODULE.ChatRange * 6,
+            onCanHear = ChatboxCore.ChatRange * 6,
             onChatAdd = function(_, text) chat.AddText(Color(255, 150, 0), text) end,
             prefix = {"/eventlocal"},
             font = "liaMediumFont"
@@ -207,7 +206,7 @@ function MODULE:InitializedConfig()
             color = Color(155, 111, 176),
             filter = "actions",
             font = "liaChatFontItalics",
-            onCanHear = MODULE.ChatRange,
+            onCanHear = ChatboxCore.ChatRange,
             deadCanChat = true
         }
     )
@@ -219,7 +218,7 @@ function MODULE:InitializedConfig()
             color = Color(155, 111, 176),
             filter = "actions",
             font = "liaChatFontItalics",
-            onCanHear = MODULE.ChatRange,
+            onCanHear = ChatboxCore.ChatRange,
             deadCanChat = true
         }
     )
