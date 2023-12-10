@@ -43,10 +43,10 @@ jobs:
         run: luarocks make
       - name: Lint with gluacheck
         run: >-
-          cd lilia && luacheck . --no-redefined \
+          cd lilia && ls && luacheck . --no-redefined \
             --no-global --no-self \
             --no-max-line-length --no-max-code-line-length \
-            --no-max-string-line-length --no-max-comment-line-length \ && cd ..
+            --no-max-string-line-length --no-max-comment-line-length \ && cd .. && ls
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Set up Bash
