@@ -32,7 +32,7 @@ jobs:
         run: luarocks make
 
       - name: Lint with gluacheck
-        run: cd lilia && luacheck . --allow-defined --no-redefined \ -no-global --no-self \ --no-max-line-length --no-max-code-line-length \ --no-max-string-line-length --no-max-comment-line-length --allow-defined && cd ..
+        run: cd lilia && luacheck .  && cd ..
 
       - name: Set up Bash
         run: |
