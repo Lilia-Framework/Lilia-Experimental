@@ -99,21 +99,21 @@ jobs:
       - name: Run GLuaFixer on Lilia - Part 3
         run: |
             echo "Step 7: Running glualint pretty-print on Lilia (part 3)"
-            sudo ./glualint_executable pretty-print lilia/modularity/preload/*
+            sudo ./glualint_executable pretty-print lilia/modularity/preloaded/*
         working-directory: ${{ github.workspace }}
         shell: bash
   
       - name: Run GLuaFixer on Lilia - Part 4
         run: |
             echo "Step 7: Running glualint pretty-print on Lilia (part 4)"
-            sudo ./glualint_executable pretty-print lilia/modularity/modules/*
+            sudo ./glualint_executable pretty-print lilia/modularity/essentials/*
         working-directory: ${{ github.workspace }}
         shell: bash
   
       - name: Run GLuaFixer on Lilia - Part 5
         run: |
             echo "Step 7: Running glualint pretty-print on Lilia (part 5)"
-            sudo ./glualint_executable pretty-print lilia/modularity/submodules/*
+            sudo ./glualint_executable pretty-print lilia/modularity/utilities/*
         working-directory: ${{ github.workspace }}
         shell: bash
       - name: Remove the glualint folder (Step 8)
@@ -145,16 +145,3 @@ jobs:
             echo "No changes to commit."
           fi
         working-directory: '${{ github.workspace }}'
-
-  wiki:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Publish Wiki
-        uses: spenserblack/actions-wiki@v0.3.0
-        with:
-          path: development/documentation
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
