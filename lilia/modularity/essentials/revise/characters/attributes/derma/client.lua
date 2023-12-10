@@ -140,7 +140,7 @@ function PANEL:Init()
     self.title = self:addLabel("attributes")
     self.leftLabel = self:addLabel("points left")
     self.leftLabel:SetFont("liaCharSubTitleFont")
-    self.total = hook.Run("GetStartAttribPoints", LocalPlayer(), self:getContext()) or MODULEAttributes
+    self.total = hook.Run("GetStartAttribPoints", LocalPlayer(), self:getContext()) or AttributesCore.MaxAttributes
     self.attribs = {}
     for k, v in SortedPairsByMemberValue(lia.attribs.list, "name") do
         if v.noStartBonus then continue end
@@ -239,7 +239,7 @@ function PANEL:delta(delta)
         local oldPoints = self.points
         self.points = self.parent:onPointChange(self.key, delta)
         self:updateQuantity()
-        if oldPoints ~= self.points then LocalPlayer():EmitSound(unpack(MODULErAttrib)) end
+        if oldPoints ~= self.points then LocalPlayer():EmitSound(unpack(AttributesCore.CharAttrib)) end
     end
 end
 

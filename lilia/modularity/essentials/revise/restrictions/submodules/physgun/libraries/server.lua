@@ -2,7 +2,7 @@
 function GM:PhysgunPickup(client, entity)
     if IsValid(client) and entity:GetCreator() == client and entity:GetClass() == "prop_physics" then return true end
     if IsValid(client) and CAMI.PlayerHasAccess(client, "Staff Permissions - Physgun Pickup", nil) or client:isStaffOnDuty() then
-        if table.HasValue(self.PhysGunMoveRestrictedEntityList, entity:GetClass()) then
+        if table.HasValue(RestrictionCore.PhysGunMoveRestrictedEntityList, entity:GetClass()) then
             return CAMI.PlayerHasAccess(client, "Staff Permissions - Physgun Pickup on Restricted Entities", nil)
         elseif entity:IsVehicle() then
             return CAMI.PlayerHasAccess(client, "Staff Permissions - Physgun Pickup on Vehicles", nil)
@@ -36,17 +36,19 @@ end
 function GM:OnPhysgunFreeze(_, physObj, entity, client)
     if not physObj:IsMoveable() then return false end
     if entity:GetUnFreezable() then return false end
-    physObj:EnableMotion(false)
-    if entity:GetClass() == "prop_vehicle_jeep" then
-        local objects = entity:GetPhysicsObjectCount()
-        for i = 0, objects - 1 do
-            entity:GetPhysicsObjectNum(i):EnableMotion(false)
+    if RestrictionCore.PassableOnFreeze then
+        physObj:EnableMotion(false)
+        if entity:GetClass() == "prop_vehicle_jeep" then
+            local objects = entity:GetPhysicsObjectCount()
+            for i = 0, objects - 1 do
+                entity:GetPhysicsObjectNum(i):EnableMotion(false)
+            end
         end
-    end
 
-    client:AddFrozenPhysicsObject(entity, physObj)
-    client:SendHint("PhysgunUnfreeze", 0.3)
-    client:SuppressHint("PhysgunFreeze")
-    return true
+        client:AddFrozenPhysicsObject(entity, physObj)
+        client:SendHint("PhysgunUnfreeze", 0.3)
+        client:SuppressHint("PhysgunFreeze")
+        return true
+    end
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

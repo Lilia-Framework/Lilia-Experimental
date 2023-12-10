@@ -4,10 +4,10 @@ netstream.Hook(
     function(ent)
         if istable(ent) then
             for vehicle, _ in pairs(ent) do
-                MODULE:InitializeStorage(vehicle)
+                LiliaStorage:InitializeStorage(vehicle)
             end
         else
-            MODULE:InitializeStorage(ent)
+            LiliaStorage:InitializeStorage(ent)
         end
     end
 )

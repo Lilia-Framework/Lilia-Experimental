@@ -1,5 +1,4 @@
-﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-local MODULE = MODULE
+﻿
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 lia.command.add(
     "spawnadd",
@@ -42,10 +41,10 @@ lia.command.add(
                         class = ""
                     end
 
-                    MODULE.spawns[faction] = MODULE.spawns[faction] or {}
-                    MODULE.spawns[faction][class] = MODULE.spawns[faction][class] or {}
-                    table.insert(MODULE.spawns[faction][class], client:GetPos())
-                    MODULE:SaveSpawns()
+                    SpawnsCore.spawns[faction] = SpawnsCore.spawns[faction] or {}
+                    SpawnsCore.spawns[faction][class] = SpawnsCore.spawns[faction][class] or {}
+                    table.insert(SpawnsCore.spawns[faction][class], client:GetPos())
+                    SpawnsCore:SaveSpawns()
                     local name = L(info.name, client)
                     if info2 then name = name .. " (" .. L(info2.name, client) .. ")" end
                     return L("spawnAdded", client, name)
@@ -70,7 +69,7 @@ lia.command.add(
             local position = client:GetPos()
             local radius = tonumber(arguments[1]) or 120
             local i = 0
-            for _, v in pairs(MODULE.spawns) do
+            for _, v in pairs(SpawnsCore.spawns) do
                 for _, v2 in pairs(v) do
                     for _, v3 in pairs(v2) do
                         if v3:Distance(position) <= radius then
@@ -81,7 +80,7 @@ lia.command.add(
                 end
             end
 
-            if i > 0 then MODULE:SaveSpawns() end
+            if i > 0 then SpawnsCore:SaveSpawns() end
             return L("spawnDeleted", client, i)
         end
     }

@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function MODULE:syncCharList(client)
+function MainMenu:syncCharList(client)
     if not client.liaCharList then return end
     net.Start("liaCharList")
     net.WriteUInt(#client.liaCharList, 32)
@@ -11,7 +11,7 @@ function MODULE:syncCharList(client)
 end
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function MODULE:PlayerLiliaDataLoaded(client)
+function MainMenu:PlayerLiliaDataLoaded(client)
     lia.char.restore(
         client,
         function(charList)
@@ -34,13 +34,13 @@ function MODULE:PlayerLiliaDataLoaded(client)
 end
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function MODULE:OnCharCreated(client, character)
+function MainMenu:OnCharCreated(client, character)
     local id = character:getID()
     MsgN("Created character '" .. id .. "' for " .. client:steamName() .. ".")
 end
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function MODULE:CanPlayerCreateCharacter(client)
+function MainMenu:CanPlayerCreateCharacter(client)
     local count = #client.liaCharList
     local maxChars = hook.Run("GetMaxPlayerCharacter", client) or lia.config.MaxCharacters
     if count >= maxChars then return false end

@@ -1,6 +1,4 @@
 ﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-local MODULE = MODULE
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 lia.command.add(
     "dynamicsceneadd",
     {
@@ -14,10 +12,10 @@ lia.command.add(
                 return L("mapRepeat", client)
             else
                 if client.liaScnPair then
-                    MODULE:addScene(client.liaScnPair[1], client.liaScnPair[2], position, angles)
+                    DynamicBackgrounds:addScene(client.liaScnPair[1], client.liaScnPair[2], position, angles)
                     client.liaScnPair = nil
                 else
-                    MODULE:addScene(position, angles)
+                    DynamicBackgrounds:addScene(position, angles)
                 end
                 return L("mapAdd", client)
             end
@@ -36,7 +34,7 @@ lia.command.add(
             local radius = tonumber(arguments[1]) or 280
             local position = client:GetPos()
             local i = 0
-            for k, v in pairs(MODULE.scenes) do
+            for k, v in pairs(DynamicBackgrounds.scenes) do
                 local delete = false
                 if isvector(k) then
                     if k:Distance(position) <= radius or v[1]:Distance(position) <= radius then delete = true end
@@ -46,12 +44,12 @@ lia.command.add(
 
                 if delete then
                     netstream.Start(nil, "mapScnDel", k)
-                    MODULE.scenes[k] = nil
+                    DynamicBackgrounds.scenes[k] = nil
                     i = i + 1
                 end
             end
 
-            if i > 0 then MODULE:SaveData() end
+            if i > 0 then DynamicBackgrounds:SaveData() end
             return L("mapDel", client, i)
         end
     }

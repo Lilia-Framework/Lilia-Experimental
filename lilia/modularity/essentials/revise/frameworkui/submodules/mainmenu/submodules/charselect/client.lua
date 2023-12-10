@@ -1,15 +1,15 @@
 ﻿----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function MODULE:LiliaLoaded()
+function CharacterSelection:LiliaLoaded()
     vgui.Create("liaCharacter")
 end
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function MODULE:KickedFromCharacter(id, isCurrentChar)
+function CharacterSelection:KickedFromCharacter(id, isCurrentChar)
     if isCurrentChar then vgui.Create("liaCharacter") end
 end
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function MODULE:CreateMenuButtons(tabs)
+function CharacterSelection:CreateMenuButtons(tabs)
     tabs["characters"] = function(panel)
         if IsValid(lia.gui.menu) then lia.gui.menu:Remove() end
         if self.KickOnEnteringMainMenu then netstream.Start("liaCharKickSelf") end

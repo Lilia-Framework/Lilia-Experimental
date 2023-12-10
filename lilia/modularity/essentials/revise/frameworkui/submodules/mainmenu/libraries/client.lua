@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function MODULE:chooseCharacter(id)
+function MainMenu:chooseCharacter(id)
     assert(isnumber(id), "id must be a number")
     local d = deferred.new()
     net.Receive(
@@ -22,7 +22,7 @@ function MODULE:chooseCharacter(id)
 end
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function MODULE:createCharacter(data)
+function MainMenu:createCharacter(data)
     assert(istable(data), "data must be a table")
     local d = deferred.new()
     local payload = {}
@@ -62,7 +62,7 @@ function MODULE:createCharacter(data)
 end
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function MODULE:deleteCharacter(id)
+function MainMenu:deleteCharacter(id)
     assert(isnumber(id), "id must be a number")
     net.Start("liaCharDelete")
     net.WriteUInt(id, 32)
