@@ -58,7 +58,6 @@ function lia.util.findEmptySpace(entity, filter, spacing, size, height, toleranc
     end
 
     table.sort(output, function(a, b) return a:Distance(position) < b:Distance(position) end)
-
     return output
 end
 
@@ -69,29 +68,14 @@ function lia.util.spawnProp(model, position, force, lifetime, angles, collision)
     entity:Spawn()
     entity:SetCollisionGroup(collision or COLLISION_GROUP_WEAPON)
     entity:SetAngles(angles or angle_zero)
-    if type(position) == "Player" then
-        position = position:GetItemDropPos(entity)
-    end
-
+    if type(position) == "Player" then position = position:GetItemDropPos(entity) end
     entity:SetPos(position)
     if force then
         local phys = entity:GetPhysicsObject()
-        if IsValid(phys) then
-            phys:ApplyForceCenter(force)
-        end
+        if IsValid(phys) then phys:ApplyForceCenter(force) end
     end
 
-    if (lifetime or 0) > 0 then
-        timer.Simple(
-            lifetime,
-            function()
-                if IsValid(entity) then
-                    entity:Remove()
-                end
-            end
-        )
-    end
-
+    if (lifetime or 0) > 0 then timer.Simple(lifetime, function() if IsValid(entity) then entity:Remove() end end) end
     return entity
 end
 

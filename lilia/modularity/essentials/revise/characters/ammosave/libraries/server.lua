@@ -1,14 +1,11 @@
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:CharacterPreSave(character)
     local client = character:getPlayer()
     if self.SaveCharacterAmmo then
         local ammoTable = {}
         for _, ammoType in pairs(game.GetAmmoTypes()) do
             local ammoCount = client:GetAmmoCount(ammoType.name)
-            if ammoCount > 0 then
-                ammoTable[ammoType.name] = ammoCount
-            end
+            if ammoCount > 0 then ammoTable[ammoType.name] = ammoCount end
         end
 
         character:setData("ammo", ammoTable)
@@ -40,9 +37,7 @@ function MODULE:PlayerDeath(client, _, _)
     local items = inventory:getItems()
     if inventory and not self.KeepAmmoOnDeath then
         for _, v in pairs(items) do
-            if (v.isWeapon or v.isCW) and v:getData("equip") then
-                v:setData("ammo", nil)
-            end
+            if (v.isWeapon or v.isCW) and v:getData("equip") then v:setData("ammo", nil) end
         end
     end
 end
