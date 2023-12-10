@@ -48,8 +48,8 @@ end
 function MODULE:ChatText(_, _, text, messageType)
     if messageType == "none" and IsValid(self.panel) then
         self.panel:addText(text)
-        if MODULE.CustomChatSound and MODULE.CustomChatSound ~= "" then
-            surface.PlaySound(MODULE.CustomChatSound)
+        if self.CustomChatSound and self.CustomChatSound ~= "" then
+            surface.PlaySound(self.CustomChatSound)
         else
             chat.PlaySound()
         end

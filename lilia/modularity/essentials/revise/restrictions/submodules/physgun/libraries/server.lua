@@ -1,10 +1,9 @@
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-local MODULE = MODULE
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:PhysgunPickup(client, entity)
     if IsValid(client) and entity:GetCreator() == client and entity:GetClass() == "prop_physics" then return true end
     if IsValid(client) and CAMI.PlayerHasAccess(client, "Staff Permissions - Physgun Pickup", nil) or client:isStaffOnDuty() then
-        if table.HasValue(MODULE.PhysGunMoveRestrictedEntityList, entity:GetClass()) then
+        if table.HasValue(self.PhysGunMoveRestrictedEntityList, entity:GetClass()) then
             return CAMI.PlayerHasAccess(client, "Staff Permissions - Physgun Pickup on Restricted Entities", nil)
         elseif entity:IsVehicle() then
             return CAMI.PlayerHasAccess(client, "Staff Permissions - Physgun Pickup on Vehicles", nil)

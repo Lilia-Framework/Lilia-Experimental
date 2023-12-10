@@ -89,7 +89,6 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:PlayerBindPress(client, bind, pressed)
     local weapon = client:GetActiveWeapon()
-    local client = LocalPlayer()
     if not client:InVehicle() and (not IsValid(weapon) or weapon:GetClass() ~= "weapon_physgun" or not client:KeyDown(IN_ATTACK)) then
         if IsValid(weapon) and weapon.CW20Weapon and not bind:find("invprev") and not bind:find("invnext") and not (bind:find("attack") and self.alpha > 0) and not (bind:find("slot") and weapon.dt.State ~= CW_CUSTOMIZE) then return end
         bind = bind:lower()

@@ -31,11 +31,11 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MODULE:HUDPaintBackground()
     local client = LocalPlayer()
-    if not (MODULE.StaminaBlur or client:getChar()) then return end
+    if not (self.StaminaBlur or client:getChar()) then return end
     local char = client:getChar()
     local maxStamina = char:getMaxStamina()
     local Stamina = client:getLocalVar("stamina", maxStamina)
-    if Stamina <= MODULE.StaminaBlurThreshold then
+    if Stamina <= self.StaminaBlurThreshold then
         stmBlurAlpha = Lerp(RealFrameTime() / 2, stmBlurAlpha, 255)
         stmBlurAmount = Lerp(RealFrameTime() / 2, stmBlurAmount, 5)
         lia.util.drawBlurAt(0, 0, ScrW(), ScrH(), stmBlurAmount, 0.2, stmBlurAlpha)
