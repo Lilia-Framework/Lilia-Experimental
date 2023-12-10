@@ -1,13 +1,12 @@
-name: Lua Lint
+name: Code Verification & Indenter
 
 on:
   push:
   pull_request:
 
 jobs:
-  lua-lint:
+  GLuaLinter_GLuaChecker:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -22,17 +21,108 @@ jobs:
       - name: Setup LuaRocks
         uses: leafo/gh-actions-luarocks@v4.0.0
 
-      - name: Install luacheck using luarocks
-        run: |
-          sudo luarocks install luacheck
+      - name: Pull gluacheck
+        uses: actions/checkout@v2
+        with:
+          repository: impulsh/gluacheck
+          path: luacheck
 
-      - name: Run Lua lint
+      - name: Build gluacheck
+        working-directory: luacheck
+        run: luarocks make
+
+      - name: Lint with gluacheck
+        run: cd lilia && luacheck . --no-redefined \
+          --no-global --no-self \
+          --no-max-line-length --no-max-code-line-length \
+          --no-max-string-line-length --no-max-comment-line-length && cd ..
+
+      - name: Set up Bash
         run: |
-          ls
+          sudo apt update
+          sudo apt install -y unzip
+
+      - name: List files in the working directory (Before running GLuaFixer)
+        run: ls
+
+      - name: Set location of Lilia
+        run: |
           cd lilia
-          luacheck . --no-redefined \
-            --no-global --no-self \
-            --no-max-line-length --no-max-code-line-length \
-            --no-max-string-line-length --no-max-comment-line-length
-          cd ..
-          ls
+
+      - name: List files in lilia
+        run: ls
+        working-directory: '${{ github.workspace }}/lilia'
+
+      - name: Download GLuaFixer (Step 1)
+        run: |
+          echo "Step 1: Downloading glualint..."
+          curl -L -o glualint.zip https://github.com/FPtje/GLuaFixer/releases/download/1.26.0/glualint-1.26.0-x86_64-linux.zip
+          unzip glualint.zip -d glualint
+          mv glualint/glualint glualint_executable
+        working-directory: '${{ github.workspace }}'
+        shell: bash
+
+      - name: Set execution permissions (Step 2)
+        run: |
+          echo "Step 2: Setting execution permissions..."
+          sudo chmod +x glualint_executable
+        working-directory: '${{ github.workspace }}'
+        shell: bash
+
+      - name: List files in the working directory (After downloading GLuaFixer)
+        run: ls
+
+      - name: Run GLuaFixer on Lilia - Part 1
+        run: |
+          echo "Step 7: Running glualint pretty-print on Lilia (part 1)"
+          sudo ./glualint_executable pretty-print lilia/gamemode/*
+        working-directory: ${{ github.workspace }}
+        shell: bash
+
+      - name: Run GLuaFixer on Lilia - Part 2
+        run: |
+          echo "Step 7: Running glualint pretty-print on Lilia (part 2)"
+          sudo ./glualint_executable pretty-print lilia/libraries/*
+        working-directory: ${{ github.workspace }}
+        shell: bash
+
+      - name: Run GLuaFixer on Lilia - Part 3
+        run: |
+          echo "Step 7: Running glualint pretty-print on Lilia (part 3)"
+          sudo ./glualint_executable pretty-print lilia/modularity/core/*
+        working-directory: ${{ github.workspace }}
+        shell: bash
+
+      - name: Run GLuaFixer on Lilia - Part 4
+        run: |
+          echo "Step 7: Running glualint pretty-print on Lilia (part 4)"
+          sudo ./glualint_executable pretty-print lilia/modularity/modules/*
+        working-directory: ${{ github.workspace }}
+        shell: bash
+
+      - name: Run GLuaFixer on Lilia - Part 5
+        run: |
+          echo "Step 7: Running glualint pretty-print on Lilia (part 5)"
+          sudo ./glualint_executable pretty-print lilia/modularity/submodules/*
+        working-directory: ${{ github.workspace }}
+        shell: bash
+
+      - name: Remove the glualint folder (Step 8)
+        run: |
+          echo "Step 8: Removing the glualint folder..."
+          rm -r glualint
+        working-directory: '${{ github.workspace }}'
+        shell: bash
+
+      - name: Delete the zip file (Step 9)
+        run: |
+          echo "Step 9: Deleting glualint.zip..."
+          rm glualint.zip
+        working-directory: '${{ github.workspace }}'
+
+      - name: Delete the glualint_executable (Step 10)
+        run: |
+          echo "Step 10: Deleting glualint_executable..."
+          rm glualint_executable
+        working-directory: '${{ github.workspace }}'
+        shell: bash
