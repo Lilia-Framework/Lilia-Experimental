@@ -14,12 +14,5 @@ exclude_files = {
     "lilia/libraries/util/**/*.lua",
     "lilia/libraries/thirdparty/**/*.lua",
     "lilia/modularity/essentials/revise/**/*.lua",
-
-    "lilia/modularity/essentials/frameworkui/libraries/cl_entityinfo.lua",
-    "lilia/modularity/essentials/frameworkui/modules/chatbox/derma/cl_markup.lua",
-    "lilia/modularity/essentials/frameworkui/modules/chatbox/derma/cl_chatbox.lua",
-
-    "lilia/modularity/essentials/frameworkui/modules/f1menu",
-    "lilia/modularity/essentials/frameworkui/modules/mainmenu",
 }
 
