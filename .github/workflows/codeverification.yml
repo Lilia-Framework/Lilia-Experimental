@@ -43,7 +43,7 @@ jobs:
         run: luarocks make
       - name: Lint with gluacheck
         run: >-
-          ls && echo "A" && cd lilia &&  echo "B" &&  ls && luacheck . --no-redefined \
+          cd .. && ls && cd lilia && ls && luacheck . --no-redefined \
             --no-global --no-self \
             --no-max-line-length --no-max-code-line-length \
             --no-max-string-line-length --no-max-comment-line-length \ && cd .. && ls
