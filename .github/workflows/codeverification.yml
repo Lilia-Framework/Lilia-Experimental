@@ -22,20 +22,9 @@ jobs:
       - name: Setup LuaRocks
         uses: leafo/gh-actions-luarocks@v4.0.0
 
-      - name: Pull gluacheck
-        uses: actions/checkout@v2
-        with:
-          repository: impulsh/gluacheck
-          path: luacheck
-
-      - name: Build gluacheck
-        working-directory: luacheck
-        run: luarocks make
-
-      - name: Install dependencies
+      - name: Install luacheck using luarocks
         run: |
-          sudo apt-get update
-          sudo apt-get install -y luacheck
+          sudo luarocks install luacheck
 
       - name: Run Lua lint
         run: |
