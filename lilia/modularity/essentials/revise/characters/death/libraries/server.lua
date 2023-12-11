@@ -2,15 +2,6 @@
 function DeathSettingsCore:PlayerDeath(client, _, attacker)
     local char = client:getChar()
     if not char then return end
-    if IsValid(client.liaRagdoll) then
-        client.liaRagdoll.liaIgnoreDelete = true
-        client.liaRagdoll:Remove()
-        client:setLocalVar("blur", nil)
-    end
-
-    char:setData("deathPos", client:GetPos())
-    client:setNetVar("deathStartTime", CurTime())
-    client:setNetVar("deathTime", CurTime() + 5)
     if self.DeathPopupEnabled then
         net.Start("death_client")
         net.WriteString(attacker:Nick())
@@ -18,7 +9,9 @@ function DeathSettingsCore:PlayerDeath(client, _, attacker)
         net.Send(client)
     end
 
-    if (attacker:IsPlayer() and self.LoseWeapononDeathHuman) or (not attacker:IsPlayer() and self.LoseWeapononDeathNPC) or (self.LoseWeapononDeathWorld and attacker:IsWorld()) then self:RemoveAllEquippedWeapons(client) end
+    if (attacker:IsPlayer() and self.LoseWeapononDeathHuman) or (not attacker:IsPlayer() and self.LoseWeapononDeathNPC) or (self.LoseWeapononDeathWorld and attacker:IsWorld()) then
+        self:RemoveAllEquippedWeapons(client)
+    end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -39,14 +32,5 @@ function DeathSettingsCore:RemoveAllEquippedWeapons(client)
         local amount = #client.LostItems > 1 and #client.LostItems .. " items" or "an item"
         client:notify("Because you died, you have lost " .. amount .. ".")
     end
-end
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function DeathSettingsCore:PlayerDeathThink(client)
-    if client:getChar() then
-        local deathTime = client:getNetVar("deathTime")
-        if deathTime and deathTime <= CurTime() then client:Spawn() end
-    end
-    return false
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

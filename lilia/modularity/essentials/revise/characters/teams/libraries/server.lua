@@ -1,11 +1,20 @@
 ﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function TeamsCore:OnPlayerJoinClass(client, class, oldClass)
     local char = client:getChar()
-    if char and self.PermaClass then char:setData("pclass", class) end
+    if char and self.PermaClass then
+        char:setData("pclass", class)
+    end
+
     local info = lia.class.list[class]
     local info2 = lia.class.list[oldClass]
-    if info.onSet then info:onSet(client) end
-    if info2 and info2.onLeave then info2:onLeave(client) end
+    if info.onSet then
+        info:onSet(client)
+    end
+
+    if info2 and info2.onLeave then
+        info2:onLeave(client)
+    end
+
     netstream.Start(nil, "classUpdate", client)
 end
 
@@ -14,6 +23,7 @@ function TeamsCore:CanPlayerJoinClass(client, class, classTable)
     if classTable.isWhitelisted ~= true then return end
     local char = client:getChar()
     local wl = char:getData("whitelist", {})
+
     return wl[class] or false
 end
 
@@ -44,26 +54,6 @@ function TeamsCore:PlayerLoadedChar(client, character, _)
     end
 end
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function TeamsCore:CheckFactionLimitReached(faction, character, client)
-    if isfunction(faction.onCheckLimitReached) then return faction:onCheckLimitReached(character, client) end
-    if not isnumber(faction.limit) then return false end
-    local maxPlayers = faction.limit
-    if faction.limit < 1 then maxPlayers = math.Round(#player.GetAll() * faction.limit) end
-    return team.NumPlayers(faction.index) >= maxPlayers
-end
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function TeamsCore:GetDefaultCharName(client, faction)
-    local info = lia.faction.indices[faction]
-    if info and info.onGetDefaultName then return info:onGetDefaultName(client) end
-end
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function TeamsCore:GetDefaultCharDesc(client, faction)
-    local info = lia.faction.indices[faction]
-    if info and info.onGetDefaultDesc then return info:onGetDefaultDesc(client) end
-end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function TeamsCore:FactionOnLoadout(client)
@@ -117,14 +107,19 @@ function TeamsCore:FactionOnLoadout(client)
         client:SetHealth(faction.health)
     end
 
-    if faction.armor then client:SetArmor(faction.armor) end
+    if faction.armor then
+        client:SetArmor(faction.armor)
+    end
+
     if faction.weapons then
         for _, v in ipairs(faction.weapons) do
             client:Give(v)
         end
     end
 
-    if faction.onSpawn then faction:onSpawn(client) end
+    if faction.onSpawn then
+        faction:onSpawn(client)
+    end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -181,8 +176,14 @@ function TeamsCore:ClassOnLoadout(client)
         client:SetHealth(class.health)
     end
 
-    if class.armor then client:SetArmor(class.armor) end
-    if class.onSpawn then class:onSpawn(client) end
+    if class.armor then
+        client:SetArmor(class.armor)
+    end
+
+    if class.onSpawn then
+        class:onSpawn(client)
+    end
+
     if class.weapons then
         for _, v in ipairs(class.weapons) do
             client:Give(v)

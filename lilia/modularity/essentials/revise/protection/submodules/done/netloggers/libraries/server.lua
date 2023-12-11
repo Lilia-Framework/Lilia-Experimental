@@ -41,14 +41,14 @@ function net.Incoming(len, client)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function concommand.Run(ply, cmd, args)
-    if not IsValid(ply) then return NetLoggingCore.ConsoleRun(ply, cmd, args) end
-    if not cmd then return NetLoggingCore.ConsoleRun(ply, cmd, args) end
+function concommand.Run(client, cmd, args)
+    if not IsValid(client) then return NetLoggingCore.ConsoleRun(client, cmd, args) end
+    if not cmd then return NetLoggingCore.ConsoleRun(client, cmd, args) end
     if args and args ~= "" and #args ~= 0 then
-        ServerLog(ply:Name() .. "( " .. ply:SteamID() .. " )" .. "has executed this command: " .. cmd .. " " .. table.concat(args, " ") .. ". \n")
+        ServerLog(client:Name() .. "( " .. client:SteamID() .. " )" .. "has executed this command: " .. cmd .. " " .. table.concat(args, " ") .. ". \n")
     else
-        ServerLog(ply:Name() .. "( " .. ply:SteamID() .. " )" .. " has executed this command: " .. cmd .. ". \n")
+        ServerLog(client:Name() .. "( " .. client:SteamID() .. " )" .. " has executed this command: " .. cmd .. ". \n")
     end
-    return NetLoggingCore.ConsoleRun(ply, cmd, args)
+    return NetLoggingCore.ConsoleRun(client, cmd, args)
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

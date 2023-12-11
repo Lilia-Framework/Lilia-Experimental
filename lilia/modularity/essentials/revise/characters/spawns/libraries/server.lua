@@ -5,6 +5,7 @@ function SpawnsCore:PlayerLoadout(client)
     local character = client:getChar()
     if client.liaSkipLoadout then
         client.liaSkipLoadout = nil
+
         return
     end
 
@@ -12,6 +13,7 @@ function SpawnsCore:PlayerLoadout(client)
         client:SetNoDraw(true)
         client:Lock()
         client:SetNotSolid(true)
+
         return
     end
 
@@ -30,18 +32,11 @@ function SpawnsCore:PlayerLoadout(client)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function SpawnsCore:PlayerSpawn(client)
-    client:SetNoDraw(false)
-    client:UnLock()
-    client:SetNotSolid(false)
-    client:setAction()
-    hook.Run("PlayerLoadout", client)
-end
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function SpawnsCore:OnCharAttribBoosted(client, character, attribID)
     local attribute = lia.attribs.list[attribID]
-    if attribute and isfunction(attribute.onSetup) then attribute:onSetup(client, character:getAttrib(attribID, 0)) end
+    if attribute and isfunction(attribute.onSetup) then
+        attribute:onSetup(client, character:getAttrib(attribID, 0))
+    end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -72,7 +67,9 @@ function SpawnsCore:PlayerInitialSpawn(client)
             client:setLiliaData("lastIP", address)
             netstream.Start(client, "liaDataSync", data, client.firstJoin, client.lastJoin)
             for _, v in pairs(lia.item.instances) do
-                if v.entity and v.invID == 0 then v:sync(client) end
+                if v.entity and v.invID == 0 then
+                    v:sync(client)
+                end
             end
 
             hook.Run("PlayerLiliaDataLoaded", client)
