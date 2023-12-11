@@ -17,18 +17,6 @@ lia.module.ModuleFiles = {
 }
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-lia.module.ModuleConditions = {
-    ["vjbase"] = "VJ",
-    ["mlogs"] = "mLogs",
-    ["sam"] = "sam",
-    ["ulx"] = "ulx",
-    ["serverguard"] = "serverguard",
-    ["advdupe2"] = "AdvDupe2",
-    ["simfphys"] = "simfphys",
-    ["pac"] = "pac"
-}
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function lia.module.load(uniqueID, path, isSingleFile, variable)
     local schema = engine.ActiveGamemode()
     local lowerVariable = variable:lower()
@@ -49,7 +37,10 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
 
     if hook.Run("ModuleShouldLoad", MODULE) == false then return end
     if uniqueID == "schema" then
-        if SCHEMA then MODULE = SCHEMA end
+        if SCHEMA then
+            MODULE = SCHEMA
+        end
+
         variable = "SCHEMA"
         MODULE.folder = schema
     elseif lia.module.list[uniqueID] then
@@ -62,7 +53,9 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
     lia.util.include(isSingleFile and path or ModuleCore and path .. "/" .. lowerVariable .. ".lua" or ExtendedCore and path .. "/sh_" .. lowerVariable .. ".lua")
     for fileName, state in pairs(lia.module.ModuleFiles) do
         local filePath = path .. "/" .. fileName
-        if file.Exists(filePath, "LUA") then lia.util.include(filePath, state) end
+        if file.Exists(filePath, "LUA") then
+            lia.util.include(filePath, state)
+        end
     end
 
     if MODULE.Dependencies then
@@ -79,13 +72,18 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
                 Description = PrivilegeInfo.Description
             }
 
-            if not CAMI.GetPrivilege(PrivilegeInfo.Name) then CAMI.RegisterPrivilege(privilegeData) end
+            if not CAMI.GetPrivilege(PrivilegeInfo.Name) then
+                CAMI.RegisterPrivilege(privilegeData)
+            end
         end
     end
 
     MODULE.loading = false
     local uniqueID2 = uniqueID
-    if uniqueID2 == "schema" then uniqueID2 = MODULE.name end
+    if uniqueID2 == "schema" then
+        uniqueID2 = MODULE.name
+    end
+
     function MODULE:setData(value, global, ignoreMap)
         lia.data.set(uniqueID2, value, global, ignoreMap)
     end
@@ -95,7 +93,9 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
     end
 
     for k, v in pairs(MODULE) do
-        if isfunction(v) then hook.Add(k, MODULE, v) end
+        if isfunction(v) then
+            hook.Add(k, MODULE, v)
+        end
     end
 
     if uniqueID == "schema" then
@@ -118,7 +118,10 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
     end
 
     hook.Run("ModuleLoaded", uniqueID, MODULE)
-    if MODULE.OnLoaded then MODULE:OnLoaded() end
+    if MODULE.OnLoaded then
+        MODULE:OnLoaded()
+    end
+
     lia.module.loadExtras(path)
 end
 
@@ -142,7 +145,9 @@ function lia.module.loadExtras(path)
 
     for _, folderName in ipairs(lia.module.ModuleFolders) do
         local folderPath = path .. "/" .. folderName
-        if file.Exists(folderPath, "LUA") then lia.util.includeDir(folderPath, true, true) end
+        if file.Exists(folderPath, "LUA") then
+            lia.util.includeDir(folderPath, true, true)
+        end
     end
 end
 
@@ -176,4 +181,47 @@ end
 function lia.module.get(identifier)
     return lia.module.list[identifier]
 end
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+lia.module.ModuleConditions = {
+    ["vjbase"] = {
+        name = "VJ Base",
+    },
+    ["mlogs"] = {
+        name = "MLogs",
+    },
+    ["blogs"] = {
+        name = "BLogs",
+    },
+    ["sam"] = {
+        name = "SAM Admin Mod",
+    },
+    ["ulx"] = {
+        name = "ULX Admin Mod",
+    },
+    ["serverguard"] = {
+        name = "ServerGuard Admin Mod",
+    },
+    ["advdupe2"] = {
+        name = "Advanced Dupe 2",
+    },
+    ["advdupe"] = {
+        name = "Advanced Dupe 1",
+    },
+    ["zmc"] = {
+        name = "Zero's MasterChef",
+    },
+    ["zpf"] = {
+        name = "Zero's Factory",
+    },
+    ["sitanywhere"] = {
+        name = "The Sit Anywhere Script",
+    },
+    ["simfphys"] = {
+        name = "Simfphys LUA Vehicles Base",
+    },
+    ["pac"] = {
+        name = "Player Appearance Customizer 3 (PAC3)",
+    }
+}
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
