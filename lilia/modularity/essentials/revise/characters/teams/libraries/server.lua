@@ -22,7 +22,7 @@ function TeamsCore:PlayerLoadedChar(client, character, _)
     local data = character:getData("pclass")
     local class = data and lia.class.list[data]
     if class and data then
-        local oldClass = character:GetClass()
+        local oldClass = character:getClass()
         if client:Team() == class.faction then
             timer.Simple(
                 .3,
