@@ -15,7 +15,7 @@ end
 function GM:CreateDefaultInventory(character)
     local charID = character:getID()
     if lia.inventory.types["grid"] then
-        return lia.inventory.instance(
+        return         lia.inventory.instance(
             "grid",
             {
                 char = charID
@@ -29,9 +29,7 @@ function GM:CharacterPreSave(character)
     local client = character:getPlayer()
     if not character:getInv() then return end
     for _, v in pairs(character:getInv():getItems()) do
-        if v.onSave then
-            v:call("onSave", client)
-        end
+        if v.onSave then v:call("onSave", client) end
     end
 end
 
@@ -41,15 +39,16 @@ function GM:PlayerLoadedChar(client, character, lastChar)
     lia.db.updateTable(
         {
             _lastJoinTime = timeStamp
-        }, nil, "characters", "_id = " .. character:getID()
+        },
+        nil,
+        "characters",
+        "_id = " .. character:getID()
     )
 
     if lastChar then
         local charEnts = lastChar:getVar("charEnts") or {}
         for _, v in ipairs(charEnts) do
-            if v and IsValid(v) then
-                v:Remove()
-            end
+            if v and IsValid(v) then v:Remove() end
         end
 
         lastChar:setVar("charEnts", nil)
@@ -95,7 +94,6 @@ function GM:CanPlayerUseChar(client, newcharacter)
     local banned = newcharacter:getData("banned")
     if newcharacter and newcharacter:getData("banned", false) then
         if isnumber(banned) and banned < os.time() then return end
-
         return false, "@charBanned"
     end
 
@@ -111,7 +109,6 @@ function GM:CanPlayerSwitchChar(client, character, newCharacter)
     if not client:Alive() then return false, "You are dead!" end
     if IsValid(client.liaRagdoll) then return false, "You are ragdolled!" end
     if character:getID() == newCharacter:getID() then return false, "You are already using this character!" end
-
     return true
 end
 

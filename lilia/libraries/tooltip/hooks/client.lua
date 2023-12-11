@@ -19,10 +19,7 @@ function GM:TooltipPaint(var, w, h)
         lia.util.drawBlur(var, 2, 2)
         surface.SetDrawColor(0, 0, 0, 230)
         surface.DrawRect(0, 0, w, h)
-        if var.markupObject then
-            var.markupObject:draw(12 * 0.5, 12 * 0.5 + 2)
-        end
-
+        if var.markupObject then var.markupObject:draw(12 * 0.5, 12 * 0.5 + 2) end
         return true
     end
 end

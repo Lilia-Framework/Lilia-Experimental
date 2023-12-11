@@ -9,9 +9,7 @@ function DeathSettingsCore:PlayerDeath(client, _, attacker)
         net.Send(client)
     end
 
-    if (attacker:IsPlayer() and self.LoseWeapononDeathHuman) or (not attacker:IsPlayer() and self.LoseWeapononDeathNPC) or (self.LoseWeapononDeathWorld and attacker:IsWorld()) then
-        self:RemoveAllEquippedWeapons(client)
-    end
+    if (attacker:IsPlayer() and self.LoseWeapononDeathHuman) or (not attacker:IsPlayer() and self.LoseWeapononDeathNPC) or (self.LoseWeapononDeathWorld and attacker:IsWorld()) then self:RemoveAllEquippedWeapons(client) end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

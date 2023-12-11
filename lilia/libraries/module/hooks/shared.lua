@@ -5,7 +5,6 @@ function GM:ModuleShouldLoad(module)
     local uniqueID = module.uniqueID
     local moduleConditions = lia.module.ModuleConditions[uniqueID]
     local isEnabled = module.enabled
-
     if moduleConditions ~= nil and _G[moduleConditions] == nil then
         print("Global " .. moduleConditions .. " missing. Deactivating Module!")
         return false
@@ -15,10 +14,8 @@ function GM:ModuleShouldLoad(module)
         print("MODULE.enabled is set to false. Deactivating Module!")
         return false
     end
-
     return true
 end
-
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:LiliaLoaded()

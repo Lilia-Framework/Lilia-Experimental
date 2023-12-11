@@ -4,17 +4,13 @@ PIM_Frame = nil
 function PIM:PlayerBindPress(_, bind, pressed)
     if bind == "+showscores" and pressed and self:CheckPossibilities() then
         self:OpenPIM()
-
         return true
     end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function PIM:OpenPIM()
-    if IsValid(PIM_Frame) then
-        PIM_Frame:Close()
-    end
-
+    if IsValid(PIM_Frame) then PIM_Frame:Close() end
     local frame = vgui.Create("DFrame")
     frame:SetSize(300, 120)
     frame:SetPos(0, ScrH() / 2 - frame:GetTall() / 2)
@@ -30,23 +26,11 @@ function PIM:OpenPIM()
     end
 
     function frame:Think()
-        if not input.IsKeyDown(KEY_TAB) then
-            self:Close()
-        end
+        if not input.IsKeyDown(KEY_TAB) then self:Close() end
     end
 
     timer.Remove("PIM_Frame_Timer")
-    timer.Create(
-        "PIM_Frame_Timer",
-        30,
-        1,
-        function()
-            if frame and IsValid(frame) then
-                frame:Close()
-            end
-        end
-    )
-
+    timer.Create("PIM_Frame_Timer", 30, 1, function() if frame and IsValid(frame) then frame:Close() end end)
     frame.title = frame:Add("DLabel")
     frame.title:SetText("Player Interactions")
     frame.title:SetFont("liaSmallFont")
@@ -84,21 +68,9 @@ function PIM:OpenPIM()
             end
 
             function p:DoClick()
-                frame:AlphaTo(
-                    0,
-                    0.05,
-                    0,
-                    function()
-                        if frame and IsValid(frame) then
-                            frame:Close()
-                        end
-                    end
-                )
-
+                frame:AlphaTo(0, 0.05, 0, function() if frame and IsValid(frame) then frame:Close() end end)
                 opt.onRun(LocalPlayer(), traceEnt)
-                if opt.runServer then
-                    netstream.Start("PIMRunOption", name)
-                end
+                if opt.runServer then netstream.Start("PIMRunOption", name) end
             end
         end
     end

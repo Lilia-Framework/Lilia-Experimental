@@ -5,10 +5,7 @@ function GM:CheckFactionLimitReached(faction, character, client)
     if isfunction(faction.onCheckLimitReached) then return faction:onCheckLimitReached(character, client) end
     if not isnumber(faction.limit) then return false end
     local maxPlayers = faction.limit
-    if faction.limit < 1 then
-        maxPlayers = math.Round(#player.GetAll() * faction.limit)
-    end
-
+    if faction.limit < 1 then maxPlayers = math.Round(#player.GetAll() * faction.limit) end
     return team.NumPlayers(faction.index) >= maxPlayers
 end
 
@@ -54,7 +51,6 @@ function getClass(class)
     for key, classTable in pairs(lia.class.list) do
         if lia.util.stringMatches(classTable.uniqueID, class) or lia.util.stringMatches(classTable.name, class) then return key end
     end
-
     return nil
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

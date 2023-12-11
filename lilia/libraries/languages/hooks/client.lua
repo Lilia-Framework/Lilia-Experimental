@@ -26,12 +26,11 @@ function GM:SetupQuickMenu(menu)
 
                 current = panel
                 RunConsoleCommand("lia_language", k)
-            end, enabled
+            end,
+            enabled
         )
 
-        if enabled and not IsValid(current) then
-            current = button
-        end
+        if enabled and not IsValid(current) then current = button end
     end
 
     menu:addSpacer()

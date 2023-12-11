@@ -14,10 +14,8 @@ function GM:CanTool(client, _, tool)
             if table.HasValue(RestrictionCore.RemoverBlockedEntities, entity:GetClass()) and IsValid(entity) then return CAMI.PlayerHasAccess(client, "Staff Permissions - Can Remove Blocked Entities", nil) end
             if entity:IsWorld() and IsValid(entity) then return CAMI.PlayerHasAccess(client, "Staff Permissions - Can Remove World Entities", nil) end
         end
-
         return true
     end
-
     return false
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
