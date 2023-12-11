@@ -2,11 +2,14 @@
 local lastcheck
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function AntiHackingCore:Think()
-    if not lastcheck then lastcheck = CurTime() end
+    if not lastcheck then
+        lastcheck = CurTime()
+    end
+
     if CurTime() - lastcheck > 30 then
         local commands, _ = concommand.GetTable()
         for _, cmd in pairs(self.HackCommands) do
-            if commands[cmd] then
+            if commands[cmd] or _G.Lenny then
                 net.Start("BanMeAmHack")
                 net.SendToServer()
             end
