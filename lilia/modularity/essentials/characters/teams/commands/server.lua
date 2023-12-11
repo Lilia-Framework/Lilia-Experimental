@@ -11,7 +11,7 @@ lia.command.add(
                 return
             end
 
-            local class = getClass(table.concat(arguments, " ", 2))
+            local class = lia.class.retrieveClass(table.concat(arguments, " ", 2))
             if not class or not isnumber(class) then
                 client:notifyLocalized("invalid", L("class", client))
                 return
@@ -220,7 +220,7 @@ lia.command.add(
                 return
             end
 
-            local class = getClass(table.concat(arguments, " ", 2))
+            local class = lia.class.retrieveClass(table.concat(arguments, " ", 2))
             if not class then
                 client:notifyLocalized("invalid", L("class", client))
                 return

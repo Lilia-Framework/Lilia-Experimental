@@ -9,7 +9,9 @@ function lia.class.loadFromDir(directory)
         local index = #lia.class.list + 1
         local halt
         for _, v in ipairs(lia.class.list) do
-            if v.uniqueID == niceName then halt = true end
+            if v.uniqueID == niceName then
+                halt = true
+            end
         end
 
         if halt == true then continue end
@@ -21,7 +23,10 @@ function lia.class.loadFromDir(directory)
         CLASS.name = "Unknown"
         CLASS.desc = "No description available."
         CLASS.limit = 0
-        if MODULE then CLASS.module = MODULE.uniqueID end
+        if MODULE then
+            CLASS.module = MODULE.uniqueID
+        end
+
         lia.util.include(directory .. "/" .. v, "shared")
         if not CLASS.faction or not team.Valid(CLASS.faction) then
             ErrorNoHalt("Class '" .. niceName .. "' does not have a valid faction!\n")
@@ -29,7 +34,10 @@ function lia.class.loadFromDir(directory)
             continue
         end
 
-        if not CLASS.onCanBe then CLASS.onCanBe = function(_) return true end end
+        if not CLASS.onCanBe then
+            CLASS.onCanBe = function(_) return true end
+        end
+
         lia.class.list[index] = CLASS
         CLASS = nil
     end
@@ -43,6 +51,7 @@ function lia.class.canBe(client, class)
     if client:getChar():getClass() == class then return false, "same class request" end
     if info.limit > 0 and #lia.class.getPlayers(info.index) >= info.limit then return false, "class is full" end
     if hook.Run("CanPlayerJoinClass", client, class, info) == false then return false end
+
     return info:onCanBe(client)
 end
 
@@ -56,8 +65,20 @@ function lia.class.getPlayers(class)
     local players = {}
     for _, v in ipairs(player.GetAll()) do
         local char = v:getChar()
-        if char and char:getClass() == class then table.insert(players, v) end
+        if char and char:getClass() == class then
+            table.insert(players, v)
+        end
     end
+
     return players
+end
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function lia.class.retrieveClass(class)
+    for key, classTable in pairs(lia.class.list) do
+        if lia.util.stringMatches(classTable.uniqueID, class) or lia.util.stringMatches(classTable.name, class) then return key end
+    end
+
+    return nil
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
