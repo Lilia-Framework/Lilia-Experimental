@@ -3,7 +3,7 @@ local GM = GM or GAMEMODE
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:CanItemBeTransfered(item, curInv, inventory)
     if item.isBag and curInv ~= inventory and item.getInv and item:getInv() and table.Count(item:getInv():getItems()) > 0 then
-        local char = lia.char.loaded[curInv.owner]
+        local char = lia.char.loaded[curInv.client]
         if SERVER and char and char:getPlayer() then
             char:getPlayer():notify("You can't transfer a backpack that has items inside of it.")
         elseif CLIENT then

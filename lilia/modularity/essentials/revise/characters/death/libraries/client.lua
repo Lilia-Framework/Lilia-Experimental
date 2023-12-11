@@ -28,8 +28,7 @@ end
 function DeathSettingsCore:HUDPaint()
     local owner = LocalPlayer()
     local ft = FrameTime()
-    if owner:getChar() then
-        if owner:Alive() then
+    if owner:getChar() and owner:Alive() then
             if aprg ~= 0 then
                 aprg2 = math.Clamp(aprg2 - ft * 1.3, 0, 1)
                 if aprg2 == 0 then aprg = math.Clamp(aprg - ft * .7, 0, 1) end
@@ -39,7 +38,6 @@ function DeathSettingsCore:HUDPaint()
                 aprg = math.Clamp(aprg + ft * .5, 0, 1)
                 if aprg == 1 then aprg2 = math.Clamp(aprg2 + ft * .4, 0, 1) end
             end
-        end
     end
 
     if IsValid(lia.char.gui) and lia.gui.char:IsVisible() or not owner:getChar() then return end

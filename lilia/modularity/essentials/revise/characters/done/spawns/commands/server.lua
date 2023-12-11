@@ -43,7 +43,7 @@ lia.command.add(
                     SpawnsCore.spawns[faction] = SpawnsCore.spawns[faction] or {}
                     SpawnsCore.spawns[faction][class] = SpawnsCore.spawns[faction][class] or {}
                     table.insert(SpawnsCore.spawns[faction][class], client:GetPos())
-                    SpawnsCore:SaveSpawns()
+                    SpawnsCore:SaveData()
                     local name = L(info.name, client)
                     if info2 then name = name .. " (" .. L(info2.name, client) .. ")" end
                     return L("spawnAdded", client, name)
@@ -79,7 +79,7 @@ lia.command.add(
                 end
             end
 
-            if i > 0 then SpawnsCore:SaveSpawns() end
+            if i > 0 then SpawnsCore:SaveData() end
             return L("spawnDeleted", client, i)
         end
     }

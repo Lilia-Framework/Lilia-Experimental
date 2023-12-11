@@ -33,7 +33,6 @@ net.Receive(
         character:setup()
         hook.Run("PlayerLoadedChar", client, character, currentChar)
         response()
-        hook.Run("PostPlayerLoadedChar", client, character, currentChar)
     end
 )
 

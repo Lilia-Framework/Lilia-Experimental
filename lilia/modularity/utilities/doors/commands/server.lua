@@ -80,7 +80,7 @@ lia.command.add(
                 )
 
                 client:notifyLocalized("dMadeUnownable")
-                DoorsCore:SaveDoorData()
+                DoorsCore:SaveData()
             else
                 client:notifyLocalized("dNotValid")
             end
@@ -110,7 +110,7 @@ lia.command.add(
                 )
 
                 client:notifyLocalized("dMadeOwnable")
-                DoorsCore:SaveDoorData()
+                DoorsCore:SaveData()
             else
                 client:notifyLocalized("dNotValid")
             end
@@ -166,7 +166,7 @@ lia.command.add(
                     client:notifyLocalized("dRemoveFaction")
                 end
 
-                DoorsCore:SaveDoorData()
+                DoorsCore:SaveData()
             end
         end
     }
@@ -220,7 +220,7 @@ lia.command.add(
                     client:notifyLocalized("dRemoveFaction")
                 end
 
-                DoorsCore:SaveDoorData()
+                DoorsCore:SaveData()
             end
         end
     }
@@ -240,7 +240,7 @@ lia.command.add(
                 entity:setNetVar("disabled", disabled)
                 DoorsCore:callOnDoorChildren(entity, function(child) child:setNetVar("disabled", disabled) end)
                 client:notifyLocalized("dSet" .. (disabled and "" or "Not") .. "Disabled")
-                DoorsCore:SaveDoorData()
+                DoorsCore:SaveData()
             else
                 client:notifyLocalized("dNotValid")
             end
@@ -307,7 +307,7 @@ lia.command.add(
                     client.liaDoorParent.liaChildren[entity:MapCreationID()] = true
                     entity.liaParent = client.liaDoorParent
                     client:notifyLocalized("dAddChildDoor")
-                    DoorsCore:SaveDoorData()
+                    DoorsCore:SaveData()
                     DoorsCore:copyParentDoor(entity)
                 else
                     client:notifyLocalized("dNoParentDoor")
@@ -338,7 +338,7 @@ lia.command.add(
                     entity.liaParent.liaChildren[entity:MapCreationID()] = nil
                     entity.liaParent = nil
                     client:notifyLocalized("dRemoveChildDoor")
-                    DoorsCore:SaveDoorData()
+                    DoorsCore:SaveData()
                 end
             else
                 client:notifyLocalized("dNotValid")
@@ -361,7 +361,7 @@ lia.command.add(
                 entity:setNetVar("hidden", hidden)
                 DoorsCore:callOnDoorChildren(entity, function(child) child:setNetVar("hidden", hidden) end)
                 client:notifyLocalized("dSet" .. (hidden and "" or "Not") .. "Hidden")
-                DoorsCore:SaveDoorData()
+                DoorsCore:SaveData()
             else
                 client:notifyLocalized("dNotValid")
             end
@@ -410,7 +410,7 @@ lia.command.add(
                     client:notifyLocalized("dRemoveClass")
                 end
 
-                DoorsCore:SaveDoorData()
+                DoorsCore:SaveData()
             end
         end,
         alias = {"jobdoor"}

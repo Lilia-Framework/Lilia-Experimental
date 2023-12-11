@@ -1,71 +1,69 @@
 ﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function AttributesCore:PostPlayerLoadout(client)
-    local uniqueID = "StamCheck" .. client:SteamID()
+SpawnsCore.spawns = SpawnsCore.spawns or {}
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function SpawnsCore:PostPlayerLoadout(client)
     local character = client:getChar()
-    if character and character:getInv() then
-        lia.attribs.setup(client)
-        for _, item in pairs(character:getInv():getItems()) do
-            item:call("onLoadout", client)
-            if item:getData("equip") and istable(item.attribBoosts) then
-                for attribute, boost in pairs(item.attribBoosts) do
-                    character:addBoost(item.uniqueID, attribute, boost)
+    if IsValid(client) or character and self.spawns and table.Count(self.spawns) > 0 then
+        local class = character:getClass()
+        local points
+        local className = ""
+        for k, v in ipairs(lia.faction.indices) do
+            if k == client:Team() then
+                points = self.spawns[v.uniqueID] or {}
+                break
+            end
+        end
+
+        if points then
+            for _, v in ipairs(lia.class.list) do
+                if class == v.index then
+                    className = v.uniqueID
+                    break
+                end
+            end
+
+            points = points[className] or points[""]
+            if points and table.Count(points) > 0 then
+                local position = table.Random(points)
+                client:SetPos(position)
+            end
+        end
+    end
+end
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function SpawnsCore:CharacterPreSave(character)
+    local client = character:getPlayer()
+    if IsValid(client) then character:setData("pos", {client:GetPos(), client:EyeAngles(), game.GetMap()}) end
+end
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function SpawnsCore:PlayerLoadedChar(client, character, _)
+    timer.Simple(
+        0,
+        function()
+            if IsValid(client) then
+                local position = character:getData("pos")
+                if position then
+                    if position[3] and position[3]:lower() == game.GetMap():lower() then
+                        client:SetPos(position[1].x and position[1] or client:GetPos())
+                        client:SetEyeAngles(position[2].p and position[2] or Angle(0, 0, 0))
+                    end
+
+                    character:setData("pos", nil)
                 end
             end
         end
-    end
-
-    timer.Create(
-        uniqueID,
-        0.25,
-        0,
-        function()
-            if not IsValid(client) then
-                timer.Remove(uniqueID)
-                return
-            end
-
-            self:CalcStaminaChange(client)
-        end
     )
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function AttributesCore:PlayerLoadedChar(client, character)
-    local maxstm = character:getMaxStamina()
-    timer.Simple(0.25, function() client:setLocalVar("stamina", maxstm) end)
+function SpawnsCore:LoadData()
+    self.spawns = self:getData() or {}
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function AttributesCore:PlayerStaminaLost(client)
-    if client.isBreathing then return end
-    client:EmitSound("player/breathe1.wav", 35, 100)
-    client.isBreathing = true
-    timer.Create(
-        "liaStamBreathCheck" .. client:SteamID(),
-        1,
-        0,
-        function()
-            if client:getLocalVar("stamina", 0) < self.StaminaBreathingThreshold then return end
-            client:StopSound("player/breathe1.wav")
-            client.isBreathing = nil
-            timer.Remove("liaStamBreathCheck" .. client:SteamID())
-        end
-    )
-end
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function AttributesCore:PlayerThrowPunch(client, _)
-    local ent = client:GetTracedEntity()
-    if ent:IsPlayer() and CAMI.PlayerHasAccess(client, "Staff Permissions - One Punch Man", nil) and IsValid(ent) and client:isStaffOnDuty() then
-        client:ConsumeStamina(ent:getChar():getMaxStamina())
-        ent:EmitSound("weapons/crowbar/crowbar_impact" .. math.random(1, 2) .. ".wav", 70)
-        client:setRagdolled(true, 10)
-    end
-end
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function AttributesCore:OnCharAttribBoosted(client, character, attribID)
-    local attribute = lia.attribs.list[attribID]
-    if attribute and isfunction(attribute.onSetup) then attribute:onSetup(client, character:getAttrib(attribID, 0)) end
+function SpawnsCore:SaveData()
+    self:setData(self.spawns)
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
