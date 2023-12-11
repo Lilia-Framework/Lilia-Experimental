@@ -206,18 +206,18 @@ function lia.item.registerInv(invType, w, h)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function lia.item.newInv(client, invType, callback)
+function lia.item.newInv(owner, invType, callback)
     lia.inventory.instance(
         invType,
         {
-            char = client
+            char = owner
         }
     ):next(
         function(inventory)
             inventory.invType = invType
-            if client and client > 0 then
+            if owner and owner > 0 then
                 for k, v in ipairs(player.GetAll()) do
-                    if v:getChar() and v:getChar():getID() == client then
+                    if v:getChar() and v:getChar():getID() == owner then
                         inventory:sync(v)
                         break
                     end
