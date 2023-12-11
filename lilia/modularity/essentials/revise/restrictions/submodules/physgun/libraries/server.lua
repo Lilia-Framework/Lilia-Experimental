@@ -1,5 +1,11 @@
+<<<<<<< Updated upstream
 ﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function Core:PhysgunPickup(client, entity)
+=======
+﻿
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function GM:PhysgunPickup(client, entity)
+>>>>>>> Stashed changes
     if IsValid(client) and entity:GetCreator() == client and entity:GetClass() == "prop_physics" then return true end
     if IsValid(client) and CAMI.PlayerHasAccess(client, "Staff Permissions - Physgun Pickup", nil) or client:isStaffOnDuty() then
         if table.HasValue(RestrictionCore.PhysGunMoveRestrictedEntityList, entity:GetClass()) then
@@ -17,23 +23,30 @@ function Core:PhysgunPickup(client, entity)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<<<<<<< Updated upstream
 function Core:OnPhysgunPickup(_, entity)
     if entity:GetClass() == "prop_physics" and entity:GetCollisionGroup() == COLLISION_GROUP_NONE then entity:SetCollisionGroup(COLLISION_GROUP_PASSABLE_DOOR) end
+=======
+function GM:OnPhysgunPickup(_, entity)
+    if entity:GetClass() == "prop_physics" and entity:GetCollisionGroup() == COLLISION_GROUP_NONE then
+        entity:SetCollisionGroup(COLLISION_GROUP_PASSABLE_DOOR)
+    end
+>>>>>>> Stashed changes
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function Core:OnPhysgunReload(_, client)
+function GM:OnPhysgunReload(_, client)
     if not CAMI.PlayerHasAccess(client, "Staff Permissions - Can Physgun Reload", nil) then return false end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function Core:PhysgunDrop(_, entity)
+function GM:PhysgunDrop(_, entity)
     if entity:GetClass() ~= "prop_physics" then return end
     timer.Simple(5, function() if IsValid(entity) and entity:GetCollisionGroup() == COLLISION_GROUP_PASSABLE_DOOR then entity:SetCollisionGroup(COLLISION_GROUP_NONE) end end)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function Core:OnPhysgunFreeze(_, physObj, entity, client)
+function GM:OnPhysgunFreeze(_, physObj, entity, client)
     if not physObj:IsMoveable() then return false end
     if entity:GetUnFreezable() then return false end
     if RestrictionCore.PassableOnFreeze then
