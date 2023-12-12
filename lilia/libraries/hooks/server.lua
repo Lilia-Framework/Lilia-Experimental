@@ -72,17 +72,48 @@ function GM:EntityTakeDamage(entity, dmgInfo)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function GM:PlayerSay(client, message)
-    if utf8.len(message) <= lia.config.MaxChatLength then
-        local chatType, message, anonymous = lia.chat.parse(client, message, true)
-        if (chatType == "ic") and lia.command.parse(client, message) then return "" end
-        lia.chat.send(client, chatType, message, anonymous)
-        hook.Run("PostPlayerSay", client, message, chatType, anonymous)
-    else
-        client:notify("Your message is too long and has not been sent.")
+function lia.command.parse(client, text, realCommand, arguments)
+    if realCommand or text:utf8sub(1, 1) == "/" then
+        local match = realCommand or text:lower():match("/" .. "([_%w]+)")
+        if not match then
+            local post = string.Explode(" ", text)
+            local len = string.len(post[1])
+            match = post[1]:utf8sub(2, len)
+        end
+
+        match = match:lower()
+        if (match == "ooc" or match == "looc") and utf8.len(text) > lia.config.MaxChatLength then
+            if IsValid(client) then
+                client:notify("You can't send OOC/LOOC messages longer than the maximum allowed length.")
+            end
+
+            lia.log.add(client, "smartassOOC")
+
+            return true
+        end
+
+        local command = lia.command.list[match]
+        if command then
+            if not arguments then
+                arguments = lia.command.extractArgs(text:sub(#match + 3))
+            end
+
+            lia.command.run(client, match, arguments)
+            if not realCommand then
+                lia.log.add(client, "command", text)
+            end
+        else
+            if IsValid(client) then
+                client:notifyLocalized("cmdNoExist")
+            else
+                print("Sorry, that command does not exist.")
+            end
+        end
+
+        return true
     end
 
-    return ""
+    return false
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
