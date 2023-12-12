@@ -47,6 +47,8 @@ function lia.command.run(client, command, arguments)
                 else
                     client:notify(result)
                 end
+
+                lia.log.add(client, "command", command, table.concat(arguments, ", "))
             else
                 print(result)
             end
@@ -69,6 +71,9 @@ function lia.command.parse(client, text, realCommand, arguments)
         if command then
             if not arguments then arguments = lia.command.extractArgs(text:sub(#match + 3)) end
             lia.command.run(client, match, arguments)
+            if not realCommand then
+                lia.log.add(client, "command", text)
+            end
         else
             if IsValid(client) then
                 client:notifyLocalized("cmdNoExist")

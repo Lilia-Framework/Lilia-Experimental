@@ -18,6 +18,7 @@ function MainMenu:chooseCharacter(id)
     net.Start("liaCharChoose")
     net.WriteUInt(id, 32)
     net.SendToServer()
+
     return d
 end
 
@@ -58,6 +59,7 @@ function MainMenu:createCharacter(data)
     end
 
     net.SendToServer()
+
     return d
 end
 

@@ -25,6 +25,7 @@ function ENT:Use(activator)
         return
     end
 
+    lia.log.add(activator, "vendorAccess", self:getNetVar("name"))
     self.receivers[#self.receivers + 1] = activator
     activator.liaVendor = self
     if self.messages[VENDOR_WELCOME] then activator:ChatPrint(self:getNetVar("name") .. ": " .. self.messages[VENDOR_WELCOME]) end
@@ -121,8 +122,10 @@ function ENT:removeReceiver(client, requestedByPlayer)
     table.RemoveByValue(self.receivers, client)
     if client.liaVendor == self then client.liaVendor = nil end
     if requestedByPlayer then return end
+
     net.Start("liaVendorExit")
     net.Send(client)
+    lia.log.add(activator, "vendorExit", self:getNetVar("name"))
 end
 
 --------------------------------------------------------------------------------------------------------------------------

@@ -1,7 +1,12 @@
 ﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function ProtectionCore:BackDoorApplyPunishment(client, infraction, kick, ban, time)
-    ServerLog("Attempted backdoor by " .. client:SteamID() .. ". He was bannned.")
-    client:Kick("Banned for cheating.")
-    client:Ban(0, "You have easily detectable hacks and should be ashamed. Banned for cheating.")
+function ProtectionCore:ApplyPunishment(client, infraction, kick, ban, time)
+    local bantime = time or 0
+    if kick then
+        client:Kick("Kicked for " .. infraction .. ".")
+    end
+
+    if ban then
+        client:Ban(bantime, "Banned for " .. infraction .. ".")
+    end
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

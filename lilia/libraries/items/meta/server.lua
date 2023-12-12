@@ -240,6 +240,7 @@ function ITEM:interact(action, client, entity, data)
     if result == nil and isfunction(callback.onRun) then result = callback.onRun(self, data) end
     if self.postHooks[action] then self.postHooks[action](self, result, data) end
     hook.Run("OnPlayerInteractItem", client, action, self, result, data)
+    lia.log.add(client, "itemUse", action, item)
     if result ~= false and not deferred.isPromise(result) then
         if IsValid(entity) then
             entity:Remove()

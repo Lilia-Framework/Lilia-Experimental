@@ -18,6 +18,7 @@ lia.item.defaultfunctions = {
         onRun = function(item)
             local client = item.player
             item:removeFromInventory(true):next(function() item:spawn(client) end)
+            lia.log.add(item.player, "itemDrop", item.name, 1)
             return false
         end,
         onCanRun = function(item) return item.entity == nil and not IsValid(item.entity) and not item.noDrop end
@@ -43,6 +44,7 @@ lia.item.defaultfunctions = {
                     end
 
                     if not IsValid(client) then return end
+                    lia.log.add(client, "itemTake", item.name, 1)
                     d:resolve()
                 end
             ):catch(
