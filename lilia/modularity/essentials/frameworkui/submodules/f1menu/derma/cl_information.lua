@@ -82,7 +82,7 @@ function PANEL:setup()
     local char = LocalPlayer():getChar()
     if self.desc then
         self.desc:SetText(char:getDesc():gsub("#", "\226\128\139#"))
-        self.desc.OnEnter = function(this, w, h) lia.command.send("chardesc", this:GetText():gsub("\226\128\139#", "#")) end
+        self.desc.OnEnter = function(this, _, _) lia.command.send("chardesc", this:GetText():gsub("\226\128\139#", "#")) end
     end
 
     if self.name then
@@ -90,7 +90,7 @@ function PANEL:setup()
         hook.Add(
             "OnCharVarChanged",
             self,
-            function(panel, character, key, oldValue, value)
+            function(_, character, key, _, value)
                 if char ~= character then return end
                 if key ~= "name" then return end
                 self.name:SetText(value:gsub("#", "\226\128\139#"))
@@ -108,14 +108,14 @@ function PANEL:setup()
     if self.model then
         self.model:SetModel(LocalPlayer():GetModel())
         self.model.Entity:SetSkin(LocalPlayer():GetSkin())
-        for k, v in ipairs(LocalPlayer():GetBodyGroups()) do
+        for _, v in ipairs(LocalPlayer():GetBodyGroups()) do
             self.model.Entity:SetBodygroup(v.id, LocalPlayer():GetBodygroup(v.id))
         end
 
         local ent = self.model.Entity
         if ent and IsValid(ent) then
             local mats = LocalPlayer():GetMaterials()
-            for k, v in pairs(mats) do
+            for k, _ in pairs(mats) do
                 ent:SetSubMaterial(k - 1, LocalPlayer():GetSubMaterial(k - 1))
             end
         end

@@ -14,7 +14,7 @@ function PANEL:Init()
     self.tabs:SetTall(28)
     self.tabs:DockPadding(4, 4, 4, 4)
     self.tabs:SetVisible(false)
-    self.tabs.Paint = function(tabs, w, h)
+    self.tabs.Paint = function(_, w, h)
         surface.SetDrawColor(0, 0, 0, 100)
         surface.DrawRect(0, 0, w, h)
     end
@@ -138,7 +138,7 @@ function PANEL:setActive(state)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-local function OnDrawText(text, font, x, y, color, alignX, alignY, alpha)
+local function OnDrawText(text, font, x, y, color, _, _, alpha)
     alpha = alpha or 255
     surface.SetTextPos(x + 1, y + 1)
     surface.SetTextColor(0, 0, 0, alpha)
@@ -200,7 +200,7 @@ function PANEL:addText(...)
     local text = "<font=liaChatFont>"
     if CHAT_CLASS then text = "<font=" .. (CHAT_CLASS.font or "liaChatFont") .. ">" end
     text = hook.Run("ChatAddText", text, ...) or text
-    for k, v in ipairs({...}) do
+    for _, v in ipairs({...}) do
         if type(v) == "IMaterial" then
             local ttx = v:GetName()
             text = text .. "<img=" .. ttx .. "," .. v:Width() .. "x" .. v:Height() .. ">"

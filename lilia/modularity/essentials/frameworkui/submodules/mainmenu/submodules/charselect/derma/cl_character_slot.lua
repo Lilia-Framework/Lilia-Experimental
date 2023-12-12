@@ -36,7 +36,7 @@ function PANEL:Init()
     self.model = self:Add("liaModelPanel")
     self.model:Dock(FILL)
     self.model:SetFOV(37)
-    self.model.PaintOver = function(model, w, h)
+    self.model.PaintOver = function(_, w, h)
         if self.banned then
             local centerX, centerY = w * 0.5, h * 0.5 - 24
             surface.SetDrawColor(250, 0, 0, 40)
@@ -49,8 +49,8 @@ function PANEL:Init()
     self.button:SetSize(240, ScrH())
     self.button:SetPaintBackground(false)
     self.button:SetText("")
-    self.button.OnCursorEntered = function(button) self:OnCursorEntered() end
-    self.button.DoClick = function(button)
+    self.button.OnCursorEntered = function(_) self:OnCursorEntered() end
+    self.button.DoClick = function(_)
         lia.gui.character:clickSound()
         if not self.banned then self:onSelected() end
     end
@@ -60,12 +60,12 @@ function PANEL:Init()
     self.delete:SetFont("liaCharSubTitleFont")
     self.delete:SetText("✕ " .. L("delete"):upper())
     self.delete:SetWide(self:GetWide())
-    self.delete.Paint = function(delete, w, h)
+    self.delete.Paint = function(_, w, h)
         surface.SetDrawColor(255, 0, 0, 50)
         surface.DrawRect(0, 0, w, h)
     end
 
-    self.delete.DoClick = function(delete)
+    self.delete.DoClick = function(_)
         lia.gui.character:clickSound()
         self:confirmDelete()
     end

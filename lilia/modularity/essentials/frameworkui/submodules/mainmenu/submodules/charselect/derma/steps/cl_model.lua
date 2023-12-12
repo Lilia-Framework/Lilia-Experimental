@@ -36,7 +36,7 @@ function PANEL:onDisplay()
             icon.bodyGroups = {}
         elseif istable(v) then
             local groups = ""
-            for i = 0, 9 do
+            for _ = 0, 9 do
                 groups = groups .. (v[3][i] or 0)
             end
 
