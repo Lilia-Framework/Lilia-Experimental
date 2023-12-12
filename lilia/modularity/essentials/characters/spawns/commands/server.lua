@@ -45,13 +45,33 @@ lia.command.add(
                     table.insert(SpawnsCore.spawns[faction][class], client:GetPos())
                     SpawnsCore:SaveData()
                     local name = L(info.name, client)
-                    if info2 then name = name .. " (" .. L(info2.name, client) .. ")" end
+                    if info2 then
+                        name = name .. " (" .. L(info2.name, client) .. ")"
+                    end
+
                     return L("spawnAdded", client, name)
                 else
                     return L("invalidFaction", client)
                 end
             else
                 return L("invalidArg", client, 1)
+            end
+        end
+    }
+)
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+lia.command.add(
+    "respawn",
+    {
+        privilege = "Forcelly Respawn",
+        adminOnly = true,
+        syntax = "<string target>",
+        onRun = function(client, arguments)
+            local target = lia.command.findPlayer(client, arguments[1])
+            if IsValid(target) then
+                SpawnsCore:PostPlayerLoadout(target)
+                client:notify("You teleported " .. target:Nick() .. " back to their faction spawn point.")
             end
         end
     }
@@ -79,7 +99,10 @@ lia.command.add(
                 end
             end
 
-            if i > 0 then SpawnsCore:SaveData() end
+            if i > 0 then
+                SpawnsCore:SaveData()
+            end
+
             return L("spawnDeleted", client, i)
         end
     }
