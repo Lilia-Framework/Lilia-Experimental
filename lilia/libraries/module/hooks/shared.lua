@@ -13,10 +13,8 @@ function GM:ModuleShouldLoad(module)
 
     if isEnabled ~= nil and not isEnabled then
         print("Module '" .. uniqueID .. "' is disabled. Deactivating Module!")
-
         return false
     end
-
     return true
 end
 

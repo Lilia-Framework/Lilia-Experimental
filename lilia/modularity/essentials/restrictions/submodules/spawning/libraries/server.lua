@@ -3,7 +3,6 @@ local GM = GM or GAMEMODE
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:PlayerSpawnNPC(client)
     if IsValid(client) and CAMI.PlayerHasAccess(client, "Spawn Permissions - Can Spawn NPCs", nil) or client:getChar():hasFlags("n") then return true end
-
     return false
 end
 
@@ -12,7 +11,6 @@ function GM:PlayerSpawnProp(client)
     if not client then return true end
     if client.CurrentDupe and client.CurrentDupe.Entities then return true end
     if IsValid(client) and CAMI.PlayerHasAccess(client, "Spawn Permissions - Can Spawn Props", nil) or client:getChar():hasFlags("e") or client:isStaffOnDuty() then return true end
-
     return false
 end
 
@@ -21,7 +19,6 @@ function GM:PlayerSpawnRagdoll(client)
     if not client then return true end
     if client.CurrentDupe and client.CurrentDupe.Entities then return true end
     if IsValid(client) and CAMI.PlayerHasAccess(client, "Spawn Permissions - Can Spawn Ragdolls", nil) or client:getChar():hasFlags("r") or client:isStaffOnDuty() then return true end
-
     return false
 end
 
@@ -33,21 +30,18 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:PlayerGiveSWEP(client)
     if IsValid(client) and CAMI.PlayerHasAccess(client, "Spawn Permissions - Can Spawn SWEPs", nil) or client:getChar():hasFlags("W") then return true end
-
     return false
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:PlayerSpawnEffect(client)
     if IsValid(client) and CAMI.PlayerHasAccess(client, "Spawn Permissions - Can Spawn Effects", nil) or client:getChar():hasFlags("L") then return true end
-
     return false
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:PlayerSpawnSENT(client)
     if IsValid(client) and CAMI.PlayerHasAccess(client, "Spawn Permissions - Can Spawn SENTs", nil) or client:getChar():hasFlags("E") then return true end
-
     return false
 end
 
@@ -59,10 +53,8 @@ function GM:PlayerSpawnObject(client, _, _)
         client.NextSpawn = CurTime() + 0.75
     else
         client:notify("You can't spawn props that fast!")
-
         return false
     end
-
     return true
 end
 
@@ -74,33 +66,24 @@ function GM:PlayerSpawnVehicle(client, _, name, _)
                 return true
             else
                 client:notify("You can't spawn this vehicle since it's restricted!")
-
                 return false
             end
         end
-
         return true
     end
-
     return false
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:PlayerSpawnedNPC(client, entity)
-    if ProtectionCore.NPCsDropWeapons then
-        entity:SetKeyValue("spawnflags", "8192")
-    end
-
+    if ProtectionCore.NPCsDropWeapons then entity:SetKeyValue("spawnflags", "8192") end
     self:PlayerSpawnedEntity(client, entity)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:PlayerSpawnedVehicle(client, entity)
     local delay = RestrictionCore.PlayerSpawnVehicleDelay
-    if not CAMI.PlayerHasAccess(client, "Spawn Permissions - No Car Spawn Delay", nil) then
-        client.NextVehicleSpawn = SysTime() + delay
-    end
-
+    if not CAMI.PlayerHasAccess(client, "Spawn Permissions - No Car Spawn Delay", nil) then client.NextVehicleSpawn = SysTime() + delay end
     self:PlayerSpawnedEntity(client, entity)
 end
 
@@ -123,9 +106,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:PlayerSpawnedProp(client, _, entity)
     self:PlayerSpawnedEntity(client, entity)
-    if string.lower(entity:GetMaterial()) == "pp/copy" then
-        entity:Remove()
-    end
+    if string.lower(entity:GetMaterial()) == "pp/copy" then entity:Remove() end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -2,6 +2,7 @@
 local function ScreenScale(size)
     return size * (ScrH() / 900) + 10
 end
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function CharacterSelection:LiliaLoaded()
     vgui.Create("liaCharacter")
@@ -9,22 +10,14 @@ end
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function CharacterSelection:KickedFromCharacter(_, isCurrentChar)
-    if isCurrentChar then
-        vgui.Create("liaCharacter")
-    end
+    if isCurrentChar then vgui.Create("liaCharacter") end
 end
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function CharacterSelection:CreateMenuButtons(tabs)
     tabs["characters"] = function(_)
-        if IsValid(lia.gui.menu) then
-            lia.gui.menu:Remove()
-        end
-
-        if self.KickOnEnteringMainMenu then
-            netstream.Start("liaCharKickSelf")
-        end
-
+        if IsValid(lia.gui.menu) then lia.gui.menu:Remove() end
+        if self.KickOnEnteringMainMenu then netstream.Start("liaCharKickSelf") end
         vgui.Create("liaCharacter")
     end
 end
