@@ -10,11 +10,8 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:PlayerSpawnProp(client, model)
     if not client then return true end
-    if IsValid(client) and CAMI.PlayerHasAccess(client, "Spawn Permissions - Can Spawn Props", nil) or client:getChar():hasFlags("e") or client:isStaffOnDuty() then
-        if CAMI.PlayerHasAccess(client, "Spawn Permissions - No Spawn Delay") or (client.AdvDupe2 and client.AdvDupe2.Pasting) then return true end
-
-        return self:CheckSpawnPropBlackList(client, model)
-    end
+    if client.CurrentDupe and client.CurrentDupe.Entities then return true end
+    if IsValid(client) and CAMI.PlayerHasAccess(client, "Spawn Permissions - Can Spawn Props", nil) or client:getChar():hasFlags("e") or client:isStaffOnDuty() then return true end
 
     return false
 end
@@ -22,11 +19,8 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:PlayerSpawnRagdoll(client)
     if not client then return true end
-    if IsValid(client) and CAMI.PlayerHasAccess(client, "Spawn Permissions - Can Spawn Ragdolls", nil) or client:getChar():hasFlags("r") or client:isStaffOnDuty() then
-        if CAMI.PlayerHasAccess(client, "Spawn Permissions - No Spawn Delay") or (client.AdvDupe2 and client.AdvDupe2.Pasting) then return true end
-
-        return true
-    end
+    if client.CurrentDupe and client.CurrentDupe.Entities then return true end
+    if IsValid(client) and CAMI.PlayerHasAccess(client, "Spawn Permissions - Can Spawn Ragdolls", nil) or client:getChar():hasFlags("r") or client:isStaffOnDuty() then return true end
 
     return false
 end
@@ -59,7 +53,8 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:PlayerSpawnObject(client, _, _)
-    if CAMI.PlayerHasAccess(client, "Spawn Permissions - No Spawn Delay", nil) and (client.AdvDupe2 and client.AdvDupe2.Pasting) then return true end
+    if CAMI.PlayerHasAccess(client, "Spawn Permissions - No Spawn Delay", nil) then return true end
+    if client.CurrentDupe and client.CurrentDupe.Entities then return true end
     if (client.NextSpawn or 0) < CurTime() then
         client.NextSpawn = CurTime() + 0.75
     else
@@ -67,6 +62,8 @@ function GM:PlayerSpawnObject(client, _, _)
 
         return false
     end
+
+    return true
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -134,26 +131,5 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:PlayerSpawnedEntity(client, entity)
     entity:SetCreator(client)
-end
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function GM:CheckSpawnPropBlackList(_, model)
-    for _, gredwitch in pairs(file.Find("models/gredwitch/bombs/*.mdl", "GAME")) do
-        if model == "models/gredwitch/bombs/" .. gredwitch then return false end
-    end
-
-    for _, gbombs in pairs(file.Find("models/gbombs/*.mdl", "GAME")) do
-        if model == "models/gbombs/" .. gbombs then return false end
-    end
-
-    for _, phx in pairs(file.Find("models/props_phx/*.mdl", "GAME")) do
-        if model == "models/props_phx/" .. phx then return false end
-    end
-
-    for _, mikeprops in pairs(file.Find("models/mikeprops/*.mdl", "GAME")) do
-        if model == "models/mikeprops/" .. mikeprops then return false end
-    end
-
-    return true
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

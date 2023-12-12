@@ -7,7 +7,6 @@ function GM:CanTool(client, _, tool)
     local validEntity = IsValid(entity)
     if IsValid(client) and (client:getChar():hasFlags("t") or client:isStaffOnDuty()) and CAMI.PlayerHasAccess(client, privilege, nil) then
         if tool == "material" and validEntity and (entity:GetClass() == "prop_vehicle_jeep" or string.lower(toolobj:GetClientInfo("override")) == "pp/copy") then return false end
-        if tool == "permaprops" and string.StartWith(entity:GetClass(), "lia_") and validEntity then return false end
         if tool == "weld" and validEntity and entity:GetClass() == "sent_ball" then return false end
         if tool == "duplicator" then
             if table.HasValue(RestrictionCore.DuplicatorBlackList, entity) and validEntity then return false end

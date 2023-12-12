@@ -5,8 +5,10 @@ function GM:ModuleShouldLoad(module)
     local uniqueID = module.uniqueID
     local moduleConditions = lia.module.ModuleConditions[uniqueID]
     local isEnabled = module.enabled
-    if moduleConditions ~= nil and _G[uniqueID] == nil then
-        print("Found " .. (moduleConditions and moduleConditions.name or uniqueID) .. ". Enabling the Compatibility Module!")
+    if moduleConditions and _G[moduleConditions.global] ~= nil then
+        print("Found module '" .. moduleConditions.name .. "'. Enabling the Compatibility Module!")
+    else
+        return false
     end
 
     if isEnabled ~= nil and not isEnabled then
