@@ -66,7 +66,7 @@ function F1MenuCore:CreateMenuButtons(tabs)
             table.insert(sortPanels, mainPanel)
             totalSize.x = totalSize.x + mainPanel:GetWide() + 10
             totalSize.y = math.max(totalSize.y, mainPanel:GetTall())
-            for id, item in pairs(inventory:getItems()) do
+            for _, item in pairs(inventory:getItems()) do
                 if item.isBag and hook.Run("CanOpenBagPanel", item) ~= false then
                     local inventory = item:getInv()
                     local childPanels = inventory:show(mainPanel)
@@ -91,7 +91,7 @@ function F1MenuCore:CreateMenuButtons(tabs)
 
     local cnt = table.Count(lia.class.list)
     if cnt > 1 then
-        for k, v in ipairs(lia.class.list) do
+        for k, _ in ipairs(lia.class.list) do
             if not lia.class.canBe(LocalPlayer(), k) then
                 continue
             else

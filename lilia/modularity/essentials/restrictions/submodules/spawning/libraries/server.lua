@@ -8,7 +8,7 @@ function GM:PlayerSpawnNPC(client)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function GM:PlayerSpawnProp(client, model)
+function GM:PlayerSpawnProp(client)
     if not client then return true end
     if client.CurrentDupe and client.CurrentDupe.Entities then return true end
     if IsValid(client) and CAMI.PlayerHasAccess(client, "Spawn Permissions - Can Spawn Props", nil) or client:getChar():hasFlags("e") or client:isStaffOnDuty() then return true end

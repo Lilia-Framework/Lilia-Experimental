@@ -16,7 +16,6 @@ local toScreen = FindMetaTable("Vector").ToScreen
 local DescWidth = CreateClientConVar("lia_hud_descwidth", 0.5, true, false)
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function FrameworkUICore:DrawEntityInfo(entity, alpha, position)
-    local ty = 0
     if not entity.IsPlayer(entity) then return end
     if hook.Run("ShouldDrawPlayerInfo", entity) == false then return end
     local character = entity.getChar(entity)
@@ -60,6 +59,7 @@ function FrameworkUICore:DrawEntityInfo(entity, alpha, position)
         charInfo[#charInfo + 1] = {entity.liaDescLines[i]}
     end
 
+    local ty = 0
     hook.Run("DrawCharInfo", entity, character, charInfo)
     for i = 1, #charInfo do
         local info = charInfo[i]
