@@ -21,7 +21,7 @@ function PANEL:Init()
     self.icon:SetSize(128, 64)
     self.icon:InvalidateLayout(true)
     self.icon:Dock(LEFT)
-    self.icon.PaintOver = function(this, w, h) print("") end
+    self.icon.PaintOver = function(_, _, _) print("") end
     assignClick(self.icon)
     self.limit = self:Add("DLabel")
     self.limit:Dock(RIGHT)

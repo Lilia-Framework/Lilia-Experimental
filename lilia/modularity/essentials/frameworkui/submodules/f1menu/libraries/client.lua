@@ -1,14 +1,13 @@
 ﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 local HELP_DEFAULT
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function F1MenuCore:PlayerBindPress(_, bind, pressed)
+function F1MenuCore:PlayerBindPress(client, bind, pressed)
     if bind:lower():find("gm_showhelp") and pressed then
         if IsValid(lia.gui.menu) then
             lia.gui.menu:remove()
-        elseif LocalPlayer():getChar() then
+        elseif client:getChar() then
             vgui.Create("liaMenu")
         end
-
         return true
     end
 end
@@ -67,7 +66,7 @@ function F1MenuCore:CreateMenuButtons(tabs)
             table.insert(sortPanels, mainPanel)
             totalSize.x = totalSize.x + mainPanel:GetWide() + 10
             totalSize.y = math.max(totalSize.y, mainPanel:GetTall())
-            for _, item in pairs(inventory:getItems()) do
+            for id, item in pairs(inventory:getItems()) do
                 if item.isBag and hook.Run("CanOpenBagPanel", item) ~= false then
                     local inventory = item:getInv()
                     local childPanels = inventory:show(mainPanel)
@@ -86,26 +85,17 @@ function F1MenuCore:CreateMenuButtons(tabs)
                 x = x + panel:GetWide() + 10
             end
 
-            hook.Add(
-                "PostRenderVGUI",
-                mainPanel,
-                function()
-                    hook.Run("PostDrawInventory", mainPanel)
-                end
-            )
+            hook.Add("PostRenderVGUI", mainPanel, function() hook.Run("PostDrawInventory", mainPanel) end)
         end
     end
 
     local cnt = table.Count(lia.class.list)
     if cnt > 1 then
-        for k, _ in ipairs(lia.class.list) do
+        for k, v in ipairs(lia.class.list) do
             if not lia.class.canBe(LocalPlayer(), k) then
                 continue
             else
-                tabs["classes"] = function(panel)
-                    panel:Add("liaClasses")
-                end
-
+                tabs["classes"] = function(panel) panel:Add("liaClasses") end
                 return
             end
         end
@@ -152,17 +142,11 @@ function F1MenuCore:CreateMenuButtons(tabs)
         tree:Dock(LEFT)
         tree:SetWide(180)
         tree:DockMargin(0, 0, 15, 0)
-        tree.OnNodeSelected = function(_, _)
+        tree.OnNodeSelected = function(_, node)
             if node.onGetHTML then
                 local source = node:onGetHTML()
-                if IsValid(helpPanel) then
-                    helpPanel:Remove()
-                end
-
-                if lia.gui.creditsPanel then
-                    lia.gui.creditsPanel:Remove()
-                end
-
+                if IsValid(helpPanel) then helpPanel:Remove() end
+                if lia.gui.creditsPanel then lia.gui.creditsPanel:Remove() end
                 helpPanel = panel:Add("DListView")
                 helpPanel:Dock(FILL)
                 helpPanel.Paint = function() end
@@ -205,15 +189,12 @@ function F1MenuCore:BuildHelpMenu(tabs)
     tabs["commands"] = function(_, _)
         local body = ""
         for k, v in SortedPairs(lia.command.list) do
-            if lia.command.hasAccess(LocalPlayer(), k, nil) then
-                body = body .. "<h2>/" .. k .. "</h2><strong>Syntax:</strong> <em>" .. v.syntax .. "</em><br /><br />"
-            end
+            if lia.command.hasAccess(LocalPlayer(), k, nil) then body = body .. "<h2>/" .. k .. "</h2><strong>Syntax:</strong> <em>" .. v.syntax .. "</em><br /><br />" end
         end
-
         return body
     end
 
-    tabs["flags"] = function(node)
+    tabs["flags"] = function(_)
         local body = [[<table border="0" cellspacing="8px">]]
         for k, v in SortedPairs(lia.flag.list) do
             local icon
@@ -231,7 +212,6 @@ function F1MenuCore:BuildHelpMenu(tabs)
                 </tr>
             ]], icon, k, v.desc)
         end
-
         return body .. "</table>"
     end
 
@@ -247,22 +227,13 @@ function F1MenuCore:BuildHelpMenu(tabs)
                     <b>%s</b>: %s
                     <b>%s</b>: %s
             ]]):format(v.name or "Unknown", L"desc", v.desc or L"noDesc", L"author", lia.module.namecache[v.author] or v.author, "Discord", v.discord)
-            if v.version then
-                body = body .. "<br /><b>" .. L"version" .. "</b>: " .. v.version
-            end
-
+            if v.version then body = body .. "<br /><b>" .. L"version" .. "</b>: " .. v.version end
             body = body .. "</span></p>"
         end
-
         return body
     end
 
-    if self.RulesEnabled then
-        tabs["Rules"] = function() return GenerateRules() end
-    end
-
-    if self.TutorialEnabled then
-        tabs["Tutorial"] = function() return GenerateTutorial() end
-    end
+    if self.RulesEnabled then tabs["Rules"] = function() return GenerateRules() end end
+    if self.TutorialEnabled then tabs["Tutorial"] = function() return GenerateTutorial() end end
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
