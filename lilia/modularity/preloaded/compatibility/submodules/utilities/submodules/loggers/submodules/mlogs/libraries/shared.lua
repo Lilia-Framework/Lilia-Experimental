@@ -1,15 +1,41 @@
 ﻿----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-mLogs.addCategory("Lilia", "lia", Color(121, 65, 203), function() return true end, nil, 105)
+mLogs.addCategory("Lilia", "lilia", Color(121, 65, 203), function() return true end, nil, 105)
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+mLogs.addLogger("Lilia MLogs", "LiliaMLogs", "lilia")
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 mLogs.addCategoryDefinitions(
-    "lia",
+    "lilia",
     {
-        chat = function(data) return mLogs.doLogReplace({"[", "^chatType", "]", "^client", ":", "^msg"}, data) end,
-        command = function(data) return mLogs.doLogReplace({"^client", "tried to run command", "^command"}, data) end,
-        charLoad = function(data) return mLogs.doLogReplace({"^client", "loaded the character", "^char"}, data) end,
-        charDelete = function(data) return mLogs.doLogReplace({"^client", "deleted the character", "^char"}, data) end,
-        itemUse = function(data) return mLogs.doLogReplace({"^client", "tried", "^action", "to item", "^item"}, data) end,
-        vendor = function(data) return mLogs.doLogReplace({"^client", data.selling and "sold item" or "bought item", "^item", data.selling and "to vendor" or "from vendor", "^vendor", "for", "^price"}, data) end,
+        LiliaMLogs = function(data) return mLogs.doLogReplace({"[Lilia]", "^log"}, data) end,
     }
 )
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function MLogsCompatibility:OnServerLog(_, _, logString)
+    mLogs.log(
+        "LiliaMLogs",
+        "lilia",
+        {
+            log = logString
+        }
+    )
+end
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function MLogsCompatibility:PlayerSwitchWeapon(client, oldWeapon, newWeapon)
+    if client.lastEquipLog and client.lastEquipLog.oldWep == oldWeapon and client.lastEquipLog.newWep == newWeapon and SysTime() - client.lastEquipLog.time < 1 then return end
+    client.lastEquipLog = {
+        oldWep = oldWeapon,
+        newWep = newWeapon,
+        time = SysTime()
+    }
+
+    mLogs.log(
+        "equiplogs",
+        "general",
+        {
+            client = mLogs.logger.getPlayerData(client),
+            weapon = mLogs.logger.getWeaponData(newWeapon)
+        }
+    )
+end
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
