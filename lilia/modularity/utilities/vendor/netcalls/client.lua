@@ -7,7 +7,7 @@ net.Receive(
         vendor.money = net.ReadInt(32)
         if vendor.money < 0 then vendor.money = nil end
         local count = net.ReadUInt(16)
-        for i = 1, count do
+        for _ = 1, count do
             local itemType = net.ReadString()
             local price = net.ReadInt(32)
             local stock = net.ReadInt(32)

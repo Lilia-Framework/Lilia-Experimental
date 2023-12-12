@@ -58,12 +58,12 @@ function PANEL:Init()
     self.bubble:Dock(TOP)
     self.bubble:DockMargin(0, 4, 0, 0)
     self.bubble:SetValue(entity:getNetVar("noBubble") and 1 or 0)
-    self.bubble.OnChange = function(this, value) EDITOR.bubble(value) end
+    self.bubble.OnChange = function(_, value) EDITOR.bubble(value) end
     self.useMoney = self:Add("DCheckBoxLabel")
     self.useMoney:SetText(L"vendorUseMoney")
     self.useMoney:Dock(TOP)
     self.useMoney:DockMargin(0, 4, 0, 0)
-    self.useMoney.OnChange = function(this, value) EDITOR.useMoney(value) end
+    self.useMoney.OnChange = function(_, value) EDITOR.useMoney(value) end
     self.sellScale = self:Add("DNumSlider")
     self.sellScale:Dock(TOP)
     self.sellScale:DockMargin(0, 4, 0, 0)
@@ -91,7 +91,7 @@ function PANEL:Init()
     self.faction:Dock(TOP)
     self.faction:SetTextColor(color_white)
     self.faction:DockMargin(0, 4, 0, 0)
-    self.faction.DoClick = function(this) vgui.Create("liaVendorFactionEditor"):MoveLeftOf(self, 4) end
+    self.faction.DoClick = function(_) vgui.Create("liaVendorFactionEditor"):MoveLeftOf(self, 4) end
     local menu
     self.items = self:Add("DListView")
     self.items:Dock(FILL)
@@ -101,7 +101,7 @@ function PANEL:Init()
     self.items:AddColumn(L"price").Header:SetTextColor(color_black)
     self.items:AddColumn(L"stock").Header:SetTextColor(color_black)
     self.items:SetMultiSelect(false)
-    self.items.OnRowRightClick = function(this, index, line)
+    self.items.OnRowRightClick = function(_, _, line)
         if IsValid(menu) then menu:Remove() end
         local uniqueID = line.item
         local itemTable = lia.item.list[uniqueID]

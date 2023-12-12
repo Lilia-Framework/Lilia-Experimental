@@ -1,5 +1,5 @@
 ﻿--------------------------------------------------------------------------------------------------------------------------
-function VendorCore:VendorOpened(vendor)
+function VendorCore:VendorOpened(_)
     vgui.Create("liaVendor")
     hook.Run("OnOpenVendorMenu", self)
 end

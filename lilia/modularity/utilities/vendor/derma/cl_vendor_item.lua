@@ -9,7 +9,7 @@ function PANEL:Init()
     self.icon = self:Add("liaItemIcon")
     self.icon:SetSize(64, 64)
     self.icon.PaintBehind = function() end
-    self.icon.OnCursorEntered = function(icon) self:OnCursorEntered() end
+    self.icon.OnCursorEntered = function(_) self:OnCursorEntered() end
     self.name = self:Add("DLabel")
     self.name:SetPos(self.icon:GetWide() + 8, 8)
     self.name:SetTextColor(color_white)
@@ -75,7 +75,7 @@ function PANEL:showAction()
     self.action:SetAlpha(0)
     self.action:AlphaTo(255, 0.2, 0)
     self.action.OnCursorExited = function(button) button:Remove() end
-    self.action.Paint = function(button, w, h)
+    self.action.Paint = function(_, w, h)
         surface.SetDrawColor(0, 0, 0, 220)
         surface.DrawRect(0, 0, w, h)
     end

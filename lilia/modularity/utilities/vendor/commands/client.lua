@@ -4,7 +4,7 @@ lia.command.add(
     {
         privilege = "Restock Vendors",
         superAdminOnly = true,
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 
@@ -15,7 +15,7 @@ lia.command.add(
         privilege = "Reset Vendor Money",
         superAdminOnly = true,
         syntax = "<int amount>",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 -------------------------------------------------------------------------------------------------------

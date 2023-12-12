@@ -9,7 +9,7 @@ function PANEL:Init()
     self.name:SetFont("liaVendorButtonFont")
     self.name:SetTextColor(color_white)
     self.name:SetTextInset(8, 4)
-    self.name.Paint = function(name, w, h)
+    self.name.Paint = function(_, w, h)
         surface.SetDrawColor(0, 0, 0, 100)
         surface.DrawRect(0, 0, w, h)
     end
