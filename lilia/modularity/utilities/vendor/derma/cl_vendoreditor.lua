@@ -40,7 +40,6 @@ function PANEL:Init()
         if entity:GetModel():lower() ~= model then EDITOR.model(model) end
     end
 
-    local useMoney = tonumber(entity:getMoney()) ~= nil
     self.money = self:Add("DTextEntry")
     self.money:Dock(TOP)
     self.money:SetTooltip(lia.currency.plural)
@@ -71,7 +70,7 @@ function PANEL:Init()
     self.sellScale.Label:SetTextColor(color_white)
     self.sellScale.TextArea:SetTextColor(color_white)
     self.sellScale:SetDecimals(2)
-    self.sellScale.OnValueChanged = function(this, value)
+    self.sellScale.OnValueChanged = function(_, value)
         timer.Create(
             "liaVendorScale",
             0.5,
@@ -227,7 +226,7 @@ function PANEL:updateSellScale()
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function PANEL:onNameDescChanged(vendor, key, value)
+function PANEL:onNameDescChanged(_, key, _)
     local entity = liaVendorEnt
     if key == "name" then
         self.name:SetText(entity:getName())
@@ -243,14 +242,14 @@ function PANEL:onNameDescChanged(vendor, key, value)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function PANEL:onItemModeUpdated(vendor, itemType, value)
+function PANEL:onItemModeUpdated(_, itemType, value)
     local line = self.lines[itemType]
     if not IsValid(line) then return end
     line:SetColumnText(COLS_MODE, self:getModeText(value))
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function PANEL:onItemPriceUpdated(vendor, itemType, value)
+function PANEL:onItemPriceUpdated(vendor, itemType, _)
     local line = self.lines[itemType]
     if not IsValid(line) then return end
     line:SetColumnText(COLS_PRICE, vendor:getPrice(itemType))

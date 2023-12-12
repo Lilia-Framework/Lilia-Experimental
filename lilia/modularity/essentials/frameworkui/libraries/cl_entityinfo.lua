@@ -59,7 +59,6 @@ function FrameworkUICore:DrawEntityInfo(entity, alpha, position)
         charInfo[#charInfo + 1] = {entity.liaDescLines[i]}
     end
 
-    local ty = 0
     hook.Run("DrawCharInfo", entity, character, charInfo)
     for i = 1, #charInfo do
         local info = charInfo[i]

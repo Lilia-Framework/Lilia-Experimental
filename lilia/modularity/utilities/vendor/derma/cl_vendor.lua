@@ -23,7 +23,7 @@ function PANEL:Init()
     self.leave:SetTextColor(color_white)
     self.leave:SetContentAlignment(9)
     self.leave:SetExpensiveShadow(2, color_black)
-    self.leave.DoClick = function(button) self:Remove() end
+    self.leave.DoClick = function(_) self:Remove() end
     self.leave:SizeToContents()
     self.leave:SetPaintBackground(false)
     self.leave.x = ScrW() * 0.5 - (self.leave:GetWide() * 0.5)
@@ -34,7 +34,7 @@ function PANEL:Init()
         self.editor:SetTextColor(color_white)
         self.editor:SetContentAlignment(9)
         self.editor:SetExpensiveShadow(2, color_black)
-        self.editor.DoClick = function(button) vgui.Create("liaVendorEditor"):SetZPos(99) end
+        self.editor.DoClick = function(_) vgui.Create("liaVendorEditor"):SetZPos(99) end
         self.editor:SizeToContents()
         self.editor:SetPaintBackground(false)
         self.leave.x = self.leave.x + 16 + self.leave:GetWide() * 0.5
@@ -136,12 +136,12 @@ function PANEL:onVendorPropEdited(vendor, key)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function PANEL:onVendorMoneyUpdated(vendor, money)
+function PANEL:onVendorMoneyUpdated(_, money)
     self.vendor:setMoney(money)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function PANEL:onVendorPriceUpdated(vendor, itemType, value)
+function PANEL:onVendorPriceUpdated(_, itemType, _)
     local panel = self.items[self.vendor][itemType]
     if IsValid(panel) then panel:updatePrice() end
     panel = self.items[self.me][itemType]
@@ -149,18 +149,18 @@ function PANEL:onVendorPriceUpdated(vendor, itemType, value)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function PANEL:onVendorModeUpdated(vendor, itemType, mode)
+function PANEL:onVendorModeUpdated(_, itemType, _)
     self:updateItem(itemType, self.vendor)
     self:updateItem(itemType, self.me)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function PANEL:onItemStockUpdated(vendor, itemType)
+function PANEL:onItemStockUpdated(_, itemType)
     self:updateItem(itemType, self.vendor)
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function PANEL:onCharVarChanged(character, key, oldValue, newValue)
+function PANEL:onCharVarChanged(character, key, _, newValue)
     if character ~= LocalPlayer():getChar() then return end
     if key == "money" then self.me:setMoney(newValue) end
 end
@@ -207,7 +207,7 @@ function PANEL:OnRemove()
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function PANEL:OnKeyCodePressed(keyCode)
+function PANEL:OnKeyCodePressed(_)
     local useKey = input.LookupBinding("+use", true)
     if useKey then self:Remove() end
 end
