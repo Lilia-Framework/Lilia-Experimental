@@ -499,8 +499,8 @@ lia.command.add(
             local target = lia.command.findPlayer(client, arguments[1])
             if IsValid(target) then
                 local count = 0
-                for k, v in pairs(cleanup.GetList(target)[target:UniqueID()] or {}) do
-                    for m, n in pairs(v) do
+                for _, v in pairs(cleanup.GetList(target)[target:UniqueID()] or {}) do
+                    for _, n in pairs(v) do
                         if IsValid(n) and IsValid(n:GetPhysicsObject()) then
                             n:GetPhysicsObject():EnableMotion(false)
                             count = count + 1

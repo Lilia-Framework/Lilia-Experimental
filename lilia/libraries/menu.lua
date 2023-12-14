@@ -77,7 +77,7 @@ function lia.menu.drawAll()
         surface.DrawTexturedRect(x2, y2, w2, h2)
         surface.SetDrawColor(0, 0, 0, alpha * 0.25)
         surface.DrawOutlinedRect(x2, y2, w2, h2)
-        for k2, v2 in SortedPairs(v.options) do
+        for k2, _ in SortedPairs(v.options) do
             local y = startY + (i * 28)
             if inside and mY >= y and mY <= (y + 28) then
                 surface.SetDrawColor(ColorAlpha(lia.config.Color, v.alpha + math.cos(RealTime() * 8) * 40))
@@ -115,7 +115,7 @@ function lia.menu.getActiveMenu()
         if inRange and inside then
             local choice
             local i = 0
-            for k2, v2 in SortedPairs(v.options) do
+            for _, v2 in SortedPairs(v.options) do
                 local y = startY + (i * 28)
                 if inside and mY >= y and mY <= (y + 28) then
                     choice = v2

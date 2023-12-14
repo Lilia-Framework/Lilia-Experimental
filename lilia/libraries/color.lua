@@ -71,8 +71,8 @@ do
     end
 
     function lia.color.LerpHSV(start_color, end_color, maxValue, currentValue, minValue)
-        start_color = Color("green")
-        end_color = Color("red")
+        start_color = start_color or Color("green")
+        end_color = end_color or Color("red")
         minValue = minValue or 0
         local hsv_start = ColorToHSV(end_color)
         local hsv_end = ColorToHSV(start_color)

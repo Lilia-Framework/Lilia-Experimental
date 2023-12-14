@@ -13,10 +13,10 @@ function lia.log.addType(logType, func)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function lia.log.getString(client, logType, ...)
+function lia.log.getString(client, logType, _)
     local text = lia.log.types[logType]
     if isfunction(text) then
-        local success, result = pcall(text, client, ...)
+        local success, result = pcall(text, client, _)
         if success then return result end
     end
 end
@@ -34,10 +34,10 @@ function lia.log.addRaw(logString, shouldNotify, flag)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function lia.log.add(client, logType, ...)
-    local logString = lia.log.getString(client, logType, ...)
+function lia.log.add(client, logType, _)
+    local logString = lia.log.getString(client, logType, _)
     if not isstring(logString) then return end
-    hook.Run("OnServerLog", client, logType, logString, ...)
+    hook.Run("OnServerLog", client, logType, logString, _)
     Msg("[LOG] ", logString .. "\n")
     if noSave then return end
     file.Append("lilia/logs/" .. os.date("%x"):gsub("/", "-") .. ".txt", "[" .. os.date("%X") .. "]\t" .. logString .. "\r\n")
