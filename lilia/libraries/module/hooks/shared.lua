@@ -8,13 +8,11 @@ function GM:ModuleShouldNotLoad(module)
     local reason
     if isEnabled == false then
         reason = "Module '" .. uniqueID .. "' is disabled. Deactivating Module!"
-
         return true, reason
     end
 
     if identifier == "" and uniqueID ~= "schema" then
         reason = "Module '" .. uniqueID .. "' doesn't have an identifier. Deactivating Module!"
-
         return true, reason
     end
 
@@ -28,18 +26,13 @@ function GM:ModuleShouldNotLoad(module)
             end
         end
     end
-
     return false
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:ModuleLoaded(uniqueID, module)
     if uniqueID == "schema" then return end
-    
-    if module.identifier ~= "" then
-        _G[module.identifier] = module
-    end
-
+    if module.identifier ~= "" then _G[module.identifier] = module end
     PrintTable(_G[module.identifier], 1)
 end
 

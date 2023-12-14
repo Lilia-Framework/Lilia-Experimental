@@ -24,10 +24,7 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
     }
 
     if uniqueID == "schema" then
-        if SCHEMA then
-            MODULE = SCHEMA
-        end
-
+        if SCHEMA then MODULE = SCHEMA end
         variable = "SCHEMA"
         MODULE.folder = engine.ActiveGamemode()
     elseif lia.module.list[uniqueID] then
@@ -40,10 +37,7 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
     lia.util.include(isSingleFile and path or ModuleCore and path .. "/" .. lowerVariable .. ".lua" or ExtendedCore and path .. "/sh_" .. lowerVariable .. ".lua")
     MODULE.loading = false
     local uniqueID2 = uniqueID
-    if uniqueID2 == "schema" then
-        uniqueID2 = MODULE.name
-    end
-
+    if uniqueID2 == "schema" then uniqueID2 = MODULE.name end
     function MODULE:setData(value, global, ignoreMap)
         lia.data.set(uniqueID2, value, global, ignoreMap)
     end
@@ -53,9 +47,7 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
     end
 
     for k, v in pairs(MODULE) do
-        if isfunction(v) then
-            hook.Add(k, MODULE, v)
-        end
+        if isfunction(v) then hook.Add(k, MODULE, v) end
     end
 
     if uniqueID == "schema" then
@@ -65,10 +57,7 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
     else
         local shouldNotLoad, reason = hook.Run("ModuleShouldNotLoad", MODULE)
         if shouldNotLoad then
-            if reason then
-                print(reason)
-            end
-
+            if reason then print(reason) end
             return
         end
 
@@ -78,9 +67,7 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
 
     lia.module.loadExtras(path)
     hook.Run("ModuleLoaded", uniqueID, MODULE)
-    if MODULE.OnLoaded then
-        MODULE:OnLoaded()
-    end
+    if MODULE.OnLoaded then MODULE:OnLoaded() end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -88,23 +75,12 @@ function lia.module.loadExtras(path)
     local libraryFolder = path .. "/libraries"
     local subLibraryFolder = path .. "/libraries/libs"
     local configFolder = path .. "/config"
-    if file.Exists(configFolder, "LUA") then
-        lia.util.includeDir(configFolder, true, true)
-    end
-
-    if file.Exists(libraryFolder, "LUA") then
-        lia.util.includeDir(libraryFolder, true, false)
-    end
-
-    if file.Exists(subLibraryFolder, "LUA") then
-        lia.util.includeDir(subLibraryFolder, true, true)
-    end
-
+    if file.Exists(configFolder, "LUA") then lia.util.includeDir(configFolder, true, true) end
+    if file.Exists(libraryFolder, "LUA") then lia.util.includeDir(libraryFolder, true, false) end
+    if file.Exists(subLibraryFolder, "LUA") then lia.util.includeDir(subLibraryFolder, true, true) end
     for _, folder in ipairs(lia.module.ModuleFolders) do
         local subFolders = path .. "/" .. folder
-        if file.Exists(subFolders, "LUA") then
-            lia.util.includeDir(subFolders, true, true)
-        end
+        if file.Exists(subFolders, "LUA") then lia.util.includeDir(subFolders, true, true) end
     end
 
     lia.module.loadFromDir(path .. "/submodules", "module")

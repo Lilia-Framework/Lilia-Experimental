@@ -14,27 +14,18 @@ function GM:GetGameDescription()
     else
         if istable(SCHEMA) then return tostring(SCHEMA.name) end
     end
-
     return lia.config.GamemodeName
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:OnChatReceived()
-    if system.IsWindows() and not system.HasFocus() then
-        system.FlashWindow()
-    end
+    if system.IsWindows() and not system.HasFocus() then system.FlashWindow() end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:ServerInitPostEntity()
     lia.faction.formatModelData()
-    timer.Simple(
-        2,
-        function()
-            lia.entityDataLoaded = true
-        end
-    )
-
+    timer.Simple(2, function() lia.entityDataLoaded = true end)
     lia.db.waitForTablesToLoad():next(
         function()
             hook.Run("LoadData")
@@ -57,10 +48,7 @@ function GM:EntityTakeDamage(entity, dmgInfo)
     if IsValid(entity.liaPlayer) then
         if dmgInfo:IsDamageType(DMG_CRUSH) then
             if (entity.liaFallGrace or 0) < CurTime() then
-                if dmgInfo:GetDamage() <= 10 then
-                    dmgInfo:SetDamage(0)
-                end
-
+                if dmgInfo:GetDamage() <= 10 then dmgInfo:SetDamage(0) end
                 entity.liaFallGrace = CurTime() + 0.5
             else
                 return
@@ -84,9 +72,7 @@ function GM:KeyPress(client, key)
         data.endpos = data.start + client:GetAimVector() * 96
         data.filter = client
         local entity = util.TraceLine(data).Entity
-        if IsValid(entity) and entity:isDoor() or entity:IsPlayer() then
-            hook.Run("PlayerUse", client, entity)
-        end
+        if IsValid(entity) and entity:isDoor() or entity:IsPlayer() then hook.Run("PlayerUse", client, entity) end
     end
 end
 
@@ -94,23 +80,18 @@ end
 function GM:KeyRelease(client, key)
     if key == IN_ATTACK2 then
         local wep = client:GetActiveWeapon()
-        if IsValid(wep) and wep.IsHands and wep.ReadyToPickup then
-            wep:Grab()
-        end
+        if IsValid(wep) and wep.IsHands and wep.ReadyToPickup then wep:Grab() end
     end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:EntityNetworkedVarChanged(entity, varName, _, newVal)
-    if varName == "Model" and entity.SetModel then
-        hook.Run("PlayerModelChanged", entity, newVal)
-    end
+    if varName == "Model" and entity.SetModel then hook.Run("PlayerModelChanged", entity, newVal) end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:PlayerUse(client, _)
     if client:getNetVar("handcuffed") then return false end
-
     return true
 end
 
@@ -127,7 +108,10 @@ function GM:PlayerInitialSpawn(client)
                 faction = faction and faction.uniqueID or "unknown",
                 desc = "This is a bot. BotID is " .. botID .. ".",
                 model = "models/gman.mdl",
-            }, botID, client, client:SteamID64()
+            },
+            botID,
+            client,
+            client:SteamID64()
         )
 
         character.isBot = true
@@ -138,7 +122,6 @@ function GM:PlayerInitialSpawn(client)
         lia.char.loaded[botID] = character
         character:setup()
         client:Spawn()
-
         return
     end
 
@@ -150,9 +133,7 @@ function GM:PlayerInitialSpawn(client)
             client:setLiliaData("lastIP", address)
             netstream.Start(client, "liaDataSync", data, client.firstJoin, client.lastJoin)
             for _, v in pairs(lia.item.instances) do
-                if v.entity and v.invID == 0 then
-                    v:sync(client)
-                end
+                if v.entity and v.invID == 0 then v:sync(client) end
             end
 
             hook.Run("PlayerLiliaDataLoaded", client)
@@ -167,7 +148,6 @@ function GM:PlayerLoadout(client)
     local character = client:getChar()
     if client.liaSkipLoadout then
         client.liaSkipLoadout = nil
-
         return
     end
 
@@ -175,7 +155,6 @@ function GM:PlayerLoadout(client)
         client:SetNoDraw(true)
         client:Lock()
         client:SetNotSolid(true)
-
         return
     end
 
@@ -208,9 +187,7 @@ function GM:PlayerDisconnected(client)
     if character then
         local charEnts = character:getVar("charEnts") or {}
         for _, v in ipairs(charEnts) do
-            if v and IsValid(v) then
-                v:Remove()
-            end
+            if v and IsValid(v) then v:Remove() end
         end
 
         hook.Run("OnCharDisconnect", client, character)
@@ -225,9 +202,7 @@ function GM:PlayerDisconnected(client)
 
     lia.char.cleanUpForPlayer(client)
     for _, entity in pairs(ents.GetAll()) do
-        if entity:GetCreator() == client then
-            entity:Remove()
-        end
+        if entity:GetCreator() == client then entity:Remove() end
     end
 end
 
@@ -243,7 +218,6 @@ function GM:GetPreferredCarryAngles(entity)
         end
     elseif class == "prop_physics" then
         local model = entity:GetModel():lower()
-
         return defaultAngleData[model]
     end
 end
@@ -267,11 +241,8 @@ end
 function GM:PlayerDeathThink(client)
     if client:getChar() then
         local deathTime = client:getNetVar("deathTime")
-        if deathTime and deathTime <= CurTime() then
-            client:Spawn()
-        end
+        if deathTime and deathTime <= CurTime() then client:Spawn() end
     end
-
     return false
 end
 
