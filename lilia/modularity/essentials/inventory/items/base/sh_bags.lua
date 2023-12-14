@@ -35,6 +35,7 @@ if ITEM.NeedsEquip then
         icon = "icon16/tick.png",
         onClick = function(item)
             item:setData("equip", true)
+
             return false
         end,
         onCanRun = function(item) return not IsValid(item.entity) and not item:getData("equip", false) end
@@ -45,6 +46,7 @@ if ITEM.NeedsEquip then
         icon = "icon16/cross.png",
         onClick = function(item)
             item:setData("equip", false)
+
             return false
         end,
         onCanRun = function(item) return not IsValid(item.entity) and item:getData("equip", false) end
@@ -59,7 +61,10 @@ ITEM.functions.View = {
         if not inventory then return false end
         local panel = lia.gui["inv" .. inventory:getID()]
         local parent = item.invID and lia.gui["inv" .. item.invID] or nil
-        if IsValid(panel) then panel:Remove() end
+        if IsValid(panel) then
+            panel:Remove()
+        end
+
         if inventory then
             local panel = lia.inventory.show(inventory, parent)
             if IsValid(panel) then
@@ -71,6 +76,7 @@ ITEM.functions.View = {
             local index = item:getData("id", "nil")
             ErrorNoHalt("Invalid inventory " .. index .. " for bag item " .. itemID .. "\n")
         end
+
         return false
     end,
     onCanRun = function(item) return not IsValid(item.entity) and item:getInv() and (item.NeedsEquip and item:getData("equip", false)) or not item.NeedsEquip end
@@ -110,7 +116,9 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function ITEM:onRemoved()
     local invID = self:getData("id")
-    if invID then lia.inventory.deleteByID(invID) end
+    if invID then
+        lia.inventory.deleteByID(invID)
+    end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -121,7 +129,9 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function ITEM:onSync(recipient)
     local inventory = self:getInv()
-    if inventory then inventory:sync(recipient) end
+    if inventory then
+        inventory:sync(recipient)
+    end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -154,7 +164,9 @@ end
 if SERVER then
     function ITEM:onDisposed()
         local inventory = self:getInv()
-        if inventory then inventory:destroy() end
+        if inventory then
+            inventory:destroy()
+        end
     end
 
     function ITEM:resolveInvAwaiters(inventory)
@@ -176,6 +188,7 @@ if SERVER then
             self.awaitingInv = self.awaitingInv or {}
             self.awaitingInv[#self.awaitingInv + 1] = d
         end
+
         return d
     end
 end

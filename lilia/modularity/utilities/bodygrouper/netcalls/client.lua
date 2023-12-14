@@ -2,10 +2,10 @@
 net.Receive(
     "BodygrouperMenu",
     function()
-        if IsValid(BodygrouperCore.Menu) then BodygrouperCore.Menu:Remove() end
+        if IsValid(MODULE.Menu) then MODULE.Menu:Remove() end
         local ent = net.ReadEntity()
-        BodygrouperCore.Menu = vgui.Create("BodygrouperMenu")
-        BodygrouperCore.Menu:SetTarget(IsValid(ent) and ent or LocalPlayer())
+        MODULE.Menu = vgui.Create("BodygrouperMenu")
+        MODULE.Menu:SetTarget(IsValid(ent) and ent or LocalPlayer())
     end
 )
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

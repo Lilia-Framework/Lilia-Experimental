@@ -14,7 +14,7 @@ function charMeta:updateAttrib(key, value)
     local attribute = lia.attribs.list[key]
     if attribute then
         local attrib = self:getAttribs()
-        attrib[key] = math.min((attrib[key] or 0) + value, attribute.maxValue or AttributesCore.MaxAttributes)
+        attrib[key] = math.min((attrib[key] or 0) + value, attribute.maxValue or MODULE.MaxAttributes)
         if IsValid(client) then
             netstream.Start(client, "attrib", self:getID(), key, attrib[key])
             if attribute.setup then

@@ -1,9 +1,0 @@
-﻿ITEM.name = "Big Payload"
-ITEM.desc = "A Zero Factory item"
-ITEM.model = "models/zerochain/props_factory/zpf_rocket_payload01.mdl"
-ITEM.color = Color(211, 85, 255, 82)
-ITEM.material = "false"
-ITEM.width = 4
-ITEM.uniqueID = ITEM.name
-ITEM.height = 4
-ITEM.numeral = 67

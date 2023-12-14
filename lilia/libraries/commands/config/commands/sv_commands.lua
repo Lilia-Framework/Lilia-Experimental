@@ -747,7 +747,7 @@ lia.command.add(
         privilege = "Return Items",
         onRun = function(client, arguments)
             local target = lia.command.findPlayer(client, arguments[1])
-            if DeathSettingsCore.LoseWeapononDeathHuman or DeathSettingsCore.LoseWeapononDeathNPC then
+            if MODULE.LoseWeapononDeathHuman or MODULE.LoseWeapononDeathNPC then
                 if IsValid(target) then
                     if not target.LostItems then
                         client:notify("The target hasn't died recently or they had their items returned already!")

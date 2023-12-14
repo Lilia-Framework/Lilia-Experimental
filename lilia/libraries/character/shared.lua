@@ -187,7 +187,7 @@ lia.char.registerVar(
         index = 2,
         onValidate = function(value, _)
             if noDesc then return true end
-            local minLength = MainMenu.MinDescLen
+            local minLength = lia.config.MinDescLen
             if not value or #value:gsub("%s", "") < minLength then return false, "descMinLen", minLength end
         end
     }

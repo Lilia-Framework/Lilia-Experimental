@@ -72,51 +72,6 @@ function GM:EntityTakeDamage(entity, dmgInfo)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function lia.command.parse(client, text, realCommand, arguments)
-    if realCommand or text:utf8sub(1, 1) == "/" then
-        local match = realCommand or text:lower():match("/" .. "([_%w]+)")
-        if not match then
-            local post = string.Explode(" ", text)
-            local len = string.len(post[1])
-            match = post[1]:utf8sub(2, len)
-        end
-
-        match = match:lower()
-        if (match == "ooc" or match == "looc") and utf8.len(text) > lia.config.MaxChatLength then
-            if IsValid(client) then
-                client:notify("You can't send OOC/LOOC messages longer than the maximum allowed length.")
-            end
-
-            lia.log.add(client, "smartassOOC")
-
-            return true
-        end
-
-        local command = lia.command.list[match]
-        if command then
-            if not arguments then
-                arguments = lia.command.extractArgs(text:sub(#match + 3))
-            end
-
-            lia.command.run(client, match, arguments)
-            if not realCommand then
-                lia.log.add(client, "command", text)
-            end
-        else
-            if IsValid(client) then
-                client:notifyLocalized("cmdNoExist")
-            else
-                print("Sorry, that command does not exist.")
-            end
-        end
-
-        return true
-    end
-
-    return false
-end
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:KeyPress(client, key)
     if key == IN_ATTACK2 and IsValid(client.Grabbed) then
         client:DropObject(client.Grabbed)
@@ -183,26 +138,28 @@ function GM:PlayerInitialSpawn(client)
         lia.char.loaded[botID] = character
         character:setup()
         client:Spawn()
-    else
-        client.liaJoinTime = RealTime()
-        client:loadLiliaData(
-            function(data)
-                if not IsValid(client) then return end
-                local address = client:IPAddress()
-                client:setLiliaData("lastIP", address)
-                netstream.Start(client, "liaDataSync", data, client.firstJoin, client.lastJoin)
-                for _, v in pairs(lia.item.instances) do
-                    if v.entity and v.invID == 0 then
-                        v:sync(client)
-                    end
-                end
 
-                hook.Run("PlayerLiliaDataLoaded", client)
-            end
-        )
-
-        hook.Run("PostPlayerInitialSpawn", client)
+        return
     end
+
+    client.liaJoinTime = RealTime()
+    client:loadLiliaData(
+        function(data)
+            if not IsValid(client) then return end
+            local address = client:IPAddress()
+            client:setLiliaData("lastIP", address)
+            netstream.Start(client, "liaDataSync", data, client.firstJoin, client.lastJoin)
+            for _, v in pairs(lia.item.instances) do
+                if v.entity and v.invID == 0 then
+                    v:sync(client)
+                end
+            end
+
+            hook.Run("PlayerLiliaDataLoaded", client)
+        end
+    )
+
+    hook.Run("PostPlayerInitialSpawn", client)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -234,21 +191,6 @@ function GM:PlayerLoadout(client)
     lia.flag.onSpawn(client)
     hook.Run("PostPlayerLoadout", client)
     client:SelectWeapon("lia_hands")
-end
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function GM:PostPlayerInitialSpawn(client)
-    client:SetNoDraw(true)
-    client:SetNotSolid(true)
-    client:Lock()
-    timer.Simple(
-        1,
-        function()
-            if not IsValid(client) then return end
-            client:KillSilent()
-            client:StripAmmo()
-        end
-    )
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -356,5 +298,14 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:PlayerShouldTakeDamage(client, _)
     return client:getChar() ~= nil
+end
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function GM:InitializedSchema()
+    local persistString = GetConVar("sbox_persist"):GetString()
+    if persistString == "" or string.StartWith(persistString, "lia_") then
+        local newValue = "lia_" .. SCHEMA.folder
+        game.ConsoleCommand("sbox_persist " .. newValue .. "\n")
+    end
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

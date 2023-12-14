@@ -26,6 +26,7 @@ if not ConfigWasInitialized then
         SchemaYear = 2023, -- Year in the gamemode's schema
         AmericanDates = true, -- Use American date format
         AmericanTimeStamp = true, -- Use American timestamp format
+        MinDescLen = 16, -- How long the description has to be
         DatabaseConfig = {
             module = "sqlite", -- Database module
             hostname = "127.0.0.1", -- Database hostname

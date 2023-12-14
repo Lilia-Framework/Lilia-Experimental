@@ -1,7 +1,7 @@
-﻿--------------------------------------------------------------------------------------------------------------------------
-local VendorCore = VendorCore
+﻿
+
 --------------------------------------------------------------------------------------------------------------------------
-local EDITOR = include(VendorCore.path .. "/libs/sv_vendor.lua")
+local EDITOR = include(MODULE.path .. "/libraries/libs/sv_vendor.lua")
 --------------------------------------------------------------------------------------------------------------------------
 util.AddNetworkString("liaVendorAllowClass")
 --------------------------------------------------------------------------------------------------------------------------
@@ -31,7 +31,9 @@ net.Receive(
     "liaVendorExit",
     function(_, client)
         local vendor = client.liaVendor
-        if IsValid(vendor) then vendor:removeReceiver(client, true) end
+        if IsValid(vendor) then
+            vendor:removeReceiver(client, true)
+        end
     end
 )
 
@@ -44,7 +46,7 @@ net.Receive(
         local vendor = client.liaVendor
         if not IsValid(vendor) or not EDITOR[key] then return end
         EDITOR[key](vendor, client, key)
-        VendorCore:SaveData()
+        MODULE:SaveData()
     end
 )
 

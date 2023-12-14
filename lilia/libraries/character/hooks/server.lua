@@ -91,24 +91,6 @@ function GM:CharacterLoaded(id)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function GM:CanPlayerUseChar(client, newcharacter)
-    local currentChar = client:getChar()
-    local faction = lia.faction.indices[newcharacter:getFaction()]
-    local banned = newcharacter:getData("banned")
-    if newcharacter and newcharacter:getData("banned", false) then
-        if isnumber(banned) and banned < os.time() then return end
-
-        return false, "@charBanned"
-    end
-
-    if faction and hook.Run("CheckFactionLimitReached", faction, newcharacter, client) then return false, "@limitFaction" end
-    if currentChar then
-        local status, result = hook.Run("CanPlayerSwitchChar", client, currentChar, newcharacter)
-        if status == false then return status, result end
-    end
-end
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:CanPlayerSwitchChar(client, character, newCharacter)
     if not client:Alive() then return false, "You are dead!" end
     if IsValid(client.liaRagdoll) then return false, "You are ragdolled!" end

@@ -4,7 +4,7 @@ net.Receive(
     function()
         for _, client in ipairs(player.GetAll()) do
             for id in pairs(client:getParts()) do
-                PACCompatibility:attachPart(client, id)
+                MODULE:attachPart(client, id)
             end
         end
     end
@@ -17,7 +17,7 @@ net.Receive(
         local client = net.ReadEntity()
         local id = net.ReadString()
         if not IsValid(client) then return end
-        PACCompatibility:attachPart(client, id)
+        MODULE:attachPart(client, id)
     end
 )
 
@@ -28,7 +28,7 @@ net.Receive(
         local client = net.ReadEntity()
         local id = net.ReadString()
         if not IsValid(client) then return end
-        PACCompatibility:removePart(client, id)
+        MODULE:removePart(client, id)
     end
 )
 

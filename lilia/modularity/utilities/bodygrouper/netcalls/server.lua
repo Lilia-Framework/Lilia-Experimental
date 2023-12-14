@@ -27,7 +27,7 @@ net.Receive(
                 return
             end
         else
-            if not BodygrouperCore:CanAccessMenu(client) then
+            if not MODULE:CanAccessMenu(client) then
                 client:notifyLocalized("noAccess")
                 return
             end
@@ -65,7 +65,7 @@ net.Receive(
             target:notifyLocalized("bodygroupChangedBy", client:Name())
         end
 
-        client:SendLua("lia.BodygrouperCore.list.bodygrouper.Menu:Close()")
+        client:SendLua("lia.MODULE.list.bodygrouper.Menu:Close()")
         if closetuser then
             for _, v in pairs(ents.FindByClass("lia_bodygrouper")) do
                 if v:HasUser(target) then v:RemoveUser(target) end

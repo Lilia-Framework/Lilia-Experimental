@@ -5,20 +5,9 @@ lia.module.list = lia.module.list or {}
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 lia.module.unloaded = lia.module.unloaded or {}
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-lia.module.ModuleFolders = {"dependencies", "config", "permissions", "libs", "hooks", "libraries", "commands", "netcalls", "meta", "derma", "pim", "logger"}
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-lia.module.ModuleFiles = {
-    ["client.lua"] = "client",
-    ["cl_module.lua"] = "client",
-    ["sv_module.lua"] = "server",
-    ["server.lua"] = "server",
-    ["config.lua"] = "shared",
-    ["sconfig.lua"] = "server",
-}
-
+lia.module.ModuleFolders = {"derma", "netcalls", "meta",}
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function lia.module.load(uniqueID, path, isSingleFile, variable)
-    local schema = engine.ActiveGamemode()
     local lowerVariable = variable:lower()
     local ModuleCore = file.Exists(path .. "/" .. lowerVariable .. ".lua", "LUA")
     local ExtendedCore = file.Exists(path .. "/sh_" .. lowerVariable .. ".lua", "LUA")
@@ -31,15 +20,16 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
         name = "Unknown",
         desc = "Description not available",
         author = "Anonymous",
-        identifier = nil,
         IsValid = function(_) return true end
     }
 
-    if hook.Run("ModuleShouldLoad", MODULE) == false then return end
     if uniqueID == "schema" then
-        if SCHEMA then MODULE = SCHEMA end
+        if SCHEMA then
+            MODULE = SCHEMA
+        end
+
         variable = "SCHEMA"
-        MODULE.folder = schema
+        MODULE.folder = engine.ActiveGamemode()
     elseif lia.module.list[uniqueID] then
         MODULE = lia.module.list[uniqueID]
     end
@@ -48,32 +38,12 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
     MODULE.loading = true
     MODULE.path = path
     lia.util.include(isSingleFile and path or ModuleCore and path .. "/" .. lowerVariable .. ".lua" or ExtendedCore and path .. "/sh_" .. lowerVariable .. ".lua")
-    for fileName, state in pairs(lia.module.ModuleFiles) do
-        local filePath = path .. "/" .. fileName
-        if file.Exists(filePath, "LUA") then lia.util.include(filePath, state) end
-    end
-
-    if MODULE.Dependencies then
-        for _, fileName in ipairs(MODULE.Dependencies) do
-            lia.util.include(path .. "/" .. fileName)
-        end
-    end
-
-    if MODULE.CAMIPrivileges then
-        for _, PrivilegeInfo in pairs(MODULE.CAMIPrivileges) do
-            local privilegeData = {
-                Name = PrivilegeInfo.Name,
-                MinAccess = PrivilegeInfo.MinAccess,
-                Description = PrivilegeInfo.Description
-            }
-
-            if not CAMI.GetPrivilege(PrivilegeInfo.Name) then CAMI.RegisterPrivilege(privilegeData) end
-        end
-    end
-
     MODULE.loading = false
     local uniqueID2 = uniqueID
-    if uniqueID2 == "schema" then uniqueID2 = MODULE.name end
+    if uniqueID2 == "schema" then
+        uniqueID2 = MODULE.name
+    end
+
     function MODULE:setData(value, global, ignoreMap)
         lia.data.set(uniqueID2, value, global, ignoreMap)
     end
@@ -83,7 +53,9 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
     end
 
     for k, v in pairs(MODULE) do
-        if isfunction(v) then hook.Add(k, MODULE, v) end
+        if isfunction(v) then
+            hook.Add(k, MODULE, v)
+        end
     end
 
     if uniqueID == "schema" then
@@ -91,32 +63,55 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
             return true
         end
     else
-        if MODULE.identifier and MODULE.identifier ~= "" then
-            if _G[MODULE.identifier] then
-                _G[uniqueID] = MODULE
-            else
-                _G[MODULE.identifier] = MODULE
+        local shouldNotLoad, reason = hook.Run("ModuleShouldNotLoad", MODULE)
+        if shouldNotLoad then
+            if reason then
+                print(reason)
             end
-        else
-            _G[uniqueID] = MODULE
+
+            return
         end
 
         lia.module.list[uniqueID] = MODULE
         _G[variable] = oldModule
     end
 
-    hook.Run("ModuleLoaded", uniqueID, MODULE)
-    if MODULE.OnLoaded then MODULE:OnLoaded() end
     lia.module.loadExtras(path)
+    hook.Run("ModuleLoaded", uniqueID, MODULE)
+    if MODULE.OnLoaded then
+        MODULE:OnLoaded()
+    end
 end
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function lia.module.loadExtras(path)
+    local libraryFolder = path .. "/libraries"
+    local subLibraryFolder = path .. "/libraries/libs"
+    local configFolder = path .. "/config"
+    if file.Exists(configFolder, "LUA") then
+        lia.util.includeDir(configFolder, true, true)
+    end
+
+    if file.Exists(libraryFolder, "LUA") then
+        lia.util.includeDir(libraryFolder, true, false)
+    end
+
+    if file.Exists(subLibraryFolder, "LUA") then
+        lia.util.includeDir(subLibraryFolder, true, true)
+    end
+
+    for _, folder in ipairs(lia.module.ModuleFolders) do
+        local subFolders = path .. "/" .. folder
+        if file.Exists(subFolders, "LUA") then
+            lia.util.includeDir(subFolders, true, true)
+        end
+    end
+
+    lia.module.loadFromDir(path .. "/submodules", "module")
     lia.lang.loadFromDir(path .. "/languages")
     lia.faction.loadFromDir(path .. "/factions")
     lia.class.loadFromDir(path .. "/classes")
     lia.attribs.loadFromDir(path .. "/attributes")
-    lia.module.loadFromDir(path .. "/submodules")
     lia.util.loadEntities(path .. "/entities")
     hook.Run("DoModuleIncludes", path, MODULE)
     hook.Add(
@@ -127,11 +122,6 @@ function lia.module.loadExtras(path)
             hook.Remove("InitializedModules", "liaItems" .. path)
         end
     )
-
-    for _, folderName in ipairs(lia.module.ModuleFolders) do
-        local folderPath = path .. "/" .. folderName
-        if file.Exists(folderPath, "LUA") then lia.util.includeDir(folderPath, true, true) end
-    end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -140,10 +130,10 @@ function lia.module.initialize()
     lia.module.loadFromDir(schema .. "/preload", "schema")
     lia.module.load("schema", schema .. "/schema", false, "schema")
     hook.Run("InitializedSchema")
-    lia.module.loadFromDir("lilia/modularity/preloaded")
-    lia.module.loadFromDir("lilia/modularity/essentials")
-    lia.module.loadFromDir("lilia/modularity/utilities")
-    lia.module.loadFromDir(schema .. "/modules")
+    lia.module.loadFromDir("lilia/modularity/preloaded", "module")
+    lia.module.loadFromDir("lilia/modularity/essentials", "module")
+    lia.module.loadFromDir("lilia/modularity/utilities", "module")
+    lia.module.loadFromDir(schema .. "/modules", "module")
     hook.Run("InitializedModules")
 end
 
@@ -178,10 +168,6 @@ lia.module.ModuleConditions = {
     ["mlogs"] = {
         name = "mLogs",
         global = "mLogs"
-    },
-    ["blogs"] = {
-        name = "BLogs",
-        global = "blogs"
     },
     ["sam"] = {
         name = "SAM Admin Mod",

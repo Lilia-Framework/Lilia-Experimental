@@ -1,21 +1,46 @@
 ﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 local GM = GM or GAMEMODE
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function GM:ModuleShouldLoad(module)
+function GM:ModuleShouldNotLoad(module)
     local uniqueID = module.uniqueID
-    local moduleConditions = lia.module.ModuleConditions[uniqueID]
     local isEnabled = module.enabled
-    if moduleConditions and _G[moduleConditions.global] ~= nil then
-        print("Found module '" .. moduleConditions.name .. "'. Enabling the Compatibility Module!")
-    else
-        return false
+    local identifier = module.identifier
+    local reason
+    if isEnabled == false then
+        reason = "Module '" .. uniqueID .. "' is disabled. Deactivating Module!"
+
+        return true, reason
     end
 
-    if isEnabled ~= nil and not isEnabled then
-        print("Module '" .. uniqueID .. "' is disabled. Deactivating Module!")
-        return false
+    if identifier == "" and uniqueID ~= "schema" then
+        reason = "Module '" .. uniqueID .. "' doesn't have an identifier. Deactivating Module!"
+
+        return true, reason
     end
-    return true
+
+    for moduleName, conditions in pairs(lia.module.ModuleConditions) do
+        if uniqueID == moduleName then
+            local moduleVarPresent = _G[conditions.global] == true
+            if not moduleVarPresent then
+                return true
+            else
+                print("Module '" .. uniqueID .. "' requires the global variable '" .. conditions.global .. "', which is present. Enabling Module!")
+            end
+        end
+    end
+
+    return false
+end
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function GM:ModuleLoaded(uniqueID, module)
+    if uniqueID == "schema" then return end
+    
+    if module.identifier ~= "" then
+        _G[module.identifier] = module
+    end
+
+    PrintTable(_G[module.identifier], 1)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
