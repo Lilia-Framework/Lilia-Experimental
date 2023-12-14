@@ -274,8 +274,6 @@ function charMeta:giveMoney(amount, takingMoney)
         self:setMoney(negativeTotalMoney)
     end
 
-    if not takingMoney then end
-
     return true
 end
 

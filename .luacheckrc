@@ -3,7 +3,7 @@ exclude_files = {
     "lilia/*.txt",
     "development/**",
 
-    "lilia/libraries/loader/module.lua",
+    "lilia/libraries/module/hooks/shared.lua",
     "lilia/libraries/attributes/shared.lua",
     "lilia/libraries/database/**/*.lua",
     "lilia/libraries/inventory/**/*.lua",
@@ -13,6 +13,5 @@ exclude_files = {
     "lilia/libraries/netloggers/**/*.lua",
     "lilia/libraries/util/**/*.lua",
     "lilia/libraries/thirdparty/**/*.lua",
-    "lilia/modularity/essentials/revise/**/*.lua",
 }
 

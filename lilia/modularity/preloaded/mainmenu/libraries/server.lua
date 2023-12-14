@@ -34,13 +34,13 @@ function MODULE:PlayerLiliaDataLoaded(client)
         function(charList)
             if not IsValid(client) then return end
             MsgN("Loaded (" .. table.concat(charList, ", ") .. ") for " .. client:Name())
-            for k, v in ipairs(charList) do
+            for _, v in ipairs(charList) do
                 if lia.char.loaded[v] then
                     lia.char.loaded[v]:sync(client)
                 end
             end
 
-            for k, v in ipairs(player.GetAll()) do
+            for _, v in ipairs(player.GetAll()) do
                 if v:getChar() then
                     v:getChar():sync(client)
                 end
@@ -73,7 +73,7 @@ function MODULE:CanPlayerUseChar(client, newcharacter)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function MODULE:PlayerLoadedChar(client, character, oldCharacter)
+function MODULE:PlayerLoadedChar(client)
     client:Spawn()
 end
 
