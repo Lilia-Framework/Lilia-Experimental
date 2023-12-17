@@ -4,7 +4,7 @@ lia.command.add(
     {
         privilege = "Toogle Permakill",
         syntax = "<string target>",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 --------------------------------------------------------------------------------------------------------------------------
