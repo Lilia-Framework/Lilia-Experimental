@@ -9,12 +9,7 @@ local PANEL = {}
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 do
     for _, v in ipairs(CreditsCore.GamemodeCreators) do
-        steamworks.RequestPlayerInfo(
-            v.steamid,
-            function(steamName)
-                v.name = steamName or "Loading..."
-            end
-        )
+        steamworks.RequestPlayerInfo(v.steamid, function(steamName) v.name = steamName or "Loading..." end)
     end
 end
 
@@ -34,10 +29,7 @@ end
 function PANEL:setAvatarImage(id)
     if not self.avatarImage then return end
     self.avatarImage:SetSteamID(id, 64)
-    self.avatarImage.OnCursorEntered = function()
-        surface.PlaySound("garrysmod/ui_return.wav")
-    end
-
+    self.avatarImage.OnCursorEntered = function() surface.PlaySound("garrysmod/ui_return.wav") end
     self.avatarImage.OnMousePressed = function()
         surface.PlaySound("buttons/button14.wav")
         gui.OpenURL("http://steamcommunity.com/profiles/" .. id)
@@ -48,10 +40,7 @@ end
 function PANEL:setName(name, color)
     if not IsValid(self.name) then return end
     self.name:SetText(name)
-    if color then
-        self.name:SetTextColor(color)
-    end
-
+    if color then self.name:SetTextColor(color) end
     self.name:SizeToContents()
     self.name:Dock(TOP)
     self.name:DockMargin(ScrW * 0.01, 0, 0, 0)
@@ -152,10 +141,7 @@ vgui.Register("CreditsLogo", PANEL, "DPanel")
 PANEL = {}
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function PANEL:Init()
-    if lia.gui.creditsPanel then
-        lia.gui.creditsPanel:Remove()
-    end
-
+    if lia.gui.creditsPanel then lia.gui.creditsPanel:Remove() end
     lia.gui.creditsPanel = self
     self:SetSize(ScrW * 0.3, ScrH * 0.7)
     self.logo = self:Add("CreditsLogo")

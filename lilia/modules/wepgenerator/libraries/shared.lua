@@ -1,8 +1,6 @@
 ﻿--------------------------------------------------------------------------------------------------------------------------
 function EasyWeaponsCore:InitializedModules()
-    if self.AutomaticWeaponRegister then
-        self:RegisterWeapons()
-    end
+    if self.AutomaticWeaponRegister then self:RegisterWeapons() end
 end
 
 --------------------------------------------------------------------------------------------------------------------------

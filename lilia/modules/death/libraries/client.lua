@@ -20,11 +20,9 @@ function DeathSettingsCore:CalcView(client, origin, angles, fov)
                 view.origin = data.Pos
                 view.angles = data.Ang
             end
-
             return view
         end
     end
-
     return view
 end
 
@@ -35,16 +33,12 @@ function DeathSettingsCore:HUDPaint()
     if client:getChar() and client:Alive() then
         if aprg ~= 0 then
             aprg2 = math.Clamp(aprg2 - ft * 1.3, 0, 1)
-            if aprg2 == 0 then
-                aprg = math.Clamp(aprg - ft * .7, 0, 1)
-            end
+            if aprg2 == 0 then aprg = math.Clamp(aprg - ft * .7, 0, 1) end
         end
     else
         if aprg2 ~= 1 then
             aprg = math.Clamp(aprg + ft * .5, 0, 1)
-            if aprg == 1 then
-                aprg2 = math.Clamp(aprg2 + ft * .4, 0, 1)
-            end
+            if aprg == 1 then aprg2 = math.Clamp(aprg2 + ft * .4, 0, 1) end
         end
     end
 

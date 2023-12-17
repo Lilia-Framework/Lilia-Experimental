@@ -29,10 +29,7 @@ function NoClipCore:HUDPaint()
             if v:GetClass() == "lia_item" then
                 surface.SetDrawColor(30, 30, 30, alpha)
                 local name = "invalid"
-                if v.getItemTable and v:getItemTable() then
-                    name = v:getItemTable().name
-                end
-
+                if v.getItemTable and v:getItemTable() then name = v:getItemTable().name end
                 lia.util.drawText("item: " .. name, x, y - size, ColorAlpha(Color(220, 220, 220, 255), alpha), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, nil, alpha)
             end
         end

@@ -7,9 +7,7 @@ function AmmoSaveCore:CharacterPreSave(character)
         for _, ammoType in pairs(game.GetAmmoTypes()) do
             if ammoType and ammoType then
                 local ammoCount = client:GetAmmoCount(ammoType)
-                if isnumber(ammoCount) and ammoCount > 0 then
-                    ammoTable[ammoType] = ammoCount
-                end
+                if isnumber(ammoCount) and ammoCount > 0 then ammoTable[ammoType] = ammoCount end
             end
         end
 
@@ -42,9 +40,7 @@ function AmmoSaveCore:PlayerDeath(client, _, _)
     local items = inventory:getItems()
     if inventory and not self.KeepAmmoOnDeath then
         for _, v in pairs(items) do
-            if (v.isWeapon or v.isCW) and v:getData("equip") then
-                v:setData("ammo", nil)
-            end
+            if (v.isWeapon or v.isCW) and v:getData("equip") then v:setData("ammo", nil) end
         end
     end
 end

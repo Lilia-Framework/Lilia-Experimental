@@ -24,13 +24,11 @@ function SAMCompatibility:PlayerSpawnProp(client)
     if client:getLiliaData("extraProps") then
         if props > (limit + 50) then
             client:LimitHit("props")
-
             return false
         end
     else
         if props > limit then
             client:LimitHit("props")
-
             return false
         end
     end
@@ -47,6 +45,7 @@ function SAMCompatibility:PlayerCheckLimit(ply, name)
         end
     end
 end
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function SAMCompatibility:PlayerSpawnRagdoll(ply)
     local limit = ply:GetLimit("ragdolls")
@@ -54,7 +53,6 @@ function SAMCompatibility:PlayerSpawnRagdoll(ply)
     local ragdolls = ply:GetCount("ragdolls") + 1
     if ragdolls > limit then
         ply:LimitHit("ragdolls")
-
         return false
     end
 end

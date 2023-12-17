@@ -8,7 +8,6 @@ function F1MenuCore:PlayerBindPress(client, bind, pressed)
         elseif client:getChar() then
             vgui.Create("liaMenu")
         end
-
         return true
     end
 end
@@ -86,13 +85,7 @@ function F1MenuCore:CreateMenuButtons(tabs)
                 x = x + panel:GetWide() + 10
             end
 
-            hook.Add(
-                "PostRenderVGUI",
-                mainPanel,
-                function()
-                    hook.Run("PostDrawInventory", mainPanel)
-                end
-            )
+            hook.Add("PostRenderVGUI", mainPanel, function() hook.Run("PostDrawInventory", mainPanel) end)
         end
     end
 
@@ -102,10 +95,7 @@ function F1MenuCore:CreateMenuButtons(tabs)
             if not lia.class.canBe(LocalPlayer(), k) then
                 continue
             else
-                tabs["classes"] = function(panel)
-                    panel:Add("liaClasses")
-                end
-
+                tabs["classes"] = function(panel) panel:Add("liaClasses") end
                 return
             end
         end
@@ -155,14 +145,8 @@ function F1MenuCore:CreateMenuButtons(tabs)
         tree.OnNodeSelected = function(_, node)
             if node.onGetHTML then
                 local source = node:onGetHTML()
-                if IsValid(helpPanel) then
-                    helpPanel:Remove()
-                end
-
-                if lia.gui.creditsPanel then
-                    lia.gui.creditsPanel:Remove()
-                end
-
+                if IsValid(helpPanel) then helpPanel:Remove() end
+                if lia.gui.creditsPanel then lia.gui.creditsPanel:Remove() end
                 helpPanel = panel:Add("DListView")
                 helpPanel:Dock(FILL)
                 helpPanel.Paint = function() end
@@ -205,11 +189,8 @@ function F1MenuCore:BuildHelpMenu(tabs)
     tabs["commands"] = function(_, _)
         local body = ""
         for k, v in SortedPairs(lia.command.list) do
-            if lia.command.hasAccess(LocalPlayer(), k, nil) then
-                body = body .. "<h2>/" .. k .. "</h2><strong>Syntax:</strong> <em>" .. v.syntax .. "</em><br /><br />"
-            end
+            if lia.command.hasAccess(LocalPlayer(), k, nil) then body = body .. "<h2>/" .. k .. "</h2><strong>Syntax:</strong> <em>" .. v.syntax .. "</em><br /><br />" end
         end
-
         return body
     end
 
@@ -231,7 +212,6 @@ function F1MenuCore:BuildHelpMenu(tabs)
                 </tr>
             ]], icon, k, v.desc)
         end
-
         return body .. "</table>"
     end
 
@@ -247,30 +227,20 @@ function F1MenuCore:BuildHelpMenu(tabs)
                     <b>%s</b>: %s<br /> <!-- Added line break here -->
                     <b>%s</b>: %s<br />
                 ]]):format(v.name or "Unknown", L"desc", v.desc or L"noDesc", "Discord", v.discord, L"author", lia.module.namecache[v.author] or v.author)
-            if v.version then
-                body = body .. "<br /><b>" .. L"version" .. "</b>: " .. v.version
-            end
-
+            if v.version then body = body .. "<br /><b>" .. L"version" .. "</b>: " .. v.version end
             body = body .. "</span></p>"
         end
-
         return body
     end
 
-    if self.RulesEnabled then
-        tabs["Rules"] = function() return GenerateRules() end
-    end
-
-    if self.TutorialEnabled then
-        tabs["Tutorial"] = function() return GenerateTutorial() end
-    end
+    if self.RulesEnabled then tabs["Rules"] = function() return GenerateRules() end end
+    if self.TutorialEnabled then tabs["Tutorial"] = function() return GenerateTutorial() end end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function F1MenuCore:OpenDescGenerator()
     if not self.AutomaticDescriptionEnabled then
         LocalPlayer():ChatPrint("This feature is disabled. Please tell the server owner to enable it.")
-
         return
     end
 

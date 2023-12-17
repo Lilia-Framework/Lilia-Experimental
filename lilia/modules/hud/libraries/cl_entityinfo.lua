@@ -34,10 +34,7 @@ function FrameworkHUD:DrawEntityInfo(entity, alpha, position)
     local name = hook.Run("GetDisplayedName", entity, nil) or character.getName(character)
     if name ~= entity.liaNameCache then
         entity.liaNameCache = name
-        if name:len() > 250 then
-            name = name:sub(1, 250) .. "..."
-        end
-
+        if name:len() > 250 then name = name:sub(1, 250) .. "..." end
         entity.liaNameLines = lia.util.wrapText(name, ScrW() * entity.widthCache, "liaSmallFont")
     end
 
@@ -48,10 +45,7 @@ function FrameworkHUD:DrawEntityInfo(entity, alpha, position)
     local description = hook.Run("GetDisplayedDescription", entity, true) or character.getDesc(character)
     if description ~= entity.liaDescCache then
         entity.liaDescCache = description
-        if description:len() > 250 then
-            description = description:sub(1, 250) .. "..."
-        end
-
+        if description:len() > 250 then description = description:sub(1, 250) .. "..." end
         entity.liaDescLines = lia.util.wrapText(description, ScrW() * entity.widthCache, "liaSmallFont")
     end
 
@@ -69,13 +63,7 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function FrameworkHUD:SetupQuickMenu(menu)
-    menu:addSlider(
-        "HUD Desc Width Modifier",
-        function(_, value)
-            DescWidth:SetFloat(value)
-        end, DescWidth:GetFloat(), 0.1, 1, 2
-    )
-
+    menu:addSlider("HUD Desc Width Modifier", function(_, value) DescWidth:SetFloat(value) end, DescWidth:GetFloat(), 0.1, 1, 2)
     menu:addSpacer()
 end
 
@@ -94,9 +82,7 @@ function FrameworkHUD:RenderEntities()
             lastTrace.maxs = Vector(4, 4, 4)
             lastTrace.mask = MASK_SHOT_HULL
             lastEntity = util.TraceHull(lastTrace).Entity
-            if IsValid(lastEntity) and hook.Run("ShouldDrawEntityInfo", lastEntity) then
-                paintedEntitiesCache[lastEntity] = true
-            end
+            if IsValid(lastEntity) and hook.Run("ShouldDrawEntityInfo", lastEntity) then paintedEntitiesCache[lastEntity] = true end
         end
 
         for entity, drawing in pairs(paintedEntitiesCache) do
@@ -104,10 +90,7 @@ function FrameworkHUD:RenderEntities()
             if isValidEntity then
                 local goal = drawing and 255 or 0
                 local alpha = math.Approach(entity.liaAlpha or 0, goal, frameTime * 1000)
-                if lastEntity ~= entity then
-                    paintedEntitiesCache[entity] = false
-                end
-
+                if lastEntity ~= entity then paintedEntitiesCache[entity] = false end
                 if alpha > 0 then
                     local targetent = entity.getNetVar(entity, "player")
                     if IsValid(targetent) then
@@ -121,9 +104,7 @@ function FrameworkHUD:RenderEntities()
                 end
 
                 entity.liaAlpha = alpha
-                if alpha == 0 and goal == 0 then
-                    paintedEntitiesCache[entity] = nil
-                end
+                if alpha == 0 and goal == 0 then paintedEntitiesCache[entity] = nil end
             elseif isValidEntity == nil then
                 paintedEntitiesCache[entity] = nil
             end
@@ -137,7 +118,6 @@ function GM:ShouldDrawEntityInfo(entity)
         if entity:IsPlayer() and entity:getChar() then
             if entity:IsNoClipping() then return false end
             if entity:GetNoDraw() then return false end
-
             return true
         end
 
@@ -145,7 +125,6 @@ function GM:ShouldDrawEntityInfo(entity)
         if entity.DrawEntityInfo then return true end
         if entity.onShouldDrawEntityInfo then return entity:onShouldDrawEntityInfo() end
     end
-
     return false
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
