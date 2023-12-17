@@ -13,13 +13,11 @@ exclude_files = {
     "lilia/libraries/netloggers/**/*.lua",
     "lilia/libraries/util/**/*.lua",
     "lilia/libraries/thirdparty/**/*.lua",
-    "lilia/libraries/logger/**/*.lua",
-
-
 
 
     "lilia/libraries/logger/**/*.lua",
     "lilia/modules/logger/**/*.lua",
+    "lilia/libraries/logger/logger/*.lua",
     "lilia/**/submodules/**/logger/*.lua",
 
 }
