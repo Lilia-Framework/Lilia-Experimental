@@ -9,7 +9,7 @@ function PANEL:Init()
 end
 
 --------------------------------------------------------------------------------------------------------------------------
-function PANEL:UpdateColours(skin)
+function PANEL:UpdateColours()
     return self:SetTextStyleColor(color_black)
 end
 

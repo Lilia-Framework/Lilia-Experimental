@@ -66,7 +66,7 @@ function PANEL:Init()
     self.staff1:Dock(BOTTOM)
     self.staff1:SizeToContentsY()
     self.staff1:SetTall(self.title:GetTall() - 16)
-    self.staff1.Paint = function(this, w, h)
+    self.staff1.Paint = function(_, w, h)
         surface.SetDrawColor(0, 0, 0, 150)
         surface.DrawRect(0, 0, w, h)
     end

@@ -19,7 +19,7 @@ function PANEL:Init()
     self.title:SetTextInset(44, 0)
     self.title:SetTextColor(Color(250, 250, 250))
     self.title:SetExpensiveShadow(1, Color(0, 0, 0, 175))
-    self.title.Paint = function(this, w, h)
+    self.title.Paint = function(_, w, h)
         surface.SetDrawColor(lia.config.Color)
         surface.DrawRect(0, 0, w, h)
     end
@@ -32,7 +32,7 @@ function PANEL:Init()
     self.expand:SetTextColor(color_white)
     self.expand:SetExpensiveShadow(1, Color(0, 0, 0, 150))
     self.expand:SetSize(36, 36)
-    self.expand.DoClick = function(this)
+    self.expand.DoClick = function()
         if self.expanded then
             self:SizeTo(self:GetWide(), 36, 0.15, nil, nil, function() self:MoveTo(ScrW() - 36, 30, 0.15) end)
             self.expanded = false
@@ -45,7 +45,7 @@ function PANEL:Init()
                 nil,
                 function()
                     local height = 0
-                    for k, v in pairs(self.items) do
+                    for _, v in pairs(self.items) do
                         if IsValid(v) then height = height + v:GetTall() + 1 end
                     end
 
@@ -103,7 +103,7 @@ function PANEL:addSpacer()
     panel:SetTall(1)
     panel:Dock(TOP)
     panel:DockMargin(0, 1, 0, 0)
-    panel.Paint = function(this, w, h)
+    panel.Paint = function(_, w, h)
         surface.SetDrawColor(255, 255, 255, 10)
         surface.DrawRect(0, 0, w, h)
     end

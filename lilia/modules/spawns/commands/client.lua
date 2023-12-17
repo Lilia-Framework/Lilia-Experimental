@@ -16,7 +16,7 @@ lia.command.add(
         privilege = "Forcelly Respawn",
         adminOnly = true,
         syntax = "<string target>",
-        onRun = function(client, arguments) end
+        onRun = function() end
     }
 )
 

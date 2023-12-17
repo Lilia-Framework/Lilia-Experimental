@@ -70,7 +70,7 @@ function PANEL:Init()
     end
 
     self.model.Icon:SetVisible(false)
-    self.model.Paint = function(self, x, y)
+    self.model.Paint = function(_, x, y)
         local exIcon = ikon:getIcon("iconEditor")
         if exIcon then
             surface.SetMaterial(exIcon)
@@ -206,7 +206,7 @@ function PANEL:Init()
     cfg:SetDecimals(0)
     cfg:SetValue(ICON_INFO.w)
     cfg:DockMargin(10, 0, 0, 5)
-    cfg.OnValueChanged = function(cfg, value)
+    cfg.OnValueChanged = function(_, value)
         ICON_INFO.w = value
         self.prev:AdjustSize(ICON_INFO.w, ICON_INFO.h)
         self.prev2:AdjustSize(ICON_INFO.w, ICON_INFO.h)
@@ -220,7 +220,7 @@ function PANEL:Init()
     cfg:SetDecimals(0)
     cfg:SetValue(ICON_INFO.h)
     cfg:DockMargin(10, 0, 0, 5)
-    cfg.OnValueChanged = function(cfg, value)
+    cfg.OnValueChanged = function(_, value)
         ICON_INFO.h = value
         self.prev:AdjustSize(ICON_INFO.w, ICON_INFO.h)
         self.prev2:AdjustSize(ICON_INFO.w, ICON_INFO.h)
@@ -235,7 +235,7 @@ function PANEL:Init()
     self.camFOV:SetDecimals(3)
     self.camFOV:SetValue(ICON_INFO.FOV)
     self.camFOV:DockMargin(10, 0, 0, 5)
-    self.camFOV.OnValueChanged = function(cfg, value)
+    self.camFOV.OnValueChanged = function(_, value)
         if not isIconUpdating then
             ICON_INFO.FOV = value
             local p = self.prev

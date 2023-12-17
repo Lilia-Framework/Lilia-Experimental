@@ -12,7 +12,7 @@ function GM:PlayerSay(client, message)
     local chatType, message, anonymous = lia.chat.parse(client, message, true)
     if (chatType == "ic") and lia.command.parse(client, message) then return "" end
     local charlimit = lia.config.MaxChatLength
-    if utf8.len(message) <= 5 then
+    if utf8.len(message) <= charlimit then
         lia.chat.send(client, chatType, message, anonymous)
         hook.Run("PostPlayerSay", client, message, chatType, anonymous)
     else

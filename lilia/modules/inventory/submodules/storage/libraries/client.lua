@@ -73,7 +73,7 @@ function LiliaStorage:PopulateContent(pnlContent, tree)
         local label = vgui.Create("ContentHeader", container)
         label:SetText("Storage")
         ViewPanel:Add(label)
-        for model, info in pairs(LiliaStorage.StorageDefinitions) do
+        for model, _ in pairs(LiliaStorage.StorageDefinitions) do
             local mdlicon = spawnmenu.GetContentType("model")
             if mdlicon then
                 mdlicon(

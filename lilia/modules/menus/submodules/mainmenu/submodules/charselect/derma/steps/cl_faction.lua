@@ -15,7 +15,7 @@ function PANEL:Init()
 	end
 
 	self.faction:SetTextColor(MainMenu.ColorText)
-	self.faction.OnSelect = function(faction, index, value, id)
+	self.faction.OnSelect = function(_, _, _, id)
 		self:onFactionSelected(lia.faction.teams[id])
 	end
 

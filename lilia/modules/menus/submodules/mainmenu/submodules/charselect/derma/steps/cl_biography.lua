@@ -34,7 +34,7 @@ function PANEL:addTextEntry(contextName)
 	end
 
 	entry.contextName = contextName
-	entry.OnKeyCodeTyped = function(name, keyCode)
+	entry.OnKeyCodeTyped = function(_, keyCode)
 		if keyCode == KEY_TAB then
 			entry:onTabPressed()
 

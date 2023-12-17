@@ -23,10 +23,7 @@ function PANEL:Init()
             self.info = self:Add("DPanel")
             self.info:SetSize(ScrW() * 0.4, ScrH() * 0.4)
             self.info:SetPos(ScrW() * 0.3, ScrH() - ScrH() * 0.4 - ScrH() * 0.2)
-            --self.info:Dock(FILL)
-            --self.info:DockPadding(0, 200, 50, 0)
             self.info:SetDrawBackground(false)
-            --self.info:DockMargin(150, ScrH() * 0.2, 0, 0)
         end
 
         if not suppress or not suppress.name then
@@ -92,7 +89,7 @@ function PANEL:setup()
     local char = LocalPlayer():getChar()
     if self.desc then
         self.desc:SetText(char:getDesc():gsub("#", "\226\128\139#"))
-        self.desc.OnEnter = function(this, w, h)
+        self.desc.OnEnter = function(this)
             local newDesc = this:GetText():gsub("\226\128\139#", "#")
             Derma_Query(
                 "Are you sure you want to modify your characters description?",
@@ -106,7 +103,7 @@ function PANEL:setup()
     end
 
     if self.descReset then
-        self.descReset.DoClick = function(this, w, h)
+        self.descReset.DoClick = function(_, w, h)
             lia.gui.menu:Remove()
             F1MenuCore:OpenDescGenerator()
         end
@@ -117,7 +114,7 @@ function PANEL:setup()
         hook.Add(
             "OnCharVarChanged",
             self,
-            function(panel, character, key, oldValue, value)
+            function(_, character, key, _, value)
                 if char ~= character then return end
                 if key ~= "name" then return end
                 self.name:SetText(value:gsub("#", "\226\128\139#"))
@@ -143,14 +140,14 @@ function PANEL:setup()
     if self.model then
         self.model:SetModel(LocalPlayer():GetModel())
         self.model.Entity:SetSkin(LocalPlayer():GetSkin())
-        for k, v in ipairs(LocalPlayer():GetBodyGroups()) do
+        for _, v in ipairs(LocalPlayer():GetBodyGroups()) do
             self.model.Entity:SetBodygroup(v.id, LocalPlayer():GetBodygroup(v.id))
         end
 
         local ent = self.model.Entity
         if ent and IsValid(ent) then
             local mats = LocalPlayer():GetMaterials()
-            for k, v in pairs(mats) do
+            for k, _ in pairs(mats) do
                 ent:SetSubMaterial(k - 1, LocalPlayer():GetSubMaterial(k - 1))
             end
         end
@@ -159,7 +156,7 @@ function PANEL:setup()
     hook.Run("OnCharInfoSetup", self)
 end
 
-function PANEL:Paint(w, h)
+function PANEL:Paint()
 end
 
 vgui.Register("liaCharInfo", PANEL, "EditablePanel")

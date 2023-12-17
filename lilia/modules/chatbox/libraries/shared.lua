@@ -35,7 +35,7 @@ function ChatboxCore:InitializedModules()
 
                 speaker.liaLastOOC = CurTime()
             end,
-            onCanHear = function(speaker, listener) return true end,
+            onCanHear = function() return true end,
             onChatAdd = function(speaker, text)
                 chat.AddText(Color(255, 50, 50), " [OOC] ", speaker, color_white, ": " .. text)
             end,
