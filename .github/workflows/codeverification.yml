@@ -115,22 +115,8 @@ jobs:
   
       - name: Run GLuaFixer on Lilia - Part 3
         run: |
-          echo "Step 7: Running GLuaFixer pretty-print on 'preloaded' in 'modules' of 'lilia'..."
-          sudo ./glualint_executable pretty-print lilia/modules/preloaded/*
-        working-directory: ${{ github.workspace }}
-        shell: bash
-  
-      - name: Run GLuaFixer on Lilia - Part 4
-        run: |
-          echo "Step 7: Running GLuaFixer pretty-print on 'essentials' in 'modules' of 'lilia'..."
-          sudo ./glualint_executable pretty-print lilia/modules/essentials/*
-        working-directory: ${{ github.workspace }}
-        shell: bash
-  
-      - name: Run GLuaFixer on Lilia - Part 5
-        run: |
-          echo "Step 7: Running GLuaFixer pretty-print on 'utilities' in 'modularity' of 'lilia'..."
-          sudo ./glualint_executable pretty-print lilia/modules/preloaded/*
+          echo "Step 7: Running GLuaFixer pretty-print on 'modules' in 'modules' of 'lilia'..."
+          sudo ./glualint_executable pretty-print lilia/modules/*
         working-directory: ${{ github.workspace }}
         shell: bash
 
