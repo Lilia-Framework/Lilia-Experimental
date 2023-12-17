@@ -16,7 +16,6 @@ exclude_files = {
 
 
     "lilia/libraries/logger/**/*.lua",
-    "lilia/libraries/logger/logger/*.lua",
     "lilia/modules/logger/**/*.lua",
     "lilia/modules/**/logger/*.lua",
     "lilia/**/submodules/**/logger/*.lua",
