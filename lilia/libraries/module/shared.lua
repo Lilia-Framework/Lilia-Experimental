@@ -172,12 +172,12 @@ function lia.module.loadExtras(path)
         if file.Exists(subFolders, "LUA") then lia.util.includeDir(subFolders, true, true) end
     end
 
-    lia.module.loadFromDir(path .. "/submodules", "module")
     lia.lang.loadFromDir(path .. "/languages")
     lia.faction.loadFromDir(path .. "/factions")
     lia.class.loadFromDir(path .. "/classes")
     lia.attribs.loadFromDir(path .. "/attributes")
     lia.util.loadEntities(path .. "/entities")
+    lia.module.loadFromDir(path .. "/submodules", "module")
     hook.Run("DoModuleIncludes", path, MODULE)
     hook.Add(
         "InitializedModules",
