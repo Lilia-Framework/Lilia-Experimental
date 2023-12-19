@@ -30,6 +30,18 @@ function AttributesCore:PostPlayerLoadout(client)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function AttributesCore:KeyRelease(client, key)
+    if self.StaminaSlowdown and key == IN_JUMP and client:GetMoveType() ~= MOVETYPE_NOCLIP and client:getChar() then
+        client:consumeStamina(15)
+        local stm = client:getLocalVar("stm", 0)
+        if stm == 0 then
+            client:setNetVar("brth", true)
+            client:ConCommand("-speed")
+        end
+    end
+end
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function AttributesCore:PlayerLoadedChar(client, character)
     local maxstm = character:getMaxStamina()
     timer.Simple(0.25, function() client:setLocalVar("stamina", maxstm) end)
@@ -57,7 +69,7 @@ end
 function AttributesCore:PlayerThrowPunch(client, _)
     local ent = client:GetTracedEntity()
     if ent:IsPlayer() and CAMI.PlayerHasAccess(client, "Staff Permissions - One Punch Man", nil) and IsValid(ent) and client:isStaffOnDuty() then
-        client:ConsumeStamina(ent:getChar():getMaxStamina())
+        client:consumeStamina(ent:getChar():getMaxStamina())
         ent:EmitSound("weapons/crowbar/crowbar_impact" .. math.random(1, 2) .. ".wav", 70)
         client:setRagdolled(true, 10)
     end
