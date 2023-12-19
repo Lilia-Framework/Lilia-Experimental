@@ -2,6 +2,11 @@
 local GM = GM or GAMEMODE
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function GM:CanProperty(client, property, entity)
+    if (property == "persist") or (property == "drive") or (property == "bonemanipulate") then
+        client:notify("This is disabled to avoid issues with Lilia's Core Features")
+        return false
+    end
+
     if entity:GetCreator() == client and (property == "remover" or property == "collision") then return true end
     if CAMI.PlayerHasAccess(client, "Staff Permissions - Access Tool " .. property:gsub("^%l", string.upper), nil) or client:isStaffOnDuty() then
         if entity:IsWorld() and IsValid(entity) then return CAMI.PlayerHasAccess(client, "Staff Permissions - Can Property World Entities", nil) end
