@@ -116,9 +116,9 @@ end
 function PANEL:UpdateStaff()
     StaffCount = 0
     StaffOnDutyCount = 0
-    for _, ply in pairs(player.GetAll()) do
-        if ply:isStaff() then StaffCount = StaffCount + 1 end
-        if ply:isStaffOnDuty() then StaffOnDutyCount = StaffOnDutyCount + 1 end
+    for _, target in pairs(player.GetAll()) do
+        if target:isStaff() then StaffCount = StaffCount + 1 end
+        if target:isStaffOnDuty() then StaffOnDutyCount = StaffOnDutyCount + 1 end
     end
 
     self.staff1:SetText("Staff On Duty: " .. StaffOnDutyCount .. " | Staff Online: " .. StaffCount)

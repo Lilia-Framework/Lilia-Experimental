@@ -45,9 +45,9 @@ function PANEL:LayoutEntity()
     entity:SetAngles(Angle(0, 45, 0))
     entity:SetIK(false)
     if self.copyLocalSequence then
-        local ply = LocalPlayer()
-        entity:SetSequence(ply:GetSequence())
-        entity:SetPoseParameter("move_yaw", 360 * ply:GetPoseParameter("move_yaw") - 180)
+        local client = LocalPlayer()
+        entity:SetSequence(client:GetSequence())
+        entity:SetPoseParameter("move_yaw", 360 * client:GetPoseParameter("move_yaw") - 180)
     end
 
     self:RunAnimation()

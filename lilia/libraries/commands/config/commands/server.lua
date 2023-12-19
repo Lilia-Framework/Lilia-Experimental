@@ -810,8 +810,8 @@ lia.command.add(
         adminOnly = false,
         privilege = "List Staff",
         onRun = function(client)
-            for _, clients in ipairs(player.GetAll()) do
-                if clients:isStaff() then client:ChatPrint("Off Duty Staff Meber: " .. clients:Name()) end
+            for _, target in ipairs(player.GetAll()) do
+                if target:isStaff() then client:ChatPrint("Off Duty Staff Meber: " .. target:Name()) end
             end
         end
     }
@@ -824,8 +824,8 @@ lia.command.add(
         adminOnly = false,
         privilege = "List Staff",
         onRun = function(client)
-            for _, clients in ipairs(player.GetAll()) do
-                if clients:isStaffOnDuty() then client:ChatPrint("Off Duty Staff Meber: " .. clients:Name()) end
+            for _, target in ipairs(player.GetAll()) do
+                if target:isStaffOnDuty() then client:ChatPrint("Off Duty Staff Meber: " .. target:Name()) end
             end
         end
     }
@@ -838,8 +838,8 @@ lia.command.add(
         adminOnly = false,
         privilege = "List VIPs",
         onRun = function(client)
-            for _, clients in ipairs(player.GetAll()) do
-                if clients:isVIP() then client:ChatPrint("VIP Member: " .. clients:Name()) end
+            for _, target in ipairs(player.GetAll()) do
+                if target:isVIP() then client:ChatPrint("VIP Member: " .. target:Name()) end
             end
         end
     }
@@ -852,8 +852,8 @@ lia.command.add(
         adminOnly = false,
         privilege = "List Users",
         onRun = function(client)
-            for _, clients in ipairs(player.GetAll()) do
-                if clients:isUser() then client:ChatPrint("User Member: " .. clients:Name()) end
+            for _, target in ipairs(player.GetAll()) do
+                if target:isUser() then client:ChatPrint("User Member: " .. target:Name()) end
             end
         end
     }

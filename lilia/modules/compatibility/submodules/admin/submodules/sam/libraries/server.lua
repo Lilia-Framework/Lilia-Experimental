@@ -35,24 +35,24 @@ function SAMCompatibility:PlayerSpawnProp(client)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function SAMCompatibility:PlayerCheckLimit(ply, name)
+function SAMCompatibility:PlayerCheckLimit(client, name)
     if name == "props" then
-        if ply:GetLimit("props") < 0 then return end
-        if ply:getLiliaData("extraProps") then
-            local limit = ply:GetLimit("props") + 50
-            local props = ply:GetCount("props")
+        if client:GetLimit("props") < 0 then return end
+        if client:getLiliaData("extraProps") then
+            local limit = client:GetLimit("props") + 50
+            local props = client:GetCount("props")
             if props <= limit + 50 then return true end
         end
     end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function SAMCompatibility:PlayerSpawnRagdoll(ply)
-    local limit = ply:GetLimit("ragdolls")
+function SAMCompatibility:PlayerSpawnRagdoll(client)
+    local limit = client:GetLimit("ragdolls")
     if limit < 0 then return end
-    local ragdolls = ply:GetCount("ragdolls") + 1
+    local ragdolls = client:GetCount("ragdolls") + 1
     if ragdolls > limit then
-        ply:LimitHit("ragdolls")
+        client:LimitHit("ragdolls")
         return false
     end
 end

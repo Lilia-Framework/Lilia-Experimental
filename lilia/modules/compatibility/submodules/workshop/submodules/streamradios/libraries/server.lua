@@ -2,7 +2,7 @@
 function StreamRadiosCompatibility:LoadData()
     local savedTable = self:getData() or {}
     for k, v in ipairs(savedTable) do
-        local ent = StreamRadioLib.SpawnRadio(v.ply, v.mdl, v.pos, v.ang, v.settings)
+        local ent = StreamRadioLib.SpawnRadio(v.client, v.mdl, v.pos, v.ang, v.settings)
         if not IsValid(ent) then return end
         local phys = ent:GetPhysicsObject()
         if IsValid(phys) then
@@ -19,7 +19,7 @@ function StreamRadiosCompatibility:SaveData()
         table.insert(
             savedTable,
             {
-                ply = v.pl,
+                client = v.pl,
                 mdl = v:GetModel(),
                 pos = v:GetPos(),
                 ang = v:GetAngles(),
