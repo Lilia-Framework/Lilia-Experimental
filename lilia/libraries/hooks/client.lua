@@ -25,7 +25,7 @@ end
 function GM:PlayerBindPress(client, bind, pressed)
     bind = bind:lower()
     if(bind:find(bind, "say")) and (string.find(bind:lower(), "/fallover")) then
-		ply:ChatPrint("Nuh-uh! No exploiting!")	
+		cllient:ChatPrint("Nuh-uh! No exploiting!")	
 		return
     elseif (bind:find("use") or bind:find("attack")) and pressed then
         local menu, callback = lia.menu.getActiveMenu()
