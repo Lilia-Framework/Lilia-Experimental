@@ -5,6 +5,51 @@ function GM:LoadLiliaFonts(font, genericFont)
     local oldFont, oldGenericFont = font, genericFont
     local scale = math.Round(1, 2)
     surface.CreateFont(
+        "DarkSkinSmall",
+        {
+            font = "Roboto",
+            size = 14,
+            weight = 400
+        }
+    )
+
+    surface.CreateFont(
+        "DarkSkinRegular",
+        {
+            font = "Roboto",
+            size = 18,
+            weight = 400
+        }
+    )
+
+    surface.CreateFont(
+        "DarkSkinMedium",
+        {
+            font = "Roboto",
+            size = 24,
+            weight = 400
+        }
+    )
+
+    surface.CreateFont(
+        "DarkSkinLarge",
+        {
+            font = "Roboto",
+            size = 32,
+            weight = 400
+        }
+    )
+
+    surface.CreateFont(
+        "DarkSkinHuge",
+        {
+            font = "Roboto",
+            size = 56,
+            weight = 400
+        }
+    )
+
+    surface.CreateFont(
         "lia3D2DFont",
         {
             font = font,
