@@ -22,7 +22,7 @@ function SalaryCore:CreateSalaryTimer(client)
 
                 if SalaryLimit then return end
                 character:giveMoney(PayAmount)
-                client:notifyLocalized("salary", lia.currency.get(pay))
+                client:notifyLocalized("salary", lia.currency.get(PayAmount))
             end
         )
     end

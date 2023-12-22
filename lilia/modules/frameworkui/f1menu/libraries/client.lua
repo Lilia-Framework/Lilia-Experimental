@@ -269,11 +269,11 @@ function F1MenuCore:BuildHelpMenu(tabs)
     end
 
     if self.RulesEnabled then
-        tabs["Rules"] = function() return GenerateRules() end
+        tabs["Rules"] = function() return F1MenuCore:GenerateRules() end
     end
 
     if self.TutorialEnabled then
-        tabs["Tutorial"] = function() return GenerateTutorial() end
+        tabs["Tutorial"] = function() return F1MenuCore:GenerateTutorial() end
     end
 end
 

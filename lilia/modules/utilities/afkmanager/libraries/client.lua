@@ -5,7 +5,7 @@ function AFKKicker:DrawWarning()
 	end
 
 	draw.RoundedBox(0, 0, (ScrH() / 2) - ScreenScale(60), ScrW(), ScreenScale(120), Color(0, 0, 0, self.Alpha))
-	draw.DrawText(self.WarningHead, "self120", ScrW() * 0.5, (ScrH() * 0.5) - ScreenScale(50), Color(255, 0, 0, self.Alpha), TEXT_ALIGN_CENTER)
+	draw.DrawText(self.WarningHead, "AFKKicker120", ScrW() * 0.5, (ScrH() * 0.5) - ScreenScale(50), Color(255, 0, 0, self.Alpha), TEXT_ALIGN_CENTER)
 	draw.DrawText(self.WarningSub .. "\nYou will be kicked in " .. math.floor(math.max(self.KickTime - (CurTime() - self.WarningStart), 0)) .. "s", "AFKKicker25", ScrW() * 0.5, ScrH() * 0.5, Color(255, 255, 255, self.Alpha), TEXT_ALIGN_CENTER)
 end
 
