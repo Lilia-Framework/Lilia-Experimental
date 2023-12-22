@@ -8,7 +8,7 @@ if not ConfigWasInitialized then
         WalkRatio = 0.5, -- Walk speed ratio when holding Alt
         AllowExistNames = true, -- Allow duplicated character names
         GamemodeName = "A Lilia Gamemode", -- Name of the gamemode
-        Color = Color(75, 119, 190), -- Theme color
+        Color = Color(34, 139, 34), -- Theme color
         Font = "Arial", -- Core font
         GenericFont = "Segoe UI", -- Secondary font
         MoneyModel = "models/props_lab/box01a.mdl", -- Money model
