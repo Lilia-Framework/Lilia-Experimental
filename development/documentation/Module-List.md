@@ -56,7 +56,7 @@
 # Compatibility Modules
 
 
-8. [Compatibility - Loggers - MLogs](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/utilities/logging/submodules/mlogs)
+8. [Compatibility  - Administration Systems - Loggers - MLogs](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/utilities/logging/submodules/mlogs)
 8. [Compatibility - Administration Systems - Typing](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/compatibility/)
 8. [Compatibility - Administration Systems - Typing](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/compatibility/)
 8. [Compatibility - Administration Systems - Typing](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/compatibility/)
