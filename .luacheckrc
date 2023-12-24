@@ -7,6 +7,5 @@ exclude_files = {
     "lilia/modules/logger/**/*.lua",
     "lilia/modules/**/logger/*.lua",
     "lilia/**/submodules/**/logger/*.lua",
-    "lilia/modules/frameworkui/mainmenu/*.lua","
+    "lilia/modules/frameworkui/mainmenu/*.lua",
 }
-
