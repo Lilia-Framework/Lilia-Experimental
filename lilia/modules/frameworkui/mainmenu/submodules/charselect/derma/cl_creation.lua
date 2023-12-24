@@ -306,7 +306,7 @@ function PANEL:Init()
     local canCreate, reason = self:canCreateCharacter()
     if not canCreate then return self:showMessage(reason) end
     lia.gui.charCreate = self
-    local sideMargin = 0
+    local sideMargin
     if ScrW() > 1280 then
         sideMargin = ScrW() * 0.15
     elseif ScrW() > 720 then
@@ -317,10 +317,8 @@ function PANEL:Init()
     self.content:Dock(FILL)
     self.content:InvalidateParent(true)
     self.content:DockPadding(0, 18, 0, 0)
-    --self.content:DockMargin(sideMargin, 64, sideMargin, 0)
     self.content:SetDrawBackground(false)
     self.model = self.content:Add("liaModelPanel")
-    --self.model:SetWide(ScrW() * 0.25)
     self.model:SetWide(0)
     self.model:Dock(LEFT)
     self.model:InvalidateParent(true)
@@ -339,7 +337,7 @@ function PANEL:Init()
     self.prev:SetText(L("back"):upper())
     self.prev:Dock(LEFT)
     self.prev:SetWide(96)
-    self.prev.DoClick = function(prev)
+    self.prev.DoClick = function()
         self:previousStep()
     end
 
@@ -348,14 +346,14 @@ function PANEL:Init()
     self.next:SetText(L("next"):upper())
     self.next:Dock(RIGHT)
     self.next:SetWide(96)
-    self.next.DoClick = function(next)
+    self.next.DoClick = function()
         self:nextStep()
     end
 
     self.cancel = self.buttons:Add("liaCharButton")
     self.cancel:SetText(L("cancel"):upper())
     self.cancel:SizeToContentsX()
-    self.cancel.DoClick = function(cancel)
+    self.cancel.DoClick = function()
         self:reset()
     end
 
