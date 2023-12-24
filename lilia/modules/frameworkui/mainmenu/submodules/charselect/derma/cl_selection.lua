@@ -30,14 +30,7 @@ function PANEL:Init()
     end
 
     self:createCharacterSlots()
-    hook.Add(
-        "CharacterListUpdated",
-        self,
-        function()
-            self:createCharacterSlots()
-        end
-    )
-
+    hook.Add("CharacterListUpdated", self, function() self:createCharacterSlots() end)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -53,9 +46,7 @@ function PANEL:createCharacterSlots()
         panel:Dock(LEFT)
         panel:DockMargin(0, 0, 8, 8)
         panel:setCharacter(character)
-        panel.onSelected = function(_)
-            self:onCharacterSelected(character)
-        end
+        panel.onSelected = function(_) self:onCharacterSelected(character) end
     end
 
     totalWide = totalWide - 8
