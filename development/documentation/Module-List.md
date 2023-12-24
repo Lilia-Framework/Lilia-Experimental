@@ -1,73 +1,72 @@
 # Core Modules
-
-2. [Perfomance - Player - Perfomance Improver](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/core/perfomance/submodules/entities)
-3. [Perfomance - Entity Perfomance Improver](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/core/perfomance/submodules/entities)
-5. [Protection - Anti-Crasher](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/submodules/antiplayerstuck)
-6. [Protection - Anti-Hacking](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/submodules/antihacking)
-4. [Protection - Character Exploits](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/submodules/antiexploits/submodules/characterexploits)
-4. [Protection - GMOD Exploits](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/submodules/antiexploits/submodules/gmodexploits)
-7. [Permissions - No Clip Manager](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/submodules/)
-8. [Permissions - Physgun Manager](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/submodules/)
-9. [Permissions - Properties Manager](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/submodules/)
-10. [Permissions - Spawning Manager](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/submodules/)
-11. [Permissions - Tool Gun Manager](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/submodules/)
-12. [Core - Spawn Manager](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/submodules/)
-13. [Core - Faction Manager](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/submodules/)
-14. [Core - Improved Voice](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/submodules/)
+1. [Core - Spawn Manager](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/core/spawns)
+2. [Core - Faction Manager](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/core/teams)
+3. [Core - Improved Voice](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/core/voice/)
+4. [Core - Protection - Anti-Hacking](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/core/protection/submodules/antihacking)
+5. [Core - Protection - Anti-Crasher](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/core/protection/submodules/antiplayerstuck)
+6. [Core - Protection - GMOD Exploits](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/core/protection/submodules/antiexploits/submodules/gmodexploits)
+7. [Core - Protection - Character Exploits](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/core/protection/submodules/antiexploits/submodules/characterexploits)
+8. [Core - Permissions - No Clip Manager](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/core/restrictions/submodules/)
+9. [Core - Permissions - Physgun Manager](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/core/restrictions/submodules/)
+10. [Core - Permissions - Properties Manager](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/core/restrictions/submodules/)
+11. [Core - Permissions - Spawning Manager](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/core/restrictions/submodules/)
+12. [Core - Permissions - Tool Gun Manager](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/core/restrictions/submodules/)
+13. [Core - Perfomance - Player - Perfomance Improver](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/core/performance/submodules/entities)
+14. [Core - Perfomance - Entity Perfomance Improver](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/core/performance/submodules/entities)
 
 # Character Modules
-
-1. [Attributes](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/characters/)
-
-2. [Bodygrouper](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/characters/)
-
-3. [Inventory](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/characters/)
-
-4. [Permakill](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/characters/)
-
-5. [Raiseweapons](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/characters/)
-
-6. [Realisticdamage](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/characters/)
-
-7. [Recognition](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/characters/)
-
-8. [Salary](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/characters/)
-
-9. [Vendor](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/characters/)
-
+1. [Characters - Attributes](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/characters/attributes)
+2. [Characters - Bodygrouper](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/characters/bodygrouper)
+3. [Characters - Inventory](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/characters/inventory)
+4. [Characters - Storage](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/characters/inventory/submodules/storage)
+5. [Characters - Permakill](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/characters/permakill)
+6. [Characters - Recognition](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/characters/recognition)
+7. [Characters - Salary](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/characters/salary)
+8. [Characters - Vendor](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/characters/vendor)
+9. [Characters - Raiseweapons](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/characters/raiseweapons)
+10. [Characters - Realisticdamage](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/characters/realisticdamage)
 
 # UI Modules
 
-1. [Chatbox](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/frameworkui/)
+1. [UI -Chatbox](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/frameworkui/)
+2. [UI -F1 Menu](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/frameworkui/)
+3. [UI -Crash Screen](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/frameworkui/)
+4. [UI -HUD](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/frameworkui/)
+5. [UI -Interaction Menu](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/frameworkui/)
+6. [UI -Main Menu](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/frameworkui/)
+7. [UI -Scoreboard](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/frameworkui/)
+8. [UI -Weapon Selector](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/frameworkui/)
+9. [UI -Framework Credits](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/frameworkui/)
+10. [UI -Character Selector](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/frameworkui/)
 
-2. [F1 Menu](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/frameworkui/)
+# Utilities Modules
 
-3. [HUD](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/frameworkui/)
+1. [AFK Manager](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/utilities/)
+2. [Doors](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/utilities/)
+3. [Logging](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/utilities/)
+4. [Scroll Text](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/utilities/)
+5. [Third Person](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/utilities/)
+6. [Typing](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/utilities/)
+7. [Whitelist](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/utilities/)
+8. [Ammo Save](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/utilities/)
+9. [Items Save](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/utilities/)
+10. [Weapon Generator](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/utilities/)
+11. [Workshop Downloader](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/utilities/)
 
-4. [Interaction Menu](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/frameworkui/)
+# Compatibility Modules
 
-5. [Main Menu](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/frameworkui/)
 
-6. [Sframeworkuiboard](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/frameworkui/)
-
-7. [Weapon Selector](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/frameworkui/)
-
-# Character Modules
-
-1. [Attributes](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/utilities/)
-
-2. [Bodygrouper](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/utilities/)
-
-3. [Inventory](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/utilities/)
-
-4. [Permakill](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/utilities/)
-
-5. [Raiseweapons](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/utilities/)
-
-6. [Realisticdamage](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/utilities/)
-
-7. [Recognition](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/utilities/)
-
-8. [Salary](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/utilities/)
-
-9. [Vendor](https://github.com/Lilia-Framework/Lilia/tree/main/lilia/modules/utilities/)
+8. [Compatibility - Loggers - MLogs](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/utilities/logging/submodules/mlogs)
+8. [Compatibility - Administration Systems - Typing](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/compatibility/)
+8. [Compatibility - Administration Systems - Typing](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/compatibility/)
+8. [Compatibility - Administration Systems - Typing](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/compatibility/)
+8. [Compatibility - Steam Workshop - Advanced Dupe 2](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/compatibility/)
+8. [Compatibility - Steam Workshop - Advanced Dupe 1](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/compatibility/)
+8. [Compatibility - Steam Workshop - PermaProps](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/compatibility/)
+8. [Compatibility - Steam Workshop - PAC3](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/compatibility/)
+8. [Compatibility - Steam Workshop - Simfphys Vehicles](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/compatibility/)
+9. [Compatibility - Steam Workshop - Sit Anywhere](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/compatibility/)
+8. [Compatibility - Steam Workshop - Stormfox 2](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/compatibility/)
+8. [Compatibility - Steam Workshop - 3D Stream Radio](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/compatibility/)
+9. [Compatibility - Steam Workshop - VCMod](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/compatibility/)
+9. [Compatibility - Steam Workshop - VJBase](https://github.com/Lilia-Framework/Lilia-Experimental/tree/main/lilia/modules/compatibility/)
