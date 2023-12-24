@@ -22,9 +22,8 @@ net.Receive(
         local character = lia.char.loaded[id]
         local currentChar = client:getChar()
         if not character or character:getPlayer() ~= client then return response(false, "invalidChar") end
-        local status, result = (currentChar and hook.Run("CanPlayerSwitchChar", client, currentChar, character)) or hook.Run("CanPlayerUseChar", client, character)
+        local status, result = currentChar and hook.Run("CanPlayerSwitchChar", client, currentChar, character)) or hook.Run("CanPlayerUseChar", client, character))
         if status == false then
-            result = result or ""
             if result[1] == "@" then result = result:sub(2) end
             return response(result)
         end
@@ -34,8 +33,10 @@ net.Receive(
         character:setup()
         hook.Run("PlayerLoadedChar", client, character, currentChar)
         response()
+        hook.Run("PostPlayerLoadedChar", client, character, currentChar)
     end
 )
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 net.Receive(
     "liaCharCreate",

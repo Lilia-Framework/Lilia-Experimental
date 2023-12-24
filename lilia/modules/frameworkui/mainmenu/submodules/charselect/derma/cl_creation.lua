@@ -306,12 +306,7 @@ function PANEL:Init()
     local canCreate, reason = self:canCreateCharacter()
     if not canCreate then return self:showMessage(reason) end
     lia.gui.charCreate = self
-    local sideMargin
-    if ScrW() > 1280 then
-        sideMargin = ScrW() * 0.15
-    elseif ScrW() > 720 then
-        sideMargin = ScrW() * 0.075
-    end
+
 
     self.content = self:Add("DPanel")
     self.content:Dock(FILL)
