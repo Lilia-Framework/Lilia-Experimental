@@ -258,7 +258,7 @@ function F1MenuCore:BuildHelpMenu(tabs)
     end
 
     if self.FAQEnabled then
-        tabs["FAQ"] = function(node)
+        tabs["FAQ"] = function()
             local body = ""
             for title, text in SortedPairs(self.FAQQuestions) do
                 body = body .. "<h2>" .. title .. "</h2>" .. text .. "<br /><br />"

@@ -31,8 +31,8 @@ function AttributesCore:CalcStaminaChange(client)
     end
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function AttributesCore:StartCommand(cçient, cmd)
-	if self.StaminaSlowdown and (not cçient:IsNoClipping() and cçient:getNetVar("brth", false) and cmd:KeyDown(IN_JUMP)) then
+function AttributesCore:StartCommand(client, cmd)
+	if self.StaminaSlowdown and (not client:IsNoClipping() and client:getNetVar("brth", false) and cmd:KeyDown(IN_JUMP)) then
 		cmd:RemoveKey(IN_JUMP)
 	end
 end
