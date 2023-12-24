@@ -192,6 +192,7 @@ function lia.module.initialize()
     lia.module.loadFromDir("lilia/modules/frameworkui", "module")
     lia.module.loadFromDir("lilia/modules/characters", "module")
     lia.module.loadFromDir("lilia/modules/utilities", "module")
+    lia.module.loadFromDir("lilia/modules/compatibility", "module")
     lia.module.loadFromDir(schema .. "/modules", "module")
     hook.Run("InitializedModules")
 end
