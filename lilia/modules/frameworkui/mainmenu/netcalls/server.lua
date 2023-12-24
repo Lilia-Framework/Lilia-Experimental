@@ -22,10 +22,14 @@ net.Receive(
         local character = lia.char.loaded[id]
         local currentChar = client:getChar()
         if not character or character:getPlayer() ~= client then return response(false, "invalidChar") end
-        local status, result = currentChar and hook.Run("CanPlayerSwitchChar", client, currentChar, character)) or hook.Run("CanPlayerUseChar", client, character))
+        local status, result = (currentChar and hook.Run("CanPlayerSwitchChar", client, currentChar, character)) or hook.Run("CanPlayerUseChar", client, character)
         if status == false then
-            if result[1] == "@" then result = result:sub(2) end
-            return response(result)
+            if result[1] == "@" then
+                result = result:sub(2)
+                return response(result)
+            else
+                return response(result)
+            end
         end
 
         if currentChar then currentChar:save() end
