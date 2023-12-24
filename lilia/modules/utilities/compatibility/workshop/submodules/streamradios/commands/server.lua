@@ -5,8 +5,8 @@ lia.command.add(
         superAdminOnly = true,
         syntax = "<string name>",
         privilege = "Ban Characters",
-        onRun = function(client, arguments)
-            for k, ent in pairs(ents.FindByClass("sent_streamradio")) do
+        onRun = function(client)
+            for _, ent in pairs(ents.FindByClass("sent_streamradio")) do
                 ent:Remove()
             end
 

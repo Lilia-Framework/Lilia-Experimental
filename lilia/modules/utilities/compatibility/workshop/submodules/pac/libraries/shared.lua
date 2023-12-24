@@ -36,7 +36,7 @@ function PACCompatibility:TryViewModel(ent)
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function PACCompatibility:PAC3RegisterEvents(createEvent, registerEvent)
+function PACCompatibility:PAC3RegisterEvents()
     local playerMeta = FindMetaTable("Player")
     local events = {
         {
@@ -50,7 +50,7 @@ function PACCompatibility:PAC3RegisterEvents(createEvent, registerEvent)
         }
     }
 
-    for k, v in ipairs(events) do
+    for _, v in ipairs(events) do
         local available = v.available
         local eventObject = pac.CreateEvent(v.name, v.args)
         eventObject.Think = v.func
