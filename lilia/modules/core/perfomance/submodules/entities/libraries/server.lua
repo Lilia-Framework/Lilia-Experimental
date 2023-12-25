@@ -99,3 +99,40 @@ function EntityPerfomance:PlayerLeaveVehicle(_, vehicle)
     end
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function EntityPerfomance:InitPostEntity()
+    for k, v in pairs(ents.FindByClass("prop_physics")) do
+		if (table.HasValue(self.UnOptimizableModels, v:GetModel())) then continue end
+
+		local optimizedEntity = ents.Create("prop_physics_multiplayer")
+		optimizedEntity:SetModel(v:GetModel())
+		optimizedEntity:SetPos(v:GetPos())
+		optimizedEntity:SetAngles(v:GetAngles())
+		optimizedEntity:SetSkin(v:GetSkin())
+		optimizedEntity:SetColor(v:GetColor())
+		optimizedEntity:SetMaterial(v:GetMaterial())
+		optimizedEntity:SetCollisionGroup(v:GetCollisionGroup())
+		optimizedEntity:SetKeyValue("fademindist", "1000")
+		optimizedEntity:SetKeyValue("fademaxdist", "1250")
+		optimizedEntity:Spawn()
+
+		local bodyGroups = v:GetBodyGroups()
+
+		if (istable(bodyGroups)) then
+			for _, v2 in pairs(bodyGroups) do
+				if (v:GetBodygroup(v2.id) > 0) then
+					optimizedEntity:SetBodygroup(v2.id, v:GetBodygroup(v2.id))
+				end
+			end
+		end
+
+		local physicsObject = v:GetPhysicsObject()
+		local optimizedEntityPhysicsObject = optimizedEntity:GetPhysicsObject()
+
+		if (IsValid(physicsObject) and IsValid(optimizedEntityPhysicsObject)) then
+			optimizedEntityPhysicsObject:EnableMotion(physicsObject:IsMoveable())
+		end
+
+		v:Remove()
+	end
+end
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
