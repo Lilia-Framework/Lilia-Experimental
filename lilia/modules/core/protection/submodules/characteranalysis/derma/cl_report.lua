@@ -16,7 +16,7 @@ function PANEL:populate(data)
 	self:DockPadding(1, 24, 1, 1)
 	sheet = self:Add("DPropertySheet")
 	sheet:Dock(FILL)
-	for i, v in pairs(data) do
+	for _, v in pairs(data) do
 		local panel = vgui.Create("DPanel")
 		local p1 = panel:Add("DPanel")
 		p1:Dock(LEFT)
@@ -48,12 +48,12 @@ function PANEL:populate(data)
 		t2:SetMultiline(true)
 		if v.inv then
 			t2:SetText("Inventory:\n")
-			for x, y in pairs(v.inv) do
+			for _, y in pairs(v.inv) do
 				t2:SetText(t2:GetText() .. y .. "\n")
 			end
 		end
 
-		local tab = sheet:AddSheet(v.data.name, panel, nil, false, false)
+		sheet:AddSheet(v.data.name, panel, nil, false, false)
 	end
 end
 

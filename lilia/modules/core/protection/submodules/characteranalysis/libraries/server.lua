@@ -17,7 +17,7 @@ function CoreCharacterAnalysis:GenerateReport(steamID64)
     lia.db.query(
         "SELECT " .. fields .. " FROM lia_characters WHERE " .. condition,
         function(data)
-            for k, v in ipairs(data or {}) do
+            for _, v in ipairs(data or {}) do
                 local id = tonumber(v._id)
                 if id then
                     characters[id] = {}
@@ -28,7 +28,7 @@ function CoreCharacterAnalysis:GenerateReport(steamID64)
                             if type(v2.default) == "number" then
                                 value = tonumber(value) or v2.default
                             elseif type(v2.default) == "boolean" then
-                                value = tobool(vlaue)
+                                value = tobool(value)
                             elseif type(v2.default) == "table" then
                                 value = util.JSONToTable(value)
                             end
@@ -42,7 +42,7 @@ function CoreCharacterAnalysis:GenerateReport(steamID64)
                         "SELECT _invID FROM lia_inventories WHERE _charID = " .. id,
                         function(data)
                             if data and #data > 0 then
-                                for x, y in pairs(data) do
+                                for _, y in pairs(data) do
                                     characters[id].invID = y._invID
                                 end
                             end
@@ -54,8 +54,8 @@ function CoreCharacterAnalysis:GenerateReport(steamID64)
                         function(data)
                             if data and #data > 0 then
                                 local items = {}
-                                for x, y in pairs(data) do
-                                    items[#items + 1] = y._uniqueID
+                                for _, y in pairs(data) do
+                                    items[#items + 1] = v._uniqueID
                                 end
 
                                 characters[id].inv = items

@@ -608,7 +608,7 @@ lia.command.add(
         privilege = "Force Save Server",
         onRun = function(client)
             hook.Run("SaveData")
-            for k, v in ipairs(player.GetAll()) do
+            for _, v in ipairs(player.GetAll()) do
                 if v:getChar() then
                     v:getChar():save()
                 end
