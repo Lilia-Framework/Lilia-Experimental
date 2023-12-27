@@ -456,7 +456,7 @@ net.Receive(
         local classesList = classesPanel:Add("DListView")
         classesList:AddColumn("Print Name")
         classesList:AddColumn("Class Name")
-        for i, class in ipairs(lia.class.list) do
+        for _, class in ipairs(lia.class.list) do
             classesList:AddLine(class.name, class.uniqueID)
         end
 
@@ -466,7 +466,7 @@ net.Receive(
         local itemsList = itemsPanel:Add("DListView")
         itemsList:AddColumn("Print Name")
         itemsList:AddColumn("Class Name")
-        for k, item in pairs(lia.item.list) do
+        for _, item in pairs(lia.item.list) do
             itemsList:AddLine(item.name, item.uniqueID)
         end
 

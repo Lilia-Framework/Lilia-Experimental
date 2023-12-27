@@ -55,7 +55,7 @@ function CoreCharacterAnalysis:GenerateReport(steamID64)
                             if data and #data > 0 then
                                 local items = {}
                                 for _, y in pairs(data) do
-                                    items[#items + 1] = v._uniqueID
+                                    items[#items + 1] = y._uniqueID
                                 end
 
                                 characters[id].inv = items
