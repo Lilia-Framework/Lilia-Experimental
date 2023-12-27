@@ -1,7 +1,10 @@
 ﻿---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function APSCore:CanCollide(ent1, ent2)
     local ShouldCollide = hook.Run("ShouldCollide", ent1, ent2)
-    if ShouldCollide == nil then ShouldCollide = true end
+    if ShouldCollide == nil then
+        ShouldCollide = true
+    end
+
     return ShouldCollide
 end
 
@@ -40,7 +43,9 @@ function APSCore:CheckIfPlayerStuck()
         0,
         function()
             for _, client in ipairs(player.GetAll()) do
-                if self:ShouldCheck(client) then handleStuckPlayer(client) end
+                if self:ShouldCheck(client) then
+                    handleStuckPlayer(client)
+                end
             end
         end
     )

@@ -21,6 +21,7 @@ if not ConfigWasInitialized then
         DefaultMoney = 0, -- Default money amount
         MaxChatLength = 256, -- Max Chat Length
         CurrencySymbol = "$", -- Currency symbol
+        SpawnTime = 5, -- Time to Repawn
         MaxAttributes = 30, -- Set Maximum Attributes One Can Have
         CurrencySingularName = "Dollar", -- Singular currency name
         CurrencyPluralName = "Dollars", -- Plural currency name

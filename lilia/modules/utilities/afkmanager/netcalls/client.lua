@@ -14,11 +14,13 @@ net.Receive(
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 net.Receive(
     "AFKAnnounce",
-    function()
+    function(_, client)
         local name = net.ReadString()
-        if ply == LocalPlayer() then
+        if client == LocalPlayer() then
             local menu = vgui.GetKeyboardFocus()
-            if IsValid(menu) and menu.Close then menu:Close() end
+            if IsValid(menu) and menu.Close then
+                menu:Close()
+            end
         end
 
         chat.AddText(Color(255, 0, 0, 255), "Player ", Color(255, 255, 255, 255), name, Color(255, 0, 0, 255), " has been character kicked for being AFK.")

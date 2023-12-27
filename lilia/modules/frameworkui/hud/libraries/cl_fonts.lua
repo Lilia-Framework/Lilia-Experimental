@@ -1,7 +1,7 @@
 ﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function FrameworkHUD:LoadFonts(_)
     surface.CreateFont(
-        "FrameworkHUD_Small",
+        "WB_Small",
         {
             font = "Product Sans",
             size = 17
@@ -9,7 +9,7 @@ function FrameworkHUD:LoadFonts(_)
     )
 
     surface.CreateFont(
-        "FrameworkHUD_Medium",
+        "WB_Medium",
         {
             font = "Product Sans",
             size = 20
@@ -17,7 +17,7 @@ function FrameworkHUD:LoadFonts(_)
     )
 
     surface.CreateFont(
-        "FrameworkHUD_Large",
+        "WB_Large",
         {
             font = "Product Sans",
             size = 24,
@@ -26,7 +26,7 @@ function FrameworkHUD:LoadFonts(_)
     )
 
     surface.CreateFont(
-        "FrameworkHUD_XLarge",
+        "WB_XLarge",
         {
             font = "Product Sans",
             size = 35,
@@ -35,10 +35,50 @@ function FrameworkHUD:LoadFonts(_)
     )
 
     surface.CreateFont(
-        "FrameworkHUD_Enormous",
+        "WB_Enormous",
         {
             font = "Product Sans",
             size = 54
+        }
+    )
+
+    surface.CreateFont(
+        "wolficon_enormous",
+        {
+            font = "wolficonfont",
+            size = 50,
+            weight = 400,
+            antialias = true
+        }
+    )
+
+    surface.CreateFont(
+        "wolficon_big",
+        {
+            font = "wolficonfont",
+            size = 34,
+            weight = 400,
+            antialias = true
+        }
+    )
+
+    surface.CreateFont(
+        "wolficon_normal",
+        {
+            font = "wolficonfont",
+            size = 25,
+            weight = 400,
+            antialias = true
+        }
+    )
+
+    surface.CreateFont(
+        "wolficon_small",
+        {
+            font = "wolficonfont",
+            size = 18,
+            weight = 400,
+            antialias = true
         }
     )
 end

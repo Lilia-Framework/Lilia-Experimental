@@ -122,7 +122,10 @@ function lia.module.load(uniqueID, path, isSingleFile, variable)
         if tostring(uniqueID) == "schema" then
             lia.module.enabilitystatus[MODULE.name] = true
         else
-            print(conditions.name .. " is disabled. Disabling!")
+            if lia.module.ModuleConditions[uniqueID] == nil then
+                print(MODULE.name .. " is disabled. Disabling!")
+            end
+
             lia.module.enabilitystatus[MODULE.name] = false
         end
 
