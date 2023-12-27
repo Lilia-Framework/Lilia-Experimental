@@ -179,6 +179,7 @@ function lia.module.loadExtras(path)
     lia.util.loadEntities(path .. "/entities")
     lia.item.loadFromDir(path .. "/items", false)
     lia.module.loadFromDir(path .. "/submodules", "module")
+    lia.module.loadFromDir(path .. "/modules", "module")
     hook.Run("DoModuleIncludes", path, MODULE)
 end
 
