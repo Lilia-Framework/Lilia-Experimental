@@ -24,12 +24,7 @@ net.Receive(
                     frame:Center()
                     frame.Paint = function() end
                     frame:MakePopup()
-                    frame.Think = function(s)
-                        if LocalPlayer():Alive() then
-                            s:Close()
-                        end
-                    end
-
+                    frame.Think = function(s) if LocalPlayer():Alive() then s:Close() end end
                     local bW, bH = 300, 100
                     local btn = frame:Add("DButton")
                     btn:SetText("Respawn")
@@ -41,9 +36,7 @@ net.Receive(
                         surface.SetDrawColor(Color(0, 0, 0, 200))
                         surface.DrawRect(1, 1, w - 2, h - 2)
                         s:SetTextColor(Color(255, 255, 255))
-                        if s:IsHovered() then
-                            s:SetTextColor(Color(200, 200, 200))
-                        end
+                        if s:IsHovered() then s:SetTextColor(Color(200, 200, 200)) end
                     end
 
                     btn.DoClick = function()

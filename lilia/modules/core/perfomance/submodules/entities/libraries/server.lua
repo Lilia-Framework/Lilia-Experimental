@@ -1,15 +1,11 @@
 ﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function EntityPerfomance:PlayerEnteredVehicle(_, vehicle)
-    if vehicle:GetClass() == "prop_vehicle_prisoner_pod" then
-        vehicle:RemoveEFlags(EFL_NO_THINK_FUNCTION)
-    end
+    if vehicle:GetClass() == "prop_vehicle_prisoner_pod" then vehicle:RemoveEFlags(EFL_NO_THINK_FUNCTION) end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function EntityPerfomance:PropBreak(_, ent)
-    if ent:IsValid() and ent:GetPhysicsObject():IsValid() then
-        constraint.RemoveAll(ent)
-    end
+    if ent:IsValid() and ent:GetPhysicsObject():IsValid() then constraint.RemoveAll(ent) end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -34,9 +30,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function EntityPerfomance:ServersideInitializedModules()
     for _, v in pairs(ents.GetAll()) do
-        if self.EntitiesToBeRemoved[v:GetClass()] then
-            v:Remove()
-        end
+        if self.EntitiesToBeRemoved[v:GetClass()] then v:Remove() end
     end
 
     if self.GarbageCleaningTimer > 0 then
@@ -46,9 +40,7 @@ function EntityPerfomance:ServersideInitializedModules()
             0,
             function()
                 for _, v in ipairs(ents.GetAll()) do
-                    if table.HasValue(self.Perfomancekillers, v:GetClass()) then
-                        SafeRemoveEntity(v)
-                    end
+                    if table.HasValue(self.Perfomancekillers, v:GetClass()) then SafeRemoveEntity(v) end
                 end
 
                 RunConsoleCommand("r_cleardecals")
@@ -59,19 +51,8 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function EntityPerfomance:ServerOnEntityCreated(entity)
-    if entity:GetClass() == "prop_vehicle_prisoner_pod" then
-        entity:AddEFlags(EFL_NO_THINK_FUNCTION)
-    end
-
-    if entity:IsWidget() then
-        hook.Add(
-            "PlayerTick",
-            "GODisableEntWidgets2",
-            function(_, n)
-                widgets.PlayerTick(entity, n)
-            end
-        )
-    end
+    if entity:GetClass() == "prop_vehicle_prisoner_pod" then entity:AddEFlags(EFL_NO_THINK_FUNCTION) end
+    if entity:IsWidget() then hook.Add("PlayerTick", "GODisableEntWidgets2", function(_, n) widgets.PlayerTick(entity, n) end) end
 end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -136,18 +117,13 @@ function EntityPerfomance:InitPostEntity()
         local bodyGroups = v:GetBodyGroups()
         if istable(bodyGroups) then
             for _, v2 in pairs(bodyGroups) do
-                if v:GetBodygroup(v2.id) > 0 then
-                    optimizedEntity:SetBodygroup(v2.id, v:GetBodygroup(v2.id))
-                end
+                if v:GetBodygroup(v2.id) > 0 then optimizedEntity:SetBodygroup(v2.id, v:GetBodygroup(v2.id)) end
             end
         end
 
         local physicsObject = v:GetPhysicsObject()
         local optimizedEntityPhysicsObject = optimizedEntity:GetPhysicsObject()
-        if IsValid(physicsObject) and IsValid(optimizedEntityPhysicsObject) then
-            optimizedEntityPhysicsObject:EnableMotion(physicsObject:IsMoveable())
-        end
-
+        if IsValid(physicsObject) and IsValid(optimizedEntityPhysicsObject) then optimizedEntityPhysicsObject:EnableMotion(physicsObject:IsMoveable()) end
         v:Remove()
     end
 end
